@@ -8,6 +8,9 @@ hs_err_pid*
 
 # ibas packages
 */.idea
+*/.idea/
+*/.out
+*/.out/
 */src/main/webapp/3rdparty/ibas
 */src/main/webapp/3rdparty/openui5
 */src/main/webapp/modules/
@@ -29,6 +32,10 @@ hs_err_pid*
 /.recommenders/
 /RemoteSystemsTempFiles/
 /Servers/
+.idea/
+.idea
+.DS_Store
+.cache
 .idea/artifacts/edi_initialfantasy_war_exploded.xml
 .idea/compiler.xml
 .idea/inspectionProfiles/Project_Default.xml
