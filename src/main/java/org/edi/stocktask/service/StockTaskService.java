@@ -1,6 +1,5 @@
 package org.edi.stocktask.service;
-import org.apache.log4j.Logger;
-import org.edi.stocktask.bo.stocktask.IStockReport;
+import org.edi.stocktask.bo.stockreport.IStockReport;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;

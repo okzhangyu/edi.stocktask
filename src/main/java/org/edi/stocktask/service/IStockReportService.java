@@ -1,6 +1,6 @@
 package org.edi.stocktask.service;
 
-import org.edi.stocktask.bo.stocktask.IStockReport;
+import org.edi.stocktask.bo.stockreport.IStockReport;
 
 /**
  * @author Fancy
