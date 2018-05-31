@@ -1,6 +1,9 @@
 package org.edi.stocktask.service;
 
 import org.edi.stocktask.bo.stockreport.IStockReport;
+import org.edi.initialfantasy.dto.IResult;
+
+import java.util.List;
 
 /**
  * @author Fancy
@@ -8,7 +11,7 @@ import org.edi.stocktask.bo.stockreport.IStockReport;
  */
 public interface IStockReportService {
 
-    String fetchStockReport();
+    IResult<IStockReport> fetchStockReport();
 
-    String SaveStockReport(IStockReport stockReport);
+    IResult<?> SaveStockReport(List<IStockReport> stockReports);
 }
