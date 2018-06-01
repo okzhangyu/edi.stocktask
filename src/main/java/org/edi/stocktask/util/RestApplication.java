@@ -3,8 +3,12 @@ package org.edi.stocktask.util;
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.glassfish.jersey.server.ResourceConfig;
 
+
+
 /**
- * Created by asus on 2018/5/31.
+ * @author Fancy
+ * @date 2018/6/1
+>>>>>>> upstream/master
  */
 public class RestApplication extends ResourceConfig {
     public RestApplication() {

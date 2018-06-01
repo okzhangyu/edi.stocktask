@@ -31,6 +31,7 @@ public class StockTaskService {
         stockTask.setObjectCode("11");
         stockTask.setObjectKey(12);
         stockTasks.add(stockTask);
+        result.setData(stockTasks);
         return result;
     }
 

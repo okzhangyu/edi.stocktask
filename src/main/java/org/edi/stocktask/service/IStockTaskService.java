@@ -12,6 +12,7 @@ import java.util.List;
 public interface IStockTaskService {
 
     IResult<IStockTask> fetchStockTask(String token);
-    IResult<IStockTask> fetchStockTask(Integer objectKey, String token);
-    IResult<?> saveStockTask(List<IStockTask> stockTasks, String token);
+    IResult<IStockTask> fetchStockTask(Integer objectKey,String token);
+    IResult<?> saveStockTask(List<IStockTask> stockTasks,String token);
+
 }
