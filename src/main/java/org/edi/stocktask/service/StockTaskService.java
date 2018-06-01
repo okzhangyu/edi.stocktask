@@ -22,7 +22,7 @@ public class StockTaskService {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/stocktasks")
-    public IResult<IStockTask> fetchStockTask(@QueryParam("token")String token) {
+    public Result<IStockTask> fetchStockTask(@QueryParam("token")String token) {
         Result<IStockTask> result = new Result<IStockTask>();
         result.setCode("0");
         result.setMessage("ok");
@@ -34,11 +34,11 @@ public class StockTaskService {
         return result;
     }
 
-    @GET
 
+    @GET
     @Path("/stocktask")
     @Produces("text/plain")
-    public IResult<IStockTask> fetchStockTask(@Param Integer objectKey,@QueryParam("token")String token) {
+    public Result<IStockTask> fetchStockTask(@Param Integer objectKey,@QueryParam("token")String token) {
         return null;
     }
 
@@ -46,7 +46,7 @@ public class StockTaskService {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/stocktasks")
-    public IResult<?> saveStockTask(List<IStockTask> stockTasks,@QueryParam("token")String token) {
+    public Result<?> saveStockTask(List<IStockTask> stockTasks,@QueryParam("token")String token) {
         return null;
     }
 
