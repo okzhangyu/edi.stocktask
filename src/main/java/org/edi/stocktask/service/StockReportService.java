@@ -13,7 +13,7 @@ import java.util.List;
  * @date 2018/5/31
  */
 @Path("/v1")
-public class StockReportService {
+public class StockReportService implements  IStockReportService{
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
