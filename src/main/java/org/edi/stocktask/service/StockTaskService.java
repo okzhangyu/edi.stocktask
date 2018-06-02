@@ -3,8 +3,8 @@ package org.edi.stocktask.service;
 import org.edi.initialfantasy.dto.Result;
 import org.edi.stocktask.bo.stocktask.IStockTask;
 import org.edi.stocktask.bo.stocktask.StockTask;
+import org.edi.stocktask.bo.stocktask.StockTaskItem;
 import org.edi.stocktask.repository.IBORepositoryStockTask;
-import org.jboss.logging.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.*;
@@ -32,10 +32,12 @@ public class StockTaskService implements IStockTaskService{
 
 
     @GET
-    @Path("/stocktask")
-    @Produces("text/plain")
-    public Result<IStockTask> fetchStockTask(@Param Integer objectKey,@QueryParam("token")String token) {
-        return null;
+    @Path("/stocktaskitems")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Result<StockTaskItem> fetchStockTaskItem(@QueryParam("objectKey")Integer objectKey,@QueryParam("token")String token) {
+        List<StockTaskItem> stockTaskItems = iBORepositoryStockTask.fetchStockTaskItem(objectKey) ;
+        Result<StockTaskItem> result = new Result<StockTaskItem>("0","ok",stockTaskItems);
+        return result;
     }
 
 
