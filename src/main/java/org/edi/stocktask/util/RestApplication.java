@@ -8,7 +8,6 @@ import org.glassfish.jersey.server.ResourceConfig;
 /**
  * @author Fancy
  * @date 2018/6/1
->>>>>>> upstream/master
  */
 public class RestApplication extends ResourceConfig {
     public RestApplication() {

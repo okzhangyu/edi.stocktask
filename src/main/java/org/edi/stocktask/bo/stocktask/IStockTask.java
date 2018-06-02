@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface IStockTask {
 
-    String getComanyName();
+    String getCompanyName();
 
     void setCompanyName(String value);
 
@@ -21,17 +21,17 @@ public interface IStockTask {
 
     void setObjectCode(String value);
 
-    Date getCreateDate();
+    String getCreateDate();
 
-    void setCreateDate(Date value);
+    void setCreateDate(String value);
 
     Integer getCreateTime();
 
     void  setCreateTime(Integer value);
 
-    Date getUpdateDate();
+    String getUpdateDate();
 
-    void setUpdateDate(Date value);
+    void setUpdateDate(String value);
 
     Integer getUpdateTime();
 
@@ -63,7 +63,7 @@ public interface IStockTask {
 
     String getBusinessPartnerCode();
 
-    void setBusinessPartnerCode();
+    void setBusinessPartnerCode(String value);
 
     String getBusinessPartnerName();
 
@@ -71,7 +71,7 @@ public interface IStockTask {
 
     String getTransactionType();
 
-    void setTransactionType();
+    void setTransactionType(String value);
 
     Date getPostingDate();
 
@@ -81,13 +81,17 @@ public interface IStockTask {
 
     void setDeliveryDate(Date value);
 
-    Date getDocumentDate();
+    String getDocumentDate();
 
-    void setDocumentDate(Date value);
+    void setDocumentDate(String value);
 
     String getSchemaCode();
 
     void setSchemaCode(String value);
+
+     String getAnnotated();
+
+    void setAnnotated(String annotated);
 
     List<IStockTaskItem> getStockTaskItems();
 

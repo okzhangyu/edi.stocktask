@@ -22,11 +22,9 @@ public interface IStockReportItem {
 
     String getLineStatus();
 
-<<<<<<< HEAD
-    void setLineStatus(String value);
-=======
+
     void setLineStatus(String  value);
->>>>>>> upstream/master
+
 
     String getReference1();
 

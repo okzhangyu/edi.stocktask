@@ -1,7 +1,5 @@
 package org.edi.stocktask.bo.stockreport;
 
-import sun.rmi.server.InactiveGroupException;
-
 import java.util.Date;
 import java.util.List;
 
@@ -89,11 +87,8 @@ public interface IStockReport {
 
     String getCustomType();
 
-<<<<<<< HEAD
-    void setCustomType(String value);
-=======
+
     void setCustomType(String value );
->>>>>>> upstream/master
 
     String getTransactionType();
 

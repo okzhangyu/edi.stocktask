@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.edi.stocktask.repository.IBORepositoryStockTask">
+    <resultMap id="BaseResultMap" type="org.edi.stocktask.bo.stocktask.StockTask">
+        <result column="CompanyName" property="companyName" jdbcType="VARCHAR" />
+        <result column="ObjectKey" property="objectKey" jdbcType="INT" />
+        <result column="TransType" property="transactionType" jdbcType="VARCHAR" />
+        <result column="Annotated" property="annotated" jdbcType="VARCHAR" />
+        <result column="DocType" property="documentType" jdbcType="INT" />
+        <result column="DocEntry" property="documentEntry" jdbcType="INT" />
+        <result column="DocDate" property="documentDate" jdbcType="DATE" />
+        <result column="DocDueDate" property="createDate" jdbcType="DATE" />
+        <result column="TaxDate" property="updateDate" jdbcType="DATE" />
+        <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
+        <result column="Ref1" property="reference1" jdbcType="VARCHAR" />
+        <result column="Ref2" property="reference2" jdbcType="VARCHAR" />
+    </resultMap>
+
+
+    <select id="fetchStockTask" resultMap="BaseResultMap">
+        SELECT * FROM AVA_WM_VIEW_OSTK
+    </select>
+
+
+
+</mapper>
