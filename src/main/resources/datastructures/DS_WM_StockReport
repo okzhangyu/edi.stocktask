@@ -49,9 +49,6 @@
         <Field Name="OcrCode3" Description="分配规则3" DataType="db_Alpha" SubType="st_None" EditSize="8" PropertyName="DistributionRule3" FixedDataType="System.String" />
         <Field Name="OcrCode4" Description="分配规则4" DataType="db_Alpha" SubType="st_None" EditSize="8" PropertyName="DistributionRule4" FixedDataType="System.String" />
         <Field Name="OcrCode5" Description="分配规则5" DataType="db_Alpha" SubType="st_None" EditSize="8" PropertyName="DistributionRule5" FixedDataType="System.String" />
-        <Field Name="BSType" Description="原始单据类型" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="OriginalDocumentType" FixedDataType="System.String" />
-        <Field Name="BSEntry" Description="原始单据编号" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="OriginalDocumentEntry" FixedDataType="System.Int32" />
-        <Field Name="BSLine" Description="原始单据行号" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="OriginalDocumentLineId" FixedDataType="System.Int32" />
         <Field Name="TargetType" Description="目标单据类型" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="TargetDocumentType" FixedDataType="System.String" />
         <Field Name="TargetEntry" Description="目标单据编号" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="TargetDocumentEntry" FixedDataType="System.Int32" />
         <Field Name="TargetLine" Description="目标单据行号" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="TargetDocumentLineId" FixedDataType="System.Int32" />

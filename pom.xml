@@ -6,6 +6,7 @@
 
     <groupId>org.edi</groupId>
     <artifactId>edi.stocktask</artifactId>
+    <packaging>pom</packaging>
     <version>0.1.0</version>
 
 
@@ -175,7 +176,7 @@
             <version>1.2.17</version>
         </dependency>
         <dependency>
-            <groupId>edi.apps</groupId>
+            <groupId>org.edi</groupId>
             <artifactId>edi.initialfantasy</artifactId>
             <version>0.1.0</version>
         </dependency>
