@@ -33,6 +33,6 @@ hs_err_pid*
 .idea
 .DS_Store
 .cache
-edi.initialfantasy.iml
 *.iml
 
+edi.stocktask.iml
