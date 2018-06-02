@@ -7,9 +7,11 @@
     <groupId>org.edi</groupId>
     <artifactId>edi.stocktask</artifactId>
     <version>0.1.0</version>
+
+
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
         <jersey.version>2.4.1</jersey.version>
         <java-version>1.6</java-version>
         <spring.version>4.0.2.RELEASE</spring.version>
@@ -18,6 +20,7 @@
         <org.aspectj-version>1.7.3</org.aspectj-version>
     </properties>
     <dependencies>
+
         <!-- junit lib -->
         <dependency>
             <groupId>junit</groupId>

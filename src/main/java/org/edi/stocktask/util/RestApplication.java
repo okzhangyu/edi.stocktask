@@ -4,6 +4,7 @@ import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.glassfish.jersey.server.ResourceConfig;
 
 
+
 /**
  * @author Fancy
  * @date 2018/6/1
@@ -15,5 +16,6 @@ public class RestApplication extends ResourceConfig {
         packages("org.edi.stocktask.service");
         //注册JSON转换器
         register(JacksonJsonProvider.class);
+
     }
 }
