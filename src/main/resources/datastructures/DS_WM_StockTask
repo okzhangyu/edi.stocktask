@@ -13,7 +13,6 @@
         <Field Name="Remarks" Description="备注" DataType="db_Memo" SubType="st_None" EditSize="8" PropertyName="Remarks" IsSystem="Yes" FixedDataType="System.String" />
         <Field Name="DocType" Description="单据类型" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="DocumentType" FixedDataType="System.String" />
         <Field Name="DocEntry" Description="单据编号" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="DocumentEntry" IsSystem="Yes" FixedDataType="System.Int32" />
-        <Field Name="DocLine" Description="单据行号" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="DocumentLineId" FixedDataType="System.Int32" />
         <Field Name="BpCode" Description="业务伙伴编码" DataType="db_Alpha" SubType="st_None" EditSize="20" PropertyName="BusinessPartnerCode" FixedDataType="System.String" />
         <Field Name="BpName" Description="业务伙伴名称" DataType="db_Alpha" SubType="st_None" EditSize="100" PropertyName="BusinessPartnerName" FixedDataType="System.String" />
         <Field Name="TransType" Description="业务类型" DataType="db_Alpha" SubType="st_None" EditSize="1" PropertyName="TransactionType" FixedDataType="wmBoEnumerator.emTransactionType">
@@ -59,25 +58,15 @@
         <Field Name="BaseType" Description="基础单据类型" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="BaseDocumentType" FixedDataType="System.String" />
         <Field Name="BaseEntry" Description="基础单据编号" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="BaseDocumentEntry" FixedDataType="System.Int32" />
         <Field Name="BaseLine" Description="基础单据行号" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="BaseDocumentLineId" FixedDataType="System.Int32" />
-        <Field Name="BSType" Description="原始单据类型" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="OriginalDocumentType" FixedDataType="System.String" />
-        <Field Name="BSEntry" Description="原始单据编号" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="OriginalDocumentEntry" FixedDataType="System.Int32" />
-        <Field Name="BSLine" Description="原始单据行号" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="OriginalDocumentLineId" FixedDataType="System.Int32" />
         <Field Name="ScanType" Description="扫描类型" DataType="db_Alpha" SubType="st_None" EditSize="3" PropertyName="ScanningType" FixedDataType="System.String">
             <ValidValue Value="1" Description="一条码扫描" />
             <ValidValue Value="2" Description="二条码扫描" />
             <ValidValue Value="3" Description="三条码扫描" />
         </Field>
         <Field Name="WaterCode" Description="行号" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="WaterCode"  FixedDataType="System.Int32" />
-    </Table>
-    <Table Name="AVA_WM_VIEW_STK2" Description="库存任务-条码值" Type="bott_SimpleBusinessObjectLines" PropertyName="StockTaskLineGrapicCode">
-        <Field Name="ObjectKey" Description="编号" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="ObjectKey" FixedDataType="System.Int32" IsPrimaryKey="Yes" />
-        <Field Name="Object" Description="类型" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="ObjectCode" FixedDataType="System.String" />
-        <Field Name="LineId" Description="行号" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="LineId" FixedDataType="System.Int32" IsPrimaryKey="Yes" />
-        <Field Name="Ref1" Description="参考1" DataType="db_Alpha" SubType="st_None" EditSize="100" PropertyName="Reference1" FixedDataType="System.String" />
-        <Field Name="Ref2" Description="参考2" DataType="db_Alpha" SubType="st_None" EditSize="200" PropertyName="Reference2" FixedDataType="System.String" />
-        <Field Name="BaseLineId" Description="基础行号" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="BaseLineId" FixedDataType="System.Int32" />
         <Field Name="GrapicCode" Description="编码" DataType="db_Alpha" SubType="st_None" EditSize="255" PropertyName="GrapicCode" FixedDataType="System.String" />
     </Table>
+
     <BusinessObject Code="AVA_WM_STOCKTASK" Name="库存任务" TableName="AVA_WM_VIEW_OSTK" ObjectType="boud_SimpleBusinessObject" CanCancel="Yes" CanClose="Yes" CanDelete="Yes" CanYearTransfer="Yes" ManageSeries="Yes" OnlyForBoModel="Yes" PropertyName="StockTask">
         <ChildTables>
             <ChildTable TableName="AVA_WM_VIEW_STK1" />
