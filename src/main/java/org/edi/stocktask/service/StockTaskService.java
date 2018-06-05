@@ -1,5 +1,6 @@
 package org.edi.stocktask.service;
 
+import org.edi.initialfantasy.binding.UserRequest;
 import org.edi.initialfantasy.dto.Result;
 import org.edi.stocktask.bo.stocktask.IStockTask;
 import org.edi.stocktask.bo.stocktask.StockTask;
@@ -22,6 +23,7 @@ public class StockTaskService implements IStockTaskService{
     private IBORepositoryStockTask iBORepositoryStockTask;
 
     @GET
+    @Override
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/stocktasks")
     public Result<StockTask> fetchStockTask(@QueryParam("token")String token) {
@@ -32,6 +34,7 @@ public class StockTaskService implements IStockTaskService{
 
 
     @GET
+    @Override
     @Path("/stocktaskitems")
     @Produces(MediaType.APPLICATION_JSON)
     public Result<StockTaskItem> fetchStockTaskItem(@QueryParam("objectKey")Integer objectKey,@QueryParam("token")String token) {
@@ -42,6 +45,8 @@ public class StockTaskService implements IStockTaskService{
 
 
     @POST
+    @UserRequest
+    @Override
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/stocktasks")
     public Result<?> saveStockTask(List<IStockTask> stockTasks,@QueryParam("token")String token) {

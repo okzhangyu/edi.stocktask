@@ -14,6 +14,7 @@ public class RestApplication extends ResourceConfig {
 
         //服务类所在的包路径
         packages("org.edi.stocktask.service");
+        packages("org.edi.initialfantasy.filter");
         //注册JSON转换器
         register(JacksonJsonProvider.class);
 
