@@ -44,8 +44,8 @@ public class StockReportService implements  IStockReportService{
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/savestockreports")
-    public Result SaveStockReport(List<StockReport> stockReports) {
+    @Path("/stockreports")
+    public Result SaveStockReport(@QueryParam("token")String token,List<StockReport> stockReports) {
         Result result = new Result();
         if(stockReports.size()<1){
             result = new Result("1","传递数据为空，保存失败!",null);
