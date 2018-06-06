@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.edi.stocktask.repository.IBOReposirotyStockReport">
+    <resultMap id="BaseResultMap" type="org.edi.stocktask.bo.stockreport.StockReport">
+        <result column="ComanyName" property="comanyName" jdbcType="VARCHAR" />
+        <result column="DocEntry" property="docEntry" jdbcType="INTEGER" />
+        <result column="DocNum" property="docNum" jdbcType="INTEGER" />
+        <result column="Period" property="period" jdbcType="VARCHAR" />
+        <result column="Object" property="objectCode" jdbcType="VARCHAR" />
+        <result column="Transfered" property="transfered" jdbcType="VARCHAR" />
+        <result column="CreateDate" property="createDate" jdbcType="DATE" />
+        <result column="CreateTime" property="createTime" jdbcType="INTEGER" />
+        <result column="UpdateDate" property="updateDate" jdbcType="DATE" />
+        <result column="UpdateTime" property="updateTime" jdbcType="INTEGER" />
+        <result column="Creator" property="createUserSign" jdbcType="VARCHAR" />
+        <result column="Updator" property="updateUserSign" jdbcType="VARCHAR" />
+        <result column="DocStatus" property="documentStatus" jdbcType="VARCHAR" />
+        <result column="DocDate" property="documentDate" jdbcType="DATE" />
+        <result column="DocDueDate" property="postingDate" jdbcType="DATE" />
+        <result column="TaxDate" property="deliveryDate" jdbcType="DATE" />
+        <result column="Ref1" property="reference1" jdbcType="VARCHAR" />
+        <result column="Ref2" property="reference2" jdbcType="VARCHAR" />
+        <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
+        <result column="B1DocEntry" property="b1DocEntry" jdbcType="INTEGER" />
+        <result column="BydUUID" property="bydUUID" jdbcType="VARCHAR" />
+        <result column="CusType" property="customType" jdbcType="VARCHAR" />
+        <result column="TransType" property="transactionType" jdbcType="VARCHAR" />
+        <result column="BpCode" property="businessPartnerCode" jdbcType="VARCHAR" />
+        <result column="BpName" property="businessPartnerName" jdbcType="VARCHAR" />
+        <result column="BaseType" property="baseDocumentType" jdbcType="VARCHAR" />
+        <result column="BaseEntry" property="baseDocumentEntry" jdbcType="INTEGER" />
+    </resultMap>
+
+    <resultMap id="BaseResultMapItem" type="org.edi.stocktask.bo.stockreport.StockReportItem">
+        <result column="DocEntry" property="docEntry" jdbcType="INTEGER" />
+        <result column="LineId" property="lineId" jdbcType="INTEGER" />
+        <result column="Object" property="objectCode" jdbcType="VARCHAR" />
+        <result column="LineStatus" property="lineStatus" jdbcType="VARCHAR" />
+        <result column="Ref1" property="reference1" jdbcType="VARCHAR" />
+        <result column="Ref2" property="reference2" jdbcType="VARCHAR" />
+        <result column="BaseType" property="baseDocumentType" jdbcType="VARCHAR" />
+        <result column="BaseEntry" property="baseDocumentEntry" jdbcType="INTEGER" />
+        <result column="BaseLine" property="baseDocumentLineId" jdbcType="INTEGER" />
+        <result column="Project" property="projectCode" jdbcType="VARCHAR" />
+        <result column="OcrCode1" property="distributionRule1" jdbcType="VARCHAR" />
+        <result column="OcrCode2" property="distributionRule2" jdbcType="VARCHAR" />
+        <result column="OcrCode3" property="distributionRule3" jdbcType="VARCHAR" />
+        <result column="OcrCode4" property="distributionRule4" jdbcType="VARCHAR" />
+        <result column="OcrCode5" property="distributionRule5" jdbcType="VARCHAR" />
+        <result column="BSType" property="originalDocumentType" jdbcType="VARCHAR" />
+        <result column="BSEntry" property="originalDocumentEntry" jdbcType="INTEGER" />
+        <result column="BSLine" property="originalDocumentLineId" jdbcType="INTEGER" />
+        <result column="TargetType" property="targetDocumentType" jdbcType="VARCHAR" />
+        <result column="TargetEntry" property="targetDocumentEntry" jdbcType="INTEGER" />
+        <result column="TargetLine" property="targetDocumentLineId" jdbcType="INTEGER" />
+        <result column="ItemCode" property="itemCode" jdbcType="VARCHAR" />
+        <result column="ItemName" property="itemDescription" jdbcType="VARCHAR" />
+        <result column="Quantity" property="quantity" jdbcType="DECIMAL" />
+        <result column="Uom" property="inventoryUoM" jdbcType="VARCHAR" />
+        <result column="ManSerNum" property="serialNumberManagement" jdbcType="VARCHAR" />
+        <result column="ManBtchNum" property="batchNumberManagement" jdbcType="VARCHAR" />
+        <result column="ManServiceNum" property="serviceNumberManagement" jdbcType="VARCHAR" />
+        <result column="Price" property="price" jdbcType="DECIMAL" />
+        <result column="Currency" property="currency" jdbcType="VARCHAR" />
+        <result column="Rate" property="currencyRate" jdbcType="DECIMAL" />
+        <result column="LineTotal" property="lineTotal" jdbcType="DECIMAL" />
+        <result column="FromWH" property="fromWarehose" jdbcType="VARCHAR" />
+        <result column="FromLC" property="fromLocation" jdbcType="VARCHAR" />
+        <result column="ToWH" property="toWarehouse" jdbcType="VARCHAR" />
+        <result column="ToLC" property="toLocation" jdbcType="VARCHAR" />
+        <result column="BatchNum" property="batchNumber" jdbcType="VARCHAR" />
+        <result column="SerialNum" property="serialNumber" jdbcType="VARCHAR" />
+        <result column="BarCode1" property="barCode1" jdbcType="VARCHAR" />
+        <result column="BarCode2" property="barCode2" jdbcType="VARCHAR" />
+        <result column="BarCode3" property="barCode3" jdbcType="VARCHAR" />
+       <result column="BarCode4" property="barCode4" jdbcType="VARCHAR" />
+    </resultMap>
+
+
+    <select id="fetchStockReport" resultMap="BaseResultMap">
+        SELECT * FROM AVA_WM_OSRP
+    </select>
+    <select id="fetchStockReportByEntry" resultMap="BaseResultMap" parameterType="int">
+        SELECT * FROM AVA_WM_OSRP where docEntry=#{docEntry}
+    </select>
+    <select id="fetchStockReportItem" resultMap="BaseResultMapItem" parameterType="int">
+        SELECT * FROM AVA_WM_SRP1 where docEntry=#{docEntry}
+    </select>
+
+    <insert id="saveStockReport" parameterType="org.edi.stocktask.bo.stockreport.StockReport">
+        INSERT INTO AVA_WM_OSRP([ComanyName] ,[DocEntry],[DocNum] ,[Period] ,[Object] ,[Transfered] ,[CreateDate],[CreateTime],[UpdateDate],[UpdateTime]  ,[Creator] ,[Updator] ,[DocStatus] ,[DocDate]
+        ,[DocDueDate],[TaxDate] ,[Ref1],[Ref2] ,[Remarks] ,[B1DocEntry] ,[BydUUID] ,[CusType],[TransType],[BpCode],[BpName] ,[BaseType] ,[BaseEntry])
+        VALUES (#{comanyName} ,#{docEntry} ,#{docNum},#{period},#{objectCode} ,#{transfered},#{createDate},#{createTime},#{updateDate},#{updateTime} ,#{createUserSign} ,#{updateUserSign} ,#{documentStatus} ,#{documentDate},
+        #{postingDate} ,#{deliveryDate} ,#{reference1} ,#{reference2} ,#{remarks} ,#{b1DocEntry} ,#{bydUUID} ,#{customType} ,#{transactionType} ,#{businessPartnerCode},#{businessPartnerName},#{baseDocumentType} ,#{baseDocumentEntry})
+    </insert>
+
+    <insert id="saveStockReportItem" parameterType="org.edi.stocktask.bo.stockreport.StockReportItem">
+        INSERT INTO AVA_WM_SRP1([DocEntry] ,[LineId] ,[Object] ,[LineStatus] ,[Ref1] ,[Ref2] ,[BaseType] ,[BaseEntry],[BaseLine] ,[Project] ,[OcrCode1] ,[OcrCode2],[OcrCode3]
+        ,[OcrCode4],[OcrCode5],[BSType] ,[BSEntry] ,[BSLine] ,[TargetType] ,[TargetEntry] ,[TargetLine] ,[ItemCode] ,[ItemName] ,[Quantity] ,[Uom] ,[ManSerNum] ,[ManBtchNum]
+        ,[ManServiceNum] ,[Price] ,[Currency] ,[Rate] ,[LineTotal] ,[FromWH] ,[FromLC] ,[ToWH] ,[ToLC] ,[BatchNum] ,[SerialNum] ,[BarCode1] ,[BarCode2] ,[BarCode3] ,[BarCode4])
+        VALUES (#{docEntry} ,#{lineId} ,#{objectCode} ,#{lineStatus} ,#{reference1} ,#{reference2},#{baseDocumentType} ,#{baseDocumentEntry} ,#{baseDocumentLineId} ,#{projectCode},#{distributionRule1}
+        ,#{distributionRule2},#{distributionRule3} ,#{distributionRule4} ,#{distributionRule5},#{originalDocumentType} ,#{originalDocumentEntry} ,#{originalDocumentLineId},#{targetDocumentType} ,#{targetDocumentEntry} ,#{targetDocumentLineId},#{itemCode}
+        ,#{itemDescription} ,#{quantity} ,#{inventoryUoM} ,#{serialNumberManagement} ,#{batchNumberManagement} ,#{serviceNumberManagement} ,#{price} ,#{currency} ,#{currencyRate} ,#{lineTotal} ,#{fromWarehose}
+        ,#{fromLocation} ,#{toWarehouse} ,#{toLocation} ,#{batchNumber} ,#{serialNumber} ,#{barCode1} ,#{barCode2} ,#{barCode3} ,#{barCode4})
+    </insert>
+
+
+</mapper>

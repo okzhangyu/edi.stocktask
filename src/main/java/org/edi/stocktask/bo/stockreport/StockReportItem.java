@@ -1,342 +1,532 @@
 package org.edi.stocktask.bo.stockreport;
 
-import org.edi.stocktask.bo.stocktask.IStockTaskItem;
-
 import java.math.BigDecimal;
 
 /**
  * @author Fancy
  * @date 2018/5/27
  */
-public class StockReportItem implements IStockTaskItem{
+public class StockReportItem implements IStockReportItem{
+   private Integer docEntry;
+    private Integer lineId;
+    private String objectCode;
+    private String lineStatus;
+    private String reference1;
+    private String reference2;
+    private String baseDocumentType;
+    private Integer baseDocumentEntry;
+    private Integer baseDocumentLineId;
+    private String projectCode;
+    private String distributionRule1;
+    private String distributionRule2;
+    private String distributionRule3;
+    private String distributionRule4;
+    private String distributionRule5;//
+    private String originalDocumentType;
+    private Integer originalDocumentEntry;
+    private Integer originalDocumentLineId;
+    private String targetDocumentType;
+    private Integer targetDocumentEntry;
+    private Integer targetDocumentLineId;
+    private String itemCode;//
+    private String itemDescription;
+    private BigDecimal quantity;
+    private String inventoryUoM;
+    private String serialNumberManagement;
+    private String batchNumberManagement;
+    private String serviceNumberManagement;
+    private BigDecimal price;
+    private String currency;
+    private BigDecimal currencyRate;
+    private BigDecimal lineTotal;
+    private String fromWarehose;
+    private String fromLocation;
+    private String toWarehouse;
+    private String toLocation;
+    private String batchNumber;
+    private String serialNumber;
+    private String barCode1;
+    private String barCode2;
+    private String barCode3;
+    private String barCode4;
+    private String barCode5;
 
     @Override
-    public Integer getObjectKey() {
-        return null;
+    public Integer getDocEntry() {
+        return docEntry;
     }
 
     @Override
-    public void setObjectKey(Integer value) {
-
-    }
-
-    @Override
-    public String getObjectCode() {
-        return null;
-    }
-
-    @Override
-    public void setObjectCode(String value) {
-
+    public void setDocEntry(Integer docEntry) {
+        this.docEntry = docEntry;
     }
 
     @Override
     public Integer getLineId() {
-        return null;
+        return lineId;
     }
 
     @Override
-    public void setLineId(Integer value) {
+    public void setLineId(Integer lineId) {
+        this.lineId = lineId;
+    }
 
+    @Override
+    public String getObjectCode() {
+        return objectCode;
+    }
+
+    @Override
+    public void setObjectCode(String objectCode) {
+        this.objectCode = objectCode;
+    }
+
+    @Override
+    public String getLineStatus() {
+        return lineStatus;
+    }
+
+    @Override
+    public void setLineStatus(String lineStatus) {
+        this.lineStatus = lineStatus;
     }
 
     @Override
     public String getReference1() {
-        return null;
+        return reference1;
     }
 
     @Override
-    public void setReference1(String value) {
-
+    public void setReference1(String reference1) {
+        this.reference1 = reference1;
     }
 
     @Override
     public String getReference2() {
-        return null;
+        return reference2;
     }
 
     @Override
-    public void setReference2(String value) {
-
-    }
-
-    @Override
-    public String getDocumentType() {
-        return null;
-    }
-
-    @Override
-    public void setDocumentType(String value) {
-
-    }
-
-    @Override
-    public Integer getDocumentEntry() {
-        return null;
-    }
-
-    @Override
-    public void setDocumentEntry(Integer value) {
-
-    }
-
-    @Override
-    public Integer getDocumentLineId() {
-        return null;
-    }
-
-    @Override
-    public void setDocumentLineId(Integer valua) {
-
-    }
-
-    @Override
-    public String getItemCode() {
-        return null;
-    }
-
-    @Override
-    public void setItemCode(String value) {
-
-    }
-
-    @Override
-    public String getItemDescription() {
-        return null;
-    }
-
-    @Override
-    public void setItemDescription(String value) {
-
-    }
-
-    @Override
-    public BigDecimal getPackageQuantity() {
-        return null;
-    }
-
-    @Override
-    public void setPackageQuantity(BigDecimal value) {
-
-    }
-
-    @Override
-    public BigDecimal getQuantity() {
-        return null;
-    }
-
-    @Override
-    public void setQuantity(BigDecimal value) {
-
-    }
-
-    @Override
-    public String getInventoryUoM() {
-        return null;
-    }
-
-    @Override
-    public void setInventoryUoM(String value) {
-
-    }
-
-    @Override
-    public String getSerialNumberManagement() {
-        return null;
-    }
-
-    @Override
-    public void setSerialNumberManagement(String value) {
-
-    }
-
-    @Override
-    public String getBatchNumberManagement() {
-        return null;
-    }
-
-    @Override
-    public void setBatchNumberManagement(String value) {
-
-    }
-
-    @Override
-    public String getServiceNumberManagement() {
-        return null;
-    }
-
-    @Override
-    public void setServiceNumberManagement(String value) {
-
-    }
-
-    @Override
-    public BigDecimal getPrice() {
-        return null;
-    }
-
-    @Override
-    public void setPrice(BigDecimal value) {
-
-    }
-
-    @Override
-    public String getCurrency() {
-        return null;
-    }
-
-    @Override
-    public void setCurrency(String value) {
-
-    }
-
-    @Override
-    public BigDecimal getCurrencyRate() {
-        return null;
-    }
-
-    @Override
-    public void setCurrencyRate(BigDecimal value) {
-
-    }
-
-    @Override
-    public BigDecimal getLineTotal() {
-        return null;
-    }
-
-    @Override
-    public void setLineTotal(BigDecimal value) {
-
-    }
-
-    @Override
-    public String getFromWarehose() {
-        return null;
-    }
-
-    @Override
-    public void setFromWarehose(String value) {
-
-    }
-
-    @Override
-    public String getFromLocation() {
-        return null;
-    }
-
-    @Override
-    public void setFromLocation(String value) {
-
-    }
-
-    @Override
-    public String getToWarehouse() {
-        return null;
-    }
-
-    @Override
-    public void setToWarehouse(String value) {
-
-    }
-
-    @Override
-    public String getToLocation() {
-        return null;
-    }
-
-    @Override
-    public void setToLocation(String value) {
-
-    }
-
-    @Override
-    public String getTransactionType() {
-        return null;
-    }
-
-    @Override
-    public void setTransactionType(String value) {
-
+    public void setReference2(String reference2) {
+        this.reference2 = reference2;
     }
 
     @Override
     public String getBaseDocumentType() {
-        return null;
+        return baseDocumentType;
     }
 
     @Override
-    public void setBaseDocumentType(String value) {
-
+    public void setBaseDocumentType(String baseDocumentType) {
+        this.baseDocumentType = baseDocumentType;
     }
 
     @Override
     public Integer getBaseDocumentEntry() {
-        return null;
+        return baseDocumentEntry;
     }
 
     @Override
-    public void setBaseDocumentEntry(Integer value) {
-
+    public void setBaseDocumentEntry(Integer baseDocumentEntry) {
+        this.baseDocumentEntry = baseDocumentEntry;
     }
 
     @Override
     public Integer getBaseDocumentLineId() {
-        return null;
+        return baseDocumentLineId;
     }
 
     @Override
-    public void setBaseDocumentLineId(Integer value) {
+    public void setBaseDocumentLineId(Integer baseDocumentLineId) {
+        this.baseDocumentLineId = baseDocumentLineId;
+    }
 
+    @Override
+    public String getProjectCode() {
+        return projectCode;
+    }
+
+    @Override
+    public void setProjectCode(String projectCode) {
+        this.projectCode = projectCode;
+    }
+
+    @Override
+    public String getDistributionRule1() {
+        return distributionRule1;
+    }
+
+    @Override
+    public void setDistributionRule1(String distributionRule1) {
+        this.distributionRule1 = distributionRule1;
+    }
+
+    @Override
+    public String getDistributionRule2() {
+        return distributionRule2;
+    }
+
+    @Override
+    public void setDistributionRule2(String distributionRule2) {
+        this.distributionRule2 = distributionRule2;
+    }
+
+    @Override
+    public String getDistributionRule3() {
+        return distributionRule3;
+    }
+
+    @Override
+    public void setDistributionRule3(String distributionRule3) {
+        this.distributionRule3 = distributionRule3;
+    }
+
+    @Override
+    public String getDistributionRule4() {
+        return distributionRule4;
+    }
+
+    @Override
+    public void setDistributionRule4(String distributionRule4) {
+        this.distributionRule4 = distributionRule4;
+    }
+
+    @Override
+    public String getDistributionRule5() {
+        return distributionRule5;
+    }
+
+    @Override
+    public void setDistributionRule5(String distributionRule5) {
+        this.distributionRule5 = distributionRule5;
     }
 
     @Override
     public String getOriginalDocumentType() {
-        return null;
+        return originalDocumentType;
     }
 
     @Override
-    public void setOriginalDocumentType(String value) {
-
+    public void setOriginalDocumentType(String originalDocumentType) {
+        this.originalDocumentType = originalDocumentType;
     }
 
     @Override
     public Integer getOriginalDocumentEntry() {
-        return null;
+        return originalDocumentEntry;
     }
 
     @Override
-    public void setOriginalDocumentEntry(Integer value) {
-
+    public void setOriginalDocumentEntry(Integer originalDocumentEntry) {
+        this.originalDocumentEntry = originalDocumentEntry;
     }
 
     @Override
     public Integer getOriginalDocumentLineId() {
-        return null;
+        return originalDocumentLineId;
     }
 
     @Override
-    public void setOriginalDocumentLineId(Integer value) {
-
+    public void setOriginalDocumentLineId(Integer originalDocumentLineId) {
+        this.originalDocumentLineId = originalDocumentLineId;
     }
 
     @Override
-    public String getScanningType() {
-        return null;
+    public String getTargetDocumentType() {
+        return targetDocumentType;
     }
 
     @Override
-    public void setScanningType(String value) {
-
+    public void setTargetDocumentType(String targetDocumentType) {
+        this.targetDocumentType = targetDocumentType;
     }
 
     @Override
-    public String getWaterCode() {
-        return null;
+    public Integer getTargetDocumentEntry() {
+        return targetDocumentEntry;
     }
 
     @Override
-    public void setWaterCode(String value) {
+    public void setTargetDocumentEntry(Integer targetDocumentEntry) {
+        this.targetDocumentEntry = targetDocumentEntry;
+    }
 
+    @Override
+    public Integer getTargetDocumentLineId() {
+        return targetDocumentLineId;
+    }
+
+    @Override
+    public void setTargetDocumentLineId(Integer targetDocumentLineId) {
+        this.targetDocumentLineId = targetDocumentLineId;
+    }
+
+    @Override
+    public String getItemCode() {
+        return itemCode;
+    }
+
+    @Override
+    public void setItemCode(String itemCode) {
+        this.itemCode = itemCode;
+    }
+
+    @Override
+    public String getItemDescription() {
+        return itemDescription;
+    }
+
+    @Override
+    public void setItemDescription(String itemDescription) {
+        this.itemDescription = itemDescription;
+    }
+
+    @Override
+    public BigDecimal getQuantity() {
+        return quantity;
+    }
+
+    @Override
+    public void setQuantity(BigDecimal quantity) {
+        this.quantity = quantity;
+    }
+
+    @Override
+    public String getInventoryUoM() {
+        return inventoryUoM;
+    }
+
+    @Override
+    public void setInventoryUoM(String inventoryUoM) {
+        this.inventoryUoM = inventoryUoM;
+    }
+
+    @Override
+    public String getSerialNumberManagement() {
+        return serialNumberManagement;
+    }
+
+    @Override
+    public void setSerialNumberManagement(String serialNumberManagement) {
+        this.serialNumberManagement = serialNumberManagement;
+    }
+
+    @Override
+    public String getBatchNumberManagement() {
+        return batchNumberManagement;
+    }
+
+    @Override
+    public void setBatchNumberManagement(String batchNumberManagement) {
+        this.batchNumberManagement = batchNumberManagement;
+    }
+
+    @Override
+    public String getServiceNumberManagement() {
+        return serviceNumberManagement;
+    }
+
+    @Override
+    public void setServiceNumberManagement(String serviceNumberManagement) {
+        this.serviceNumberManagement = serviceNumberManagement;
+    }
+
+    @Override
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    @Override
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    @Override
+    public String getCurrency() {
+        return currency;
+    }
+
+    @Override
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    @Override
+    public BigDecimal getCurrencyRate() {
+        return currencyRate;
+    }
+
+    @Override
+    public void setCurrencyRate(BigDecimal currencyRate) {
+        this.currencyRate = currencyRate;
+    }
+
+    @Override
+    public BigDecimal getLineTotal() {
+        return lineTotal;
+    }
+
+    @Override
+    public void setLineTotal(BigDecimal lineTotal) {
+        this.lineTotal = lineTotal;
+    }
+
+    @Override
+    public String getFromWarehose() {
+        return fromWarehose;
+    }
+
+    @Override
+    public void setFromWarehose(String fromWarehose) {
+        this.fromWarehose = fromWarehose;
+    }
+
+    @Override
+    public String getFromLocation() {
+        return fromLocation;
+    }
+
+    @Override
+    public void setFromLocation(String fromLocation) {
+        this.fromLocation = fromLocation;
+    }
+
+    @Override
+    public String getToWarehouse() {
+        return toWarehouse;
+    }
+
+    @Override
+    public void setToWarehouse(String toWarehouse) {
+        this.toWarehouse = toWarehouse;
+    }
+
+    @Override
+    public String getToLocation() {
+        return toLocation;
+    }
+
+    @Override
+    public void setToLocation(String toLocation) {
+        this.toLocation = toLocation;
+    }
+
+    @Override
+    public String getBatchNumber() {
+        return batchNumber;
+    }
+
+    @Override
+    public void setBatchNumber(String batchNumber) {
+        this.batchNumber = batchNumber;
+    }
+
+    @Override
+    public String getSerialNumber() {
+        return serialNumber;
+    }
+
+    @Override
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
+    }
+
+    @Override
+    public String getBarCode1() {
+        return barCode1;
+    }
+
+    @Override
+    public void setBarCode1(String barCode1) {
+        this.barCode1 = barCode1;
+    }
+
+    @Override
+    public String getBarCode2() {
+        return barCode2;
+    }
+
+    @Override
+    public void setBarCode2(String barCode2) {
+        this.barCode2 = barCode2;
+    }
+
+    @Override
+    public String getBarCode3() {
+        return barCode3;
+    }
+
+    @Override
+    public void setBarCode3(String barCode3) {
+        this.barCode3 = barCode3;
+    }
+
+    @Override
+    public String getBarCode4() {
+        return barCode4;
+    }
+
+    @Override
+    public void setBarCode4(String barCode4) {
+        this.barCode4 = barCode4;
+    }
+
+    @Override
+    public String getBarCode5() {
+        return barCode5;
+    }
+
+    @Override
+    public void setBarCode5(String barCode5) {
+        this.barCode5 = barCode5;
+    }
+
+    public StockReportItem() {
+    }
+
+    public StockReportItem(Integer docEntry, Integer lineId, String objectCode, String lineStatus, String reference1, String reference2, String baseDocumentType, Integer baseDocumentEntry, Integer baseDocumentLineId, String projectCode, String distributionRule1, String distributionRule2, String distributionRule3, String distributionRule4, String distributionRule5, String originalDocumentType, Integer originalDocumentEntry, Integer originalDocumentLineId, String targetDocumentType, Integer targetDocumentEntry, Integer targetDocumentLineId, String itemCode, String itemDescription, BigDecimal quantity, String inventoryUoM, String serialNumberManagement, String batchNumberManagement, String serviceNumberManagement, BigDecimal price, String currency, BigDecimal currencyRate, BigDecimal lineTotal, String fromWarehose, String fromLocation, String toWarehouse, String toLocation, String batchNumber, String serialNumber, String barCode1, String barCode2, String barCode3, String barCode4, String barCode5) {
+        this.docEntry = docEntry;
+        this.lineId = lineId;
+        this.objectCode = objectCode;
+        this.lineStatus = lineStatus;
+        this.reference1 = reference1;
+        this.reference2 = reference2;
+        this.baseDocumentType = baseDocumentType;
+        this.baseDocumentEntry = baseDocumentEntry;
+        this.baseDocumentLineId = baseDocumentLineId;
+        this.projectCode = projectCode;
+        this.distributionRule1 = distributionRule1;
+        this.distributionRule2 = distributionRule2;
+        this.distributionRule3 = distributionRule3;
+        this.distributionRule4 = distributionRule4;
+        this.distributionRule5 = distributionRule5;
+        this.originalDocumentType = originalDocumentType;
+        this.originalDocumentEntry = originalDocumentEntry;
+        this.originalDocumentLineId = originalDocumentLineId;
+        this.targetDocumentType = targetDocumentType;
+        this.targetDocumentEntry = targetDocumentEntry;
+        this.targetDocumentLineId = targetDocumentLineId;
+        this.itemCode = itemCode;
+        this.itemDescription = itemDescription;
+        this.quantity = quantity;
+        this.inventoryUoM = inventoryUoM;
+        this.serialNumberManagement = serialNumberManagement;
+        this.batchNumberManagement = batchNumberManagement;
+        this.serviceNumberManagement = serviceNumberManagement;
+        this.price = price;
+        this.currency = currency;
+        this.currencyRate = currencyRate;
+        this.lineTotal = lineTotal;
+        this.fromWarehose = fromWarehose;
+        this.fromLocation = fromLocation;
+        this.toWarehouse = toWarehouse;
+        this.toLocation = toLocation;
+        this.batchNumber = batchNumber;
+        this.serialNumber = serialNumber;
+        this.barCode1 = barCode1;
+        this.barCode2 = barCode2;
+        this.barCode3 = barCode3;
+        this.barCode4 = barCode4;
+        this.barCode5 = barCode5;
     }
 }
