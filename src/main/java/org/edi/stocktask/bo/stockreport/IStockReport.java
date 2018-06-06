@@ -1,6 +1,5 @@
 package org.edi.stocktask.bo.stockreport;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,6 +20,10 @@ public interface IStockReport {
 
     void setDocNum(Integer value);
 
+    String getPeriod();
+
+    void setPeriod(String value);
+
     String getObjectCode();
 
     void setObjectCode(String value);
@@ -29,17 +32,17 @@ public interface IStockReport {
 
     void setTransfered(String value);
 
-    Date getCreateDate();
+    String getCreateDate();
 
-    void setCreateDate(Date value);
+    void setCreateDate(String value);
 
     Integer getCreateTime();
 
     void setCreateTime(Integer value);
 
-    Date getUpdateDate();
+    String getUpdateDate();
 
-    void setUpdateDate(Date value);
+    void setUpdateDate(String value);
 
     Integer getUpdateTime();
 
@@ -57,21 +60,25 @@ public interface IStockReport {
 
     void setDocumentStatus(String value);
 
-    Date getPostingDate();
+    String getPostingDate();
 
-    void setPostingDate(Date value);
+    void setPostingDate(String value);
 
-    Date getDeliveryDate();
+    String getDeliveryDate();
 
-    void setDeliveryDate(Date value);
+    void setDeliveryDate(String value);
 
-    Date getDocumentDate();
+    String getDocumentDate();
 
-    void setDocumentDate(Date value);
+    void setDocumentDate(String value);
 
     String getReference1();
 
     void setReference1(String value);
+
+    String getReference2();
+
+    void setReference2(String value);
 
     String getRemarks();
 
@@ -110,9 +117,9 @@ public interface IStockReport {
 
     void setBaseDocumentEntry(Integer value);
 
-    List<IStockReportItem> getStockReportItems();
+    List<StockReportItem> getStockReportItems();
 
-    void setStockReportItems(List<IStockReportItem> value);
+    void setStockReportItems(List<StockReportItem> value);
 
 
 }
