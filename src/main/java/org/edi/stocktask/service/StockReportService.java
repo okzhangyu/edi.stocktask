@@ -5,6 +5,7 @@ import org.edi.initialfantasy.dto.Result;
 import org.edi.stocktask.bo.stockreport.StockReport;
 import org.edi.stocktask.bo.stockreport.StockReportItem;
 import org.edi.stocktask.repository.IBOReposirotyStockReport;
+import org.glassfish.jersey.server.JSONP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,8 +26,10 @@ public class StockReportService implements  IStockReportService{
 
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @JSONP(queryParam="callback")
+    @Produces("application/x-javascript;charset=utf-8")
     @Path("/stockreports")
+    //Êü•ËØ¢Â∫ìÂ≠ò‰ªªÂä°Ê±áÊä•
     public Result<StockReport> fetchStockReport(@QueryParam("token")String token) {
         List<StockReport> StockReports = iBOReposirotyStockReport.fetchStockReport();
         for(int i=0;i<StockReports.size();i++){
@@ -44,27 +47,25 @@ public class StockReportService implements  IStockReportService{
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/savestockreports")
-    public Result SaveStockReport(List<StockReport> stockReports) {
+    @Path("/stockreports")
+    //‰øùÂ≠òÂ∫ìÂ≠ò‰ªªÂä°Ê±áÊä•
+    public Result SaveStockReport(@QueryParam("token")String token,List<StockReport> stockReports) {
         Result result = new Result();
-        if(stockReports.size()<1){
-            result = new Result("1","¥´µ› ˝æ›Œ™ø’£¨±£¥Ê ß∞‹!",null);
-        }
-        try {
-            for(int i=0;i<stockReports.size();i++){
-                StockReport stockReport = stockReports.get(i);
-                iBOReposirotyStockReport.saveStockReport(stockReport);
-                for (int j=0;j<stockReports.get(i).getStockReportItems().size();j++){
-                    StockReportItem stockReportItem = stockReports.get(i).getStockReportItems().get(j);
-                    stockReportItem.setLineId(j+1);
-                    iBOReposirotyStockReport.saveStockReportItem(stockReportItem);
+            try {
+                for (int i = 0; i < stockReports.size(); i++) {
+                    StockReport stockReport = stockReports.get(i);
+                    iBOReposirotyStockReport.saveStockReport(stockReport);
+                    for (int j = 0; j < stockReports.get(i).getStockReportItems().size(); j++) {
+                        StockReportItem stockReportItem = stockReports.get(i).getStockReportItems().get(j);
+                        stockReportItem.setLineId(j + 1);
+                        iBOReposirotyStockReport.saveStockReportItem(stockReportItem);
+                    }
                 }
+                result = new Result("0", "‰øùÂ≠òÊàêÂäü!", null);
+            } catch (Exception e) {
+                e.printStackTrace();
+                result = new Result("1", "ÊúçÂä°Âô®ËµÑÊ∫êÈîôËØØ,‰øùÂ≠òÂ§±Ë¥•!", null);
             }
-            result = new Result("0","±£¥Ê≥…π¶!",null);
-        }catch (Exception e){
-            e.printStackTrace();
-            result = new Result("1","∑˛ŒÒ∆˜◊ ‘¥¥ÌŒÛ,±£¥Ê ß∞‹!",null);
-        }
         return result;
     }
 
