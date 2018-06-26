@@ -10,8 +10,8 @@
 
 
     <properties>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <jersey.version>2.4.1</jersey.version>
         <java-version>1.6</java-version>
         <spring.version>4.0.2.RELEASE</spring.version>
@@ -175,10 +175,42 @@
             <version>1.2.17</version>
         </dependency>
         <dependency>
-            <groupId>edi.apps</groupId>
+            <groupId>org.edi</groupId>
             <artifactId>edi.initialfantasy</artifactId>
             <version>0.1.0</version>
         </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>4.3.9.RELEASE</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>4.3.9.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.thetransactioncompany</groupId>
+            <artifactId>cors-filter</artifactId>
+            <version>2.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.thetransactioncompany</groupId>
+            <artifactId>java-property-utils</artifactId>
+            <version>1.10</version>
+        </dependency>
+
+
+
+
+
+
     </dependencies>
     
 </project>
