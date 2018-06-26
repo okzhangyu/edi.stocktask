@@ -44,12 +44,16 @@ public class StockReportService implements  IStockReportService{
 
 
 
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/stockreports")
     //保存库存任务汇报
-    public Result SaveStockReport(@QueryParam("token")String token,List<StockReport> stockReports) {
+    public Result saveStockReport(@QueryParam("token")String token,List<StockReport> stockReports) {
+        System.out.println("-------------------------------------------------------------------:");
+        System.out.println(stockReports.toString());
+        System.out.println("-------------------------------------------------------------------:");
         Result result = new Result();
             try {
                 for (int i = 0; i < stockReports.size(); i++) {
@@ -61,10 +65,10 @@ public class StockReportService implements  IStockReportService{
                         iBOReposirotyStockReport.saveStockReportItem(stockReportItem);
                     }
                 }
-                result = new Result("0", "保存成功!", null);
+                result = new Result("0", "ok!", null);
             } catch (Exception e) {
                 e.printStackTrace();
-                result = new Result("1", "服务器资源错误,保存失败!", null);
+                result = new Result("1", "failed!", null);
             }
         return result;
     }
