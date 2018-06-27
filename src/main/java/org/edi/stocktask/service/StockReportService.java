@@ -1,6 +1,7 @@
 package org.edi.stocktask.service;
 
 
+import org.apache.log4j.Logger;
 import org.edi.initialfantasy.dto.Result;
 import org.edi.stocktask.bo.stockreport.StockReport;
 import org.edi.stocktask.bo.stockreport.StockReportItem;
@@ -20,6 +21,7 @@ import java.util.List;
 @Path("/v1")
 @Transactional
 public class StockReportService implements  IStockReportService{
+    private static Logger log = Logger.getLogger(StockReportService.class);
 
     @Autowired
     private IBOReposirotyStockReport iBOReposirotyStockReport;
@@ -50,16 +52,14 @@ public class StockReportService implements  IStockReportService{
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/stockreports")
     //保存库存任务汇报
-    public Result saveStockReport(@QueryParam("token")String token,List<StockReport> stockReports) {
-        System.out.println("-------------------------------------------------------------------:");
-        System.out.println(stockReports.toString());
-        System.out.println("-------------------------------------------------------------------:");
+    public Result saveStockReport(@QueryParam("token")String token,List<StockReport> stockReports){
+        log.info("parameter info:"+stockReports);
         Result result = new Result();
             try {
                 for (int i = 0; i < stockReports.size(); i++) {
                     StockReport stockReport = stockReports.get(i);
                     iBOReposirotyStockReport.saveStockReport(stockReport);
-                    for (int j = 0; j < stockReports.get(i).getStockReportItems().size(); j++) {
+                    for (int j = 0; j < stockReports.get(i).getStockReportItems().size();j++) {
                         StockReportItem stockReportItem = stockReports.get(i).getStockReportItems().get(j);
                         stockReportItem.setLineId(j + 1);
                         iBOReposirotyStockReport.saveStockReportItem(stockReportItem);
@@ -70,6 +70,16 @@ public class StockReportService implements  IStockReportService{
                 e.printStackTrace();
                 result = new Result("1", "failed!", null);
             }
+        return result;
+    }
+
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/stockreportstest")
+    public Result saveStockReportTest(@QueryParam("token")String token,String stockReports){
+        log.info("parameter info:"+stockReports);
+        Result result = new Result("0", "ok!", null);
         return result;
     }
 

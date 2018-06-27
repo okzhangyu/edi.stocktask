@@ -1,6 +1,7 @@
 package org.edi.stocktask.service;
 
 import org.edi.initialfantasy.dto.IResult;
+import org.edi.initialfantasy.dto.Result;
 import org.edi.stocktask.bo.stocktask.IStockTask;
 import org.edi.stocktask.bo.stocktask.StockTask;
 import org.edi.stocktask.bo.stocktask.StockTaskItem;
@@ -13,8 +14,8 @@ import java.util.List;
  */
 public interface IStockTaskService {
 
-    IResult<StockTask> fetchStockTask(String token);
     IResult<StockTaskItem> fetchStockTaskItem(Integer objectKey, String token);
     IResult<?> saveStockTask(List<IStockTask> stockTasks,String token);
+    Result<StockTask> fetchAllStockTask(String token);
 
 }

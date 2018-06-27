@@ -57,4 +57,7 @@
         SELECT * FROM AVA_WM_VIEW_STK1 where ObjectKey=#{objectKey}
     </select>
 
+    <select id="fetchAllStockTaskItem" resultMap="BaseResultMapItem">
+        SELECT * FROM AVA_WM_VIEW_STK1
+    </select>
 </mapper>
