@@ -22,13 +22,21 @@ public class StockTaskService implements IStockTaskService{
     @Autowired
     private IBORepositoryStockTask iBORepositoryStockTask;
 
+
+
     @GET
     @JSONP(queryParam="callback")
     @Produces("application/x-javascript;charset=utf-8")
     @Path("/stocktasks")
-    //查询库存任务
-    public Result<StockTask> fetchStockTask(@QueryParam("token")String token) {
-        List<StockTask> stockTasks = iBORepositoryStockTask.fetchStockTask() ;
+    //查询完整库存任务
+    public Result<StockTask> fetchAllStockTask(@QueryParam("token")String token){
+        List<StockTask> stockTasks = iBORepositoryStockTask.fetchStockTask();
+        for (int i = 0;i<stockTasks.size();i++){
+            List<StockTaskItem> stockTaskItems = iBORepositoryStockTask.fetchStockTaskItem(stockTasks.get(i).getObjectKey());
+            if(stockTaskItems!=null){
+                stockTasks.get(i).setStockTaskItems(stockTaskItems);
+            }
+        }
         Result<StockTask> result = new Result<StockTask>("0","ok",stockTasks);
         return result;
     }
@@ -56,9 +64,7 @@ public class StockTaskService implements IStockTaskService{
     @GET
     @Path("/getname")
     @Produces("text/plain")
-    public String UserLogin(){
-        return "hello";
-    }
+    public String UserLogin(){ return "hello"; }
 
 
 }
