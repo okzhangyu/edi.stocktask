@@ -4,7 +4,7 @@ import org.edi.initialfantasy.dto.Result;
 import org.edi.stocktask.bo.stocktask.IStockTask;
 import org.edi.stocktask.bo.stocktask.StockTask;
 import org.edi.stocktask.bo.stocktask.StockTaskItem;
-import org.edi.stocktask.repository.IBORepositoryStockTask;
+import org.edi.stocktask.repository.BORepositoryStockTask;
 import org.glassfish.jersey.server.JSONP;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -20,7 +20,7 @@ import java.util.List;
 public class StockTaskService implements IStockTaskService{
 
     @Autowired
-    private IBORepositoryStockTask iBORepositoryStockTask;
+   private BORepositoryStockTask boRepositoryStockTask;
 
 
 
@@ -28,15 +28,10 @@ public class StockTaskService implements IStockTaskService{
     @JSONP(queryParam="callback")
     @Produces("application/x-javascript;charset=utf-8")
     @Path("/stocktasks")
-    //查询完整库存任务
-    public Result<StockTask> fetchAllStockTask(@QueryParam("token")String token){
-        List<StockTask> stockTasks = iBORepositoryStockTask.fetchStockTask();
-        for (int i = 0;i<stockTasks.size();i++){
-            List<StockTaskItem> stockTaskItems = iBORepositoryStockTask.fetchStockTaskItem(stockTasks.get(i).getObjectKey());
-            if(stockTaskItems!=null){
-                stockTasks.get(i).setStockTaskItems(stockTaskItems);
-            }
-        }
+    //查询库存任务
+    public Result<StockTask> fetchStockTask(@QueryParam("token")String token){
+        System.out.println(boRepositoryStockTask);
+        List<StockTask> stockTasks = boRepositoryStockTask.fetchStockTask();
         Result<StockTask> result = new Result<StockTask>("0","ok",stockTasks);
         return result;
     }
@@ -48,7 +43,7 @@ public class StockTaskService implements IStockTaskService{
     @Produces("application/x-javascript;charset=utf-8")
     //查询库存任务明细
     public Result<StockTaskItem> fetchStockTaskItem(@QueryParam("objectKey")Integer objectKey,@QueryParam("token")String token) {
-        List<StockTaskItem> stockTaskItems = iBORepositoryStockTask.fetchStockTaskItem(objectKey) ;
+        List<StockTaskItem> stockTaskItems = boRepositoryStockTask.fetchStockTaskItem(objectKey) ;
         Result<StockTaskItem> result = new Result<StockTaskItem>("0","ok",stockTaskItems);
         return result;
     }

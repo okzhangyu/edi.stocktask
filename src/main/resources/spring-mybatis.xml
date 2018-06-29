@@ -23,7 +23,7 @@
 	   http://www.springframework.org/schema/aop
 	   http://www.springframework.org/schema/aop/spring-aop-3.1.xsd ">
 	<!-- 自动扫描 -->
-	<context:component-scan base-package="org.edi.stocktask.service" />
+	<context:component-scan base-package="org.edi.stocktask.*" />
 
 
 
@@ -36,7 +36,6 @@
 
 
 	<!-- 设置默认数据连接 -->
-
 	<!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />

@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 import org.edi.initialfantasy.dto.Result;
 import org.edi.stocktask.bo.stockreport.StockReport;
 import org.edi.stocktask.bo.stockreport.StockReportItem;
-import org.edi.stocktask.repository.IBOReposirotyStockReport;
+import org.edi.stocktask.repository.BOReposirotyStockReport;
 import org.glassfish.jersey.server.JSONP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +24,7 @@ public class StockReportService implements  IStockReportService{
     private static Logger log = Logger.getLogger(StockReportService.class);
 
     @Autowired
-    private IBOReposirotyStockReport iBOReposirotyStockReport;
+    private BOReposirotyStockReport boReposirotyStockReport;
 
 
     @GET
@@ -33,12 +33,7 @@ public class StockReportService implements  IStockReportService{
     @Path("/stockreports")
     //查询库存任务汇报
     public Result<StockReport> fetchStockReport(@QueryParam("token")String token) {
-        List<StockReport> StockReports = iBOReposirotyStockReport.fetchStockReport();
-        for(int i=0;i<StockReports.size();i++){
-            StockReport stockReport = StockReports.get(i);
-            List<StockReportItem> StockReportItems = iBOReposirotyStockReport.fetchStockReportItem(stockReport.getDocEntry());
-            stockReport.setStockReportItems(StockReportItems);
-        }
+        List<StockReport> StockReports = boReposirotyStockReport.fetchStockReport();
         Result result = new Result("0","ok",StockReports);
         return result;
     }
@@ -58,11 +53,11 @@ public class StockReportService implements  IStockReportService{
             try {
                 for (int i = 0; i < stockReports.size(); i++) {
                     StockReport stockReport = stockReports.get(i);
-                    iBOReposirotyStockReport.saveStockReport(stockReport);
+                    boReposirotyStockReport.saveStockReport(stockReport);
                     for (int j = 0; j < stockReports.get(i).getStockReportItems().size();j++) {
                         StockReportItem stockReportItem = stockReports.get(i).getStockReportItems().get(j);
                         stockReportItem.setLineId(j + 1);
-                        iBOReposirotyStockReport.saveStockReportItem(stockReportItem);
+                        boReposirotyStockReport.saveStockReportItem(stockReportItem);
                     }
                 }
                 result = new Result("0", "ok!", null);
@@ -77,6 +72,7 @@ public class StockReportService implements  IStockReportService{
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/stockreportstest")
+    //用于测试参数类型
     public Result saveStockReportTest(@QueryParam("token")String token,String stockReports){
         log.info("parameter info:"+stockReports);
         Result result = new Result("0", "ok!", null);

@@ -14,5 +14,5 @@ public interface IBOReposirotyStockReport {
     List<StockReport> fetchStockReportByEntry(Integer docEntry);
     List<StockReportItem> fetchStockReportItem(Integer docEntry);
     void saveStockReport(StockReport stockReports);
-    void saveStockReportItem(StockReportItem stockReportItems);
+    void saveStockReportItem(StockReportItem stockReportItem);
 }

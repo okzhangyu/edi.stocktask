@@ -10,7 +10,7 @@ import java.util.List;
  * @date 2018/5/25
  */
 public interface IBORepositoryStockTask {
- List<StockTask> fetchStockTask();
- List<StockTaskItem> fetchStockTaskItem(Integer objectKey);
- List<StockTaskItem> fetchAllStockTaskItem();
+    List<StockTask> fetchStockTask();
+    List<StockTaskItem> fetchStockTaskItem(Integer objectKey);
+    List<StockTaskItem> fetchAllStockTaskItem();
 }
