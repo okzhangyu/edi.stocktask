@@ -1,4 +1,13 @@
 package org.edi.stocktask.mapper;
 
-public class StockTaskMapper {
+import org.edi.stocktask.bo.stocktask.StockTask;
+import org.edi.stocktask.bo.stocktask.StockTaskItem;
+
+import java.util.List;
+
+public interface StockTaskMapper {
+    List<StockTask> fetchStockTask();
+    List<StockTaskItem> fetchStockTaskItem(Integer objectKey);
+    List<StockTaskItem> fetchAllStockTaskItem();
+
 }

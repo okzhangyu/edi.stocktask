@@ -12,7 +12,5 @@ import java.util.List;
 public interface IBOReposirotyStockReport {
     List<StockReport> fetchStockReport();
     List<StockReport> fetchStockReportByEntry(Integer docEntry);
-    List<StockReportItem> fetchStockReportItem(Integer docEntry);
     void saveStockReport(StockReport stockReports);
-    void saveStockReportItem(StockReportItem stockReportItem);
 }

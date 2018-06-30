@@ -11,6 +11,5 @@ import java.util.List;
  */
 public interface IBORepositoryStockTask {
     List<StockTask> fetchStockTask();
-    List<StockTaskItem> fetchStockTaskItem(Integer objectKey);
     List<StockTaskItem> fetchAllStockTaskItem();
 }
