@@ -14,7 +14,6 @@ import java.util.List;
  */
 public interface IStockTaskService {
     Result<StockTask> fetchStockTask(String token);
-    IResult<StockTaskItem> fetchStockTaskItem(Integer objectKey, String token);
     IResult<?> saveStockTask(List<IStockTask> stockTasks, String token);
 
 

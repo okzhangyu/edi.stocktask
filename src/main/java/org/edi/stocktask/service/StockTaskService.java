@@ -1,10 +1,12 @@
 package org.edi.stocktask.service;
 
+import org.edi.initialfantasy.binding.UserRequest;
 import org.edi.initialfantasy.dto.Result;
 import org.edi.stocktask.bo.stocktask.IStockTask;
 import org.edi.stocktask.bo.stocktask.StockTask;
 import org.edi.stocktask.bo.stocktask.StockTaskItem;
 import org.edi.stocktask.repository.BORepositoryStockTask;
+import org.edi.stocktask.repository.IBORepositoryStockTask;
 import org.glassfish.jersey.server.JSONP;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -20,8 +22,7 @@ import java.util.List;
 public class StockTaskService implements IStockTaskService{
 
     @Autowired
-   private BORepositoryStockTask boRepositoryStockTask;
-
+    private IBORepositoryStockTask boRepositoryStockTask;
 
 
     @GET
@@ -37,19 +38,10 @@ public class StockTaskService implements IStockTaskService{
     }
 
 
-    @GET
-    @Path("/stocktaskitems")
-    @JSONP(queryParam="callback")
-    @Produces("application/x-javascript;charset=utf-8")
-    //查询库存任务明细
-    public Result<StockTaskItem> fetchStockTaskItem(@QueryParam("objectKey")Integer objectKey,@QueryParam("token")String token) {
-        List<StockTaskItem> stockTaskItems = boRepositoryStockTask.fetchStockTaskItem(objectKey) ;
-        Result<StockTaskItem> result = new Result<StockTaskItem>("0","ok",stockTaskItems);
-        return result;
-    }
-
 
     @POST
+    @UserRequest
+    @Override
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/stocktasks")
     public Result<?> saveStockTask(List<IStockTask> stockTasks,@QueryParam("token")String token) {

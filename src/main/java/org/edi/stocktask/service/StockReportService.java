@@ -57,7 +57,7 @@ public class StockReportService implements  IStockReportService{
                     for (int j = 0; j < stockReports.get(i).getStockReportItems().size();j++) {
                         StockReportItem stockReportItem = stockReports.get(i).getStockReportItems().get(j);
                         stockReportItem.setLineId(j + 1);
-                        boReposirotyStockReport.saveStockReportItem(stockReportItem);
+                        //boReposirotyStockReport.saveStockReportItem(stockReportItem);
                     }
                 }
                 result = new Result("0", "ok!", null);
@@ -68,15 +68,5 @@ public class StockReportService implements  IStockReportService{
         return result;
     }
 
-
-    @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/stockreportstest")
-    //用于测试参数类型
-    public Result saveStockReportTest(@QueryParam("token")String token,String stockReports){
-        log.info("parameter info:"+stockReports);
-        Result result = new Result("0", "ok!", null);
-        return result;
-    }
 
 }
