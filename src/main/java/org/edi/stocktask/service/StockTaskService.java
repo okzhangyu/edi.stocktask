@@ -4,11 +4,10 @@ import org.edi.initialfantasy.binding.UserRequest;
 import org.edi.initialfantasy.dto.Result;
 import org.edi.stocktask.bo.stocktask.IStockTask;
 import org.edi.stocktask.bo.stocktask.StockTask;
-import org.edi.stocktask.bo.stocktask.StockTaskItem;
-import org.edi.stocktask.repository.BORepositoryStockTask;
 import org.edi.stocktask.repository.IBORepositoryStockTask;
 import org.glassfish.jersey.server.JSONP;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -19,6 +18,7 @@ import java.util.List;
  * @date 2018/5/19
  */
 @Path("/v1")
+@Transactional
 public class StockTaskService implements IStockTaskService{
 
     @Autowired
@@ -31,7 +31,6 @@ public class StockTaskService implements IStockTaskService{
     @Path("/stocktasks")
     //查询库存任务
     public Result<StockTask> fetchStockTask(@QueryParam("token")String token){
-        System.out.println(boRepositoryStockTask);
         List<StockTask> stockTasks = boRepositoryStockTask.fetchStockTask();
         Result<StockTask> result = new Result<StockTask>("0","ok",stockTasks);
         return result;

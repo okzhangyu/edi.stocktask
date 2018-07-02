@@ -5,7 +5,6 @@ import org.edi.stocktask.bo.stocktask.StockTaskItem;
 import org.edi.stocktask.mapper.StockTaskMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -15,15 +14,15 @@ import java.util.List;
  */
 
 
-//@Repository(value = "boRepositoryStockTask")
-@Component("boRepositoryStockTask")
+@Transactional
+@Component(value="boRepositoryStockTask")
 public class BORepositoryStockTask implements  IBORepositoryStockTask {
 
 
     @Autowired
     private StockTaskMapper stockTaskMapper;
 
-    //查询完整库存任务
+    //查询库存任务
     public List<StockTask> fetchStockTask(){
         List<StockTask> stockTasks = stockTaskMapper.fetchStockTask();
         for (int i = 0;i<stockTasks.size();i++){

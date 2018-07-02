@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 import org.edi.initialfantasy.dto.Result;
 import org.edi.stocktask.bo.stockreport.StockReport;
 import org.edi.stocktask.bo.stockreport.StockReportItem;
-import org.edi.stocktask.repository.BOReposirotyStockReport;
+import org.edi.stocktask.repository.IBOReposirotyStockReport;
 import org.glassfish.jersey.server.JSONP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +24,7 @@ public class StockReportService implements  IStockReportService{
     private static Logger log = Logger.getLogger(StockReportService.class);
 
     @Autowired
-    private BOReposirotyStockReport boReposirotyStockReport;
+    private IBOReposirotyStockReport boReposirotyStockReport;
 
 
     @GET
@@ -57,13 +57,13 @@ public class StockReportService implements  IStockReportService{
                     for (int j = 0; j < stockReports.get(i).getStockReportItems().size();j++) {
                         StockReportItem stockReportItem = stockReports.get(i).getStockReportItems().get(j);
                         stockReportItem.setLineId(j + 1);
-                        //boReposirotyStockReport.saveStockReportItem(stockReportItem);
+                        boReposirotyStockReport.saveStockReportItem(stockReportItem);
                     }
                 }
                 result = new Result("0", "ok!", null);
             } catch (Exception e) {
                 e.printStackTrace();
-                result = new Result("1", "failed!", null);
+                result = new Result("1", "failed:"+e.getCause(), null);
             }
         return result;
     }
