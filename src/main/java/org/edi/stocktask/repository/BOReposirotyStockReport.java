@@ -2,11 +2,11 @@ package org.edi.stocktask.repository;
 
 import org.edi.stocktask.bo.stockreport.StockReport;
 import org.edi.stocktask.bo.stockreport.StockReportItem;
+import org.edi.stocktask.mapper.StockReportMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import org.edi.stocktask.mapper.StockReportMapper;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -14,10 +14,10 @@ import java.util.List;
  */
 
 @Transactional
-@Component("BOReposirotyStockReport")
+@Component(value="boReposirotyStockReport")
 public class BOReposirotyStockReport implements IBOReposirotyStockReport{
 
-    @Resource
+    @Autowired
     private StockReportMapper stockReportMapper;
 
 
@@ -44,15 +44,16 @@ public class BOReposirotyStockReport implements IBOReposirotyStockReport{
 
 
     @Override
-   //保存库存任务汇报
+    //保存库存任务汇报
     public void saveStockReport(StockReport stockReport){
-        try {
             stockReportMapper.saveStockReport(stockReport);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
+
+    //保存库存任务汇报明细
+    public void saveStockReportItem(StockReportItem stockReportItem){
+            stockReportMapper.saveStockReportItem(stockReportItem);
+    }
 
 
 }

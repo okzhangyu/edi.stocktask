@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="org.edi.stocktask.repository.IBOReposirotyStockReport">
+<mapper namespace="org.edi.stocktask.mapper.StockReportMapper">
     <resultMap id="BaseResultMap" type="org.edi.stocktask.bo.stockreport.StockReport">
         <result column="ComanyName" property="comanyName" jdbcType="VARCHAR" />
         <result column="DocEntry" property="docEntry" jdbcType="INTEGER" />
