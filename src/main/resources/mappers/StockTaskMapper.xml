@@ -50,7 +50,9 @@
 
 
     <select id="fetchStockTask" resultMap="BaseResultMap">
-        SELECT * FROM AVA_WM_VIEW_OSTK
+        SELECT * FROM AVA_WM_VIEW_OSTK where <![CDATA[
+            docentry <=158
+          ]]>
     </select>
 
     <select id="fetchStockTaskItem" resultMap="BaseResultMapItem">
