@@ -47,14 +47,15 @@ public class StockReportService implements  IStockReportService{
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/stockreports")
     //保存库存任务汇报
-    public Result saveStockReport(@QueryParam("token")String token,List<StockReport> stockReports){
-        log.info("parameter info:"+stockReports);
+    public Result saveStockReport(@QueryParam("token")String token,List<StockReport> stockReports) {
+        log.info("parameter info:" + stockReports);
         Result result = new Result();
+        if (stockReports.size() > 0) {
             try {
                 for (int i = 0; i < stockReports.size(); i++) {
                     StockReport stockReport = stockReports.get(i);
                     boReposirotyStockReport.saveStockReport(stockReport);
-                    for (int j = 0; j < stockReports.get(i).getStockReportItems().size();j++) {
+                    for (int j = 0; j < stockReports.get(i).getStockReportItems().size(); j++) {
                         StockReportItem stockReportItem = stockReports.get(i).getStockReportItems().get(j);
                         stockReportItem.setLineId(j + 1);
                         boReposirotyStockReport.saveStockReportItem(stockReportItem);
@@ -63,10 +64,12 @@ public class StockReportService implements  IStockReportService{
                 result = new Result("0", "ok!", null);
             } catch (Exception e) {
                 e.printStackTrace();
-                result = new Result("1", "failed:"+e.getCause(), null);
+                result = new Result("1", "failed:" + e.getCause(), null);
             }
-        return result;
+        } else {
+            result = new Result("1", "failed:the parameter is null", null);
+        }
+         return result;
     }
-
 
 }
