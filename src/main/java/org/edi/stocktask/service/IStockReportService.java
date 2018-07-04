@@ -11,6 +11,6 @@ import java.util.List;
  */
 public interface IStockReportService {
     Result<StockReport> fetchStockReport(String token);
-    Result<?> saveStockReport(String token,List<StockReport> stockReports);
+    Result<?> saveStockReport(String token,List<StockReport> stockReports) ;
 
 }

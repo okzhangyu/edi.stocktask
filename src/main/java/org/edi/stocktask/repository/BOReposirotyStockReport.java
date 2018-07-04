@@ -13,7 +13,7 @@ import java.util.List;
  * Created by asus on 2018/6/29.
  */
 
-@Transactional
+@Transactional(rollbackFor=Exception.class)
 @Component(value="boReposirotyStockReport")
 public class BOReposirotyStockReport implements IBOReposirotyStockReport{
 
@@ -51,7 +51,7 @@ public class BOReposirotyStockReport implements IBOReposirotyStockReport{
 
 
     //保存库存任务汇报明细
-    public void saveStockReportItem(StockReportItem stockReportItem){
+    public void saveStockReportItem(StockReportItem stockReportItem) {
             stockReportMapper.saveStockReportItem(stockReportItem);
     }
 

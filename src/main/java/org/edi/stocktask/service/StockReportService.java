@@ -8,7 +8,10 @@ import org.edi.stocktask.bo.stockreport.StockReportItem;
 import org.edi.stocktask.repository.IBOReposirotyStockReport;
 import org.glassfish.jersey.server.JSONP;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -19,12 +22,13 @@ import java.util.List;
  * @date 2018/5/31
  */
 @Path("/v1")
-@Transactional
 public class StockReportService implements  IStockReportService{
     private static Logger log = Logger.getLogger(StockReportService.class);
 
     @Autowired
     private IBOReposirotyStockReport boReposirotyStockReport;
+    @Autowired
+    private PlatformTransactionManager ptm;
 
 
     @GET
@@ -49,6 +53,9 @@ public class StockReportService implements  IStockReportService{
     //保存库存任务汇报
     public Result saveStockReport(@QueryParam("token")String token,List<StockReport> stockReports) {
         log.info("parameter info:" + stockReports);
+        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+        TransactionStatus status = ptm.getTransaction(def);
         Result result = new Result();
         if (stockReports.size() > 0) {
             try {
@@ -61,9 +68,11 @@ public class StockReportService implements  IStockReportService{
                         boReposirotyStockReport.saveStockReportItem(stockReportItem);
                     }
                 }
+                ptm.commit(status);
                 result = new Result("0", "ok!", null);
             } catch (Exception e) {
                 e.printStackTrace();
+                ptm.rollback(status);
                 result = new Result("1", "failed:" + e.getCause(), null);
             }
         } else {

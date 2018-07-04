@@ -59,7 +59,12 @@
 	<!-- 开启事务注解驱动 -->
 	<tx:annotation-driven />
 
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+
+
 	<!-- 设置定时任务 -->
 	<task:annotation-driven/>
+
+
 
 </beans>
