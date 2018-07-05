@@ -3,6 +3,7 @@ package org.edi.stocktask.service;
 
 import org.apache.log4j.Logger;
 import org.edi.initialfantasy.dto.Result;
+import org.edi.initialfantasy.util.CharsetConvert;
 import org.edi.stocktask.bo.stockreport.StockReport;
 import org.edi.stocktask.bo.stockreport.StockReportItem;
 import org.edi.stocktask.repository.IBOReposirotyStockReport;
@@ -41,16 +42,14 @@ public class StockReportService implements  IStockReportService{
     public Result<StockReport> fetchStockReport(@QueryParam("token")String token) {
         Result result = new Result();
         String msg = tokenVerification.verification(token);
-        if(msg.equals("ok")){
+        if (msg.equals("ok")) {
             List<StockReport> StockReports = boReposirotyStockReport.fetchStockReport();
-            result = new Result("0","ok",StockReports);
-        }else{
-            result = new Result("1","failed:"+msg,null);
+            result = new Result("0", "ok", StockReports);
+        } else {
+            result = new Result("1", "failed:" + msg, null);
         }
         return result;
     }
-
-
 
 
 
@@ -86,7 +85,7 @@ public class StockReportService implements  IStockReportService{
                     result = new Result("1", "failed:" + e.getCause(), null);
                 }
             } else {
-                result = new Result("1", "failed:the parameter is null", null);
+                result = new Result("1", "failed:"+ CharsetConvert.convert("参数信息为空!"), null);
             }
         }else {
             result = new Result("1","failed:"+msg,null);
