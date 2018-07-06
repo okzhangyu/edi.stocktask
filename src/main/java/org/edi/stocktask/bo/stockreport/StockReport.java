@@ -7,6 +7,9 @@ import java.util.List;
  * @date 2018/5/27
  */
 public class StockReport implements IStockReport{
+
+    private static final String BUSINESS_CODE = "AVA_WM_STOCKREPORT";
+
     private String comanyName;//yes
     private Integer docEntry;//yes
     private Integer docNum;//yes
@@ -306,6 +309,7 @@ public class StockReport implements IStockReport{
         this.baseDocumentEntry = baseDocumentEntry;
     }
 
+
     @Override
     public List<StockReportItem> getStockReportItems() {
         return stockReportItems;
@@ -317,6 +321,7 @@ public class StockReport implements IStockReport{
     }
 
     public StockReport() {
+        this.setObjectCode(BUSINESS_CODE);
     }
 
     public StockReport(String comanyName, Integer docEntry, Integer docNum, String period, String objectCode, String transfered, String createDate, Integer createTime, String updateDate, Integer updateTime, String createUserSign, String updateUserSign, String documentStatus, String postingDate, String deliveryDate, String documentDate, String reference1, String reference2, String remarks, Integer b1DocEntry, String bydUUID, String customType, String transactionType, String businessPartnerCode, String businessPartnerName, String baseDocumentType, Integer baseDocumentEntry, List<StockReportItem> stockReportItems) {

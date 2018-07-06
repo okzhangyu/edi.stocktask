@@ -9,6 +9,8 @@ import java.util.List;
  */
 public class StockTask implements  IStockTask{
 
+    private static final String BUSINESS_CODE = "AVA_WM_STOCKTASK";
+
     private String companyName;//yes
     private Integer objectKey;//yes
     private String objectCode;
@@ -168,6 +170,7 @@ public class StockTask implements  IStockTask{
         return businessPartnerCode;
     }
 
+    @Override
     public void setBusinessPartnerCode(String businessPartnerCode) {
         this.businessPartnerCode = businessPartnerCode;
     }
@@ -187,6 +190,7 @@ public class StockTask implements  IStockTask{
         return transactionType;
     }
 
+    @Override
     public void setTransactionType(String transactionType) {
         this.transactionType = transactionType;
     }
@@ -261,6 +265,7 @@ public class StockTask implements  IStockTask{
     }
 
     public StockTask() {
+        this.setObjectCode(BUSINESS_CODE);
     }
 
     public StockTask(String companyName, Integer objectKey, String objectCode, String createDate, Integer createTime, String updateDate, Integer updateTime, String reference1, String reference2, String remarks, String documentType, Integer documentEntry, Integer documentLineId, String businessPartnerCode, String businessPartnerName, String transactionType, Date postingDate, Date deliveryDate, String documentDate, String schemaCode, String annotated, List<StockTaskItem> stockTaskItems, List<IStockTaskBarCodeItem> stockTaskBarCodeItems) {

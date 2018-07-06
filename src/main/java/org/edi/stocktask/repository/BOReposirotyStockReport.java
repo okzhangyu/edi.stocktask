@@ -44,15 +44,28 @@ public class BOReposirotyStockReport implements IBOReposirotyStockReport{
 
 
     @Override
-    //保存库存任务汇报
+    /**
+     * 保存库存任务汇报
+     */
     public void saveStockReport(StockReport stockReport){
             stockReportMapper.saveStockReport(stockReport);
     }
 
 
-    //保存库存任务汇报明细
+    /**
+     * 保存库存任务汇报明细
+     * @param stockReportItem
+     */
     public void saveStockReportItem(StockReportItem stockReportItem){
             stockReportMapper.saveStockReportItem(stockReportItem);
+    }
+
+    @Override
+    /**
+     * 模糊查询
+     */
+    public List<StockReport> fetchStockReportFuzzy(String value) {
+        return null;
     }
 
 
