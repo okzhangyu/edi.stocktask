@@ -30,7 +30,7 @@ public class StockTask implements  IStockTask{
     private String documentDate;//yes
     private String schemaCode;
     private String annotated;//yes
-    private List<IStockTaskItem> stockTaskItems;
+    private List<StockTaskItem> stockTaskItems;
     private List<IStockTaskBarCodeItem> stockTaskBarCodeItems;
 
     @Override
@@ -241,12 +241,12 @@ public class StockTask implements  IStockTask{
     }
 
     @Override
-    public List<IStockTaskItem> getStockTaskItems() {
+    public List<StockTaskItem> getStockTaskItems() {
         return stockTaskItems;
     }
 
     @Override
-    public void setStockTaskItems(List<IStockTaskItem> stockTaskItems) {
+    public void setStockTaskItems(List<StockTaskItem> stockTaskItems) {
         this.stockTaskItems = stockTaskItems;
     }
 
@@ -263,7 +263,7 @@ public class StockTask implements  IStockTask{
     public StockTask() {
     }
 
-    public StockTask(String companyName, Integer objectKey, String objectCode, String createDate, Integer createTime, String updateDate, Integer updateTime, String reference1, String reference2, String remarks, String documentType, Integer documentEntry, Integer documentLineId, String businessPartnerCode, String businessPartnerName, String transactionType, Date postingDate, Date deliveryDate, String documentDate, String schemaCode, String annotated, List<IStockTaskItem> stockTaskItems, List<IStockTaskBarCodeItem> stockTaskBarCodeItems) {
+    public StockTask(String companyName, Integer objectKey, String objectCode, String createDate, Integer createTime, String updateDate, Integer updateTime, String reference1, String reference2, String remarks, String documentType, Integer documentEntry, Integer documentLineId, String businessPartnerCode, String businessPartnerName, String transactionType, Date postingDate, Date deliveryDate, String documentDate, String schemaCode, String annotated, List<StockTaskItem> stockTaskItems, List<IStockTaskBarCodeItem> stockTaskBarCodeItems) {
         this.companyName = companyName;
         this.objectKey = objectKey;
         this.objectCode = objectCode;

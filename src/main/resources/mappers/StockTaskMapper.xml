@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="org.edi.stocktask.repository.IBORepositoryStockTask">
+<mapper namespace="org.edi.stocktask.mapper.StockTaskMapper">
     <resultMap id="BaseResultMap" type="org.edi.stocktask.bo.stocktask.StockTask">
         <result column="CompanyName" property="companyName" jdbcType="VARCHAR" />
         <result column="ObjectKey" property="objectKey" jdbcType="INTEGER" />
@@ -57,4 +57,7 @@
         SELECT * FROM AVA_WM_VIEW_STK1 where ObjectKey=#{objectKey}
     </select>
 
+    <select id="fetchAllStockTaskItem" resultMap="BaseResultMapItem">
+        SELECT * FROM AVA_WM_VIEW_STK1
+    </select>
 </mapper>
