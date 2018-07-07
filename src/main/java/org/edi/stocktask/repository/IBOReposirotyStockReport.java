@@ -32,10 +32,6 @@ public interface IBOReposirotyStockReport {
      * @param stockReports
      */
     void saveStockReport(StockReport stockReports);
-<<<<<<< HEAD
-    void saveStockReportItem(StockReportItem stockReportItem) ;
-=======
-
 
     void saveStockReportItem(StockReportItem stockReportItem);
 
@@ -57,5 +53,5 @@ public interface IBOReposirotyStockReport {
      * @param docEntry
      */
     void deleteStockReport(Integer docEntry);
->>>>>>> upstream/master
+
 }

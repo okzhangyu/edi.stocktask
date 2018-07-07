@@ -16,9 +16,7 @@ public interface IStockReportService {
      * @return
      */
     Result<StockReport> fetchStockReport(String token);
-<<<<<<< HEAD
-    Result<?> saveStockReport(String token,List<StockReport> stockReports) ;
-=======
+
 
     /**
      * 保存库存任务汇报
@@ -27,7 +25,7 @@ public interface IStockReportService {
      * @return
      */
     Result<?> saveStockReport(String token,List<StockReport> stockReports);
->>>>>>> upstream/master
+
 
     /**
      * 更新库存任务汇报
@@ -35,6 +33,6 @@ public interface IStockReportService {
      * @param stockReports
      * @return
      */
-    Result<?> updateStockReport(String token,List<StockReport> stockReports);
+  /*  Result<?> updateStockReport(String token,List<StockReport> stockReports);*/
 
 }

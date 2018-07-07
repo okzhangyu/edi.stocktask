@@ -68,8 +68,12 @@ public class StockReportService implements  IStockReportService{
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/stockreports")
     @Override
-    public Result saveStockReport(@QueryParam("token")String token,List<StockReport> stockReports){
-        log.info("parameter info:"+stockReports);
+    public Result saveStockReport(@QueryParam("token")String token,List<StockReport> stockReports) {
+        String msg = tokenVerification.verification(token);
+        log.info("parameter info:" + stockReports);
+        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+        TransactionStatus status = ptm.getTransaction(def);
         Result result = new Result();
         if(msg.equals("ok")) {
             if (stockReports.size() > 0) {
@@ -91,12 +95,12 @@ public class StockReportService implements  IStockReportService{
                     result = new Result("1", "failed:" + e.getCause(), null);
                 }
             } else {
-                result = new Result("1", "failed:"+ CharsetConvert.convert("参数信息为空!"), null);
+                result = new Result("1", "failed:"+ CharsetConvert.convert("参数信息为空！"), null);
             }
         }else {
             result = new Result("1","failed:"+msg,null);
         }
-         return result;
+        return result;
     }
 
     /**
@@ -105,14 +109,14 @@ public class StockReportService implements  IStockReportService{
      * @param stockReports
      * @return
      */
-    @PUT
+   /* @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/stockreports")
     @Override
     public Result<?> updateStockReport(String token, List<StockReport> stockReports) {
         return null;
-    }
+    }*/
 
 
 }

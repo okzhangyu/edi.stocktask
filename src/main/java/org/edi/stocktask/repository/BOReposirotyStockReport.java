@@ -65,17 +65,13 @@ public class BOReposirotyStockReport implements IBOReposirotyStockReport{
     }
 
 
-<<<<<<< HEAD
-    //保存库存任务汇报明细
-    public void saveStockReportItem(StockReportItem stockReportItem) {
-=======
+
     /**
      * 保存库存任务汇报明细
      * @param stockReportItem
      */
     @Override
     public void saveStockReportItem(StockReportItem stockReportItem){
->>>>>>> upstream/master
             stockReportMapper.saveStockReportItem(stockReportItem);
     }
 
