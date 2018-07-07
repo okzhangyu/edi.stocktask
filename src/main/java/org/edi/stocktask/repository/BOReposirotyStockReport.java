@@ -56,10 +56,7 @@ public class BOReposirotyStockReport implements IBOReposirotyStockReport{
         return StockReports;
     }
 
-    @Override
-    /**
-     * 保存库存任务汇报
-     */
+
     public void saveStockReports(List<StockReport> stockReports){
         for (int i = 0; i < stockReports.size(); i++) {
             StockReport stockReport = stockReports.get(i);
@@ -71,6 +68,8 @@ public class BOReposirotyStockReport implements IBOReposirotyStockReport{
             }
         }
     }
+
+
 
 
 
