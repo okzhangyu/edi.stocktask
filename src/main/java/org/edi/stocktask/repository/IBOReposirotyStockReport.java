@@ -17,13 +17,15 @@ public interface IBOReposirotyStockReport {
      */
     List<StockReport> fetchStockReport();
 
+
+    List<StockReport> fetchStockReport(String companyName,String baseDocumentType,String baseDocumentDocEntry);
+
     /**
      * 根据主键查询任务汇报
      * @param docEntry
      * @return
      */
     List<StockReport> fetchStockReportByEntry(Integer docEntry);
-
 
     /**
      * 保存任务汇报
@@ -40,4 +42,16 @@ public interface IBOReposirotyStockReport {
      * @return
      */
     List<StockReport> fetchStockReportFuzzy(String value);
+
+    /**
+     * 更新库存任务汇报
+     * @param stockReport
+     */
+    void updateStockReport(StockReport stockReport);
+
+    /**
+     * 删除任务汇报
+     * @param docEntry
+     */
+    void deleteStockReport(Integer docEntry);
 }

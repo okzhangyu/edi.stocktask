@@ -78,10 +78,10 @@
 
 
     <select id="fetchStockReport" resultMap="BaseResultMap">
-        SELECT * FROM AVA_WM_OSRP
+        SELECT * FROM AVA_WM_OSRP WITH(TABLOCKX)
     </select>
     <select id="fetchStockReportByEntry" resultMap="BaseResultMap" parameterType="int">
-        SELECT * FROM AVA_WM_OSRP where docEntry=#{docEntry}
+        SELECT * FROM AVA_WM_OSRP with(XLOCK) where docEntry=#{docEntry}
     </select>
     <select id="fetchStockReportItem" resultMap="BaseResultMapItem" parameterType="int">
         SELECT * FROM AVA_WM_SRP1 where docEntry=#{docEntry}

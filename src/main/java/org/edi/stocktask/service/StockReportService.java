@@ -27,11 +27,16 @@ public class StockReportService implements  IStockReportService{
     private IBOReposirotyStockReport boReposirotyStockReport;
 
 
+    /**
+     * 查询库存任务汇报
+     * @param token
+     * @return
+     */
     @GET
     @JSONP(queryParam="callback")
     @Produces("application/x-javascript;charset=utf-8")
     @Path("/stockreports")
-    //查询库存任务汇报
+    @Override
     public Result<StockReport> fetchStockReport(@QueryParam("token")String token) {
         List<StockReport> StockReports = boReposirotyStockReport.fetchStockReport();
         Result result = new Result("0","ok",StockReports);
@@ -39,14 +44,17 @@ public class StockReportService implements  IStockReportService{
     }
 
 
-
-
-
+    /**
+     * 保存库存任务汇报
+     * @param token
+     * @param stockReports
+     * @return
+     */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/stockreports")
-    //保存库存任务汇报
+    @Override
     public Result saveStockReport(@QueryParam("token")String token,List<StockReport> stockReports){
         log.info("parameter info:"+stockReports);
         Result result = new Result();
@@ -66,6 +74,21 @@ public class StockReportService implements  IStockReportService{
                 result = new Result("1", "failed:"+e.getCause(), null);
             }
         return result;
+    }
+
+    /**
+     * 更新任务汇报
+     * @param token
+     * @param stockReports
+     * @return
+     */
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/stockreports")
+    @Override
+    public Result<?> updateStockReport(String token, List<StockReport> stockReports) {
+        return null;
     }
 
 
