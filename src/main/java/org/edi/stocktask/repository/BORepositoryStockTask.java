@@ -12,8 +12,6 @@ import java.util.List;
 /**
  * Created by asus on 2018/6/29.
  */
-
-
 @Transactional
 @Component(value="boRepositoryStockTask")
 public class BORepositoryStockTask implements  IBORepositoryStockTask {
@@ -22,7 +20,11 @@ public class BORepositoryStockTask implements  IBORepositoryStockTask {
     @Autowired
     private StockTaskMapper stockTaskMapper;
 
-    //查询库存任务
+    /**
+     * 查询库存任务
+     * @return
+     */
+    @Override
     public List<StockTask> fetchStockTask(){
         List<StockTask> stockTasks = stockTaskMapper.fetchStockTask();
         for (int i = 0;i<stockTasks.size();i++){
@@ -34,13 +36,20 @@ public class BORepositoryStockTask implements  IBORepositoryStockTask {
         return stockTasks;
     }
 
-    //根据OBJECTKEY查询库存任务明细
+    /**
+     * 根据OBJECTKEY查询库存任务明细
+     * @param objectKey
+     * @return
+     */
     public List<StockTaskItem> fetchStockTaskItem(Integer objectKey){
         List<StockTaskItem> stockTaskItems = stockTaskMapper.fetchStockTaskItem(objectKey);
         return stockTaskItems;
     }
 
-    //查询所有库存任务明细
+    /**
+     * 查询所有库存任务明细
+     * @return
+     */
     public List<StockTaskItem> fetchAllStockTaskItem(){
         List<StockTaskItem> stockTaskItems = stockTaskMapper.fetchAllStockTaskItem();
         return stockTaskItems;
