@@ -60,20 +60,19 @@ public class BOReposirotyStockReport implements IBOReposirotyStockReport{
     /**
      * 保存库存任务汇报
      */
-    public void saveStockReport(StockReport stockReport){
+    public void saveStockReports(List<StockReport> stockReports){
+        for (int i = 0; i < stockReports.size(); i++) {
+            StockReport stockReport = stockReports.get(i);
             stockReportMapper.saveStockReport(stockReport);
+            for (int j = 0; j < stockReports.get(i).getStockReportItems().size(); j++) {
+                StockReportItem stockReportItem = stockReports.get(i).getStockReportItems().get(j);
+                stockReportItem.setLineId(j + 1);
+                stockReportMapper.saveStockReportItem(stockReportItem);
+            }
+        }
     }
 
 
-
-    /**
-     * 保存库存任务汇报明细
-     * @param stockReportItem
-     */
-    @Override
-    public void saveStockReportItem(StockReportItem stockReportItem){
-            stockReportMapper.saveStockReportItem(stockReportItem);
-    }
 
     /**
      * 模糊查询库存任务汇报

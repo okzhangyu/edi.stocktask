@@ -5,7 +5,6 @@ import org.apache.log4j.Logger;
 import org.edi.initialfantasy.dto.Result;
 import org.edi.initialfantasy.util.CharsetConvert;
 import org.edi.stocktask.bo.stockreport.StockReport;
-import org.edi.stocktask.bo.stockreport.StockReportItem;
 import org.edi.stocktask.repository.IBOReposirotyStockReport;
 import org.edi.stocktask.util.TokenVerification;
 import org.glassfish.jersey.server.JSONP;
@@ -78,15 +77,7 @@ public class StockReportService implements  IStockReportService{
         if(msg.equals("ok")) {
             if (stockReports.size() > 0) {
                 try {
-                    for (int i = 0; i < stockReports.size(); i++) {
-                        StockReport stockReport = stockReports.get(i);
-                        boReposirotyStockReport.saveStockReport(stockReport);
-                        for (int j = 0; j < stockReports.get(i).getStockReportItems().size(); j++) {
-                            StockReportItem stockReportItem = stockReports.get(i).getStockReportItems().get(j);
-                            stockReportItem.setLineId(j + 1);
-                            boReposirotyStockReport.saveStockReportItem(stockReportItem);
-                        }
-                    }
+                    boReposirotyStockReport.saveStockReports(stockReports);
                     ptm.commit(status);
                     result = new Result("0", "ok!", null);
                 } catch (Exception e) {

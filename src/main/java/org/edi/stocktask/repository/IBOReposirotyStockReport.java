@@ -1,7 +1,6 @@
 package org.edi.stocktask.repository;
 
 import org.edi.stocktask.bo.stockreport.StockReport;
-import org.edi.stocktask.bo.stockreport.StockReportItem;
 
 import java.util.List;
 
@@ -31,9 +30,9 @@ public interface IBOReposirotyStockReport {
      * 保存任务汇报
      * @param stockReports
      */
-    void saveStockReport(StockReport stockReports);
+    void saveStockReports(List<StockReport> stockReports);
 
-    void saveStockReportItem(StockReportItem stockReportItem);
+
 
     /**
      * 模糊查询
