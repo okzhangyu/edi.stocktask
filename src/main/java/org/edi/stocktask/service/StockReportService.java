@@ -34,11 +34,16 @@ public class StockReportService implements  IStockReportService{
     @Autowired
     private TokenVerification tokenVerification;
 
+    /**
+     * 查询库存任务汇报
+     * @param token
+     * @return
+     */
     @GET
     @JSONP(queryParam="callback")
     @Produces("application/x-javascript;charset=utf-8")
     @Path("/stockreports")
-    //查询库存任务汇报
+    @Override
     public Result<StockReport> fetchStockReport(@QueryParam("token")String token) {
         Result result = new Result();
         String msg = tokenVerification.verification(token);
@@ -52,18 +57,19 @@ public class StockReportService implements  IStockReportService{
     }
 
 
-
+    /**
+     * 保存库存任务汇报
+     * @param token
+     * @param stockReports
+     * @return
+     */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/stockreports")
-    //保存库存任务汇报
-    public Result saveStockReport(@QueryParam("token")String token,List<StockReport> stockReports) {
-        String msg = tokenVerification.verification(token);
-        log.info("parameter info:" + stockReports);
-        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-        TransactionStatus status = ptm.getTransaction(def);
+    @Override
+    public Result saveStockReport(@QueryParam("token")String token,List<StockReport> stockReports){
+        log.info("parameter info:"+stockReports);
         Result result = new Result();
         if(msg.equals("ok")) {
             if (stockReports.size() > 0) {
@@ -92,5 +98,21 @@ public class StockReportService implements  IStockReportService{
         }
          return result;
     }
+
+    /**
+     * 更新任务汇报
+     * @param token
+     * @param stockReports
+     * @return
+     */
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/stockreports")
+    @Override
+    public Result<?> updateStockReport(String token, List<StockReport> stockReports) {
+        return null;
+    }
+
 
 }

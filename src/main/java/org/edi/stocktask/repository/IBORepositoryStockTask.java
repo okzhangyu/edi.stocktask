@@ -10,6 +10,13 @@ import java.util.List;
  * @date 2018/5/25
  */
 public interface IBORepositoryStockTask {
+
+    /**
+     * 查询库存任务
+     * @return
+     */
     List<StockTask> fetchStockTask();
+
+
     List<StockTaskItem> fetchAllStockTaskItem();
 }
