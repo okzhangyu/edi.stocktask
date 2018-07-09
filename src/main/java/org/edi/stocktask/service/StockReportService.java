@@ -89,14 +89,14 @@ public class StockReportService implements  IStockReportService{
      * @param stockReports
      * @return
      */
-   /* @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/stockreports")
     @Override
     public Result<?> updateStockReport(String token, List<StockReport> stockReports) {
         return null;
-    }*/
+    }
+
 
 
 }

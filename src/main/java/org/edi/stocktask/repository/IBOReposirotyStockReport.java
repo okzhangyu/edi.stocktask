@@ -33,6 +33,7 @@ public interface IBOReposirotyStockReport {
      * 保存任务汇报
      * @param stockReports
      */
+
     void saveStockReports(List<StockReport> stockReports);
 
 

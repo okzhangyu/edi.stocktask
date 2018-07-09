@@ -50,10 +50,7 @@ public class BOReposirotyStockReport implements IBOReposirotyStockReport{
         return StockReports;
     }
 
-    @Override
-    /**
-     * 保存库存任务汇报
-     */
+
     public void saveStockReports(List<StockReport> stockReports){
         DefaultTransactionDefinition def = new DefaultTransactionDefinition();
         def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
@@ -75,6 +72,8 @@ public class BOReposirotyStockReport implements IBOReposirotyStockReport{
            throw e;
         }
     }
+
+
 
 
 
