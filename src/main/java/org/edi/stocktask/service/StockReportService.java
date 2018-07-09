@@ -9,10 +9,6 @@ import org.edi.stocktask.repository.IBOReposirotyStockReport;
 import org.edi.stocktask.util.TokenVerification;
 import org.glassfish.jersey.server.JSONP;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -28,8 +24,7 @@ public class StockReportService implements  IStockReportService{
 
     @Autowired
     private IBOReposirotyStockReport boReposirotyStockReport;
-    @Autowired
-    private PlatformTransactionManager ptm;
+
     @Autowired
     private TokenVerification tokenVerification;
 
@@ -70,23 +65,17 @@ public class StockReportService implements  IStockReportService{
     public Result saveStockReport(@QueryParam("token")String token,List<StockReport> stockReports) {
         String msg = tokenVerification.verification(token);
         log.info("parameter info:" + stockReports);
-        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-        TransactionStatus status = ptm.getTransaction(def);
         Result result = new Result();
         if(msg.equals("ok")) {
             if (stockReports.size() > 0) {
                 try {
                     boReposirotyStockReport.saveStockReports(stockReports);
-                    ptm.commit(status);
                     result = new Result("0", "ok!", null);
                 } catch (Exception e) {
-                    e.printStackTrace();
-                    ptm.rollback(status);
                     result = new Result("1", "failed:" + e.getCause(), null);
                 }
             } else {
-                result = new Result("1", "failed:"+ CharsetConvert.convert("参数信息为空！"), null);
+                result = new Result("1", "failed:"+ CharsetConvert.convert("参数信息为空!"), null);
             }
         }else {
             result = new Result("1","failed:"+msg,null);

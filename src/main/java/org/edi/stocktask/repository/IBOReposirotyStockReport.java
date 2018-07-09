@@ -16,8 +16,11 @@ public interface IBOReposirotyStockReport {
      */
     List<StockReport> fetchStockReport();
 
-
-    List<StockReport> fetchStockReport(String companyName,String baseDocumentType,String baseDocumentDocEntry);
+    /**
+     * 条件查询任务汇报
+     * @return
+     */
+    StockReport fetchStockReport(String companyName,String baseDocumentType,String baseDocumentDocEntry);
 
     /**
      * 根据主键查询任务汇报
