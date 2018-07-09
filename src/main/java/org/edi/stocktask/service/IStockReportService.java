@@ -33,4 +33,5 @@ public interface IStockReportService {
      */
     Result<?> updateStockReport(String token,List<StockReport> stockReports);
 
+
 }

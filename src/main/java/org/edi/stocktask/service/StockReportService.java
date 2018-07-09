@@ -3,12 +3,12 @@ package org.edi.stocktask.service;
 
 import org.apache.log4j.Logger;
 import org.edi.initialfantasy.dto.Result;
+import org.edi.initialfantasy.util.CharsetConvert;
 import org.edi.stocktask.bo.stockreport.StockReport;
-import org.edi.stocktask.bo.stockreport.StockReportItem;
 import org.edi.stocktask.repository.IBOReposirotyStockReport;
+import org.edi.stocktask.util.TokenVerification;
 import org.glassfish.jersey.server.JSONP;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -19,13 +19,14 @@ import java.util.List;
  * @date 2018/5/31
  */
 @Path("/v1")
-@Transactional
 public class StockReportService implements  IStockReportService{
     private static Logger log = Logger.getLogger(StockReportService.class);
 
     @Autowired
     private IBOReposirotyStockReport boReposirotyStockReport;
 
+    @Autowired
+    private TokenVerification tokenVerification;
 
     /**
      * 查询库存任务汇报
@@ -38,8 +39,14 @@ public class StockReportService implements  IStockReportService{
     @Path("/stockreports")
     @Override
     public Result<StockReport> fetchStockReport(@QueryParam("token")String token) {
-        List<StockReport> StockReports = boReposirotyStockReport.fetchStockReport();
-        Result result = new Result("0","ok",StockReports);
+        Result result = new Result();
+        String msg = tokenVerification.verification(token);
+        if (msg.equals("ok")) {
+            List<StockReport> StockReports = boReposirotyStockReport.fetchStockReport();
+            result = new Result("0", "ok", StockReports);
+        } else {
+            result = new Result("1", "failed:" + msg, null);
+        }
         return result;
     }
 
@@ -55,24 +62,24 @@ public class StockReportService implements  IStockReportService{
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/stockreports")
     @Override
-    public Result saveStockReport(@QueryParam("token")String token,List<StockReport> stockReports){
-        log.info("parameter info:"+stockReports);
+    public Result saveStockReport(@QueryParam("token")String token,List<StockReport> stockReports) {
+        String msg = tokenVerification.verification(token);
+        log.info("parameter info:" + stockReports);
         Result result = new Result();
-            try {
-                for (int i = 0; i < stockReports.size(); i++) {
-                    StockReport stockReport = stockReports.get(i);
-                    boReposirotyStockReport.saveStockReport(stockReport);
-                    for (int j = 0; j < stockReports.get(i).getStockReportItems().size();j++) {
-                        StockReportItem stockReportItem = stockReports.get(i).getStockReportItems().get(j);
-                        stockReportItem.setLineId(j + 1);
-                        boReposirotyStockReport.saveStockReportItem(stockReportItem);
-                    }
+        if(msg.equals("ok")) {
+            if (stockReports.size() > 0) {
+                try {
+                    boReposirotyStockReport.saveStockReports(stockReports);
+                    result = new Result("0", "ok!", null);
+                } catch (Exception e) {
+                    result = new Result("1", "failed:" + e.getCause(), null);
                 }
-                result = new Result("0", "ok!", null);
-            } catch (Exception e) {
-                e.printStackTrace();
-                result = new Result("1", "failed:"+e.getCause(), null);
+            } else {
+                result = new Result("1", "failed:"+ CharsetConvert.convert("参数信息为空!"), null);
             }
+        }else {
+            result = new Result("1","failed:"+msg,null);
+        }
         return result;
     }
 
@@ -82,7 +89,6 @@ public class StockReportService implements  IStockReportService{
      * @param stockReports
      * @return
      */
-    @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/stockreports")
@@ -90,6 +96,7 @@ public class StockReportService implements  IStockReportService{
     public Result<?> updateStockReport(String token, List<StockReport> stockReports) {
         return null;
     }
+
 
 
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.edi.stocktask.mapper.UserAuthMapper">
+    <resultMap id="BaseResultMap" type="org.edi.initialfantasy.bo.userauthrization.UserAuth">
+        <result column="user_id" property="userId" jdbcType="VARCHAR" />
+        <result column="auth_id" property="authId" jdbcType="VARCHAR" />
+        <result column="auth_type" property="authType" jdbcType="VARCHAR" />
+        <result column="auth_token" property="authToken" jdbcType="VARCHAR" />
+        <result column="auth_expires" property="authExpires" jdbcType="BIGINT" />
+        <result column="is_active" property="isActive" jdbcType="VARCHAR" />
+    </resultMap>
+
+
+    <select id="serchAuthByToken" resultMap="BaseResultMap">
+        SELECT * FROM USERAUTH WHERE auth_token=#{authToken}
+    </select>
+</mapper>

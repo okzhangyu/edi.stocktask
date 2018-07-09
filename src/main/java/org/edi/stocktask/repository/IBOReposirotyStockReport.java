@@ -1,7 +1,6 @@
 package org.edi.stocktask.repository;
 
 import org.edi.stocktask.bo.stockreport.StockReport;
-import org.edi.stocktask.bo.stockreport.StockReportItem;
 
 import java.util.List;
 
@@ -17,8 +16,11 @@ public interface IBOReposirotyStockReport {
      */
     List<StockReport> fetchStockReport();
 
-
-    List<StockReport> fetchStockReport(String companyName,String baseDocumentType,String baseDocumentDocEntry);
+    /**
+     * 条件查询任务汇报
+     * @return
+     */
+    StockReport fetchStockReport(String companyName,String baseDocumentType,String baseDocumentDocEntry);
 
     /**
      * 根据主键查询任务汇报
@@ -31,10 +33,10 @@ public interface IBOReposirotyStockReport {
      * 保存任务汇报
      * @param stockReports
      */
-    void saveStockReport(StockReport stockReports);
+
+    void saveStockReports(List<StockReport> stockReports);
 
 
-    void saveStockReportItem(StockReportItem stockReportItem);
 
     /**
      * 模糊查询
@@ -54,4 +56,5 @@ public interface IBOReposirotyStockReport {
      * @param docEntry
      */
     void deleteStockReport(Integer docEntry);
+
 }
