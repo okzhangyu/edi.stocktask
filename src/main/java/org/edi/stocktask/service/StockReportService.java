@@ -29,7 +29,7 @@ public class StockReportService implements  IStockReportService{
     private TokenVerification tokenVerification;
 
     /**
-     * 查询库存任务汇报
+     * 库存任务汇报清单
      * @param token
      * @return
      */
@@ -89,14 +89,42 @@ public class StockReportService implements  IStockReportService{
      * @param stockReports
      * @return
      */
+    @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/stockreports")
     @Override
-    public Result<?> updateStockReport(String token, List<StockReport> stockReports) {
-        return null;
+    public Result updateStockReport(@QueryParam("token")String token, List<StockReport> stockReports) {
+        Result result = new Result("0","ok:",null);
+        return result;
     }
 
 
+    /**
+     * 删除库存任务汇报
+     * @param token
+     * @param docEntry
+     * @return
+     */
+
+    @DELETE
+    @Path("/stockreports")
+    @Override
+    public Result deleteStockReport(@QueryParam("token")String token,@QueryParam("docEntry")int docEntry) {
+        String msg = tokenVerification.verification(token);
+        Result result = new Result();
+        if(msg.equals("ok")) {
+            try {
+                boReposirotyStockReport.deleteStockReport(docEntry);
+                result = new Result("0","ok:",null);
+            }catch (Exception e){
+                e.printStackTrace();
+                result = new Result("1","failed:"+e.getCause(),null);
+            }
+        }else {
+            result = new Result("1","failed:"+msg,null);
+        }
+       return  result;
+    }
 
 }

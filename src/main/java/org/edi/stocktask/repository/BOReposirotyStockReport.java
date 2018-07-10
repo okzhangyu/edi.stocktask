@@ -16,7 +16,7 @@ import java.util.List;
  * Created by asus on 2018/6/29.
  */
 
-/*@Transactional(rollbackFor=Exception.class)*/
+
 @Component(value="boReposirotyStockReport")
 public class BOReposirotyStockReport implements IBOReposirotyStockReport{
 
@@ -25,8 +25,12 @@ public class BOReposirotyStockReport implements IBOReposirotyStockReport{
     @Autowired
     private PlatformTransactionManager ptm;
 
+
+    /**
+     * 查询任务汇报清单
+     * @return
+     */
     @Override
-    //查询库存任务汇报
     public List<StockReport> fetchStockReport(){
         List<StockReport> StockReports = stockReportMapper.fetchStockReport();
         for(int i=0;i<StockReports.size();i++){
@@ -45,12 +49,18 @@ public class BOReposirotyStockReport implements IBOReposirotyStockReport{
      * @return
      */
     @Override
-    public List<StockReport> fetchStockReportByEntry(Integer docEntry){
-        List<StockReport> StockReports = stockReportMapper.fetchStockReportByEntry(docEntry);
-        return StockReports;
+    public StockReport fetchStockReportByEntry(Integer docEntry){
+        StockReport stockReport = stockReportMapper.fetchStockReportByEntry(docEntry);
+        List<StockReportItem> stockReportItems = stockReportMapper.fetchStockReportItem(docEntry);
+        stockReport.setStockReportItems(stockReportItems);
+        return stockReport;
     }
 
-
+    /**
+     * 保存任务汇报
+     * @param stockReports
+     * @return
+     */
     public void saveStockReports(List<StockReport> stockReports){
         DefaultTransactionDefinition def = new DefaultTransactionDefinition();
         def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
@@ -69,10 +79,31 @@ public class BOReposirotyStockReport implements IBOReposirotyStockReport{
         }catch(Exception e){
             e.printStackTrace();
             ptm.rollback(status);
-           throw e;
+            throw e;
         }
     }
 
+
+
+    /**
+     * 删除任务汇报
+     * @param docEntry
+     */
+    @Override
+    public void deleteStockReport(Integer docEntry) {
+        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+        TransactionStatus status = ptm.getTransaction(def);
+        try {
+            stockReportMapper.deleteStockReport(docEntry);
+            stockReportMapper.deleteStockReportItem(docEntry);
+            ptm.commit(status);
+        }catch(Exception e){
+            e.printStackTrace();
+            ptm.rollback(status);
+            throw e;
+        }
+    }
 
 
 
@@ -86,20 +117,27 @@ public class BOReposirotyStockReport implements IBOReposirotyStockReport{
      */
     @Override
     public StockReport fetchStockReport(String companyName, String baseDocumentType, String baseDocumentDocEntry) {
-        return null;
+        return stockReportMapper.fetchStockReport(companyName,baseDocumentType,baseDocumentDocEntry);
     }
+
 
 
 
     /**
      * 模糊查询库存任务汇报
-     * @param value 查询值
+     * @param docEntry
+     * @param BpCode
+     * @param BpName
      * @return
      */
     @Override
-    public List<StockReport> fetchStockReportFuzzy(String value) {
+    public List<StockReport> fetchStockReportFuzzy(String docEntry,String BpCode,String BpName) {
         return null;
     }
+
+
+
+
 
     /**
      * 更新库存任务汇报
@@ -112,14 +150,7 @@ public class BOReposirotyStockReport implements IBOReposirotyStockReport{
         //2、如果任务汇报没有生成单据，先删除再保存
     }
 
-    /**
-     * 删除任务汇报
-     * @param docEntry
-     */
-    @Override
-    public void deleteStockReport(Integer docEntry) {
-        //TODO 将isDelete的值设为 ‘Y’
-    }
+
 
 
 }

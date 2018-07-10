@@ -105,4 +105,17 @@
     </insert>
 
 
+
+    <delete id="deleteStockReport" parameterType="int">
+        delete from AVA_WM_OSRP
+        where docEntry = #{docEntry}
+    </delete>
+
+    <delete id="deleteStockReportItem" parameterType="int">
+        delete from AVA_WM_SRP1
+        where docEntry = #{docEntry}
+    </delete>
+
+
+
 </mapper>

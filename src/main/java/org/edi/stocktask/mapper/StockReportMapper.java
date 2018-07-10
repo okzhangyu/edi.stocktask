@@ -7,8 +7,11 @@ import java.util.List;
 
 public interface StockReportMapper {
     List<StockReport> fetchStockReport();
-    List<StockReport> fetchStockReportByEntry(Integer docEntry);
+    StockReport fetchStockReportByEntry(Integer docEntry);
     List<StockReportItem> fetchStockReportItem(Integer docEntry);
     void saveStockReport(StockReport stockReports);
     void saveStockReportItem(StockReportItem stockReportItem);
+    void deleteStockReport(Integer docEntry);
+    void deleteStockReportItem(Integer docEntry);
+    StockReport fetchStockReport(String companyName, String baseDocumentType, String baseDocumentDocEntry);
 }
