@@ -31,7 +31,15 @@ public interface IStockReportService {
      * @param stockReports
      * @return
      */
-    Result<?> updateStockReport(String token,List<StockReport> stockReports);
+    Result updateStockReport(String token,List<StockReport> stockReports);
+
+    /**
+     * 删除库存任务汇报
+     * @param token
+     * @param docEntry
+     * @return
+     */
+    Result<?> deleteStockReport(String token,int docEntry);
 
 
 }

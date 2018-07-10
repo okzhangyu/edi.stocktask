@@ -27,7 +27,7 @@ public interface IBOReposirotyStockReport {
      * @param docEntry
      * @return
      */
-    List<StockReport> fetchStockReportByEntry(Integer docEntry);
+    StockReport fetchStockReportByEntry(Integer docEntry);
 
     /**
      * 保存任务汇报
@@ -40,10 +40,12 @@ public interface IBOReposirotyStockReport {
 
     /**
      * 模糊查询
-     * @param value 查询值
+     * @param docEntry
+     * @param BpCode
+     * @param BpName
      * @return
      */
-    List<StockReport> fetchStockReportFuzzy(String value);
+    List<StockReport> fetchStockReportFuzzy(String docEntry,String BpCode,String BpName);
 
     /**
      * 更新库存任务汇报
