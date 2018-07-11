@@ -119,12 +119,19 @@ public class StockReportService implements  IStockReportService{
                 result = new Result("0","ok:",null);
             }catch (Exception e){
                 e.printStackTrace();
-                result = new Result("1","failed:"+e.getCause(),null);
+                result = new Result("1","failed:"+(e.getCause()==null?e.getMessage():e.getCause().toString()),null);
             }
         }else {
             result = new Result("1","failed:"+msg,null);
         }
        return  result;
     }
+
+
+
+
+
+
+
 
 }

@@ -1,8 +1,11 @@
 package org.edi.stocktask.repository;
 
+import org.edi.freamwork.exception.BusinessException;
+import org.edi.initialfantasy.util.CharsetConvert;
 import org.edi.stocktask.bo.stockreport.StockReport;
 import org.edi.stocktask.bo.stockreport.StockReportItem;
 import org.edi.stocktask.mapper.StockReportMapper;
+import org.edi.stocktask.util.B1DocEntryCheck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -10,6 +13,7 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -22,6 +26,10 @@ public class BOReposirotyStockReport implements IBOReposirotyStockReport{
 
     @Autowired
     private StockReportMapper stockReportMapper;
+
+    @Autowired
+    private B1DocEntryCheck b1DocEntryCheck;
+
     @Autowired
     private PlatformTransactionManager ptm;
 
@@ -94,15 +102,20 @@ public class BOReposirotyStockReport implements IBOReposirotyStockReport{
         DefaultTransactionDefinition def = new DefaultTransactionDefinition();
         def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
         TransactionStatus status = ptm.getTransaction(def);
-        try {
-            stockReportMapper.deleteStockReport(docEntry);
-            stockReportMapper.deleteStockReportItem(docEntry);
-            ptm.commit(status);
-        }catch(Exception e){
-            e.printStackTrace();
-            ptm.rollback(status);
-            throw e;
+        if(b1DocEntryCheck.B1EntryCheck(docEntry)){
+            try {
+                stockReportMapper.deleteStockReport(docEntry);
+                stockReportMapper.deleteStockReportItem(docEntry);
+                ptm.commit(status);
+            }catch(Exception e){
+                e.printStackTrace();
+                ptm.rollback(status);
+                throw e;
+            }
+        }else{
+            throw new BusinessException(CharsetConvert.convert("B1单据在系统已生成，无法修改！"));
         }
+
     }
 
 
@@ -112,12 +125,22 @@ public class BOReposirotyStockReport implements IBOReposirotyStockReport{
      * 条件查询任务汇报
      * @param companyName
      * @param baseDocumentType
-     * @param baseDocumentDocEntry
+     * @param baseDocumentEntry
      * @return
      */
     @Override
-    public StockReport fetchStockReport(String companyName, String baseDocumentType, String baseDocumentDocEntry) {
-        return stockReportMapper.fetchStockReport(companyName,baseDocumentType,baseDocumentDocEntry);
+    public List<StockReport> fetchStockReportByCondition(String companyName, String baseDocumentType, String baseDocumentEntry) {
+        HashMap<String,String> stockReportCondition = new HashMap<>();
+        stockReportCondition.put("companyName",companyName);
+        stockReportCondition.put("baseDocumentType",baseDocumentType);
+        stockReportCondition.put("baseDocumentEntry",baseDocumentEntry);
+        List<StockReport> StockReports = stockReportMapper.fetchStockReportByCondition(stockReportCondition);
+        for(int i=0;i<StockReports.size();i++){
+            StockReport stockReport = StockReports.get(i);
+            List<StockReportItem> StockReportItems = stockReportMapper.fetchStockReportItem(stockReport.getDocEntry());
+            stockReport.setStockReportItems(StockReportItems);
+        }
+        return StockReports;
     }
 
 
@@ -125,14 +148,18 @@ public class BOReposirotyStockReport implements IBOReposirotyStockReport{
 
     /**
      * 模糊查询库存任务汇报
-     * @param docEntry
-     * @param BpCode
-     * @param BpName
+     * @param value
      * @return
      */
     @Override
-    public List<StockReport> fetchStockReportFuzzy(String docEntry,String BpCode,String BpName) {
-        return null;
+    public List<StockReport> fetchStockReportFuzzy(String value){
+        List<StockReport> StockReports = stockReportMapper.fetchStockReportFuzzy(value);
+        for(int i=0;i<StockReports.size();i++){
+            StockReport stockReport = StockReports.get(i);
+            List<StockReportItem> StockReportItems = stockReportMapper.fetchStockReportItem(stockReport.getDocEntry());
+            stockReport.setStockReportItems(StockReportItems);
+        }
+        return StockReports;
     }
 
 
