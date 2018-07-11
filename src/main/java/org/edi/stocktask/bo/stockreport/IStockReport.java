@@ -8,9 +8,9 @@ import java.util.List;
  */
 public interface IStockReport {
 
-    String getComanyName();
+    String getCompanyName();
 
-    void setComanyName(String value);
+    void setCompanyName(String value);
 
     Integer getDocEntry();
 

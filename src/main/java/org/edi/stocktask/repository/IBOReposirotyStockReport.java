@@ -20,7 +20,7 @@ public interface IBOReposirotyStockReport {
      * 条件查询任务汇报
      * @return
      */
-    StockReport fetchStockReport(String companyName,String baseDocumentType,String baseDocumentDocEntry);
+    List<StockReport> fetchStockReportByCondition(String companyName,String baseDocumentType,String baseDocumentEntry);
 
     /**
      * 根据主键查询任务汇报
@@ -40,12 +40,10 @@ public interface IBOReposirotyStockReport {
 
     /**
      * 模糊查询
-     * @param docEntry
-     * @param BpCode
-     * @param BpName
+     * @param value
      * @return
      */
-    List<StockReport> fetchStockReportFuzzy(String docEntry,String BpCode,String BpName);
+    List<StockReport> fetchStockReportFuzzy(String value);
 
     /**
      * 更新库存任务汇报

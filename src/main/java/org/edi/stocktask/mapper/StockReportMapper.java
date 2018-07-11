@@ -4,6 +4,7 @@ import org.edi.stocktask.bo.stockreport.StockReport;
 import org.edi.stocktask.bo.stockreport.StockReportItem;
 
 import java.util.List;
+import java.util.Map;
 
 public interface StockReportMapper {
     List<StockReport> fetchStockReport();
@@ -13,5 +14,6 @@ public interface StockReportMapper {
     void saveStockReportItem(StockReportItem stockReportItem);
     void deleteStockReport(Integer docEntry);
     void deleteStockReportItem(Integer docEntry);
-    StockReport fetchStockReport(String companyName, String baseDocumentType, String baseDocumentDocEntry);
+    List<StockReport> fetchStockReportByCondition(Map<String,String> stockReportCondition);
+    List<StockReport> fetchStockReportFuzzy(String value);
 }
