@@ -10,7 +10,7 @@ public class StockReport implements IStockReport{
 
     private static final String BUSINESS_CODE = "AVA_WM_STOCKREPORT";
 
-    private String comanyName;//yes
+    private String companyName;//yes
     private Integer docEntry;//yes
     private Integer docNum;//yes
     private String period;//yes
@@ -40,13 +40,13 @@ public class StockReport implements IStockReport{
     private List<StockReportItem> stockReportItems;
 
     @Override
-    public String getComanyName() {
-        return comanyName;
+    public String getCompanyName() {
+        return companyName;
     }
 
     @Override
-    public void setComanyName(String comanyName) {
-        this.comanyName = comanyName;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     @Override
@@ -324,8 +324,8 @@ public class StockReport implements IStockReport{
         this.setObjectCode(BUSINESS_CODE);
     }
 
-    public StockReport(String comanyName, Integer docEntry, Integer docNum, String period, String objectCode, String transfered, String createDate, Integer createTime, String updateDate, Integer updateTime, String createUserSign, String updateUserSign, String documentStatus, String postingDate, String deliveryDate, String documentDate, String reference1, String reference2, String remarks, Integer b1DocEntry, String bydUUID, String customType, String transactionType, String businessPartnerCode, String businessPartnerName, String baseDocumentType, Integer baseDocumentEntry, List<StockReportItem> stockReportItems) {
-        this.comanyName = comanyName;
+    public StockReport(String companyName, Integer docEntry, Integer docNum, String period, String objectCode, String transfered, String createDate, Integer createTime, String updateDate, Integer updateTime, String createUserSign, String updateUserSign, String documentStatus, String postingDate, String deliveryDate, String documentDate, String reference1, String reference2, String remarks, Integer b1DocEntry, String bydUUID, String customType, String transactionType, String businessPartnerCode, String businessPartnerName, String baseDocumentType, Integer baseDocumentEntry, List<StockReportItem> stockReportItems) {
+        this.companyName = companyName;
         this.docEntry = docEntry;
         this.docNum = docNum;
         this.period = period;

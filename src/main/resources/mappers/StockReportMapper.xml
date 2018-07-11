@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.edi.stocktask.mapper.StockReportMapper">
     <resultMap id="BaseResultMap" type="org.edi.stocktask.bo.stockreport.StockReport">
-        <result column="ComanyName" property="comanyName" jdbcType="VARCHAR" />
+        <result column="ComanyName" property="companyName" jdbcType="VARCHAR" />
         <result column="DocEntry" property="docEntry" jdbcType="INTEGER" />
         <result column="DocNum" property="docNum" jdbcType="INTEGER" />
         <result column="Period" property="period" jdbcType="VARCHAR" />
@@ -73,7 +73,7 @@
         <result column="BarCode1" property="barCode1" jdbcType="VARCHAR" />
         <result column="BarCode2" property="barCode2" jdbcType="VARCHAR" />
         <result column="BarCode3" property="barCode3" jdbcType="VARCHAR" />
-       <result column="BarCode4" property="barCode4" jdbcType="VARCHAR" />
+        <result column="BarCode4" property="barCode4" jdbcType="VARCHAR" />
     </resultMap>
 
 
@@ -90,7 +90,7 @@
     <insert id="saveStockReport" parameterType="org.edi.stocktask.bo.stockreport.StockReport">
         INSERT INTO AVA_WM_OSRP([ComanyName] ,[DocEntry],[DocNum] ,[Period] ,[Object] ,[Transfered] ,[CreateDate],[CreateTime],[UpdateDate],[UpdateTime]  ,[Creator] ,[Updator] ,[DocStatus] ,[DocDate]
         ,[DocDueDate],[TaxDate] ,[Ref1],[Ref2] ,[Remarks] ,[B1DocEntry] ,[BydUUID] ,[CusType],[TransType],[BpCode],[BpName] ,[BaseType] ,[BaseEntry])
-        VALUES (#{comanyName} ,#{docEntry} ,#{docNum},#{period},#{objectCode} ,#{transfered},#{createDate},#{createTime},#{updateDate},#{updateTime} ,#{createUserSign} ,#{updateUserSign} ,#{documentStatus} ,#{documentDate},
+        VALUES (#{companyName} ,#{docEntry} ,#{docNum},#{period},#{objectCode} ,#{transfered},#{createDate},#{createTime},#{updateDate},#{updateTime} ,#{createUserSign} ,#{updateUserSign} ,#{documentStatus} ,#{documentDate},
         #{postingDate} ,#{deliveryDate} ,#{reference1} ,#{reference2} ,#{remarks} ,#{b1DocEntry} ,#{bydUUID} ,#{customType} ,#{transactionType} ,#{businessPartnerCode},#{businessPartnerName},#{baseDocumentType} ,#{baseDocumentEntry})
     </insert>
 
@@ -104,5 +104,51 @@
         ,#{fromLocation} ,#{toWarehouse} ,#{toLocation} ,#{batchNumber} ,#{serialNumber} ,#{barCode1} ,#{barCode2} ,#{barCode3} ,#{barCode4})
     </insert>
 
+
+
+    <delete id="deleteStockReport" parameterType="int">
+        delete from AVA_WM_OSRP
+        where docEntry = #{docEntry}
+    </delete>
+
+    <delete id="deleteStockReportItem" parameterType="int">
+        delete from AVA_WM_SRP1
+        where docEntry = #{docEntry}
+    </delete>
+
+
+
+    <select id="fetchStockReportByCondition" resultMap="BaseResultMap" parameterType="Map">
+        SELECT * FROM AVA_WM_OSRP with(XLOCK)
+        <where>
+            <if test="companyName != null and companyName != ''">
+                ComanyName = #{companyName}
+            </if>
+            <if test="baseDocumentType != null and baseDocumentType != ''">
+                and BaseType = #{baseDocumentType}
+            </if>
+            <if test="baseDocumentEntry != null and baseDocumentEntry != ''">
+                and BaseEntry = #{baseDocumentEntry}
+            </if>
+        </where>
+    </select>
+
+
+
+
+    <select id="fetchStockReportFuzzy" resultMap="BaseResultMap" parameterType="string">
+        SELECT * FROM AVA_WM_OSRP with(XLOCK)
+        <where>
+            <if test="value != null and value != ''">
+                DocEntry LIKE '%'+#{value}+'%'
+            </if>
+            <if test="value != null and value != ''">
+                or BpCode LIKE '%'+#{value}+'%'
+            </if>
+            <if test="value != null and value != ''">
+                or BpName LIKE '%'+#{value}+'%'
+            </if>
+        </where>
+    </select>
 
 </mapper>

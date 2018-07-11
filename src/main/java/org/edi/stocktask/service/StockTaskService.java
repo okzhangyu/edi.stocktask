@@ -4,6 +4,8 @@ import org.edi.initialfantasy.dto.Result;
 import org.edi.initialfantasy.filter.UserRequest;
 import org.edi.stocktask.bo.stocktask.IStockTask;
 import org.edi.stocktask.bo.stocktask.StockTask;
+import org.edi.stocktask.bo.stocktask.StockTaskItem;
+import org.edi.stocktask.mapper.StockTaskMapper;
 import org.edi.stocktask.repository.IBORepositoryStockTask;
 import org.edi.stocktask.util.TokenVerification;
 import org.glassfish.jersey.server.JSONP;
@@ -25,6 +27,10 @@ public class StockTaskService implements IStockTaskService{
 
     @Autowired
     private IBORepositoryStockTask boRepositoryStockTask;
+
+
+    @Autowired
+    private StockTaskMapper stockTaskMapper;
 
     @Autowired
     private TokenVerification tokenVerification;
@@ -50,12 +56,32 @@ public class StockTaskService implements IStockTaskService{
 
 
 
+    @GET
+    @JSONP(queryParam="callback")
+    @Produces("application/x-javascript;charset=utf-8")
+    @Path("/stocktaskitems")
+    //查询库存任务
+    public Result<StockTaskItem> fetchStockTaskItem(@QueryParam("token")String token){
+        Result result = new Result();
+        String msg = tokenVerification.verification(token);
+        if(msg.equals("ok")){
+            List<StockTaskItem> stockTaskItems =stockTaskMapper.fetchAllStockTaskItem();
+            result = new Result<StockTaskItem>("0","ok",stockTaskItems);
+        }else{
+            result = new Result("1","failed:"+msg,null);
+        }
+        return result;
+    }
+
 
     @POST
     @Override
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/stocktasks")
-    public Result<?> saveStockTask(List<IStockTask> stockTasks,@QueryParam("token")String token) {return null;}
+    public Result saveStockTask(List<IStockTask> stockTasks,@QueryParam("token")String token) {
+        Result result = new Result("0","ok",null);
+        return result;
+    }
 
     @GET
     @Path("/getname")
