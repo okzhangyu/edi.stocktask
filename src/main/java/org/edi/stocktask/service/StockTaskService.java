@@ -1,6 +1,7 @@
 package org.edi.stocktask.service;
 
 import org.edi.initialfantasy.dto.Result;
+import org.edi.initialfantasy.filter.UserRequest;
 import org.edi.stocktask.bo.stocktask.IStockTask;
 import org.edi.stocktask.bo.stocktask.StockTask;
 import org.edi.stocktask.repository.IBORepositoryStockTask;
@@ -19,6 +20,7 @@ import java.util.List;
  */
 @Path("/v1")
 @Transactional
+@UserRequest
 public class StockTaskService implements IStockTaskService{
 
     @Autowired
@@ -26,11 +28,14 @@ public class StockTaskService implements IStockTaskService{
 
     @Autowired
     private TokenVerification tokenVerification;
+
     @GET
     @JSONP(queryParam="callback")
     @Produces("application/x-javascript;charset=utf-8")
     @Path("/stocktasks")
-    //查询库存任务
+    /**
+     * 查询库存任务
+     */
     public Result<StockTask> fetchStockTask(@QueryParam("token")String token){
         Result result = new Result();
         String msg = tokenVerification.verification(token);
@@ -42,6 +47,7 @@ public class StockTaskService implements IStockTaskService{
         }
      return result;
     }
+
 
 
 

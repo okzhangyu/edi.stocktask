@@ -11,8 +11,6 @@
         <param-value>classpath:spring-mybatis.xml</param-value>
     </context-param>
 
-
-
     <servlet>
         <servlet-name>JAX-RS Servlet</servlet-name>
         <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
@@ -30,7 +28,7 @@
 
     <filter>
         <filter-name>SimpleCorsFilter</filter-name>
-        <filter-class>org.edi.freamwork.filter.SimpleCorsFilter</filter-class>
+        <filter-class>org.edi.freamwork.filter.SimpleCORSFilter</filter-class>
         <init-param>
             <param-name>cors.allowOrigin</param-name>
             <param-value>*</param-value>

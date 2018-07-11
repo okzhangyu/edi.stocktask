@@ -2,6 +2,8 @@ package org.edi.stocktask.service;
 
 
 import org.apache.log4j.Logger;
+import org.edi.freamwork.jersey.UserRequest;
+import org.edi.initialfantasy.data.ServicePath;
 import org.edi.initialfantasy.dto.Result;
 import org.edi.initialfantasy.util.CharsetConvert;
 import org.edi.stocktask.bo.stockreport.StockReport;
@@ -19,6 +21,7 @@ import java.util.List;
  * @date 2018/5/31
  */
 @Path("/v1")
+@UserRequest
 public class StockReportService implements  IStockReportService{
     private static Logger log = Logger.getLogger(StockReportService.class);
 
@@ -62,7 +65,7 @@ public class StockReportService implements  IStockReportService{
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/stockreports")
     @Override
-    public Result saveStockReport(@QueryParam("token")String token,List<StockReport> stockReports) {
+    public Result saveStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token,List<StockReport> stockReports) {
         String msg = tokenVerification.verification(token);
         log.info("parameter info:" + stockReports);
         Result result = new Result();
@@ -89,11 +92,12 @@ public class StockReportService implements  IStockReportService{
      * @param stockReports
      * @return
      */
+    @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/stockreports")
     @Override
-    public Result<?> updateStockReport(String token, List<StockReport> stockReports) {
+    public Result<?> updateStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token, List<StockReport> stockReports) {
         return null;
     }
 
