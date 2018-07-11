@@ -41,7 +41,7 @@ public class StockReportService implements  IStockReportService{
     @Produces("application/x-javascript;charset=utf-8")
     @Path("/stockreports")
     @Override
-    public Result<StockReport> fetchStockReport(@QueryParam("token")String token) {
+    public Result<StockReport> fetchStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token) {
         Result result = new Result();
         String msg = tokenVerification.verification(token);
         if (msg.equals("ok")) {

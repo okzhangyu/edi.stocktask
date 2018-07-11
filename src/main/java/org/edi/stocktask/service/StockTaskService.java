@@ -1,5 +1,6 @@
 package org.edi.stocktask.service;
 
+import org.edi.initialfantasy.data.ServicePath;
 import org.edi.initialfantasy.dto.Result;
 import org.edi.initialfantasy.filter.UserRequest;
 import org.edi.stocktask.bo.stocktask.IStockTask;
@@ -42,7 +43,7 @@ public class StockTaskService implements IStockTaskService{
     /**
      * 查询库存任务
      */
-    public Result<StockTask> fetchStockTask(@QueryParam("token")String token){
+    public Result<StockTask> fetchStockTask(@QueryParam(ServicePath.TOKEN_NAMER)String token){
         Result result = new Result();
         String msg = tokenVerification.verification(token);
         if(msg.equals("ok")){
@@ -54,24 +55,6 @@ public class StockTaskService implements IStockTaskService{
      return result;
     }
 
-
-
-    @GET
-    @JSONP(queryParam="callback")
-    @Produces("application/x-javascript;charset=utf-8")
-    @Path("/stocktaskitems")
-    //查询库存任务
-    public Result<StockTaskItem> fetchStockTaskItem(@QueryParam("token")String token){
-        Result result = new Result();
-        String msg = tokenVerification.verification(token);
-        if(msg.equals("ok")){
-            List<StockTaskItem> stockTaskItems =stockTaskMapper.fetchAllStockTaskItem();
-            result = new Result<StockTaskItem>("0","ok",stockTaskItems);
-        }else{
-            result = new Result("1","failed:"+msg,null);
-        }
-        return result;
-    }
 
 
     @POST
