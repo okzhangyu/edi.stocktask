@@ -18,7 +18,7 @@ public class B1DocEntryCheck {
     public boolean B1EntryCheck(int docEntry){
         boolean check = false;
         StockReport stockReport = stockReportMapper.fetchStockReportByEntry(docEntry);
-        if(stockReport.getB1DocEntry()==null||stockReport.getB1DocEntry().equals("")){
+        if(stockReport.getB1DocEntry()==null||stockReport.getB1DocEntry().equals("")||stockReport.getB1DocEntry()==0){
             check = true;
         }
         return check;
