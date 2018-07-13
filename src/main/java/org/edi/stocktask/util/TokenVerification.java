@@ -2,7 +2,7 @@ package org.edi.stocktask.util;
 
 import org.edi.initialfantasy.bo.userauthrization.UserAuth;
 import org.edi.initialfantasy.util.CharsetConvert;
-import org.edi.stocktask.mapper.UserAuthMapper;
+import org.edi.initialfantasy.mapper.UserAuthMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -1,6 +1,8 @@
 package org.edi.stocktask.service;
 
+import org.edi.initialfantasy.data.ServicePath;
 import org.edi.initialfantasy.dto.Result;
+import org.edi.initialfantasy.filter.UserRequest;
 import org.edi.stocktask.bo.stocktask.IStockTask;
 import org.edi.stocktask.bo.stocktask.StockTask;
 import org.edi.stocktask.bo.stocktask.StockTaskItem;
@@ -21,6 +23,7 @@ import java.util.List;
  */
 @Path("/v1")
 @Transactional
+@UserRequest
 public class StockTaskService implements IStockTaskService{
 
     @Autowired
@@ -33,13 +36,14 @@ public class StockTaskService implements IStockTaskService{
     @Autowired
     private TokenVerification tokenVerification;
 
-
     @GET
     @JSONP(queryParam="callback")
     @Produces("application/x-javascript;charset=utf-8")
     @Path("/stocktasks")
-    //查询库存任务
-    public Result<StockTask> fetchStockTask(@QueryParam("token")String token){
+    /**
+     * 查询库存任务
+     */
+    public Result<StockTask> fetchStockTask(@QueryParam(ServicePath.TOKEN_NAMER)String token){
         Result result = new Result();
         String msg = tokenVerification.verification(token);
         if(msg.equals("ok")){
@@ -51,24 +55,6 @@ public class StockTaskService implements IStockTaskService{
      return result;
     }
 
-
-
-    @GET
-    @JSONP(queryParam="callback")
-    @Produces("application/x-javascript;charset=utf-8")
-    @Path("/stocktaskitems")
-    //查询库存任务
-    public Result<StockTaskItem> fetchStockTaskItem(@QueryParam("token")String token){
-        Result result = new Result();
-        String msg = tokenVerification.verification(token);
-        if(msg.equals("ok")){
-            List<StockTaskItem> stockTaskItems =stockTaskMapper.fetchAllStockTaskItem();
-            result = new Result<StockTaskItem>("0","ok",stockTaskItems);
-        }else{
-            result = new Result("1","failed:"+msg,null);
-        }
-        return result;
-    }
 
 
     @POST
