@@ -73,7 +73,7 @@ public class StockReportService implements  IStockReportService{
             if (stockReports.size() > 0) {
                 try {
                     boReposirotyStockReport.saveStockReports(stockReports);
-                    result = new Result("0", "ok!", null);
+                    result = new Result("0", "ok", null);
                 } catch (Exception e) {
                     result = new Result("1", "failed:" + e.getCause(), null);
                 }
@@ -97,8 +97,9 @@ public class StockReportService implements  IStockReportService{
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/stockreports")
     @Override
-    public Result<?> updateStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token, List<StockReport> stockReports) {
-        return null;
+    public Result updateStockReport(@QueryParam("token")String token, List<StockReport> stockReports) {
+        Result result = new Result("0","ok",null);
+        return result;
     }
 
 
@@ -118,7 +119,7 @@ public class StockReportService implements  IStockReportService{
         if(msg.equals("ok")) {
             try {
                 boReposirotyStockReport.deleteStockReport(docEntry);
-                result = new Result("0","ok:",null);
+                result = new Result("0","ok",null);
             }catch (Exception e){
                 e.printStackTrace();
                 result = new Result("1","failed:"+(e.getCause()==null?e.getMessage():e.getCause().toString()),null);
