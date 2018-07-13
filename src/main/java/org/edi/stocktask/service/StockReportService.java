@@ -2,13 +2,12 @@ package org.edi.stocktask.service;
 
 
 import org.apache.log4j.Logger;
-import org.edi.freamwork.jersey.UserRequest;
+import org.edi.initialfantasy.filter.UserRequest;
 import org.edi.initialfantasy.data.ServicePath;
 import org.edi.initialfantasy.dto.Result;
 import org.edi.initialfantasy.util.CharsetConvert;
 import org.edi.stocktask.bo.stockreport.StockReport;
 import org.edi.stocktask.repository.IBOReposirotyStockReport;
-import org.edi.stocktask.util.TokenVerification;
 import org.glassfish.jersey.server.JSONP;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -28,8 +27,7 @@ public class StockReportService implements  IStockReportService{
     @Autowired
     private IBOReposirotyStockReport boReposirotyStockReport;
 
-    @Autowired
-    private TokenVerification tokenVerification;
+
 
     /**
      * 库存任务汇报清单
@@ -43,12 +41,12 @@ public class StockReportService implements  IStockReportService{
     @Override
     public Result<StockReport> fetchStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token) {
         Result result = new Result();
-        String msg = tokenVerification.verification(token);
-        if (msg.equals("ok")) {
+      try {
             List<StockReport> StockReports = boReposirotyStockReport.fetchStockReport();
             result = new Result("0", "ok", StockReports);
-        } else {
-            result = new Result("1", "failed:" + msg, null);
+        } catch (Exception e){
+          e.printStackTrace();
+          result = new Result("1", "failed:" + e.getCause(), null);
         }
         return result;
     }
@@ -66,10 +64,8 @@ public class StockReportService implements  IStockReportService{
     @Path("/stockreports")
     @Override
     public Result saveStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token,List<StockReport> stockReports) {
-        String msg = tokenVerification.verification(token);
         log.info("parameter info:" + stockReports);
         Result result = new Result();
-        if(msg.equals("ok")) {
             if (stockReports.size() > 0) {
                 try {
                     boReposirotyStockReport.saveStockReports(stockReports);
@@ -80,9 +76,6 @@ public class StockReportService implements  IStockReportService{
             } else {
                 result = new Result("1", "failed:"+ CharsetConvert.convert("参数信息为空!"), null);
             }
-        }else {
-            result = new Result("1","failed:"+msg,null);
-        }
         return result;
     }
 
@@ -97,7 +90,7 @@ public class StockReportService implements  IStockReportService{
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/stockreports")
     @Override
-    public Result updateStockReport(@QueryParam("token")String token, List<StockReport> stockReports) {
+    public Result updateStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token, List<StockReport> stockReports) {
         Result result = new Result("0","ok",null);
         return result;
     }
@@ -113,10 +106,8 @@ public class StockReportService implements  IStockReportService{
     @DELETE
     @Path("/stockreports")
     @Override
-    public Result deleteStockReport(@QueryParam("token")String token,@QueryParam("docEntry")int docEntry) {
-        String msg = tokenVerification.verification(token);
+    public Result deleteStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token,@QueryParam("docEntry")int docEntry) {
         Result result = new Result();
-        if(msg.equals("ok")) {
             try {
                 boReposirotyStockReport.deleteStockReport(docEntry);
                 result = new Result("0","ok",null);
@@ -124,9 +115,7 @@ public class StockReportService implements  IStockReportService{
                 e.printStackTrace();
                 result = new Result("1","failed:"+(e.getCause()==null?e.getMessage():e.getCause().toString()),null);
             }
-        }else {
-            result = new Result("1","failed:"+msg,null);
-        }
+
        return  result;
     }
 
