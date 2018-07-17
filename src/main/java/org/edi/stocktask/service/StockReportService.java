@@ -91,7 +91,18 @@ public class StockReportService implements  IStockReportService{
     @Path("/stockreports")
     @Override
     public Result updateStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token, List<StockReport> stockReports) {
-        Result result = new Result("0","ok",null);
+        log.info("parameter info:" + stockReports);
+        Result result = new Result();
+        if (stockReports.size() > 0) {
+            try {
+                boReposirotyStockReport.updateStockReport(stockReports);
+                result = new Result("0", "ok", null);
+            } catch (Exception e) {
+                result = new Result("1", "failed:" + (e.getCause()==null?e.getMessage():e.getCause().toString()), null);
+            }
+        } else {
+            result = new Result("1", "failed:"+ CharsetConvert.convert("参数信息为空!"), null);
+        }
         return result;
     }
 
@@ -115,9 +126,9 @@ public class StockReportService implements  IStockReportService{
                 e.printStackTrace();
                 result = new Result("1","failed:"+(e.getCause()==null?e.getMessage():e.getCause().toString()),null);
             }
-
        return  result;
     }
+
 
 
 }

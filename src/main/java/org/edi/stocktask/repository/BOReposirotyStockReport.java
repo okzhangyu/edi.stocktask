@@ -92,10 +92,48 @@ public class BOReposirotyStockReport implements IBOReposirotyStockReport{
     }
 
 
+    /**
+     * 更新库存任务汇报
+     * @param stockReports
+     * @return
+     */
+    @Override
+    public void updateStockReport(List<StockReport> stockReports) {
+        //TODO 更新库存任务汇报
+        //1、先查询库存任务汇报是否生成单据  （条件：B1DocEntry的值为null或者0）
+        //2、如果任务汇报没有生成单据，先删除再保存
+        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+        TransactionStatus status = ptm.getTransaction(def);
+        for (int i=0;i<stockReports.size();i++){
+            StockReport stockReport = stockReports.get(i);
+            if(b1DocEntryCheck.B1EntryCheck(stockReport.getDocEntry())){
+                try {
+                    stockReportMapper.updateStockReport(stockReport);
+                    for(int j=0;j<stockReport.getStockReportItems().size();j++){
+                        StockReportItem stockReportItem = stockReport.getStockReportItems().get(j);
+                        stockReportMapper.updateStockReportItem(stockReportItem);
+                    }
+                    ptm.commit(status);
+                }catch(Exception e){
+                    e.printStackTrace();
+                    ptm.rollback(status);
+                    throw e;
+                }
+            }else{
+                throw new BusinessException(CharsetConvert.convert("B1单据在系统已生成，无法修改！"));
+            }
+        }
+
+    }
+
+
+
 
     /**
      * 删除任务汇报
      * @param docEntry
+     * @return
      */
     @Override
     public void deleteStockReport(Integer docEntry) {
@@ -162,20 +200,6 @@ public class BOReposirotyStockReport implements IBOReposirotyStockReport{
         return StockReports;
     }
 
-
-
-
-
-    /**
-     * 更新库存任务汇报
-     * @param stockReport
-     */
-    @Override
-    public void updateStockReport(StockReport stockReport) {
-        //TODO 更新库存任务汇报
-        //1、先查询库存任务汇报是否生成单据  （条件：B1DocEntry的值为null或者0）
-        //2、如果任务汇报没有生成单据，先删除再保存
-    }
 
 
 
