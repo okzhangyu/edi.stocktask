@@ -7,6 +7,7 @@ import org.edi.initialfantasy.data.ServicePath;
 import org.edi.initialfantasy.dto.Result;
 import org.edi.initialfantasy.util.CharsetConvert;
 import org.edi.stocktask.bo.stockreport.StockReport;
+import org.edi.stocktask.data.StockTaskData;
 import org.edi.stocktask.repository.IBOReposirotyStockReport;
 import org.glassfish.jersey.server.JSONP;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,10 +40,11 @@ public class StockReportService implements  IStockReportService{
     @Produces("application/x-javascript;charset=utf-8")
     @Path("/stockreports")
     @Override
-    public Result<StockReport> fetchStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token) {
-        Result result = new Result();
+    public Result<StockReport> fetchStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token,
+                                                @QueryParam(StockTaskData.SERVICE_SEARCH_PARAMETER)String param) {
+      Result result = new Result();
       try {
-            List<StockReport> StockReports = boReposirotyStockReport.fetchStockReport();
+            List<StockReport> StockReports = boReposirotyStockReport.fetchStockReport(param);
             result = new Result("0", "ok", StockReports);
         } catch (Exception e){
           e.printStackTrace();
