@@ -49,7 +49,7 @@ public interface IBOReposirotyStockReport {
      * 更新库存任务汇报
      * @param stockReport
      */
-    void updateStockReport(StockReport stockReport);
+    void updateStockReport(List<StockReport> stockReports);
 
     /**
      * 删除任务汇报
