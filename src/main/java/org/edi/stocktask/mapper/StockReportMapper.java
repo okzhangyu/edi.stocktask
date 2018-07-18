@@ -16,4 +16,6 @@ public interface StockReportMapper {
     void deleteStockReportItem(Integer docEntry);
     List<StockReport> fetchStockReportByCondition(Map<String,String> stockReportCondition);
     List<StockReport> fetchStockReportFuzzy(String value);
+    void updateStockReport(StockReport stockReport);
+    void updateStockReportItem(StockReportItem stockReportItem);
 }
