@@ -14,7 +14,7 @@ public interface IBOReposirotyStockReport {
      * 查询任务汇报清单
      * @return
      */
-    List<StockReport> fetchStockReport();
+    List<StockReport> fetchStockReport(String param);
 
     /**
      * 条件查询任务汇报

@@ -13,9 +13,10 @@ public interface IStockReportService {
     /**
      * 查询库存任务汇报
      * @param token
+     * @param param
      * @return
      */
-    Result<StockReport> fetchStockReport(String token);
+    Result<StockReport> fetchStockReport(String token,String param);
 
     /**
      * 保存库存任务汇报
