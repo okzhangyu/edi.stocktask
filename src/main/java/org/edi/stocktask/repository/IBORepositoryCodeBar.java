@@ -1,9 +1,20 @@
 package org.edi.stocktask.repository;
 
+import com.sun.deploy.security.DeployManifestChecker;
+import org.edi.stocktask.bo.codeBar.CodeBar;
+
+import java.util.List;
+
 /**
  * @author Fancy
  * @date 2018/7/10
  */
 public interface IBORepositoryCodeBar {
 
+    /**
+     * 解析条码
+     * @param codeBar 条码值
+     * @return 获取解析结果
+     */
+    List<CodeBar> parseCodeBar(String codeBar);
 }

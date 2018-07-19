@@ -8,7 +8,7 @@ import java.util.List;
  * @author Fancy
  * @date 2018/5/25
  */
-public interface IBOReposirotyStockReport {
+public interface IBORepositoryStockReport {
 
     /**
      * 查询任务汇报清单

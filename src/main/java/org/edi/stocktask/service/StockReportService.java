@@ -9,8 +9,8 @@ import org.edi.initialfantasy.data.ServicePath;
 import org.edi.initialfantasy.dto.Result;
 import org.edi.initialfantasy.util.CharsetConvert;
 import org.edi.stocktask.bo.stockreport.StockReport;
-import org.edi.stocktask.data.StockTaskData;
-import org.edi.stocktask.repository.IBOReposirotyStockReport;
+import org.edi.stocktask.data.StockTaskServicePath;
+import org.edi.stocktask.repository.IBORepositoryStockReport;
 import org.glassfish.jersey.server.JSONP;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -28,7 +28,7 @@ public class StockReportService implements  IStockReportService{
     private static Logger log = Logger.getLogger(StockReportService.class);
 
     @Autowired
-    private IBOReposirotyStockReport boReposirotyStockReport;
+    private IBORepositoryStockReport boRepositoryStockReport;
 
 
 
@@ -43,10 +43,10 @@ public class StockReportService implements  IStockReportService{
     @Path("/stockreports")
     @Override
     public Result<StockReport> fetchStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token,
-                                                @QueryParam(StockTaskData.SERVICE_SEARCH_PARAMETER)String param) {
+                                                @QueryParam(StockTaskServicePath.SERVICE_SEARCH_PARAMETER)String param) {
       Result result = new Result();
       try {
-            List<StockReport> StockReports = boReposirotyStockReport.fetchStockReport(param);
+            List<StockReport> StockReports = boRepositoryStockReport.fetchStockReport(param);
             result = new Result(ResultCode.OK, ResultDescription.OK,StockReports);
         } catch (Exception e){
           e.printStackTrace();
@@ -72,7 +72,7 @@ public class StockReportService implements  IStockReportService{
         Result result = new Result();
             if (stockReports.size() > 0) {
                 try {
-                    boReposirotyStockReport.saveStockReports(stockReports);
+                    boRepositoryStockReport.saveStockReports(stockReports);
                     result = new Result(ResultCode.OK, ResultDescription.OK,null);
                 } catch (Exception e) {
                     result = new Result(ResultCode.FAIL, "failed:" + e.getCause(), null);
@@ -99,7 +99,7 @@ public class StockReportService implements  IStockReportService{
         Result result = new Result();
         if (stockReports.size() > 0) {
             try {
-                boReposirotyStockReport.updateStockReport(stockReports);
+                boRepositoryStockReport.updateStockReport(stockReports);
                 result = new Result(ResultCode.OK, ResultDescription.OK,null);
             } catch (Exception e) {
                 result = new Result(ResultCode.FAIL,"failed:"+(e.getCause()==null?e.getMessage():e.getCause().toString()),null);
@@ -124,7 +124,7 @@ public class StockReportService implements  IStockReportService{
     public Result deleteStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token,@QueryParam("docEntry")int docEntry) {
         Result result = new Result();
             try {
-                boReposirotyStockReport.deleteStockReport(docEntry);
+                boRepositoryStockReport.deleteStockReport(docEntry);
                 result = new Result(ResultCode.OK, ResultDescription.OK,null);
             }catch (Exception e){
                 e.printStackTrace();

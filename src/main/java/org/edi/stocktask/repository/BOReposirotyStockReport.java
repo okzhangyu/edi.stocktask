@@ -23,7 +23,7 @@ import java.util.List;
 
 
 @Component(value="boReposirotyStockReport")
-public class BOReposirotyStockReport implements IBOReposirotyStockReport{
+public class BOReposirotyStockReport implements IBORepositoryStockReport {
 
     @Autowired
     private StockReportMapper stockReportMapper;
