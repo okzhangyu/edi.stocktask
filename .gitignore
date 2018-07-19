@@ -39,3 +39,5 @@ edi.stocktask.iml
 edi.stocktask.iml
 edi.stocktask.iml
 web/index.jsp
+*.prefs
+.project
