@@ -6,5 +6,5 @@ package org.edi.stocktask.data;
  */
 public class StockTaskData {
 
-    public final static String SERVICE_SEARCH_PARAMETER = "param";
+
 }
