@@ -1,11 +1,12 @@
 package org.edi.stocktask.repository;
 
 import org.edi.freamwork.exception.BusinessException;
+import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.initialfantasy.util.CharsetConvert;
 import org.edi.stocktask.bo.stockreport.StockReport;
 import org.edi.stocktask.bo.stockreport.StockReportItem;
 import org.edi.stocktask.mapper.StockReportMapper;
-import org.edi.stocktask.util.B1DocEntryCheck;
+import org.edi.stocktask.util.B1DocEntryVerification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -28,7 +29,7 @@ public class BOReposirotyStockReport implements IBOReposirotyStockReport{
     private StockReportMapper stockReportMapper;
 
     @Autowired
-    private B1DocEntryCheck b1DocEntryCheck;
+    private B1DocEntryVerification b1DocEntryVerification;
 
     @Autowired
     private PlatformTransactionManager ptm;
@@ -118,7 +119,7 @@ public class BOReposirotyStockReport implements IBOReposirotyStockReport{
         TransactionStatus status = ptm.getTransaction(def);
         for (int i=0;i<stockReports.size();i++){
             StockReport stockReport = stockReports.get(i);
-            if(b1DocEntryCheck.B1EntryCheck(stockReport.getDocEntry())){
+            if(b1DocEntryVerification.B1EntryCheck(stockReport.getDocEntry())){
                 try {
                     stockReportMapper.updateStockReport(stockReport);
                     for(int j=0;j<stockReport.getStockReportItems().size();j++){
@@ -132,7 +133,7 @@ public class BOReposirotyStockReport implements IBOReposirotyStockReport{
                     throw e;
                 }
             }else{
-                throw new BusinessException(CharsetConvert.convert("B1单据在系统已生成，无法修改！"));
+                throw new BusinessException(CharsetConvert.convert(ResultDescription.B1DOCENTRY_IS_EXISTENT));
             }
         }
 
@@ -151,7 +152,7 @@ public class BOReposirotyStockReport implements IBOReposirotyStockReport{
         DefaultTransactionDefinition def = new DefaultTransactionDefinition();
         def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
         TransactionStatus status = ptm.getTransaction(def);
-        if(b1DocEntryCheck.B1EntryCheck(docEntry)){
+        if(b1DocEntryVerification.B1EntryCheck(docEntry)){
             try {
                 stockReportMapper.deleteStockReport(docEntry);
                 stockReportMapper.deleteStockReportItem(docEntry);
@@ -162,7 +163,7 @@ public class BOReposirotyStockReport implements IBOReposirotyStockReport{
                 throw e;
             }
         }else{
-            throw new BusinessException(CharsetConvert.convert("B1单据在系统已生成，无法修改！"));
+            throw new BusinessException(CharsetConvert.convert(ResultDescription.B1DOCENTRY_IS_EXISTENT));
         }
 
     }

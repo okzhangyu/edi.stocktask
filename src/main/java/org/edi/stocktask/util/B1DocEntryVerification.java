@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
  * Created by asus on 2018/7/11.
  */
 
-@Component(value="b1DocEntryCheck")
-public class B1DocEntryCheck {
+@Component(value="b1DocEntryVerification")
+public class B1DocEntryVerification {
 
     @Autowired
     private StockReportMapper stockReportMapper;
