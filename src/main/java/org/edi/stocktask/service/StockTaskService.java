@@ -1,5 +1,7 @@
 package org.edi.stocktask.service;
 
+import org.edi.initialfantasy.data.ResultCode;
+import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.initialfantasy.data.ServicePath;
 import org.edi.initialfantasy.dto.Result;
 import org.edi.initialfantasy.filter.UserRequest;
@@ -41,10 +43,10 @@ public class StockTaskService implements IStockTaskService{
         Result result = new Result();
         try{
             List<StockTask> stockTasks = boRepositoryStockTask.fetchStockTask();
-            result = new Result<StockTask>("0","ok",stockTasks);
+            result = new Result<StockTask>(ResultCode.OK,ResultDescription.OK,stockTasks);
         }catch(Exception e){
             e.printStackTrace();
-            result = new Result("1","failed:"+e.getCause(),null);
+            result = new Result(ResultCode.FAIL,"failed:"+e.getCause(),null);
         }
      return result;
     }

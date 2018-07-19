@@ -2,6 +2,8 @@ package org.edi.stocktask.service;
 
 
 import org.apache.log4j.Logger;
+import org.edi.initialfantasy.data.ResultCode;
+import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.initialfantasy.filter.UserRequest;
 import org.edi.initialfantasy.data.ServicePath;
 import org.edi.initialfantasy.dto.Result;
@@ -42,11 +44,11 @@ public class StockReportService implements  IStockReportService{
     public Result<StockReport> fetchStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token) {
         Result result = new Result();
       try {
-            List<StockReport> StockReports = boReposirotyStockReport.fetchStockReport();
-            result = new Result("0", "ok", StockReports);
+            List<StockReport> stockReports = boReposirotyStockReport.fetchStockReport();
+          result = new Result(ResultCode.OK, ResultDescription.OK,stockReports);
         } catch (Exception e){
           e.printStackTrace();
-          result = new Result("1", "failed:" + e.getCause(), null);
+          result = new Result(ResultCode.FAIL, "failed:" + e.getCause(), null);
         }
         return result;
     }
@@ -69,12 +71,12 @@ public class StockReportService implements  IStockReportService{
             if (stockReports.size() > 0) {
                 try {
                     boReposirotyStockReport.saveStockReports(stockReports);
-                    result = new Result("0", "ok", null);
+                    result = new Result(ResultCode.OK, ResultDescription.OK,null);
                 } catch (Exception e) {
-                    result = new Result("1", "failed:" + e.getCause(), null);
+                    result = new Result(ResultCode.FAIL, "failed:" + e.getCause(), null);
                 }
             } else {
-                result = new Result("1", "failed:"+ CharsetConvert.convert("参数信息为空!"), null);
+                result = new Result("1", "failed:"+ CharsetConvert.convert(ResultDescription.PARAMETER_IS_NULL), null);
             }
         return result;
     }
@@ -96,12 +98,12 @@ public class StockReportService implements  IStockReportService{
         if (stockReports.size() > 0) {
             try {
                 boReposirotyStockReport.updateStockReport(stockReports);
-                result = new Result("0", "ok", null);
+                result = new Result(ResultCode.OK, ResultDescription.OK,null);
             } catch (Exception e) {
-                result = new Result("1", "failed:" + (e.getCause()==null?e.getMessage():e.getCause().toString()), null);
+                result = new Result(ResultCode.FAIL,"failed:"+(e.getCause()==null?e.getMessage():e.getCause().toString()),null);
             }
         } else {
-            result = new Result("1", "failed:"+ CharsetConvert.convert("参数信息为空!"), null);
+            result = new Result("1", "failed:"+ CharsetConvert.convert(ResultDescription.PARAMETER_IS_NULL), null);
         }
         return result;
     }
@@ -121,10 +123,10 @@ public class StockReportService implements  IStockReportService{
         Result result = new Result();
             try {
                 boReposirotyStockReport.deleteStockReport(docEntry);
-                result = new Result("0","ok",null);
+                result = new Result(ResultCode.OK, ResultDescription.OK,null);
             }catch (Exception e){
                 e.printStackTrace();
-                result = new Result("1","failed:"+(e.getCause()==null?e.getMessage():e.getCause().toString()),null);
+                result = new Result(ResultCode.FAIL,"failed:"+(e.getCause()==null?e.getMessage():e.getCause().toString()),null);
             }
        return  result;
     }
