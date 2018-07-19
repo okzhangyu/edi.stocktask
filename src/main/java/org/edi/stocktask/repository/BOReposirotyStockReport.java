@@ -40,14 +40,25 @@ public class BOReposirotyStockReport implements IBOReposirotyStockReport{
      * @return
      */
     @Override
-    public List<StockReport> fetchStockReport(){
-        List<StockReport> StockReports = stockReportMapper.fetchStockReport();
-        for(int i=0;i<StockReports.size();i++){
-            StockReport stockReport = StockReports.get(i);
-            List<StockReportItem> StockReportItems = stockReportMapper.fetchStockReportItem(stockReport.getDocEntry());
-            stockReport.setStockReportItems(StockReportItems);
+    public List<StockReport> fetchStockReport(String param){
+        List<StockReport> stockReports;
+        if(param!=null && !param.isEmpty()){
+            stockReports = stockReportMapper.fetchStockReportFuzzy(param);
+        }else {
+            stockReports = stockReportMapper.fetchStockReport();
         }
-        return StockReports;
+        if(stockReports.size() == 0) {
+            return stockReports;
+        }
+//        for (StockReport item:stockReports) {
+//            item.setStockReportItems(stockReportMapper.fetchStockReportItem(item.getDocEntry()));
+//        }
+        for(int i=0;i<stockReports.size();i++){
+            StockReport stockReport = stockReports.get(i);
+            List<StockReportItem> stockReportItems = stockReportMapper.fetchStockReportItem(stockReport.getDocEntry());
+            stockReport.setStockReportItems(stockReportItems);
+        }
+        return stockReports;
     }
 
 
