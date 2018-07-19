@@ -47,7 +47,7 @@ public class StockReportService implements  IStockReportService{
       Result result = new Result();
       try {
             List<StockReport> StockReports = boReposirotyStockReport.fetchStockReport(param);
-            result = new Result("0", "ok", StockReports);
+            result = new Result(ResultCode.OK, ResultDescription.OK,StockReports);
         } catch (Exception e){
           e.printStackTrace();
           result = new Result(ResultCode.FAIL, "failed:" + e.getCause(), null);
@@ -105,7 +105,7 @@ public class StockReportService implements  IStockReportService{
                 result = new Result(ResultCode.FAIL,"failed:"+(e.getCause()==null?e.getMessage():e.getCause().toString()),null);
             }
         } else {
-            result = new Result("1", "failed:"+ CharsetConvert.convert(ResultDescription.PARAMETER_IS_NULL), null);
+            result = new Result(ResultCode.FAIL, "failed:"+ CharsetConvert.convert(ResultDescription.PARAMETER_IS_NULL), null);
         }
         return result;
     }
