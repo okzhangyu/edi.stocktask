@@ -1,6 +1,5 @@
 package org.edi.stocktask.repository;
 
-import com.sun.deploy.security.DeployManifestChecker;
 import org.edi.stocktask.bo.codeBar.CodeBar;
 
 import java.util.List;

@@ -47,7 +47,7 @@ public interface IBORepositoryStockReport {
 
     /**
      * 更新库存任务汇报
-     * @param stockReport
+     * @param stockReports
      */
     void updateStockReport(List<StockReport> stockReports);
 

@@ -5,8 +5,9 @@ package org.edi.stocktask.service;
  * @date 2018/7/10
  */
 
-import org.edi.freamwork.exception.BusinessException;
 import org.edi.freamwork.jersey.UserRequest;
+import org.edi.initialfantasy.data.ResultCode;
+import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.initialfantasy.data.ServicePath;
 import org.edi.initialfantasy.dto.Result;
 import org.edi.stocktask.bo.codeBar.CodeBar;
@@ -16,7 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 /**
  * 条码相关服务
@@ -33,14 +37,18 @@ public class CodeBarService implements ICodeBarService{
      * @return
      */
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/codebar")
     @Override
     public Result<CodeBar> parseCodeBar(@QueryParam(ServicePath.TOKEN_NAMER)String token,
                                         @QueryParam(StockTaskServicePath.SERVICE_CODEBAR)String codeBar) {
         Result<CodeBar> result = new Result<>();
         try{
-            boRepositoryCodeBar.parseCodeBar(codeBar);
-        }catch (BusinessException ex){
-
+            List<CodeBar>  resultCodeBar = boRepositoryCodeBar.parseCodeBar(codeBar);
+            result = new Result<CodeBar>(ResultCode.OK, ResultDescription.OK,resultCodeBar);
+        }catch (Exception e){
+            e.printStackTrace();
+            result = new Result(ResultCode.FAIL,"failed:"+(e.getCause()==null?e.getMessage():e.getCause().toString()),null);
         }
         return result;
     }
