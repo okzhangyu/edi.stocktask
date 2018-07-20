@@ -251,4 +251,10 @@
     </update>
 
 
+
+   <!-- int fetchSequenceOfDocEntry();-->
+    <select id="fetchSequenceOfDocEntry" resultType="int">
+        SELECT NEXT VALUE FOR Seq_DocEntry
+    </select>
+
 </mapper>

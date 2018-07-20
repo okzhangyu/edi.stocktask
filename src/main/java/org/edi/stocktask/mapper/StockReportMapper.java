@@ -18,4 +18,5 @@ public interface StockReportMapper {
     List<StockReport> fetchStockReportFuzzy(String value);
     void updateStockReport(StockReport stockReport);
     void updateStockReportItem(StockReportItem stockReportItem);
+    int fetchSequenceOfDocEntry();
 }
