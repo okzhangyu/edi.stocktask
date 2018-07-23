@@ -5,11 +5,11 @@ package org.edi.stocktask.service;
  * @date 2018/7/10
  */
 
-import org.edi.freamwork.jersey.UserRequest;
 import org.edi.initialfantasy.data.ResultCode;
 import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.initialfantasy.data.ServicePath;
 import org.edi.initialfantasy.dto.Result;
+import org.edi.initialfantasy.filter.UserRequest;
 import org.edi.stocktask.bo.codeBar.CodeBar;
 import org.edi.stocktask.data.StockTaskServicePath;
 import org.edi.stocktask.repository.IBORepositoryCodeBar;

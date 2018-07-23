@@ -7,6 +7,7 @@ import org.edi.initialfantasy.dto.Result;
 import org.edi.initialfantasy.filter.UserRequest;
 import org.edi.stocktask.bo.stocktask.IStockTask;
 import org.edi.stocktask.bo.stocktask.StockTask;
+import org.edi.stocktask.data.StockTaskServicePath;
 import org.edi.stocktask.mapper.StockTaskMapper;
 import org.edi.stocktask.repository.IBORepositoryStockTask;
 import org.glassfish.jersey.server.JSONP;
@@ -39,10 +40,10 @@ public class StockTaskService implements IStockTaskService{
     /**
      * 查询库存任务
      */
-    public Result<StockTask> fetchStockTask(@QueryParam(ServicePath.TOKEN_NAMER)String token){
+    public Result<StockTask> fetchStockTask(@QueryParam(ServicePath.TOKEN_NAMER)String token,@QueryParam(StockTaskServicePath.SERVICE_SEARCH_PARAMETER)String param){
         Result result = new Result();
         try{
-            List<StockTask> stockTasks = boRepositoryStockTask.fetchStockTask();
+            List<StockTask> stockTasks = boRepositoryStockTask.fetchStockTask(param);
             result = new Result<StockTask>(ResultCode.OK,ResultDescription.OK,stockTasks);
         }catch(Exception e){
             e.printStackTrace();

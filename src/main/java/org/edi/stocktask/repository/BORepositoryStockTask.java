@@ -25,8 +25,16 @@ public class BORepositoryStockTask implements  IBORepositoryStockTask {
      * @return
      */
     @Override
-    public List<StockTask> fetchStockTask(){
-        List<StockTask> stockTasks = stockTaskMapper.fetchStockTask();
+    public List<StockTask> fetchStockTask(String param){
+        List<StockTask> stockTasks;
+        if(param!=null && !param.isEmpty()){
+            stockTasks = stockTaskMapper.fetchStockTaskFuzzy(param);
+        }else {
+            stockTasks = stockTaskMapper.fetchStockTask();
+        }
+        if(stockTasks.size() == 0) {
+            return stockTasks;
+        }
         for (int i = 0;i<stockTasks.size();i++){
             List<StockTaskItem> stockTaskItems = stockTaskMapper.fetchStockTaskItem(stockTasks.get(i).getObjectKey());
             if(stockTaskItems!=null){

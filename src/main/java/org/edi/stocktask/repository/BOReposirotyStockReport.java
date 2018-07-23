@@ -50,9 +50,6 @@ public class BOReposirotyStockReport implements IBORepositoryStockReport {
         if(stockReports.size() == 0) {
             return stockReports;
         }
-//        for (StockReport item:stockReports) {
-//            item.setStockReportItems(stockReportMapper.fetchStockReportItem(item.getDocEntry()));
-//        }
         for(int i=0;i<stockReports.size();i++){
             StockReport stockReport = stockReports.get(i);
             List<StockReportItem> stockReportItems = stockReportMapper.fetchStockReportItem(stockReport.getDocEntry());

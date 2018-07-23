@@ -10,5 +10,6 @@ public interface StockTaskMapper {
     List<StockTask> fetchStockTask();
     List<StockTaskItem> fetchStockTaskItem(Integer objectKey);
     List<StockTaskItem> fetchAllStockTaskItem();
+    List<StockTask> fetchStockTaskFuzzy(String value);
 
 }

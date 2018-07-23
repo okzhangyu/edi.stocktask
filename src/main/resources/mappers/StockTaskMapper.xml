@@ -8,6 +8,8 @@
         <result column="Annotated" property="annotated" jdbcType="VARCHAR" />
         <result column="DocType" property="documentType" jdbcType="INTEGER" />
         <result column="DocEntry" property="documentEntry" jdbcType="INTEGER" />
+        <result column="BpCode" property="businessPartnerCode" jdbcType="VARCHAR" />
+        <result column="BpName" property="businessPartnerName" jdbcType="VARCHAR" />
         <result column="DocDate" property="documentDate" jdbcType="DATE" />
         <result column="DocDueDate" property="createDate" jdbcType="DATE" />
         <result column="TaxDate" property="updateDate" jdbcType="DATE" />
@@ -59,5 +61,20 @@
 
     <select id="fetchAllStockTaskItem" resultMap="BaseResultMapItem">
         SELECT * FROM AVA_WM_VIEW_STK1
+    </select>
+
+    <select id="fetchStockTaskFuzzy" resultMap="BaseResultMap" parameterType="string">
+        SELECT * FROM AVA_WM_VIEW_OSTK with(XLOCK)
+        <where>
+            <if test="value != null and value != ''">
+                DocEntry LIKE '%'+#{value}+'%'
+            </if>
+            <if test="value != null and value != ''">
+                or BpCode LIKE '%'+#{value}+'%'
+            </if>
+            <if test="value != null and value != ''">
+                or BpName LIKE '%'+#{value}+'%'
+            </if>
+        </where>
     </select>
 </mapper>

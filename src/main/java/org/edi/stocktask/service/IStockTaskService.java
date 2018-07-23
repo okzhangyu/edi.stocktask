@@ -4,7 +4,6 @@ import org.edi.initialfantasy.dto.IResult;
 import org.edi.initialfantasy.dto.Result;
 import org.edi.stocktask.bo.stocktask.IStockTask;
 import org.edi.stocktask.bo.stocktask.StockTask;
-import org.edi.stocktask.bo.stocktask.StockTaskItem;
 
 import java.util.List;
 
@@ -19,7 +18,7 @@ public interface IStockTaskService {
      * @param token
      * @return
      */
-    Result<StockTask> fetchStockTask(String token);
+    Result<StockTask> fetchStockTask(String token,String param);
 
     /**
      * 保存库存任务
