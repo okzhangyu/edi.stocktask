@@ -153,7 +153,7 @@
 
 
 
-    <!--void updateStockReport(StockReport stockReport);
+  <!--  void updateStockReport(StockReport stockReport);
     INSERT INTO AVA_WM_OSRP([ComanyName] ,[DocEntry],[DocNum] ,[Period] ,[Object] ,[Transfered] ,[CreateDate],[CreateTime],[UpdateDate],[UpdateTime]  ,[Creator] ,[Updator] ,[DocStatus] ,[DocDate]
     ,[DocDueDate],[TaxDate] ,[Ref1],[Ref2] ,[Remarks] ,[B1DocEntry] ,[BydUUID] ,[CusType],[TransType],[BpCode],[BpName] ,[BaseType] ,[BaseEntry])
     VALUES (#{companyName} ,#{docEntry} ,#{docNum},#{period},#{objectCode} ,#{transfered},#{createDate},#{createTime},#{updateDate},#{updateTime} ,#{createUserSign} ,#{updateUserSign} ,#{documentStatus} ,#{documentDate},
@@ -250,5 +250,11 @@
         WHERE DocEntry=#{docEntry}
     </update>
 
+
+
+   <!-- int fetchSequenceOfDocEntry();-->
+    <select id="fetchSequenceOfDocEntry" resultType="int">
+        SELECT NEXT VALUE FOR Seq_DocEntry
+    </select>
 
 </mapper>

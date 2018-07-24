@@ -15,8 +15,10 @@ public interface IBORepositoryStockTask {
      * 查询库存任务
      * @return
      */
-    List<StockTask> fetchStockTask();
+    List<StockTask> fetchStockTask(String param);
 
 
     List<StockTaskItem> fetchAllStockTaskItem();
+
+
 }

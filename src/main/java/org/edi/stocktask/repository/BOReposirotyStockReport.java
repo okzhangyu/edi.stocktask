@@ -50,9 +50,6 @@ public class BOReposirotyStockReport implements IBORepositoryStockReport {
         if(stockReports.size() == 0) {
             return stockReports;
         }
-//        for (StockReport item:stockReports) {
-//            item.setStockReportItems(stockReportMapper.fetchStockReportItem(item.getDocEntry()));
-//        }
         for(int i=0;i<stockReports.size();i++){
             StockReport stockReport = stockReports.get(i);
             List<StockReportItem> stockReportItems = stockReportMapper.fetchStockReportItem(stockReport.getDocEntry());
@@ -87,10 +84,13 @@ public class BOReposirotyStockReport implements IBORepositoryStockReport {
         TransactionStatus status = ptm.getTransaction(def);
         try {
             for (int i = 0; i < stockReports.size(); i++) {
+                int docEntry = stockReportMapper.fetchSequenceOfDocEntry();
                 StockReport stockReport = stockReports.get(i);
+                stockReport.setDocEntry(docEntry);
                 stockReportMapper.saveStockReport(stockReport);
                 for (int j = 0; j < stockReports.get(i).getStockReportItems().size(); j++) {
                     StockReportItem stockReportItem = stockReports.get(i).getStockReportItems().get(j);
+                    stockReportItem.setDocEntry(docEntry);
                     stockReportItem.setLineId(j + 1);
                     stockReportMapper.saveStockReportItem(stockReportItem);
                 }

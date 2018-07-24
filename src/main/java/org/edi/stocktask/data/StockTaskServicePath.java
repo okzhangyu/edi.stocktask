@@ -8,5 +8,5 @@ public class StockTaskServicePath {
 
     public final static String SERVICE_SEARCH_PARAMETER = "param";
 
-    public final static String SERVICE_CODEBAR = "codebar";
+    public final static String SERVICE_CODEBAR = "codeBar";
 }
