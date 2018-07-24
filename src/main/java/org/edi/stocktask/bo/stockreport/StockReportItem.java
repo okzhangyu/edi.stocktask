@@ -1,13 +1,12 @@
 package org.edi.stocktask.bo.stockreport;
 
-import java.math.BigDecimal;
 
 /**
  * @author Fancy
  * @date 2018/5/27
  */
 public class StockReportItem implements IStockReportItem{
-   private Integer docEntry;
+    private Integer docEntry;
     private Integer lineId;
     private String objectCode;
     private String lineStatus;
@@ -30,15 +29,15 @@ public class StockReportItem implements IStockReportItem{
     private Integer targetDocumentLineId;
     private String itemCode;//
     private String itemDescription;
-    private BigDecimal quantity;
+    private Double quantity;
     private String inventoryUoM;
     private String serialNumberManagement;
     private String batchNumberManagement;
     private String serviceNumberManagement;
-    private BigDecimal price;
+    private Double price;
     private String currency;
-    private BigDecimal currencyRate;
-    private BigDecimal lineTotal;
+    private Double currencyRate;
+    private Double lineTotal;
     private String fromWarehose;
     private String fromLocation;
     private String toWarehouse;
@@ -282,12 +281,12 @@ public class StockReportItem implements IStockReportItem{
     }
 
     @Override
-    public BigDecimal getQuantity() {
+    public Double getQuantity() {
         return quantity;
     }
 
     @Override
-    public void setQuantity(BigDecimal quantity) {
+    public void setQuantity(Double quantity) {
         this.quantity = quantity;
     }
 
@@ -332,12 +331,12 @@ public class StockReportItem implements IStockReportItem{
     }
 
     @Override
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
     @Override
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -352,22 +351,22 @@ public class StockReportItem implements IStockReportItem{
     }
 
     @Override
-    public BigDecimal getCurrencyRate() {
+    public Double getCurrencyRate() {
         return currencyRate;
     }
 
     @Override
-    public void setCurrencyRate(BigDecimal currencyRate) {
+    public void setCurrencyRate(Double currencyRate) {
         this.currencyRate = currencyRate;
     }
 
     @Override
-    public BigDecimal getLineTotal() {
+    public Double getLineTotal() {
         return lineTotal;
     }
 
     @Override
-    public void setLineTotal(BigDecimal lineTotal) {
+    public void setLineTotal(Double lineTotal) {
         this.lineTotal = lineTotal;
     }
 
@@ -482,51 +481,5 @@ public class StockReportItem implements IStockReportItem{
     }
 
     public StockReportItem() {
-    }
-
-    public StockReportItem(Integer docEntry, Integer lineId, String objectCode, String lineStatus, String reference1, String reference2, String baseDocumentType, Integer baseDocumentEntry, Integer baseDocumentLineId, String projectCode, String distributionRule1, String distributionRule2, String distributionRule3, String distributionRule4, String distributionRule5, String originalDocumentType, Integer originalDocumentEntry, Integer originalDocumentLineId, String targetDocumentType, Integer targetDocumentEntry, Integer targetDocumentLineId, String itemCode, String itemDescription, BigDecimal quantity, String inventoryUoM, String serialNumberManagement, String batchNumberManagement, String serviceNumberManagement, BigDecimal price, String currency, BigDecimal currencyRate, BigDecimal lineTotal, String fromWarehose, String fromLocation, String toWarehouse, String toLocation, String batchNumber, String serialNumber, String barCode1, String barCode2, String barCode3, String barCode4, String barCode5) {
-        this.docEntry = docEntry;
-        this.lineId = lineId;
-        this.objectCode = objectCode;
-        this.lineStatus = lineStatus;
-        this.reference1 = reference1;
-        this.reference2 = reference2;
-        this.baseDocumentType = baseDocumentType;
-        this.baseDocumentEntry = baseDocumentEntry;
-        this.baseDocumentLineId = baseDocumentLineId;
-        this.projectCode = projectCode;
-        this.distributionRule1 = distributionRule1;
-        this.distributionRule2 = distributionRule2;
-        this.distributionRule3 = distributionRule3;
-        this.distributionRule4 = distributionRule4;
-        this.distributionRule5 = distributionRule5;
-        this.originalDocumentType = originalDocumentType;
-        this.originalDocumentEntry = originalDocumentEntry;
-        this.originalDocumentLineId = originalDocumentLineId;
-        this.targetDocumentType = targetDocumentType;
-        this.targetDocumentEntry = targetDocumentEntry;
-        this.targetDocumentLineId = targetDocumentLineId;
-        this.itemCode = itemCode;
-        this.itemDescription = itemDescription;
-        this.quantity = quantity;
-        this.inventoryUoM = inventoryUoM;
-        this.serialNumberManagement = serialNumberManagement;
-        this.batchNumberManagement = batchNumberManagement;
-        this.serviceNumberManagement = serviceNumberManagement;
-        this.price = price;
-        this.currency = currency;
-        this.currencyRate = currencyRate;
-        this.lineTotal = lineTotal;
-        this.fromWarehose = fromWarehose;
-        this.fromLocation = fromLocation;
-        this.toWarehouse = toWarehouse;
-        this.toLocation = toLocation;
-        this.batchNumber = batchNumber;
-        this.serialNumber = serialNumber;
-        this.barCode1 = barCode1;
-        this.barCode2 = barCode2;
-        this.barCode3 = barCode3;
-        this.barCode4 = barCode4;
-        this.barCode5 = barCode5;
     }
 }
