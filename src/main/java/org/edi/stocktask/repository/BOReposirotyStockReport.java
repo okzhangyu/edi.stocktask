@@ -117,24 +117,24 @@ public class BOReposirotyStockReport implements IBORepositoryStockReport {
         DefaultTransactionDefinition def = new DefaultTransactionDefinition();
         def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
         TransactionStatus status = ptm.getTransaction(def);
-        for (int i=0;i<stockReports.size();i++){
+        for (int i=0;i<stockReports.size();i++) {
             StockReport stockReport = stockReports.get(i);
-            if(b1DocEntryVerification.B1EntryCheck(stockReport.getDocEntry())){
-                try {
-                    stockReportMapper.updateStockReport(stockReport);
-                    for(int j=0;j<stockReport.getStockReportItems().size();j++){
-                        StockReportItem stockReportItem = stockReport.getStockReportItems().get(j);
-                        stockReportMapper.updateStockReportItem(stockReportItem);
-                    }
-                    ptm.commit(status);
-                }catch(Exception e){
-                    e.printStackTrace();
-                    ptm.rollback(status);
-                    throw e;
-                }
-            }else{
+            if (!b1DocEntryVerification.B1EntryCheck(stockReport.getDocEntry())) {
                 throw new BusinessException(CharsetConvert.convert(ResultDescription.B1DOCENTRY_IS_EXISTENT));
             }
+            try {
+                stockReportMapper.updateStockReport(stockReport);
+                for (int j = 0; j < stockReport.getStockReportItems().size(); j++) {
+                    StockReportItem stockReportItem = stockReport.getStockReportItems().get(j);
+                    stockReportMapper.updateStockReportItem(stockReportItem);
+                }
+                ptm.commit(status);
+            } catch (Exception e) {
+                e.printStackTrace();
+                ptm.rollback(status);
+                throw e;
+            }
+
         }
 
     }
@@ -152,18 +152,17 @@ public class BOReposirotyStockReport implements IBORepositoryStockReport {
         DefaultTransactionDefinition def = new DefaultTransactionDefinition();
         def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
         TransactionStatus status = ptm.getTransaction(def);
-        if(b1DocEntryVerification.B1EntryCheck(docEntry)){
-            try {
-                stockReportMapper.deleteStockReport(docEntry);
-                stockReportMapper.deleteStockReportItem(docEntry);
-                ptm.commit(status);
-            }catch(Exception e){
-                e.printStackTrace();
-                ptm.rollback(status);
-                throw e;
-            }
-        }else{
+        if(!b1DocEntryVerification.B1EntryCheck(docEntry)){
             throw new BusinessException(CharsetConvert.convert(ResultDescription.B1DOCENTRY_IS_EXISTENT));
+        }
+        try {
+            stockReportMapper.deleteStockReport(docEntry);
+            stockReportMapper.deleteStockReportItem(docEntry);
+            ptm.commit(status);
+        }catch(Exception e){
+            e.printStackTrace();
+            ptm.rollback(status);
+            throw e;
         }
 
     }

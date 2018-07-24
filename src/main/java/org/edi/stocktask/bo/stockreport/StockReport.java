@@ -1,5 +1,6 @@
 package org.edi.stocktask.bo.stockreport;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,16 +17,16 @@ public class StockReport implements IStockReport{
     private String period;//yes
     private String objectCode;//yes
     private String transfered;//yes
-    private String createDate;//yes
+    private Date createDate;//yes
     private Integer createTime;//yes
-    private String updateDate;//yes
+    private Date updateDate;//yes
     private Integer updateTime;//yes
     private String createUserSign;//yes
     private String updateUserSign;//yes
     private String documentStatus;//yes
-    private String postingDate;//unsure
-    private String deliveryDate;//unsure
-    private String documentDate;//yes
+    private Date postingDate;//unsure
+    private Date deliveryDate;//unsure
+    private Date documentDate;//yes
     private String reference1;//yes
     private String reference2;//yes
     private String remarks;//yes
@@ -100,12 +101,12 @@ public class StockReport implements IStockReport{
     }
 
     @Override
-    public String getCreateDate() {
+    public Date getCreateDate() {
         return createDate;
     }
 
     @Override
-    public void setCreateDate(String createDate) {
+    public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
 
@@ -120,12 +121,12 @@ public class StockReport implements IStockReport{
     }
 
     @Override
-    public String getUpdateDate() {
+    public Date getUpdateDate() {
         return updateDate;
     }
 
     @Override
-    public void setUpdateDate(String updateDate) {
+    public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
     }
 
@@ -170,32 +171,32 @@ public class StockReport implements IStockReport{
     }
 
     @Override
-    public String getPostingDate() {
+    public Date getPostingDate() {
         return postingDate;
     }
 
     @Override
-    public void setPostingDate(String postingDate) {
+    public void setPostingDate(Date postingDate) {
         this.postingDate = postingDate;
     }
 
     @Override
-    public String getDeliveryDate() {
+    public Date getDeliveryDate() {
         return deliveryDate;
     }
 
     @Override
-    public void setDeliveryDate(String deliveryDate) {
+    public void setDeliveryDate(Date deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
 
     @Override
-    public String getDocumentDate() {
+    public Date getDocumentDate() {
         return documentDate;
     }
 
     @Override
-    public void setDocumentDate(String documentDate) {
+    public void setDocumentDate(Date documentDate) {
         this.documentDate = documentDate;
     }
 
@@ -322,36 +323,5 @@ public class StockReport implements IStockReport{
 
     public StockReport() {
         this.setObjectCode(BUSINESS_CODE);
-    }
-
-    public StockReport(String companyName, Integer docEntry, Integer docNum, String period, String objectCode, String transfered, String createDate, Integer createTime, String updateDate, Integer updateTime, String createUserSign, String updateUserSign, String documentStatus, String postingDate, String deliveryDate, String documentDate, String reference1, String reference2, String remarks, Integer b1DocEntry, String bydUUID, String customType, String transactionType, String businessPartnerCode, String businessPartnerName, String baseDocumentType, Integer baseDocumentEntry, List<StockReportItem> stockReportItems) {
-        this.companyName = companyName;
-        this.docEntry = docEntry;
-        this.docNum = docNum;
-        this.period = period;
-        this.objectCode = objectCode;
-        this.transfered = transfered;
-        this.createDate = createDate;
-        this.createTime = createTime;
-        this.updateDate = updateDate;
-        this.updateTime = updateTime;
-        this.createUserSign = createUserSign;
-        this.updateUserSign = updateUserSign;
-        this.documentStatus = documentStatus;
-        this.postingDate = postingDate;
-        this.deliveryDate = deliveryDate;
-        this.documentDate = documentDate;
-        this.reference1 = reference1;
-        this.reference2 = reference2;
-        this.remarks = remarks;
-        this.b1DocEntry = b1DocEntry;
-        this.bydUUID = bydUUID;
-        this.customType = customType;
-        this.transactionType = transactionType;
-        this.businessPartnerCode = businessPartnerCode;
-        this.businessPartnerName = businessPartnerName;
-        this.baseDocumentType = baseDocumentType;
-        this.baseDocumentEntry = baseDocumentEntry;
-        this.stockReportItems = stockReportItems;
     }
 }
