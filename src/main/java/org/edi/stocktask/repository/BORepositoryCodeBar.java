@@ -29,7 +29,7 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
     @Override
     public List<CodeBar> parseCodeBar(String codebar) {
         if(codebar==null||codebar.equals("")){
-            throw  new BusinessException(ResultDescription.CODEBAR_IS_NULL);
+            throw new BusinessException(ResultDescription.CODEBAR_IS_NULL);
         }
         List<CodeBar> listCodeBar = new ArrayList<>();
         HashMap<String,String> codeBar = new HashMap();

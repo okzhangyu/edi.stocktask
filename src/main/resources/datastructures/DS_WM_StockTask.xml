@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <DomainModel Name="WarehouseManagement" ShortName="WM">
     <Table Name="AVA_WM_VIEW_OSTK" Description="库存任务" Type="bott_SimpleBusinessObject" State="bots_BoModelOnly" PropertyName="StockTask">
-        <Field Name="ComanyName" Description="公司账套" DataType="db_Alpha" SubType="st_None" EditSize="20" PropertyName="ComanyName" FixedDataType="System.String" />
+        <Field Name="CompanyName" Description="公司账套" DataType="db_Alpha" SubType="st_None" EditSize="20" PropertyName="CompanyName" FixedDataType="System.String" />
         <Field Name="ObjectKey" Description="编号" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="ObjectKey" IsSystem="Yes" FixedDataType="System.Int32" IsPrimaryKey="Yes" />
         <Field Name="Object" Description="类型" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="ObjectCode" IsSystem="Yes" FixedDataType="System.String" />
         <Field Name="CreateDate" Description="创建日期" DataType="db_Date" SubType="st_None" EditSize="8" PropertyName="CreateDate" IsSystem="Yes" FixedDataType="System.DateTime" />

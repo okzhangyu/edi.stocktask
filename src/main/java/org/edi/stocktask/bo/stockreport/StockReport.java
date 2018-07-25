@@ -1,5 +1,6 @@
 package org.edi.stocktask.bo.stockreport;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,16 +17,16 @@ public class StockReport implements IStockReport{
     private String period;//yes
     private String objectCode;//yes
     private String transfered;//yes
-    private String createDate;//yes
+    private Date createDate;//yes
     private Integer createTime;//yes
-    private String updateDate;//yes
+    private Date updateDate;//yes
     private Integer updateTime;//yes
     private String createUserSign;//yes
     private String updateUserSign;//yes
     private String documentStatus;//yes
-    private String postingDate;//unsure
-    private String deliveryDate;//unsure
-    private String documentDate;//yes
+    private Date postingDate;//unsure
+    private Date deliveryDate;//unsure
+    private Date documentDate;//yes
     private String reference1;//yes
     private String reference2;//yes
     private String remarks;//yes
@@ -100,12 +101,12 @@ public class StockReport implements IStockReport{
     }
 
     @Override
-    public String getCreateDate() {
+    public Date getCreateDate() {
         return createDate;
     }
 
     @Override
-    public void setCreateDate(String createDate) {
+    public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
 
@@ -120,12 +121,12 @@ public class StockReport implements IStockReport{
     }
 
     @Override
-    public String getUpdateDate() {
+    public Date getUpdateDate() {
         return updateDate;
     }
 
     @Override
-    public void setUpdateDate(String updateDate) {
+    public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
     }
 
@@ -170,32 +171,32 @@ public class StockReport implements IStockReport{
     }
 
     @Override
-    public String getPostingDate() {
+    public Date getPostingDate() {
         return postingDate;
     }
 
     @Override
-    public void setPostingDate(String postingDate) {
+    public void setPostingDate(Date postingDate) {
         this.postingDate = postingDate;
     }
 
     @Override
-    public String getDeliveryDate() {
+    public Date getDeliveryDate() {
         return deliveryDate;
     }
 
     @Override
-    public void setDeliveryDate(String deliveryDate) {
+    public void setDeliveryDate(Date deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
 
     @Override
-    public String getDocumentDate() {
+    public Date getDocumentDate() {
         return documentDate;
     }
 
     @Override
-    public void setDocumentDate(String documentDate) {
+    public void setDocumentDate(Date documentDate) {
         this.documentDate = documentDate;
     }
 

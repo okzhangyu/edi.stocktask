@@ -1,13 +1,12 @@
 package org.edi.stocktask.bo.stockreport;
 
-import java.math.BigDecimal;
 
 /**
  * @author Fancy
  * @date 2018/5/27
  */
 public class StockReportItem implements IStockReportItem{
-   private Integer docEntry;
+    private Integer docEntry;
     private Integer lineId;
     private String objectCode;
     private String lineStatus;
@@ -30,15 +29,15 @@ public class StockReportItem implements IStockReportItem{
     private Integer targetDocumentLineId;
     private String itemCode;//
     private String itemDescription;
-    private BigDecimal quantity;
+    private Double quantity;
     private String inventoryUoM;
     private String serialNumberManagement;
     private String batchNumberManagement;
     private String serviceNumberManagement;
-    private BigDecimal price;
+    private Double price;
     private String currency;
-    private BigDecimal currencyRate;
-    private BigDecimal lineTotal;
+    private Double currencyRate;
+    private Double lineTotal;
     private String fromWarehose;
     private String fromLocation;
     private String toWarehouse;
@@ -282,12 +281,12 @@ public class StockReportItem implements IStockReportItem{
     }
 
     @Override
-    public BigDecimal getQuantity() {
+    public Double getQuantity() {
         return quantity;
     }
 
     @Override
-    public void setQuantity(BigDecimal quantity) {
+    public void setQuantity(Double quantity) {
         this.quantity = quantity;
     }
 
@@ -332,12 +331,12 @@ public class StockReportItem implements IStockReportItem{
     }
 
     @Override
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
     @Override
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -352,22 +351,22 @@ public class StockReportItem implements IStockReportItem{
     }
 
     @Override
-    public BigDecimal getCurrencyRate() {
+    public Double getCurrencyRate() {
         return currencyRate;
     }
 
     @Override
-    public void setCurrencyRate(BigDecimal currencyRate) {
+    public void setCurrencyRate(Double currencyRate) {
         this.currencyRate = currencyRate;
     }
 
     @Override
-    public BigDecimal getLineTotal() {
+    public Double getLineTotal() {
         return lineTotal;
     }
 
     @Override
-    public void setLineTotal(BigDecimal lineTotal) {
+    public void setLineTotal(Double lineTotal) {
         this.lineTotal = lineTotal;
     }
 

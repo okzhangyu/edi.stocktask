@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <DomainModel Name="WarehouseManagement" ShortName="WM">
     <Table Name="AVA_WM_OSRP" Description="库存任务汇报" Type="bott_Document" State="bots_User" PropertyName="StockReport">
-        <Field Name="ComanyName" Description="公司账套" DataType="db_Alpha" SubType="st_None" EditSize="20" PropertyName="ComanyName" FixedDataType="System.String" />
+        <Field Name="CompanyName" Description="公司账套" DataType="db_Alpha" SubType="st_None" EditSize="20" PropertyName="CompanyName" FixedDataType="System.String" />
         <Field Name="DocEntry" Description="凭证编号" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="DocEntry" IsSystem="Yes" FixedDataType="System.Int32" IsPrimaryKey="Yes" />
         <Field Name="DocNum" Description="期间编号" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="DocNum" IsSystem="Yes" FixedDataType="System.Int32" />
         <Field Name="Period" Description="期间" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="Period" IsSystem="Yes" FixedDataType="System.Int32" />
