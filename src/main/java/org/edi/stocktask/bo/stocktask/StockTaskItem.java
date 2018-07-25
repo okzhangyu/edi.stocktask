@@ -412,6 +412,42 @@ public class StockTaskItem implements IStockTaskItem{
         this.waterCode = waterCode;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "StockTaskItem{" +
+                "objectKey=" + objectKey +
+                ", objectCode='" + objectCode + '\'' +
+                ", lineId=" + lineId +
+                ", reference1='" + reference1 + '\'' +
+                ", reference2='" + reference2 + '\'' +
+                ", documentType='" + documentType + '\'' +
+                ", documentEntry=" + documentEntry +
+                ", documentLineId=" + documentLineId +
+                ", itemCode='" + itemCode + '\'' +
+                ", itemDescription='" + itemDescription + '\'' +
+                ", packageQuantity=" + packageQuantity +
+                ", quantity=" + quantity +
+                ", inventoryUoM='" + inventoryUoM + '\'' +
+                ", serialNumberManagement='" + serialNumberManagement + '\'' +
+                ", batchNumberManagement='" + batchNumberManagement + '\'' +
+                ", serviceNumberManagement='" + serviceNumberManagement + '\'' +
+                ", price=" + price +
+                ", currency='" + currency + '\'' +
+                ", currencyRate=" + currencyRate +
+                ", lineTotal=" + lineTotal +
+                ", fromWarehose='" + fromWarehose + '\'' +
+                ", fromLocation='" + fromLocation + '\'' +
+                ", toWarehouse='" + toWarehouse + '\'' +
+                ", toLocation='" + toLocation + '\'' +
+                ", transactionType='" + transactionType + '\'' +
+                ", baseDocumentType='" + baseDocumentType + '\'' +
+                ", baseDocumentEntry=" + baseDocumentEntry +
+                ", baseDocumentLineId=" + baseDocumentLineId +
+                ", originalDocumentType='" + originalDocumentType + '\'' +
+                ", originalDocumentEntry=" + originalDocumentEntry +
+                ", originalDocumentLineId=" + originalDocumentLineId +
+                ", scanningType='" + scanningType + '\'' +
+                ", waterCode='" + waterCode + '\'' +
+                '}';
+    }
 }

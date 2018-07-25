@@ -117,9 +117,10 @@ public class StockReportService implements  IStockReportService{
      * @param docEntry
      * @return
      */
-
     @DELETE
     @Path("/stockreports")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     @Override
     public Result deleteStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token,@QueryParam("docEntry")int docEntry) {
         Result result = new Result();

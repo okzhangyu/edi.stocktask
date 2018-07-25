@@ -14,6 +14,8 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -85,8 +87,11 @@ public class BOReposirotyStockReport implements IBORepositoryStockReport {
         try {
             for (int i = 0; i < stockReports.size(); i++) {
                 int docEntry = stockReportMapper.fetchSequenceOfDocEntry();
+                DateFormat df=DateFormat.getDateTimeInstance();
+                String nowDate=df.format(new Date());
                 StockReport stockReport = stockReports.get(i);
                 stockReport.setDocEntry(docEntry);
+                stockReport.setCreateDate(nowDate);
                 stockReportMapper.saveStockReport(stockReport);
                 for (int j = 0; j < stockReports.get(i).getStockReportItems().size(); j++) {
                     StockReportItem stockReportItem = stockReports.get(i).getStockReportItems().get(j);

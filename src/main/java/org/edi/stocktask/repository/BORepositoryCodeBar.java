@@ -21,7 +21,11 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
     @Autowired
     private CodeBarMapper codeBarMapper;
 
-
+    /**
+     * 条码解析
+     * @param codebar
+     * @return
+     */
     @Override
     public List<CodeBar> parseCodeBar(String codebar) {
         if(codebar==null||codebar.equals("")){

@@ -32,4 +32,12 @@ public class CodeBar implements  ICodeBar{
         ProName = proName;
         ProValue = proValue;
     }
+
+    @Override
+    public String toString() {
+        return "CodeBar{" +
+                "ProName='" + ProName + '\'' +
+                ", ProValue='" + ProValue + '\'' +
+                '}';
+    }
 }

@@ -529,4 +529,54 @@ public class StockReportItem implements IStockReportItem{
         this.barCode4 = barCode4;
         this.barCode5 = barCode5;
     }
+
+
+    @Override
+    public String toString() {
+        return "StockReportItem{" +
+                "docEntry=" + docEntry +
+                ", lineId=" + lineId +
+                ", objectCode='" + objectCode + '\'' +
+                ", lineStatus='" + lineStatus + '\'' +
+                ", reference1='" + reference1 + '\'' +
+                ", reference2='" + reference2 + '\'' +
+                ", baseDocumentType='" + baseDocumentType + '\'' +
+                ", baseDocumentEntry=" + baseDocumentEntry +
+                ", baseDocumentLineId=" + baseDocumentLineId +
+                ", projectCode='" + projectCode + '\'' +
+                ", distributionRule1='" + distributionRule1 + '\'' +
+                ", distributionRule2='" + distributionRule2 + '\'' +
+                ", distributionRule3='" + distributionRule3 + '\'' +
+                ", distributionRule4='" + distributionRule4 + '\'' +
+                ", distributionRule5='" + distributionRule5 + '\'' +
+                ", originalDocumentType='" + originalDocumentType + '\'' +
+                ", originalDocumentEntry=" + originalDocumentEntry +
+                ", originalDocumentLineId=" + originalDocumentLineId +
+                ", targetDocumentType='" + targetDocumentType + '\'' +
+                ", targetDocumentEntry=" + targetDocumentEntry +
+                ", targetDocumentLineId=" + targetDocumentLineId +
+                ", itemCode='" + itemCode + '\'' +
+                ", itemDescription='" + itemDescription + '\'' +
+                ", quantity=" + quantity +
+                ", inventoryUoM='" + inventoryUoM + '\'' +
+                ", serialNumberManagement='" + serialNumberManagement + '\'' +
+                ", batchNumberManagement='" + batchNumberManagement + '\'' +
+                ", serviceNumberManagement='" + serviceNumberManagement + '\'' +
+                ", price=" + price +
+                ", currency='" + currency + '\'' +
+                ", currencyRate=" + currencyRate +
+                ", lineTotal=" + lineTotal +
+                ", fromWarehose='" + fromWarehose + '\'' +
+                ", fromLocation='" + fromLocation + '\'' +
+                ", toWarehouse='" + toWarehouse + '\'' +
+                ", toLocation='" + toLocation + '\'' +
+                ", batchNumber='" + batchNumber + '\'' +
+                ", serialNumber='" + serialNumber + '\'' +
+                ", barCode1='" + barCode1 + '\'' +
+                ", barCode2='" + barCode2 + '\'' +
+                ", barCode3='" + barCode3 + '\'' +
+                ", barCode4='" + barCode4 + '\'' +
+                ", barCode5='" + barCode5 + '\'' +
+                '}';
+    }
 }

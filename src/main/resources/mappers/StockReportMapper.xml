@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.edi.stocktask.mapper.StockReportMapper">
     <resultMap id="BaseResultMap" type="org.edi.stocktask.bo.stockreport.StockReport">
-        <result column="ComanyName" property="companyName" jdbcType="VARCHAR" />
+        <result column="CompanyName" property="companyName" jdbcType="VARCHAR" />
         <result column="DocEntry" property="docEntry" jdbcType="INTEGER" />
         <result column="DocNum" property="docNum" jdbcType="INTEGER" />
         <result column="Period" property="period" jdbcType="VARCHAR" />
@@ -76,10 +76,11 @@
         <result column="BarCode4" property="barCode4" jdbcType="VARCHAR" />
     </resultMap>
 
-
+   <!-- SELECT * FROM AVA_WM_OSRP WITH(TABLOCKX)-->
     <select id="fetchStockReport" resultMap="BaseResultMap">
-        SELECT * FROM AVA_WM_OSRP WITH(TABLOCKX)
+        SELECT * FROM AVA_WM_OSRP
     </select>
+
     <select id="fetchStockReportByEntry" resultMap="BaseResultMap" parameterType="int">
         SELECT * FROM AVA_WM_OSRP with(XLOCK) where docEntry=#{docEntry}
     </select>
@@ -88,7 +89,7 @@
     </select>
 
     <insert id="saveStockReport" parameterType="org.edi.stocktask.bo.stockreport.StockReport">
-        INSERT INTO AVA_WM_OSRP([ComanyName] ,[DocEntry],[DocNum] ,[Period] ,[Object] ,[Transfered] ,[CreateDate],[CreateTime],[UpdateDate],[UpdateTime]  ,[Creator] ,[Updator] ,[DocStatus] ,[DocDate]
+        INSERT INTO AVA_WM_OSRP([CompanyName] ,[DocEntry],[DocNum] ,[Period] ,[Object] ,[Transfered] ,[CreateDate],[CreateTime],[UpdateDate],[UpdateTime]  ,[Creator] ,[Updator] ,[DocStatus] ,[DocDate]
         ,[DocDueDate],[TaxDate] ,[Ref1],[Ref2] ,[Remarks] ,[B1DocEntry] ,[BydUUID] ,[CusType],[TransType],[BpCode],[BpName] ,[BaseType] ,[BaseEntry])
         VALUES (#{companyName} ,#{docEntry} ,#{docNum},#{period},#{objectCode} ,#{transfered},#{createDate},#{createTime},#{updateDate},#{updateTime} ,#{createUserSign} ,#{updateUserSign} ,#{documentStatus} ,#{documentDate},
         #{postingDate} ,#{deliveryDate} ,#{reference1} ,#{reference2} ,#{remarks} ,#{b1DocEntry} ,#{bydUUID} ,#{customType} ,#{transactionType} ,#{businessPartnerCode},#{businessPartnerName},#{baseDocumentType} ,#{baseDocumentEntry})
@@ -122,7 +123,7 @@
         SELECT * FROM AVA_WM_OSRP with(XLOCK)
         <where>
             <if test="companyName != null and companyName != ''">
-                ComanyName = #{companyName}
+                CompanyName = #{companyName}
             </if>
             <if test="baseDocumentType != null and baseDocumentType != ''">
                 and BaseType = #{baseDocumentType}
@@ -154,7 +155,7 @@
 
 
   <!--  void updateStockReport(StockReport stockReport);
-    INSERT INTO AVA_WM_OSRP([ComanyName] ,[DocEntry],[DocNum] ,[Period] ,[Object] ,[Transfered] ,[CreateDate],[CreateTime],[UpdateDate],[UpdateTime]  ,[Creator] ,[Updator] ,[DocStatus] ,[DocDate]
+    INSERT INTO AVA_WM_OSRP([CompanyName] ,[DocEntry],[DocNum] ,[Period] ,[Object] ,[Transfered] ,[CreateDate],[CreateTime],[UpdateDate],[UpdateTime]  ,[Creator] ,[Updator] ,[DocStatus] ,[DocDate]
     ,[DocDueDate],[TaxDate] ,[Ref1],[Ref2] ,[Remarks] ,[B1DocEntry] ,[BydUUID] ,[CusType],[TransType],[BpCode],[BpName] ,[BaseType] ,[BaseEntry])
     VALUES (#{companyName} ,#{docEntry} ,#{docNum},#{period},#{objectCode} ,#{transfered},#{createDate},#{createTime},#{updateDate},#{updateTime} ,#{createUserSign} ,#{updateUserSign} ,#{documentStatus} ,#{documentDate},
     #{postingDate} ,#{deliveryDate} ,#{reference1} ,#{reference2} ,#{remarks} ,#{b1DocEntry} ,#{bydUUID} ,#{customType} ,#{transactionType} ,#{businessPartnerCode},#{businessPartnerName},#{baseDocumentType} ,#{baseDocumentEntry})
@@ -162,7 +163,7 @@
     <update id="updateStockReport"  parameterType="org.edi.stocktask.bo.stockreport.StockReport">
         UPDATE AVA_WM_OSRP
         <trim prefix="set" suffixOverrides=",">
-            <if test="companyName!=null">ComanyName=#{companyName},</if>
+            <if test="companyName!=null">CompanyName=#{companyName},</if>
             <if test="docNum!=null">DocNum=#{docNum},</if>
             <if test="period!=null">Period=#{period},</if>
             <if test="objectCode!=null">Object=#{objectCode},</if>

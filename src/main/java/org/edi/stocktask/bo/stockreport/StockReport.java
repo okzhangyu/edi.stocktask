@@ -354,4 +354,39 @@ public class StockReport implements IStockReport{
         this.baseDocumentEntry = baseDocumentEntry;
         this.stockReportItems = stockReportItems;
     }
+
+
+    @Override
+    public String toString() {
+        return "StockReport{" +
+                "companyName='" + companyName + '\'' +
+                ", docEntry=" + docEntry +
+                ", docNum=" + docNum +
+                ", period='" + period + '\'' +
+                ", objectCode='" + objectCode + '\'' +
+                ", transfered='" + transfered + '\'' +
+                ", createDate='" + createDate + '\'' +
+                ", createTime=" + createTime +
+                ", updateDate='" + updateDate + '\'' +
+                ", updateTime=" + updateTime +
+                ", createUserSign='" + createUserSign + '\'' +
+                ", updateUserSign='" + updateUserSign + '\'' +
+                ", documentStatus='" + documentStatus + '\'' +
+                ", postingDate='" + postingDate + '\'' +
+                ", deliveryDate='" + deliveryDate + '\'' +
+                ", documentDate='" + documentDate + '\'' +
+                ", reference1='" + reference1 + '\'' +
+                ", reference2='" + reference2 + '\'' +
+                ", remarks='" + remarks + '\'' +
+                ", b1DocEntry=" + b1DocEntry +
+                ", bydUUID='" + bydUUID + '\'' +
+                ", customType='" + customType + '\'' +
+                ", transactionType='" + transactionType + '\'' +
+                ", businessPartnerCode='" + businessPartnerCode + '\'' +
+                ", businessPartnerName='" + businessPartnerName + '\'' +
+                ", baseDocumentType='" + baseDocumentType + '\'' +
+                ", baseDocumentEntry=" + baseDocumentEntry +
+                ", stockReportItems=" + stockReportItems +
+                '}';
+    }
 }
