@@ -1,5 +1,6 @@
 package org.edi.stocktask.bo.stockreport;
 
+
 import java.util.Date;
 import java.util.List;
 
@@ -100,6 +101,7 @@ public class StockReport implements IStockReport{
         this.transfered = transfered;
     }
 
+
     @Override
     public Date getCreateDate() {
         return createDate;
@@ -169,6 +171,7 @@ public class StockReport implements IStockReport{
     public void setDocumentStatus(String documentStatus) {
         this.documentStatus = documentStatus;
     }
+
 
     @Override
     public Date getPostingDate() {
@@ -323,5 +326,70 @@ public class StockReport implements IStockReport{
 
     public StockReport() {
         this.setObjectCode(BUSINESS_CODE);
+    }
+
+    public StockReport(String companyName, Integer docEntry, Integer docNum, String period, String objectCode, String transfered, Date createDate, Integer createTime, Date updateDate, Integer updateTime, String createUserSign, String updateUserSign, String documentStatus, Date postingDate, Date deliveryDate, Date documentDate, String reference1, String reference2, String remarks, Integer b1DocEntry, String bydUUID, String customType, String transactionType, String businessPartnerCode, String businessPartnerName, String baseDocumentType, Integer baseDocumentEntry, List<StockReportItem> stockReportItems) {
+        this.companyName = companyName;
+        this.docEntry = docEntry;
+        this.docNum = docNum;
+        this.period = period;
+        this.objectCode = objectCode;
+        this.transfered = transfered;
+        this.createDate = createDate;
+        this.createTime = createTime;
+        this.updateDate = updateDate;
+        this.updateTime = updateTime;
+        this.createUserSign = createUserSign;
+        this.updateUserSign = updateUserSign;
+        this.documentStatus = documentStatus;
+        this.postingDate = postingDate;
+        this.deliveryDate = deliveryDate;
+        this.documentDate = documentDate;
+        this.reference1 = reference1;
+        this.reference2 = reference2;
+        this.remarks = remarks;
+        this.b1DocEntry = b1DocEntry;
+        this.bydUUID = bydUUID;
+        this.customType = customType;
+        this.transactionType = transactionType;
+        this.businessPartnerCode = businessPartnerCode;
+        this.businessPartnerName = businessPartnerName;
+        this.baseDocumentType = baseDocumentType;
+        this.baseDocumentEntry = baseDocumentEntry;
+        this.stockReportItems = stockReportItems;
+    }
+
+    @Override
+    public String toString() {
+        return "StockReport{" +
+                "companyName='" + companyName + '\'' +
+                ", docEntry=" + docEntry +
+                ", docNum=" + docNum +
+                ", period='" + period + '\'' +
+                ", objectCode='" + objectCode + '\'' +
+                ", transfered='" + transfered + '\'' +
+                ", createDate='" + createDate + '\'' +
+                ", createTime=" + createTime +
+                ", updateDate='" + updateDate + '\'' +
+                ", updateTime=" + updateTime +
+                ", createUserSign='" + createUserSign + '\'' +
+                ", updateUserSign='" + updateUserSign + '\'' +
+                ", documentStatus='" + documentStatus + '\'' +
+                ", postingDate='" + postingDate + '\'' +
+                ", deliveryDate='" + deliveryDate + '\'' +
+                ", documentDate='" + documentDate + '\'' +
+                ", reference1='" + reference1 + '\'' +
+                ", reference2='" + reference2 + '\'' +
+                ", remarks='" + remarks + '\'' +
+                ", b1DocEntry=" + b1DocEntry +
+                ", bydUUID='" + bydUUID + '\'' +
+                ", customType='" + customType + '\'' +
+                ", transactionType='" + transactionType + '\'' +
+                ", businessPartnerCode='" + businessPartnerCode + '\'' +
+                ", businessPartnerName='" + businessPartnerName + '\'' +
+                ", baseDocumentType='" + baseDocumentType + '\'' +
+                ", baseDocumentEntry=" + baseDocumentEntry +
+                ", stockReportItems=" + stockReportItems +
+                '}';
     }
 }

@@ -482,4 +482,100 @@ public class StockReportItem implements IStockReportItem{
 
     public StockReportItem() {
     }
+
+    public StockReportItem(Integer docEntry, Integer lineId, String objectCode, String lineStatus, String reference1, String reference2, String baseDocumentType, Integer baseDocumentEntry, Integer baseDocumentLineId, String projectCode, String distributionRule1, String distributionRule2, String distributionRule3, String distributionRule4, String distributionRule5, String originalDocumentType, Integer originalDocumentEntry, Integer originalDocumentLineId, String targetDocumentType, Integer targetDocumentEntry, Integer targetDocumentLineId, String itemCode, String itemDescription, Double quantity, String inventoryUoM, String serialNumberManagement, String batchNumberManagement, String serviceNumberManagement, Double price, String currency, Double currencyRate, Double lineTotal, String fromWarehose, String fromLocation, String toWarehouse, String toLocation, String batchNumber, String serialNumber, String barCode1, String barCode2, String barCode3, String barCode4, String barCode5) {
+        this.docEntry = docEntry;
+        this.lineId = lineId;
+        this.objectCode = objectCode;
+        this.lineStatus = lineStatus;
+        this.reference1 = reference1;
+        this.reference2 = reference2;
+        this.baseDocumentType = baseDocumentType;
+        this.baseDocumentEntry = baseDocumentEntry;
+        this.baseDocumentLineId = baseDocumentLineId;
+        this.projectCode = projectCode;
+        this.distributionRule1 = distributionRule1;
+        this.distributionRule2 = distributionRule2;
+        this.distributionRule3 = distributionRule3;
+        this.distributionRule4 = distributionRule4;
+        this.distributionRule5 = distributionRule5;
+        this.originalDocumentType = originalDocumentType;
+        this.originalDocumentEntry = originalDocumentEntry;
+        this.originalDocumentLineId = originalDocumentLineId;
+        this.targetDocumentType = targetDocumentType;
+        this.targetDocumentEntry = targetDocumentEntry;
+        this.targetDocumentLineId = targetDocumentLineId;
+        this.itemCode = itemCode;
+        this.itemDescription = itemDescription;
+        this.quantity = quantity;
+        this.inventoryUoM = inventoryUoM;
+        this.serialNumberManagement = serialNumberManagement;
+        this.batchNumberManagement = batchNumberManagement;
+        this.serviceNumberManagement = serviceNumberManagement;
+        this.price = price;
+        this.currency = currency;
+        this.currencyRate = currencyRate;
+        this.lineTotal = lineTotal;
+        this.fromWarehose = fromWarehose;
+        this.fromLocation = fromLocation;
+        this.toWarehouse = toWarehouse;
+        this.toLocation = toLocation;
+        this.batchNumber = batchNumber;
+        this.serialNumber = serialNumber;
+        this.barCode1 = barCode1;
+        this.barCode2 = barCode2;
+        this.barCode3 = barCode3;
+        this.barCode4 = barCode4;
+        this.barCode5 = barCode5;
+    }
+
+
+    @Override
+    public String toString() {
+        return "StockReportItem{" +
+                "docEntry=" + docEntry +
+                ", lineId=" + lineId +
+                ", objectCode='" + objectCode + '\'' +
+                ", lineStatus='" + lineStatus + '\'' +
+                ", reference1='" + reference1 + '\'' +
+                ", reference2='" + reference2 + '\'' +
+                ", baseDocumentType='" + baseDocumentType + '\'' +
+                ", baseDocumentEntry=" + baseDocumentEntry +
+                ", baseDocumentLineId=" + baseDocumentLineId +
+                ", projectCode='" + projectCode + '\'' +
+                ", distributionRule1='" + distributionRule1 + '\'' +
+                ", distributionRule2='" + distributionRule2 + '\'' +
+                ", distributionRule3='" + distributionRule3 + '\'' +
+                ", distributionRule4='" + distributionRule4 + '\'' +
+                ", distributionRule5='" + distributionRule5 + '\'' +
+                ", originalDocumentType='" + originalDocumentType + '\'' +
+                ", originalDocumentEntry=" + originalDocumentEntry +
+                ", originalDocumentLineId=" + originalDocumentLineId +
+                ", targetDocumentType='" + targetDocumentType + '\'' +
+                ", targetDocumentEntry=" + targetDocumentEntry +
+                ", targetDocumentLineId=" + targetDocumentLineId +
+                ", itemCode='" + itemCode + '\'' +
+                ", itemDescription='" + itemDescription + '\'' +
+                ", quantity=" + quantity +
+                ", inventoryUoM='" + inventoryUoM + '\'' +
+                ", serialNumberManagement='" + serialNumberManagement + '\'' +
+                ", batchNumberManagement='" + batchNumberManagement + '\'' +
+                ", serviceNumberManagement='" + serviceNumberManagement + '\'' +
+                ", price=" + price +
+                ", currency='" + currency + '\'' +
+                ", currencyRate=" + currencyRate +
+                ", lineTotal=" + lineTotal +
+                ", fromWarehose='" + fromWarehose + '\'' +
+                ", fromLocation='" + fromLocation + '\'' +
+                ", toWarehouse='" + toWarehouse + '\'' +
+                ", toLocation='" + toLocation + '\'' +
+                ", batchNumber='" + batchNumber + '\'' +
+                ", serialNumber='" + serialNumber + '\'' +
+                ", barCode1='" + barCode1 + '\'' +
+                ", barCode2='" + barCode2 + '\'' +
+                ", barCode3='" + barCode3 + '\'' +
+                ", barCode4='" + barCode4 + '\'' +
+                ", barCode5='" + barCode5 + '\'' +
+                '}';
+    }
 }

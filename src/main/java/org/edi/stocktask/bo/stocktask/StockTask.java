@@ -310,7 +310,32 @@ public class StockTask implements  IStockTask{
         this.annotated = annotated;
     }
 
-
-
-
+    @Override
+    public String toString() {
+        return "StockTask{" +
+                "companyName='" + companyName + '\'' +
+                ", objectKey=" + objectKey +
+                ", objectCode='" + objectCode + '\'' +
+                ", createDate='" + createDate + '\'' +
+                ", createTime=" + createTime +
+                ", updateDate='" + updateDate + '\'' +
+                ", updateTime=" + updateTime +
+                ", reference1='" + reference1 + '\'' +
+                ", reference2='" + reference2 + '\'' +
+                ", remarks='" + remarks + '\'' +
+                ", documentType='" + documentType + '\'' +
+                ", documentEntry=" + documentEntry +
+                ", documentLineId=" + documentLineId +
+                ", businessPartnerCode='" + businessPartnerCode + '\'' +
+                ", businessPartnerName='" + businessPartnerName + '\'' +
+                ", transactionType='" + transactionType + '\'' +
+                ", postingDate=" + postingDate +
+                ", deliveryDate=" + deliveryDate +
+                ", documentDate='" + documentDate + '\'' +
+                ", schemaCode='" + schemaCode + '\'' +
+                ", annotated='" + annotated + '\'' +
+                ", stockTaskItems=" + stockTaskItems +
+                ", stockTaskBarCodeItems=" + stockTaskBarCodeItems +
+                '}';
+    }
 }

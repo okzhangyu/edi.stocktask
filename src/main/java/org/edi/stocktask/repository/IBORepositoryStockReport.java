@@ -2,6 +2,7 @@ package org.edi.stocktask.repository;
 
 import org.edi.stocktask.bo.stockreport.StockReport;
 
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -34,7 +35,7 @@ public interface IBORepositoryStockReport {
      * @param stockReports
      */
 
-    void saveStockReports(List<StockReport> stockReports);
+    void saveStockReports(List<StockReport> stockReports)throws ParseException;
 
 
 

@@ -14,6 +14,9 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,7 +26,7 @@ import java.util.List;
 
 
 @Component(value="boReposirotyStockReport")
-public class BOReposirotyStockReport implements IBORepositoryStockReport {
+public class BOReposirotyStockReport implements IBORepositoryStockReport{
 
     @Autowired
     private StockReportMapper stockReportMapper;
@@ -78,15 +81,18 @@ public class BOReposirotyStockReport implements IBORepositoryStockReport {
      * @param stockReports
      * @return
      */
-    public void saveStockReports(List<StockReport> stockReports){
+    public void saveStockReports(List<StockReport> stockReports) throws ParseException{
         DefaultTransactionDefinition def = new DefaultTransactionDefinition();
         def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
         TransactionStatus status = ptm.getTransaction(def);
         try {
             for (int i = 0; i < stockReports.size(); i++) {
                 int docEntry = stockReportMapper.fetchSequenceOfDocEntry();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String nowDate=sdf.format(new Date());
                 StockReport stockReport = stockReports.get(i);
                 stockReport.setDocEntry(docEntry);
+                stockReport.setCreateDate(sdf.parse(nowDate));
                 stockReportMapper.saveStockReport(stockReport);
                 for (int j = 0; j < stockReports.get(i).getStockReportItems().size(); j++) {
                     StockReportItem stockReportItem = stockReports.get(i).getStockReportItems().get(j);

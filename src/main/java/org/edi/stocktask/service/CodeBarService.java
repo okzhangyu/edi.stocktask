@@ -13,13 +13,13 @@ import org.edi.initialfantasy.filter.UserRequest;
 import org.edi.stocktask.bo.codeBar.CodeBar;
 import org.edi.stocktask.data.StockTaskServicePath;
 import org.edi.stocktask.repository.IBORepositoryCodeBar;
+import org.glassfish.jersey.server.JSONP;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 /**
@@ -31,13 +31,17 @@ public class CodeBarService implements ICodeBarService{
 
     @Autowired
     private IBORepositoryCodeBar boRepositoryCodeBar;
+
+
+
     /**
      * 解析条码
      * @param codeBar
      * @return
      */
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @JSONP(queryParam="callback")
+    @Produces("application/x-javascript;charset=utf-8")
     @Path("/codebar")
     @Override
     public Result<CodeBar> parseCodeBar(@QueryParam(ServicePath.TOKEN_NAMER)String token,
