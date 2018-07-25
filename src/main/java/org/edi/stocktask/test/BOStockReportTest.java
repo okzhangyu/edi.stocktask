@@ -14,8 +14,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigDecimal;
-import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -54,7 +53,7 @@ public class BOStockReportTest {
          stockReportItem.setBaseDocumentType("A");
          stockReportItem.setBaseDocumentEntry(1);
          stockReportItem.setItemDescription("中石化汇报单元");
-         stockReportItem.setQuantity(new BigDecimal(1));
+         stockReportItem.setQuantity(1.0);
          stockReportItem.setBatchNumberManagement("P");
          stockReportItem.setBatchNumber("32");
          stockReportItem.setFromLocation("北京");
@@ -68,7 +67,7 @@ public class BOStockReportTest {
          stockReportItem2.setBaseDocumentType("A");
          stockReportItem2.setBaseDocumentEntry(1);
          stockReportItem2.setItemDescription("中石化汇报单元");
-         stockReportItem2.setQuantity(new BigDecimal(1));
+         stockReportItem2.setQuantity(2.0);
          stockReportItem2.setBatchNumberManagement("P");
          stockReportItem2.setBatchNumber("32");
          stockReportItem2.setFromLocation("北京");
@@ -84,7 +83,6 @@ public class BOStockReportTest {
          stockReport.setPeriod("1");
          stockReport.setObjectCode("DF20180604");
          stockReport.setTransfered("F");
-         stockReport.setCreateDate("2018-07-04");
          stockReport.setRemarks("单元测试用例");
          stockReport.setBydUUID("3697459");
          stockReport.setObjectCode("DF20180604");
@@ -175,15 +173,15 @@ public class BOStockReportTest {
      * @param stockReports
      * @return
      */
-    public void saveStockReports(List<StockReport> stockReports) throws IOException{
+    public void saveStockReports(List<StockReport> stockReports) throws Exception{
         try {
         for (int i = 0; i < stockReports.size(); i++) {
             int docEntry = getStockReportMapper().fetchSequenceOfDocEntry();
-            DateFormat df = DateFormat.getDateTimeInstance();
-            String nowDate = df.format(new Date());
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String nowDate=sdf.format(new Date());
             StockReport stockReport = stockReports.get(i);
             stockReport.setDocEntry(docEntry);
-            stockReport.setCreateDate(nowDate);
+            stockReport.setCreateDate(sdf.parse(nowDate));
             getStockReportMapper().saveStockReport(stockReport);
             for (int j = 0; j < stockReports.get(i).getStockReportItems().size(); j++) {
                 StockReportItem stockReportItem = stockReports.get(i).getStockReportItems().get(j);
@@ -194,6 +192,7 @@ public class BOStockReportTest {
         }
         }catch(Exception e){
             e.printStackTrace();
+            throw e;
             }
     }
 
@@ -291,7 +290,7 @@ public class BOStockReportTest {
 
 
     @Test
-    public void saveStockReportsTest() throws IOException {
+    public void saveStockReportsTest() throws Exception {
         List<StockReport> stockReports = stockReports();
         saveStockReports(stockReports);
     }
