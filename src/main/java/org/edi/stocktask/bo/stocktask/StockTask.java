@@ -268,48 +268,6 @@ public class StockTask implements  IStockTask{
         this.setObjectCode(BUSINESS_CODE);
     }
 
-    public StockTask(String companyName, Integer objectKey, String objectCode, String createDate, Integer createTime, String updateDate, Integer updateTime, String reference1, String reference2, String remarks, String documentType, Integer documentEntry, Integer documentLineId, String businessPartnerCode, String businessPartnerName, String transactionType, Date postingDate, Date deliveryDate, String documentDate, String schemaCode, String annotated, List<StockTaskItem> stockTaskItems, List<IStockTaskBarCodeItem> stockTaskBarCodeItems) {
-        this.companyName = companyName;
-        this.objectKey = objectKey;
-        this.objectCode = objectCode;
-        this.createDate = createDate;
-        this.createTime = createTime;
-        this.updateDate = updateDate;
-        this.updateTime = updateTime;
-        this.reference1 = reference1;
-        this.reference2 = reference2;
-        this.remarks = remarks;
-        this.documentType = documentType;
-        this.documentEntry = documentEntry;
-        this.documentLineId = documentLineId;
-        this.businessPartnerCode = businessPartnerCode;
-        this.businessPartnerName = businessPartnerName;
-        this.transactionType = transactionType;
-        this.postingDate = postingDate;
-        this.deliveryDate = deliveryDate;
-        this.documentDate = documentDate;
-        this.schemaCode = schemaCode;
-        this.annotated = annotated;
-        this.stockTaskItems = stockTaskItems;
-        this.stockTaskBarCodeItems = stockTaskBarCodeItems;
-    }
-
-
-    public StockTask(String companyName, Integer objectKey, String createDate,String updateDate, String reference1, String reference2, String remarks, String documentType, Integer documentEntry,String transactionType, String documentDate, String annotated) {
-        this.companyName = companyName;
-        this.objectKey = objectKey;
-        this.createDate = createDate;
-        this.updateDate = updateDate;
-        this.reference1 = reference1;
-        this.reference2 = reference2;
-        this.remarks = remarks;
-        this.documentType = documentType;
-        this.documentEntry = documentEntry;
-        this.transactionType = transactionType;
-        this.documentDate = documentDate;
-        this.annotated = annotated;
-    }
-
     @Override
     public String toString() {
         return "StockTask{" +

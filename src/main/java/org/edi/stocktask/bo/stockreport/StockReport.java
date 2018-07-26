@@ -1,6 +1,9 @@
 package org.edi.stocktask.bo.stockreport;
 
 
+import org.edi.freamwork.data.DateTime;
+
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Date;
 import java.util.List;
 
@@ -18,8 +21,10 @@ public class StockReport implements IStockReport{
     private String period;//yes
     private String objectCode;//yes
     private String transfered;//yes
-    private Date createDate;//yes
+
+    private DateTime createDate;//yes
     private Integer createTime;//yes
+
     private Date updateDate;//yes
     private Integer updateTime;//yes
     private String createUserSign;//yes
@@ -101,15 +106,29 @@ public class StockReport implements IStockReport{
         this.transfered = transfered;
     }
 
-
     @Override
-    public Date getCreateDate() {
+    public DateTime getCreateDate() {
         return createDate;
     }
 
     @Override
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(DateTime createDate) {
         this.createDate = createDate;
+    }
+
+    @Override
+    public void setCreateDate(Date createDate) {
+        this.createDate = DateTime.valueOf(createDate) ;
+    }
+
+    @Override
+    public void setCreateDate(String createDate) {
+        this.createDate = DateTime.valueOf(createDate) ;
+    }
+
+    @Override
+    public void setCreateDate(long createDate) {
+        this.createDate = DateTime.valueOf(createDate) ;
     }
 
     @Override
@@ -326,37 +345,6 @@ public class StockReport implements IStockReport{
 
     public StockReport() {
         this.setObjectCode(BUSINESS_CODE);
-    }
-
-    public StockReport(String companyName, Integer docEntry, Integer docNum, String period, String objectCode, String transfered, Date createDate, Integer createTime, Date updateDate, Integer updateTime, String createUserSign, String updateUserSign, String documentStatus, Date postingDate, Date deliveryDate, Date documentDate, String reference1, String reference2, String remarks, Integer b1DocEntry, String bydUUID, String customType, String transactionType, String businessPartnerCode, String businessPartnerName, String baseDocumentType, Integer baseDocumentEntry, List<StockReportItem> stockReportItems) {
-        this.companyName = companyName;
-        this.docEntry = docEntry;
-        this.docNum = docNum;
-        this.period = period;
-        this.objectCode = objectCode;
-        this.transfered = transfered;
-        this.createDate = createDate;
-        this.createTime = createTime;
-        this.updateDate = updateDate;
-        this.updateTime = updateTime;
-        this.createUserSign = createUserSign;
-        this.updateUserSign = updateUserSign;
-        this.documentStatus = documentStatus;
-        this.postingDate = postingDate;
-        this.deliveryDate = deliveryDate;
-        this.documentDate = documentDate;
-        this.reference1 = reference1;
-        this.reference2 = reference2;
-        this.remarks = remarks;
-        this.b1DocEntry = b1DocEntry;
-        this.bydUUID = bydUUID;
-        this.customType = customType;
-        this.transactionType = transactionType;
-        this.businessPartnerCode = businessPartnerCode;
-        this.businessPartnerName = businessPartnerName;
-        this.baseDocumentType = baseDocumentType;
-        this.baseDocumentEntry = baseDocumentEntry;
-        this.stockReportItems = stockReportItems;
     }
 
     @Override
