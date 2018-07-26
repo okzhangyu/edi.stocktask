@@ -46,8 +46,9 @@ public class StockReportService implements  IStockReportService{
                                                 @QueryParam(StockTaskServicePath.SERVICE_SEARCH_PARAMETER)String param) {
       Result result = new Result();
       try {
-            List<StockReport> StockReports = boRepositoryStockReport.fetchStockReport(param);
-            result = new Result(ResultCode.OK, ResultDescription.OK,StockReports);
+            List<StockReport> stockReports = boRepositoryStockReport.fetchStockReport(param);
+            log.info(stockReports);
+            result = new Result(ResultCode.OK, ResultDescription.OK,stockReports);
         } catch (Exception e){
           e.printStackTrace();
           result = new Result(ResultCode.FAIL, "failed:" + e.getCause(), null);

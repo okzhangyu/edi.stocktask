@@ -1,5 +1,6 @@
 package org.edi.stocktask.repository;
 
+import org.edi.freamwork.data.DateTime;
 import org.edi.freamwork.exception.BusinessException;
 import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.initialfantasy.util.CharsetConvert;
@@ -92,7 +93,7 @@ public class BOReposirotyStockReport implements IBORepositoryStockReport{
                 String nowDate=sdf.format(new Date());
                 StockReport stockReport = stockReports.get(i);
                 stockReport.setDocEntry(docEntry);
-                stockReport.setCreateDate(sdf.parse(nowDate));
+                stockReport.setCreateDate(DateTime.getToday());
                 stockReportMapper.saveStockReport(stockReport);
                 for (int j = 0; j < stockReports.get(i).getStockReportItems().size(); j++) {
                     StockReportItem stockReportItem = stockReports.get(i).getStockReportItems().get(j);

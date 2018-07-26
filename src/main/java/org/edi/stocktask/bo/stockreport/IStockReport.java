@@ -1,5 +1,7 @@
 package org.edi.stocktask.bo.stockreport;
 
+import org.edi.freamwork.data.DateTime;
+
 import java.util.Date;
 import java.util.List;
 
@@ -33,9 +35,15 @@ public interface IStockReport {
 
     void setTransfered(String value);
 
-    Date getCreateDate();
+    DateTime getCreateDate();
+
+    void setCreateDate(DateTime value);
 
     void setCreateDate(Date value);
+
+    void setCreateDate(String value);
+
+    void setCreateDate(long createDate);
 
     Integer getCreateTime();
 

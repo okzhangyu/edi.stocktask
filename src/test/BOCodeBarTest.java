@@ -1,4 +1,4 @@
-package org.edi.stocktask.test;
+
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -21,7 +21,6 @@ import java.util.List;
  * 条码解析单元测试
  */
 public class BOCodeBarTest {
-
 
 
     public SqlSession getSqlSession() throws IOException {
