@@ -8,7 +8,7 @@
         <result column="Period" property="period" jdbcType="VARCHAR" />
         <result column="Object" property="objectCode" jdbcType="VARCHAR" />
         <result column="Transfered" property="transfered" jdbcType="VARCHAR" />
-        <result column="CreateDate" property="createDate" javaType="DateTime" typeHandler="DateTimeTypeHandler" />
+        <result column="CreateDate" property="createDate" jdbcType="DATE" />
         <result column="CreateTime" property="createTime" jdbcType="INTEGER" />
         <result column="UpdateDate" property="updateDate" jdbcType="DATE" />
         <result column="UpdateTime" property="updateTime" jdbcType="INTEGER" />

@@ -176,11 +176,11 @@ public class BOStockReportTest {
         try {
         for (int i = 0; i < stockReports.size(); i++) {
             int docEntry = getStockReportMapper().fetchSequenceOfDocEntry();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String nowDate=sdf.format(new Date());
             StockReport stockReport = stockReports.get(i);
             stockReport.setDocEntry(docEntry);
-            //stockReport.setCreateDate(DateTime.getToday());
+            DateFormat df=DateFormat.getDateTimeInstance();
+            String nowDate=df.format(new Date());
+            stockReport.setCreateDate(nowDate);
             getStockReportMapper().saveStockReport(stockReport);
             for (int j = 0; j < stockReports.get(i).getStockReportItems().size(); j++) {
                 StockReportItem stockReportItem = stockReports.get(i).getStockReportItems().get(j);
