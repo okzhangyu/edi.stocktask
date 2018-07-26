@@ -13,12 +13,14 @@
             </dataSource>
         </environment>
     </environments>
-
     <mappers>
         <mapper resource="mappers/StockTaskMapper.xml"/>
         <mapper resource="mappers/StockReportMapper.xml"/>
         <mapper resource="mappers/CodeBarMapper.xml"/>
     </mappers>
 
+    <!--<typeHandlers>-->
+        <!--<typeHandler javaType="DateTime" handler="org.edi.stocktask.data.DateTimeTypeHandler"/>-->
+    <!--</typeHandlers>-->
 
 </configuration>

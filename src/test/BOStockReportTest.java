@@ -1,9 +1,8 @@
-package org.edi.stocktask.test;
-
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.edi.freamwork.data.DateTime;
 import org.edi.freamwork.exception.BusinessException;
 import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.initialfantasy.util.CharsetConvert;
@@ -181,7 +180,7 @@ public class BOStockReportTest {
             String nowDate=sdf.format(new Date());
             StockReport stockReport = stockReports.get(i);
             stockReport.setDocEntry(docEntry);
-            stockReport.setCreateDate(sdf.parse(nowDate));
+            //stockReport.setCreateDate(DateTime.getToday());
             getStockReportMapper().saveStockReport(stockReport);
             for (int j = 0; j < stockReports.get(i).getStockReportItems().size(); j++) {
                 StockReportItem stockReportItem = stockReports.get(i).getStockReportItems().get(j);
