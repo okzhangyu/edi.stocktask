@@ -77,4 +77,18 @@
             </if>
         </where>
     </select>
+
+
+    <select id="fetchStockTaskByCondition" resultMap="BaseResultMap" parameterType="Map">
+        SELECT * FROM AVA_WM_VIEW_OSTK with(XLOCK)
+        <where>
+            <if test="docEntry != null and docEntry != ''">
+                DocEntry = #{docEntry}
+            </if>
+            <if test="docType != null and docType != ''">
+                and DocType = #{docType}
+            </if>
+        </where>
+    </select>
+
 </mapper>

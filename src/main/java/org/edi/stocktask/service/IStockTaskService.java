@@ -21,6 +21,15 @@ public interface IStockTaskService {
     Result<StockTask> fetchStockTask(String token,String param);
 
     /**
+     * 条件查询库存任务
+     * @param token
+     * @param docEntry
+     * @param docType
+     * @return
+     */
+    Result<StockTask> fetchStockTaskByCondition(String token,int docEntry,String docType);
+
+    /**
      * 保存库存任务
      * @param stockTasks
      * @param token

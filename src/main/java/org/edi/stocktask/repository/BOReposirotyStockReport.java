@@ -1,6 +1,5 @@
 package org.edi.stocktask.repository;
 
-import org.edi.freamwork.data.DateTime;
 import org.edi.freamwork.exception.BusinessException;
 import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.initialfantasy.util.CharsetConvert;
@@ -16,8 +15,8 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
+import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -118,11 +117,11 @@ public class BOReposirotyStockReport implements IBORepositoryStockReport{
         try {
             for (int i = 0; i < stockReports.size(); i++) {
                 int docEntry = stockReportMapper.fetchSequenceOfDocEntry();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                String nowDate=sdf.format(new Date());
                 StockReport stockReport = stockReports.get(i);
                 stockReport.setDocEntry(docEntry);
-                stockReport.setCreateDate(DateTime.getToday());
+                DateFormat df=DateFormat.getDateTimeInstance();
+                String nowDate=df.format(new Date());
+                stockReport.setCreateDate(nowDate);
                 stockReportMapper.saveStockReport(stockReport);
                 for (int j = 0; j < stockReports.get(i).getStockReportItems().size(); j++) {
                     StockReportItem stockReportItem = stockReports.get(i).getStockReportItems().get(j);
