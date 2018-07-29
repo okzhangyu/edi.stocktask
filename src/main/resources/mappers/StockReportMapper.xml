@@ -152,14 +152,6 @@
         </where>
     </select>
 
-
-
-  <!--  void updateStockReport(StockReport stockReport);
-    INSERT INTO AVA_WM_OSRP([CompanyName] ,[DocEntry],[DocNum] ,[Period] ,[Object] ,[Transfered] ,[CreateDate],[CreateTime],[UpdateDate],[UpdateTime]  ,[Creator] ,[Updator] ,[DocStatus] ,[DocDate]
-    ,[DocDueDate],[TaxDate] ,[Ref1],[Ref2] ,[Remarks] ,[B1DocEntry] ,[BydUUID] ,[CusType],[TransType],[BpCode],[BpName] ,[BaseType] ,[BaseEntry])
-    VALUES (#{companyName} ,#{docEntry} ,#{docNum},#{period},#{objectCode} ,#{transfered},#{createDate},#{createTime},#{updateDate},#{updateTime} ,#{createUserSign} ,#{updateUserSign} ,#{documentStatus} ,#{documentDate},
-    #{postingDate} ,#{deliveryDate} ,#{reference1} ,#{reference2} ,#{remarks} ,#{b1DocEntry} ,#{bydUUID} ,#{customType} ,#{transactionType} ,#{businessPartnerCode},#{businessPartnerName},#{baseDocumentType} ,#{baseDocumentEntry})
--->
     <update id="updateStockReport"  parameterType="org.edi.stocktask.bo.stockreport.StockReport">
         UPDATE AVA_WM_OSRP
         <trim prefix="set" suffixOverrides=",">
@@ -192,18 +184,6 @@
         </trim>
         WHERE DocEntry=#{docEntry}
     </update>
-
-
-   <!-- void updateStockReportItem(StockReportItem stockReportItem);
-    INSERT INTO AVA_WM_SRP1([DocEntry] ,[LineId] ,[Object] ,[LineStatus] ,[Ref1] ,[Ref2] ,[BaseType] ,[BaseEntry],[BaseLine] ,[Project] ,[OcrCode1] ,[OcrCode2],[OcrCode3]
-    ,[OcrCode4],[OcrCode5],[BSType] ,[BSEntry] ,[BSLine] ,[TargetType] ,[TargetEntry] ,[TargetLine] ,[ItemCode] ,[ItemName] ,[Quantity] ,[Uom] ,[ManSerNum] ,[ManBtchNum]
-    ,[ManServiceNum] ,[Price] ,[Currency] ,[Rate] ,[LineTotal] ,[FromWH] ,[FromLC] ,[ToWH] ,[ToLC] ,[BatchNum] ,[SerialNum] ,[BarCode1] ,[BarCode2] ,[BarCode3] ,[BarCode4])
-    VALUES (#{docEntry} ,#{lineId} ,#{objectCode} ,#{lineStatus} ,#{reference1} ,#{reference2},#{baseDocumentType} ,#{baseDocumentEntry} ,#{baseDocumentLineId} ,#{projectCode},#{distributionRule1}
-    ,#{distributionRule2},#{distributionRule3} ,#{distributionRule4} ,#{distributionRule5},#{originalDocumentType} ,#{originalDocumentEntry} ,#{originalDocumentLineId},#{targetDocumentType} ,#{targetDocumentEntry} ,#{targetDocumentLineId},#{itemCode}
-    ,#{itemDescription} ,#{quantity} ,#{inventoryUoM} ,#{serialNumberManagement} ,#{batchNumberManagement} ,#{serviceNumberManagement} ,#{price} ,#{currency} ,#{currencyRate} ,#{lineTotal} ,#{fromWarehose}
-    ,#{fromLocation} ,#{toWarehouse} ,#{toLocation} ,#{batchNumber} ,#{serialNumber} ,#{barCode1} ,#{barCode2} ,#{barCode3} ,#{barCode4})-->
-
-
 
     <update id="updateStockReportItem"  parameterType="org.edi.stocktask.bo.stockreport.StockReportItem">
         UPDATE AVA_WM_SRP1
@@ -251,7 +231,17 @@
         WHERE DocEntry=#{docEntry}
     </update>
 
+    <select id="fetchUnSyncStockReport" resultMap="BaseResultMap" >
+        SELECT top 10 * FROM AVA_WM_OSRP  with(XLOCK) where B1DocEntry is null or B1DocEntry = 0
+    </select>
 
+    <update id="updateStockReportDocStatus"  parameterType="int">
+        UPDATE AVA_WM_OSRP
+        <trim prefix="set" suffixOverrides=",">
+            <if test="b1DocEntry!=null">B1DocEntry=#{B1DocEntry}</if>
+        </trim>
+        WHERE DocEntry=#{docEntry}
+    </update>
 
    <!-- int fetchSequenceOfDocEntry();-->
     <select id="fetchSequenceOfDocEntry" resultType="int">

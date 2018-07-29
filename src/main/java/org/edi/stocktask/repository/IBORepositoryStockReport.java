@@ -1,5 +1,6 @@
 package org.edi.stocktask.repository;
 
+import org.edi.stocktask.bo.stockreport.IStockReport;
 import org.edi.stocktask.bo.stockreport.StockReport;
 
 import java.text.ParseException;
@@ -29,6 +30,14 @@ public interface IBORepositoryStockReport {
      * @return
      */
     StockReport fetchStockReportByEntry(Integer docEntry);
+
+    /**
+     * 查询未清任务汇报
+     * @return
+     */
+    List<IStockReport> fetchUnSyncStockReport();
+
+    void UpdateStockReportDocStatus(String B1DocEntry,Integer docEntry);
 
     /**
      * 保存任务汇报

@@ -4,6 +4,7 @@ import org.edi.freamwork.data.DateTime;
 import org.edi.freamwork.exception.BusinessException;
 import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.initialfantasy.util.CharsetConvert;
+import org.edi.stocktask.bo.stockreport.IStockReport;
 import org.edi.stocktask.bo.stockreport.StockReport;
 import org.edi.stocktask.bo.stockreport.StockReportItem;
 import org.edi.stocktask.mapper.StockReportMapper;
@@ -75,6 +76,34 @@ public class BOReposirotyStockReport implements IBORepositoryStockReport{
         List<StockReportItem> stockReportItems = stockReportMapper.fetchStockReportItem(docEntry);
         stockReport.setStockReportItems(stockReportItems);
         return stockReport;
+    }
+
+    /**
+     * 获取未清任务汇报
+     * @return
+     */
+    @Override
+    public List<IStockReport> fetchUnSyncStockReport() {
+        List<IStockReport> stockReports;
+        List<StockReportItem> stockReportItems;
+        stockReports = stockReportMapper.fetchUnSyncStockReport();
+        if(stockReports != null && stockReports.size() > 0){
+            for(int i=0;i<stockReports.size();i++){
+                IStockReport stockReport = stockReports.get(i);
+                stockReportItems = stockReportMapper.fetchStockReportItem(stockReport.getDocEntry());
+                stockReport.setStockReportItems(stockReportItems);
+            }
+        }
+        return stockReports;
+    }
+
+    /**
+     * 更新单据状态
+     * @param B1DocEntry 对应的B1单据号
+     */
+    @Override
+    public void UpdateStockReportDocStatus(String B1DocEntry,Integer docEntry) {
+        stockReportMapper.UpdateStockReportDocStatus(B1DocEntry,docEntry);
     }
 
     /**
