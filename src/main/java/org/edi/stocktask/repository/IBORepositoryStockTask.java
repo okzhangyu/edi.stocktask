@@ -19,6 +19,6 @@ public interface IBORepositoryStockTask {
 
     List<StockTaskItem> fetchAllStockTaskItem();
 
-    List<StockTask> fetchStockTaskByCondition(String docEntry, String docType);
+    List<StockTask> fetchStockTaskByCondition(int docEntry, String docType);
 
 }

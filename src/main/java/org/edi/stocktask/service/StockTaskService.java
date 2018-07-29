@@ -62,7 +62,7 @@ public class StockTaskService implements IStockTaskService{
     @Produces("application/x-javascript;charset=utf-8")
     @Path("/stocktasksterm")
     public Result<StockTask> fetchStockTaskByCondition(@QueryParam(ServicePath.TOKEN_NAMER)String token,
-                                                       @QueryParam(StockTaskServicePath.SERVICE_DOCENTRY)String docEntry,
+                                                       @QueryParam(StockTaskServicePath.SERVICE_DOCENTRY)int docEntry,
                                                        @QueryParam(StockTaskServicePath.SERVICE_DOCTYPE)String docType){
         Result result = new Result();
         try{

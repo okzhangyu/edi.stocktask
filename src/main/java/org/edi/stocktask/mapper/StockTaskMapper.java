@@ -12,5 +12,5 @@ public interface StockTaskMapper {
     List<StockTaskItem> fetchStockTaskItem(Integer objectKey);
     List<StockTaskItem> fetchAllStockTaskItem();
     List<StockTask> fetchStockTaskFuzzy(String value);
-    List<StockTask> fetchStockTaskByCondition(HashMap<String,String> stockTaskCondition);
+    List<StockTask> fetchStockTaskByCondition(HashMap<String,Object> stockTaskCondition);
 }
