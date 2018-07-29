@@ -54,11 +54,11 @@ public class BORepositoryStockTask implements  IBORepositoryStockTask {
      * @return
      */
     @Override
-    public List<StockTask> fetchStockTaskByCondition(String docEntry, String docType){
-        if(docEntry==null||docEntry.equals("")){
+    public List<StockTask> fetchStockTaskByCondition(int docEntry, String docType){
+        if(docEntry==0){
             throw new BusinessException(ResultDescription.DOCENTRY_IS_NULL);
         }
-        HashMap<String,String> stockTaskCondition = new HashMap<>();
+        HashMap<String,Object> stockTaskCondition = new HashMap<>();
         stockTaskCondition.put("docEntry",docEntry);
         stockTaskCondition.put("docType",docType);
         List<StockTask>  stockTasks = stockTaskMapper.fetchStockTaskByCondition(stockTaskCondition);

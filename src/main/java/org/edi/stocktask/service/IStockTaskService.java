@@ -27,7 +27,7 @@ public interface IStockTaskService {
      * @param docType
      * @return
      */
-    Result<StockTask> fetchStockTaskByCondition(String token,String docEntry,String docType);
+    Result<StockTask> fetchStockTaskByCondition(String token,int docEntry,String docType);
 
     /**
      * 保存库存任务
