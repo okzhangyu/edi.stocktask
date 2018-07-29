@@ -1,10 +1,6 @@
 package org.edi.stocktask.bo.stockreport;
 
 
-import org.edi.freamwork.data.DateTime;
-
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,17 +18,17 @@ public class StockReport implements IStockReport{
     private String objectCode;//yes
     private String transfered;//yes
 
-    private DateTime createDate;//yes
+    private String createDate;//yes
     private Integer createTime;//yes
 
-    private Date updateDate;//yes
+    private String updateDate;//yes
     private Integer updateTime;//yes
     private String createUserSign;//yes
     private String updateUserSign;//yes
     private String documentStatus;//yes
-    private Date postingDate;//unsure
-    private Date deliveryDate;//unsure
-    private Date documentDate;//yes
+    private String postingDate;//unsure
+    private String deliveryDate;//unsure
+    private String documentDate;//yes
     private String reference1;//yes
     private String reference2;//yes
     private String remarks;//yes
@@ -107,29 +103,15 @@ public class StockReport implements IStockReport{
     }
 
     @Override
-    public DateTime getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
     @Override
-    public void setCreateDate(DateTime createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 
-    @Override
-    public void setCreateDate(Date createDate) {
-        this.createDate = DateTime.valueOf(createDate) ;
-    }
-
-    @Override
-    public void setCreateDate(String createDate) {
-        this.createDate = DateTime.valueOf(createDate) ;
-    }
-
-    @Override
-    public void setCreateDate(long createDate) {
-        this.createDate = DateTime.valueOf(createDate) ;
-    }
 
     @Override
     public Integer getCreateTime() {
@@ -142,12 +124,12 @@ public class StockReport implements IStockReport{
     }
 
     @Override
-    public Date getUpdateDate() {
+    public String getUpdateDate() {
         return updateDate;
     }
 
     @Override
-    public void setUpdateDate(Date updateDate) {
+    public void setUpdateDate(String updateDate) {
         this.updateDate = updateDate;
     }
 
@@ -193,32 +175,32 @@ public class StockReport implements IStockReport{
 
 
     @Override
-    public Date getPostingDate() {
+    public String getPostingDate() {
         return postingDate;
     }
 
     @Override
-    public void setPostingDate(Date postingDate) {
+    public void setPostingDate(String postingDate) {
         this.postingDate = postingDate;
     }
 
     @Override
-    public Date getDeliveryDate() {
+    public String getDeliveryDate() {
         return deliveryDate;
     }
 
     @Override
-    public void setDeliveryDate(Date deliveryDate) {
+    public void setDeliveryDate(String deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
 
     @Override
-    public Date getDocumentDate() {
+    public String getDocumentDate() {
         return documentDate;
     }
 
     @Override
-    public void setDocumentDate(Date documentDate) {
+    public void setDocumentDate(String documentDate) {
         this.documentDate = documentDate;
     }
 

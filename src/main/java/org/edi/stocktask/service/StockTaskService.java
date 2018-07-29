@@ -54,6 +54,29 @@ public class StockTaskService implements IStockTaskService{
 
 
 
+    /**
+     * 条件查询库存任务
+     */
+    @GET
+    @JSONP(queryParam="callback")
+    @Produces("application/x-javascript;charset=utf-8")
+    @Path("/stocktasksterm")
+    public Result<StockTask> fetchStockTaskByCondition(@QueryParam(ServicePath.TOKEN_NAMER)String token,
+                                                       @QueryParam(StockTaskServicePath.SERVICE_DOCENTRY)String docEntry,
+                                                       @QueryParam(StockTaskServicePath.SERVICE_DOCTYPE)String docType){
+        Result result = new Result();
+        try{
+            List<StockTask> stockTasks = boRepositoryStockTask.fetchStockTaskByCondition(docEntry,docType);
+            result = new Result<StockTask>(ResultCode.OK,ResultDescription.OK,stockTasks);
+        }catch(Exception e){
+            e.printStackTrace();
+            result = new Result(ResultCode.FAIL,"failed:"+(e.getCause()==null?e.getMessage():e.getCause().toString()),null);
+        }
+        return result;
+    }
+
+
+
     @POST
     @Override
     @Produces(MediaType.APPLICATION_JSON)
@@ -62,6 +85,7 @@ public class StockTaskService implements IStockTaskService{
         Result result = new Result("0","ok",null);
         return result;
     }
+
 
     @GET
     @Path("/getname")
