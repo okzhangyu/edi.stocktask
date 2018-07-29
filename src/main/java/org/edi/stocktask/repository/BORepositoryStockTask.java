@@ -1,5 +1,7 @@
 package org.edi.stocktask.repository;
 
+import org.edi.freamwork.exception.BusinessException;
+import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.stocktask.bo.stocktask.StockTask;
 import org.edi.stocktask.bo.stocktask.StockTaskItem;
 import org.edi.stocktask.mapper.StockTaskMapper;
@@ -7,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -44,6 +47,37 @@ public class BORepositoryStockTask implements  IBORepositoryStockTask {
         return stockTasks;
     }
 
+
+
+    /**
+     * 条件查询库存任务
+     * @return
+     */
+    @Override
+    public List<StockTask> fetchStockTaskByCondition(String docEntry, String docType){
+        if(docEntry==null||docEntry.equals("")){
+            throw new BusinessException(ResultDescription.DOCENTRY_IS_NULL);
+        }
+        HashMap<String,String> stockTaskCondition = new HashMap<>();
+        stockTaskCondition.put("docEntry",docEntry);
+        stockTaskCondition.put("docType",docType);
+        List<StockTask>  stockTasks = stockTaskMapper.fetchStockTaskByCondition(stockTaskCondition);
+        if(stockTasks.size() == 0) {
+            return stockTasks;
+        }
+        for (int i = 0;i<stockTasks.size();i++){
+            List<StockTaskItem> stockTaskItems = stockTaskMapper.fetchStockTaskItem(stockTasks.get(i).getObjectKey());
+            if(stockTaskItems!=null){
+                stockTasks.get(i).setStockTaskItems(stockTaskItems);
+            }
+        }
+        return stockTasks;
+    }
+
+
+
+
+
     /**
      * 根据OBJECTKEY查询库存任务明细
      * @param objectKey
@@ -53,6 +87,9 @@ public class BORepositoryStockTask implements  IBORepositoryStockTask {
         List<StockTaskItem> stockTaskItems = stockTaskMapper.fetchStockTaskItem(objectKey);
         return stockTaskItems;
     }
+
+
+
 
     /**
      * 查询所有库存任务明细

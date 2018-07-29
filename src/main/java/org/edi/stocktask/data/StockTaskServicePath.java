@@ -9,4 +9,8 @@ public class StockTaskServicePath {
     public final static String SERVICE_SEARCH_PARAMETER = "param";
 
     public final static String SERVICE_CODEBAR = "codeBar";
+
+    public final static String SERVICE_DOCENTRY = "docEntry";
+
+    public final static String SERVICE_DOCTYPE = "docType";
 }
