@@ -6,7 +6,8 @@
         <result column="ObjectKey" property="objectKey" jdbcType="INTEGER" />
         <result column="TransType" property="transactionType" jdbcType="VARCHAR" />
         <result column="Annotated" property="annotated" jdbcType="VARCHAR" />
-        <result column="DocType" property="documentType" jdbcType="INTEGER" />
+        <result column="DocStatus" property="documentStatus" jdbcType="VARCHAR" />
+        <result column="DocType" property="documentType" jdbcType="VARCHAR" />
         <result column="DocEntry" property="documentEntry" jdbcType="INTEGER" />
         <result column="BpCode" property="businessPartnerCode" jdbcType="VARCHAR" />
         <result column="BpName" property="businessPartnerName" jdbcType="VARCHAR" />
