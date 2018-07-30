@@ -1,5 +1,4 @@
-USE [StockManageDB]
-GO
+
 /****** Object:  StoredProcedure [dbo].[ava_parse_codebar]    Script Date: 2018/7/29 17:37:47 ******/
 SET ANSI_NULLS ON
 GO

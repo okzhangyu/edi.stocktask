@@ -32,7 +32,7 @@ CREATE TABLE [dbo].[AVA_WM_OSRP](
 	[TransType] [varchar](1) NULL,
 	[BpCode] [nvarchar](20) NULL,
 	[BpName] [nvarchar](100) NULL,
-	[BaseType] [varchar](30) NULL,
+	[BaseType] [nvarchar](30) NULL,
 	[BaseEntry] [int] NULL,
  CONSTRAINT [KAVA_WM_OSRP] PRIMARY KEY CLUSTERED
 (
@@ -59,7 +59,7 @@ CREATE TABLE [dbo].[AVA_WM_SRP1](
 	[LineStatus] [varchar](1) NULL,
 	[Ref1] [nvarchar](100) NULL,
 	[Ref2] [nvarchar](200) NULL,
-	[BaseType] [varchar](30) NULL,
+	[BaseType] [nvarchar](30) NULL,
 	[BaseEntry] [int] NULL,
 	[BaseLine] [int] NULL,
 	[Project] [nvarchar](8) NULL,
@@ -68,7 +68,7 @@ CREATE TABLE [dbo].[AVA_WM_SRP1](
 	[OcrCode3] [nvarchar](8) NULL,
 	[OcrCode4] [nvarchar](8) NULL,
 	[OcrCode5] [nvarchar](8) NULL,
-	[BSType] [varchar](30) NULL,
+	[BSType] [nvarchar](30) NULL,
 	[BSEntry] [int] NULL,
 	[BSLine] [int] NULL,
 	[TargetType] [nvarchar](30) NULL,

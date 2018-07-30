@@ -23,6 +23,7 @@
         <result column="ObjectKey" property="objectKey" jdbcType="INTEGER" />
         <result column="LineId" property="lineId" jdbcType="INTEGER" />
         <result column="TransType" property="transactionType" jdbcType="VARCHAR" />
+        <result column="LineStatus" property="lineStatus" jdbcType="VARCHAR" />
         <result column="DocType" property="documentType" jdbcType="INTEGER" />
         <result column="DocEntry" property="documentEntry" jdbcType="INTEGER" />
         <result column="DocLine" property="documentLineId" jdbcType="INTEGER" />
