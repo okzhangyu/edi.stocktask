@@ -6,5 +6,7 @@ package org.edi.stocktask.data;
  */
 public class StockTaskData {
 
+    public static final String OPEN = "O";
 
+    public static final String CLOSE = "C";
 }

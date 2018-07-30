@@ -20,6 +20,10 @@ public interface IStockTaskItem {
 
     void setLineId(Integer value);
 
+    String getLineStatus();
+
+    void setLineStatus(String  value);
+
     String getReference1();
 
     void setReference1(String value);
