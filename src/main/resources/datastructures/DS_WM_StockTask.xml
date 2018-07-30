@@ -11,6 +11,7 @@
         <Field Name="Ref1" Description="参考1" DataType="db_Alpha" SubType="st_None" EditSize="100" PropertyName="Reference1" IsSystem="Yes" FixedDataType="System.String" />
         <Field Name="Ref2" Description="参考2" DataType="db_Alpha" SubType="st_None" EditSize="200" PropertyName="Reference2" IsSystem="Yes" FixedDataType="System.String" />
         <Field Name="Remarks" Description="备注" DataType="db_Memo" SubType="st_None" EditSize="8" PropertyName="Remarks" IsSystem="Yes" FixedDataType="System.String" />
+        <Field Name="DocStatus" Description="单据类型" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="DocumentStatus" FixedDataType="System.String" />
         <Field Name="DocType" Description="单据类型" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="DocumentType" FixedDataType="System.String" />
         <Field Name="DocEntry" Description="单据编号" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="DocumentEntry" IsSystem="Yes" FixedDataType="System.Int32" />
         <Field Name="BpCode" Description="业务伙伴编码" DataType="db_Alpha" SubType="st_None" EditSize="20" PropertyName="BusinessPartnerCode" FixedDataType="System.String" />
@@ -29,6 +30,7 @@
         <Field Name="ObjectKey" Description="编号" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="ObjectKey" IsSystem="Yes" FixedDataType="System.Int32" IsPrimaryKey="Yes" />
         <Field Name="Object" Description="类型" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="ObjectCode" IsSystem="Yes" FixedDataType="System.String" />
         <Field Name="LineId" Description="行号" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="LineId" IsSystem="Yes" FixedDataType="System.Int32" IsPrimaryKey="Yes" />
+        <Field Name="LineStatus" Description="行状态" DataType="db_Alpha" SubType="st_None" EditSize="1" PropertyName="LineStatus" FixedDataType="System.String" />
         <Field Name="Ref1" Description="参考1" DataType="db_Alpha" SubType="st_None" EditSize="100" PropertyName="Reference1" IsSystem="Yes" FixedDataType="System.String" />
         <Field Name="Ref2" Description="参考2" DataType="db_Alpha" SubType="st_None" EditSize="200" PropertyName="Reference2" IsSystem="Yes" FixedDataType="System.String" />
         <Field Name="DocType" Description="单据类型" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="DocumentType" FixedDataType="System.String" />

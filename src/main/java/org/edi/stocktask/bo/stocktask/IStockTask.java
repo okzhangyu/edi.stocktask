@@ -53,6 +53,10 @@ public interface IStockTask {
 
     void setDocumentType(String value);
 
+    String getDocumentStatus();
+
+    void setDocumentStatus(String value);
+
     Integer getDocumentEntry();
 
     void setDocumentEntry(Integer value);

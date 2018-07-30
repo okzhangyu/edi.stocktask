@@ -22,6 +22,7 @@ public class StockTask implements  IStockTask{
     private String reference2;//yes
     private String remarks;//yes
     private String documentType;//yes
+    private String documentStatus;
     private Integer documentEntry;//yes
     private Integer documentLineId;
     private String businessPartnerCode;
@@ -143,6 +144,16 @@ public class StockTask implements  IStockTask{
     @Override
     public void setDocumentType(String documentType) {
         this.documentType = documentType;
+    }
+
+    @Override
+    public String getDocumentStatus() {
+        return this.documentStatus;
+    }
+
+    @Override
+    public void setDocumentStatus(String value) {
+        this.documentStatus = value;
     }
 
     @Override
