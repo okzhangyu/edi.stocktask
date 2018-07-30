@@ -21,6 +21,7 @@ public class StockTaskItem implements IStockTaskItem{
     private String itemDescription;
     private BigDecimal packageQuantity;
     private BigDecimal quantity;
+    private BigDecimal openQuantity;
     private String inventoryUoM;
     private String serialNumberManagement;
     private String batchNumberManagement;
@@ -171,6 +172,16 @@ public class StockTaskItem implements IStockTaskItem{
     @Override
     public void setQuantity(BigDecimal quantity) {
         this.quantity = quantity;
+    }
+
+    @Override
+    public BigDecimal getOpenQuantity() {
+        return this.openQuantity;
+    }
+
+    @Override
+    public void setOpenQuantity(BigDecimal value) {
+        this.openQuantity = value;
     }
 
     @Override

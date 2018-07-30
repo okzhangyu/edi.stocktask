@@ -41,6 +41,7 @@
         <Field Name="PackQty" Description="包装数量" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="PackageQuantity" FixedDataType="System.Int32" />
         <Field Name="Quantity" Description="数量" DataType="db_Float" SubType="st_Quantity" EditSize="8" PropertyName="Quantity" FixedDataType="System.Decimal" />
         <Field Name="Uom" Description="单位" DataType="db_Alpha" SubType="st_None" EditSize="8" PropertyName="InventoryUoM" FixedDataType="System.String" />
+        <Field Name="OpenQuantity" Description="未清数量" DataType="db_Float" SubType="st_Quantity" EditSize="8" PropertyName="OpenQuantity" FixedDataType="System.Decimal" />
         <Field Name="ManSerNum" Description="序号管理" DataType="db_Alpha" SubType="st_None" EditSize="1" DefaultValue="N" PropertyName="SerialNumberManagement" FixedDataType="wmBoEnumerator.emYesNo" />
         <Field Name="ManBtchNum" Description="管理批号" DataType="db_Alpha" SubType="st_None" EditSize="1" DefaultValue="N" PropertyName="BatchNumberManagement" FixedDataType="wmBoEnumerator.emYesNo" />
         <Field Name="ManServiceNum" Description="服务卡号管理" DataType="db_Alpha" SubType="st_None" EditSize="1" DefaultValue="N" PropertyName="ServiceNumberManagement" FixedDataType="wmBoEnumerator.emYesNo" />

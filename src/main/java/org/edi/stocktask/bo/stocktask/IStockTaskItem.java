@@ -60,6 +60,10 @@ public interface IStockTaskItem {
 
     void setQuantity(BigDecimal value);
 
+    BigDecimal getOpenQuantity();
+
+    void setOpenQuantity(BigDecimal value);
+
     String getInventoryUoM();
 
     void setInventoryUoM(String value);
