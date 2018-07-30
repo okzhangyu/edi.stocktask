@@ -25,9 +25,6 @@
 	<!-- 自动扫描 -->
 	<context:component-scan base-package="org.edi.stocktask.*" />
 	<context:component-scan base-package="org.edi.initialfantasy.*"/>
-    <context:component-scan base-package="com.xxl.job.core.*" />
-
-
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>

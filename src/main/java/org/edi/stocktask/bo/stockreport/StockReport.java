@@ -1,6 +1,12 @@
 package org.edi.stocktask.bo.stockreport;
 
 
+import org.edi.freamwork.exception.BusinessException;
+import org.edi.stocktask.bo.stocktask.StockTask;
+import org.edi.stocktask.bo.stocktask.StockTaskItem;
+import org.edi.stocktask.data.StockOpResultDescription;
+import org.edi.stocktask.data.StockTaskData;
+
 import java.util.List;
 
 /**
@@ -11,35 +17,57 @@ public class StockReport implements IStockReport{
 
     private static final String BUSINESS_CODE = "AVA_WM_STOCKREPORT";
 
-    private String companyName;//yes
-    private Integer docEntry;//yes
-    private Integer docNum;//yes
-    private String period;//yes
-    private String objectCode;//yes
-    private String transfered;//yes
+    public static StockReport createStockReport(StockTask stockTask){
+        if(stockTask == null) {
+            throw new BusinessException(StockOpResultDescription.STOCKTASK_IS_EMPTY);
+        }
+        if(!StockTaskData.OPEN.equals(stockTask.getDocumentStatus())){
+           throw new BusinessException(StockOpResultDescription.STOCKTASK_IS_CLOSE);
+        }
+        StockReport stockReport = new StockReport();
+        stockReport.setRemarks(stockTask.getRemarks());
+        stockReport.setCompanyName(stockTask.getCompanyName());
+        stockReport.setBusinessPartnerCode(stockTask.getBusinessPartnerCode());
 
-    private String createDate;//yes
-    private Integer createTime;//yes
+        //TODO 按照文档赋单据表头值
 
-    private String updateDate;//yes
-    private Integer updateTime;//yes
-    private String createUserSign;//yes
-    private String updateUserSign;//yes
-    private String documentStatus;//yes
-    private String postingDate;//unsure
-    private String deliveryDate;//unsure
-    private String documentDate;//yes
-    private String reference1;//yes
-    private String reference2;//yes
-    private String remarks;//yes
-    private Integer b1DocEntry;//yes
-    private String bydUUID;//yes
-    private String customType;//yes
-    private String transactionType;//yes
-    private String businessPartnerCode;//yes
-    private String businessPartnerName;//yes
-    private String baseDocumentType;//yes
-    private Integer baseDocumentEntry;//yes
+        for (StockTaskItem item:stockTask.getStockTaskItems()) {
+            if(StockTaskData.OPEN.equals(item.getLineStatus())){
+                //过滤已清的任务行
+                //TODO 按照文档赋单据明细值
+            }
+        }
+        return stockReport;
+    }
+    
+    
+    private String companyName;
+    private Integer docEntry;
+    private Integer docNum;
+    private String period;
+    private String objectCode;
+    private String transfered;
+    private String createDate;
+    private Integer createTime;
+    private String updateDate;
+    private Integer updateTime;
+    private String createUserSign;
+    private String updateUserSign;
+    private String documentStatus;
+    private String postingDate;
+    private String deliveryDate;
+    private String documentDate;
+    private String reference1;
+    private String reference2;
+    private String remarks;
+    private Integer b1DocEntry;
+    private String bydUUID;
+    private String customType;
+    private String transactionType;
+    private String businessPartnerCode;
+    private String businessPartnerName;
+    private String baseDocumentType;
+    private Integer baseDocumentEntry;
     private List<StockReportItem> stockReportItems;
 
     @Override

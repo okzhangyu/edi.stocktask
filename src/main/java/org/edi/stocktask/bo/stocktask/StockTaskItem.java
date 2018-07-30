@@ -8,38 +8,39 @@ import java.math.BigDecimal;
  */
 public class StockTaskItem implements IStockTaskItem{
 
-    private Integer objectKey;//yes
+    private Integer objectKey;
     private String objectCode;
-    private Integer lineId;//yes
-    private String reference1;//yes
-    private String reference2;//yes
-    private String documentType;//yes
-    private Integer documentEntry;//yes
-    private Integer documentLineId;//yes
-    private String itemCode;//yes
-    private String itemDescription;//yes
+    private Integer lineId;
+    private String lineStatus;
+    private String reference1;
+    private String reference2;
+    private String documentType;
+    private Integer documentEntry;
+    private Integer documentLineId;
+    private String itemCode;
+    private String itemDescription;
     private BigDecimal packageQuantity;
-    private BigDecimal quantity;//yes
-    private String inventoryUoM;//yes
-    private String serialNumberManagement;//yes
-    private String batchNumberManagement;//yes
+    private BigDecimal quantity;
+    private String inventoryUoM;
+    private String serialNumberManagement;
+    private String batchNumberManagement;
     private String serviceNumberManagement;
-    private BigDecimal price;//yes
-    private String currency;//yes
-    private BigDecimal currencyRate;//yes
-    private BigDecimal lineTotal;//yes
-    private String fromWarehose;//yes
-    private String fromLocation;//yes
-    private String toWarehouse;//yes
-    private String toLocation;//yes
-    private String transactionType;//yes
-    private String baseDocumentType;//yes
-    private Integer baseDocumentEntry;//yes
-    private Integer baseDocumentLineId;//yes
-    private String originalDocumentType;//yes
-    private Integer originalDocumentEntry;//yes
-    private Integer originalDocumentLineId;//yes
-    private String scanningType;//yes
+    private BigDecimal price;
+    private String currency;
+    private BigDecimal currencyRate;
+    private BigDecimal lineTotal;
+    private String fromWarehose;
+    private String fromLocation;
+    private String toWarehouse;
+    private String toLocation;
+    private String transactionType;
+    private String baseDocumentType;
+    private Integer baseDocumentEntry;
+    private Integer baseDocumentLineId;
+    private String originalDocumentType;
+    private Integer originalDocumentEntry;
+    private Integer originalDocumentLineId;
+    private String scanningType;
     private String waterCode;
 
     @Override
@@ -70,6 +71,16 @@ public class StockTaskItem implements IStockTaskItem{
     @Override
     public void setLineId(Integer lineId) {
         this.lineId = lineId;
+    }
+
+    @Override
+    public String getLineStatus() {
+        return lineStatus;
+    }
+
+    @Override
+    public void setLineStatus(String lineStatus) {
+        this.lineStatus = lineStatus;
     }
 
     @Override

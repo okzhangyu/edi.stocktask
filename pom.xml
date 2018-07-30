@@ -21,7 +21,6 @@
         <org.aspectj-version>1.7.3</org.aspectj-version>
     </properties>
     <dependencies>
-
         <!-- junit lib -->
         <dependency>
             <groupId>junit</groupId>
@@ -29,7 +28,6 @@
             <version>3.8.1</version>
             <scope>test</scope>
         </dependency>
-
         <!-- slf4j lib -->
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -37,7 +35,6 @@
             <version>1.7.5</version>
             <scope>provided</scope>
         </dependency>
-
         <!-- spring核心包 -->
         <!-- jersey中已存在 -->
         <dependency>
@@ -50,7 +47,6 @@
             <artifactId>spring-web</artifactId>
             <version>${spring.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-oxm</artifactId>
@@ -61,19 +57,16 @@
             <artifactId>spring-orm</artifactId>
             <version>${spring.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-tx</artifactId>
             <version>${spring.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
             <version>${spring.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
@@ -84,33 +77,28 @@
             <artifactId>spring-aop</artifactId>
             <version>${spring.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
             <version>${spring.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
             <version>${spring.version}</version>
         </dependency>
-
         <!-- mybatis核心包 -->
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
             <version>${mybatis.version}</version>
         </dependency>
-
         <!-- mybatis/spring包 -->
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-spring</artifactId>
             <version>1.2.2</version>
         </dependency>
-
         <!-- tomcat jdbc -->
         <dependency>
             <groupId>org.apache.tomcat</groupId>
@@ -125,14 +113,12 @@
             <artifactId>javaee-api</artifactId>
             <version>7.0</version>
         </dependency>
-
         <!-- 导入dbcp的jar包，用来在applicationContext.xml中配置数据库 -->
         <dependency>
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
             <version>1.2.2</version>
         </dependency>
-
         <!-- 新增 Jersey 框架支持 2014-11-18 14:19:41 -->
         <dependency>
             <groupId>org.glassfish.jersey.ext</groupId>
@@ -195,20 +181,11 @@
             <artifactId>java-property-utils</artifactId>
             <version>1.10</version>
         </dependency>
-
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
             <version>6.4.0.jre8</version>
             <scope>test</scope>
         </dependency>
-
-
-        <dependency>
-            <groupId>com.xuxueli</groupId>
-            <artifactId>xxl-job-core</artifactId>
-            <version>1.9.2-SNAPSHOT</version>
-        </dependency>
-
     </dependencies>
 </project>

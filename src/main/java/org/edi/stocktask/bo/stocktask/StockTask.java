@@ -11,28 +11,28 @@ public class StockTask implements  IStockTask{
 
     private static final String BUSINESS_CODE = "AVA_WM_STOCKTASK";
 
-    private String companyName;//yes
-    private Integer objectKey;//yes
+    private String companyName;
+    private Integer objectKey;
     private String objectCode;
-    private String createDate;//yes
+    private String createDate;
     private Integer createTime;
-    private String updateDate;//yes
+    private String updateDate;
     private Integer updateTime;
-    private String reference1;//yes
-    private String reference2;//yes
-    private String remarks;//yes
-    private String documentType;//yes
+    private String reference1;
+    private String reference2;
+    private String remarks;
+    private String documentType;
     private String documentStatus;
-    private Integer documentEntry;//yes
+    private Integer documentEntry;
     private Integer documentLineId;
     private String businessPartnerCode;
     private String businessPartnerName;
-    private String transactionType;//yes
+    private String transactionType;
     private Date postingDate;
     private Date deliveryDate;
-    private String documentDate;//yes
+    private String documentDate;
     private String schemaCode;
-    private String annotated;//yes
+    private String annotated;
     private List<StockTaskItem> stockTaskItems;
     private List<IStockTaskBarCodeItem> stockTaskBarCodeItems;
 
