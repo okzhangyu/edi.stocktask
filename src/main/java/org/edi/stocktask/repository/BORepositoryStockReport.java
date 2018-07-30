@@ -82,8 +82,8 @@ public class BORepositoryStockReport implements IBORepositoryStockReport{
      * @return
      */
     @Override
-    public List<IStockReport> fetchUnSyncStockReport() {
-        List<IStockReport> stockReports;
+    public List<StockReport> fetchUnSyncStockReport() {
+        List<StockReport> stockReports;
         List<StockReportItem> stockReportItems;
         stockReports = stockReportMapper.fetchUnSyncStockReport();
         if(stockReports != null && stockReports.size() > 0){
