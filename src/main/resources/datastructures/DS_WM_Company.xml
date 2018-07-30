@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DomainModel Name="Company" ShortName="">
+    <Table Name="Company" Description="公司" Type="bott_Document" State="bots_User" PropertyName="Company">
+        <Field Name="companyId" Description="公司标识" DataType="db_Numeric" SubType="st_None" EditSize="3" PropertyName="CompanyId" FixedDataType="System.Int" IsPrimaryKey="Yes"/>
+        <Field Name="parentId" Description="公司父标识" DataType="db_Numeric" SubType="st_None" EditSize="3" PropertyName="parentId"  FixedDataType="System.Int"  />
+        <Field Name="companyName" Description="公司名称" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="companyName"  FixedDataType="System.String" />
+        <Field Name="shortName" Description="公司简称" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="shortName"  FixedDataType="System.String" />
+    </Table>
+</DomainModel>
