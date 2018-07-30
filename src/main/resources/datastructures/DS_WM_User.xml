@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DomainModel Name="USER" ShortName="">
+    <Table Name="VIEW_IUSER" Description="用户视图" Type="bott_Document" State="bots_User" PropertyName="VIEW_IUSER">
+        <Field Name="USERID" Description="用户标识" DataType="db_Numeric" SubType="st_None" EditSize="3" PropertyName="USERID" FixedDataType="System.Int" />
+        <Field Name="U_NAME" Description="用户名称" DataType="db_Alpha" SubType="st_None" EditSize="3" PropertyName="U_NAME"  FixedDataType="System.String"  />
+        <Field Name="PASSWORD" Description="用户密码" DataType="db_Alpha" SubType="st_None" EditSize="10" PropertyName="PASSWORD"  FixedDataType="System.String" />
+        <Field Name="U_MobileUserId" Description="用户手机标识" DataType="db_Numeric" SubType="st_None" EditSize="40" PropertyName="U_MobileUserId"  FixedDataType="System.Int" />
+        <Field Name="U_MobilePassword" Description="用户手机密码" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="U_MobilePassword"  FixedDataType="System.String" />
+        <Field Name="companyId" Description="用户公司标识" DataType="db_Numeric" SubType="st_None" EditSize="5" PropertyName="companyId"  FixedDataType="System.Int" />
+    </Table>
+</DomainModel>

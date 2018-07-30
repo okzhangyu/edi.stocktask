@@ -32,7 +32,7 @@ public class BOStockTaskTest {
         return stockTaskMapper;
     }
 
-    /**
+    /**s
      * 查询库存任务
      * @return
      */
