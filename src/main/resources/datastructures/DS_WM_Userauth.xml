@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DomainModel Name="USERAUTH" ShortName="">
+    <Table Name="USERAUTH" Description="用户权限" Type="bott_Document" State="bots_User" PropertyName="USERAUTH">
+        <Field Name="user_id" Description="用户标识" DataType="db_Alpha" SubType="st_None" EditSize="3" PropertyName="user_id" FixedDataType="System.Int" IsPrimaryKey="Yes"/>
+        <Field Name="auth_id" Description="权限标识" DataType="db_Alpha" SubType="st_None" EditSize="3" PropertyName="auth_id"  FixedDataType="System.Int"  />
+        <Field Name="auth_type" Description="权限类型" DataType="db_Alpha" SubType="st_None" EditSize="10" PropertyName="auth_type"  FixedDataType="System.String" />
+        <Field Name="auth_token" Description="权限令牌" DataType="db_Alpha" SubType="st_None" EditSize="40" PropertyName="auth_token"  FixedDataType="System.String" />
+        <Field Name="auth_expires" Description="权限时间" DataType="db_Numeric" SubType="st_None" EditSize="30" PropertyName="auth_expires"  FixedDataType="System.String" />
+        <Field Name="is_active" Description="是否登录" DataType="db_Alpha" SubType="st_None" EditSize="5" PropertyName="is_active"  FixedDataType="System.String" />
+    </Table>
+</DomainModel>
