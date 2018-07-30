@@ -1,6 +1,5 @@
 package org.edi.stocktask.bo.stocktask;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -77,13 +76,13 @@ public interface IStockTask {
 
     void setTransactionType(String value);
 
-    Date getPostingDate();
+    String getPostingDate();
 
-    void setPostingDate(Date value);
+    void setPostingDate(String value);
 
-    Date getDeliveryDate();
+    String getDeliveryDate();
 
-    void setDeliveryDate(Date value);
+    void setDeliveryDate(String value);
 
     String getDocumentDate();
 

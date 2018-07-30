@@ -1,7 +1,5 @@
 package org.edi.stocktask.bo.stocktask;
 
-import java.math.BigDecimal;
-
 /**
  * @author Fancy
  * @date 2018/5/27
@@ -19,16 +17,16 @@ public class StockTaskItem implements IStockTaskItem{
     private Integer documentLineId;
     private String itemCode;
     private String itemDescription;
-    private BigDecimal packageQuantity;
-    private BigDecimal quantity;
+    private Double packageQuantity;
+    private Double quantity;
     private String inventoryUoM;
     private String serialNumberManagement;
     private String batchNumberManagement;
     private String serviceNumberManagement;
-    private BigDecimal price;
+    private Double price;
     private String currency;
-    private BigDecimal currencyRate;
-    private BigDecimal lineTotal;
+    private Double currencyRate;
+    private Double lineTotal;
     private String fromWarehose;
     private String fromLocation;
     private String toWarehouse;
@@ -154,22 +152,22 @@ public class StockTaskItem implements IStockTaskItem{
     }
 
     @Override
-    public BigDecimal getPackageQuantity() {
+    public Double getPackageQuantity() {
         return packageQuantity;
     }
 
     @Override
-    public void setPackageQuantity(BigDecimal packageQuantity) {
+    public void setPackageQuantity(Double packageQuantity) {
         this.packageQuantity = packageQuantity;
     }
 
     @Override
-    public BigDecimal getQuantity() {
+    public Double getQuantity() {
         return quantity;
     }
 
     @Override
-    public void setQuantity(BigDecimal quantity) {
+    public void setQuantity(Double quantity) {
         this.quantity = quantity;
     }
 
@@ -214,12 +212,12 @@ public class StockTaskItem implements IStockTaskItem{
     }
 
     @Override
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
     @Override
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -234,22 +232,22 @@ public class StockTaskItem implements IStockTaskItem{
     }
 
     @Override
-    public BigDecimal getCurrencyRate() {
+    public Double getCurrencyRate() {
         return currencyRate;
     }
 
     @Override
-    public void setCurrencyRate(BigDecimal currencyRate) {
+    public void setCurrencyRate(Double currencyRate) {
         this.currencyRate = currencyRate;
     }
 
     @Override
-    public BigDecimal getLineTotal() {
+    public Double getLineTotal() {
         return lineTotal;
     }
 
     @Override
-    public void setLineTotal(BigDecimal lineTotal) {
+    public void setLineTotal(Double lineTotal) {
         this.lineTotal = lineTotal;
     }
 
@@ -387,7 +385,7 @@ public class StockTaskItem implements IStockTaskItem{
     public StockTaskItem() {
     }
 
-    public StockTaskItem(Integer objectKey, String objectCode, Integer lineId, String reference1, String reference2, String documentType, Integer documentEntry, Integer documentLineId, String itemCode, String itemDescription, BigDecimal packageQuantity, BigDecimal quantity, String inventoryUoM, String serialNumberManagement, String batchNumberManagement, String serviceNumberManagement, BigDecimal price, String currency, BigDecimal currencyRate, BigDecimal lineTotal, String fromWarehose, String fromLocation, String toWarehouse, String toLocation, String transactionType, String baseDocumentType, Integer baseDocumentEntry, Integer baseDocumentLineId, String originalDocumentType, Integer originalDocumentEntry, Integer originalDocumentLineId, String scanningType, String waterCode) {
+    public StockTaskItem(Integer objectKey, String objectCode, Integer lineId, String reference1, String reference2, String documentType, Integer documentEntry, Integer documentLineId, String itemCode, String itemDescription, Double packageQuantity, Double quantity, String inventoryUoM, String serialNumberManagement, String batchNumberManagement, String serviceNumberManagement, Double price, String currency, Double currencyRate, Double lineTotal, String fromWarehose, String fromLocation, String toWarehouse, String toLocation, String transactionType, String baseDocumentType, Integer baseDocumentEntry, Integer baseDocumentLineId, String originalDocumentType, Integer originalDocumentEntry, Integer originalDocumentLineId, String scanningType, String waterCode) {
         this.objectKey = objectKey;
         this.objectCode = objectCode;
         this.lineId = lineId;

@@ -1,6 +1,5 @@
 package org.edi.stocktask.bo.stocktask;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,8 +27,8 @@ public class StockTask implements  IStockTask{
     private String businessPartnerCode;
     private String businessPartnerName;
     private String transactionType;
-    private Date postingDate;
-    private Date deliveryDate;
+    private String postingDate;
+    private String deliveryDate;
     private String documentDate;
     private String schemaCode;
     private String annotated;
@@ -207,22 +206,22 @@ public class StockTask implements  IStockTask{
     }
 
     @Override
-    public Date getPostingDate() {
+    public String getPostingDate() {
         return postingDate;
     }
 
     @Override
-    public void setPostingDate(Date postingDate) {
+    public void setPostingDate(String postingDate) {
         this.postingDate = postingDate;
     }
 
     @Override
-    public Date getDeliveryDate() {
+    public String getDeliveryDate() {
         return deliveryDate;
     }
 
     @Override
-    public void setDeliveryDate(Date deliveryDate) {
+    public void setDeliveryDate(String deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
 
