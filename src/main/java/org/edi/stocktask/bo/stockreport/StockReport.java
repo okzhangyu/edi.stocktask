@@ -7,6 +7,7 @@ import org.edi.stocktask.bo.stocktask.StockTaskItem;
 import org.edi.stocktask.data.StockOpResultDescription;
 import org.edi.stocktask.data.StockTaskData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,15 +29,38 @@ public class StockReport implements IStockReport{
         stockReport.setRemarks(stockTask.getRemarks());
         stockReport.setCompanyName(stockTask.getCompanyName());
         stockReport.setBusinessPartnerCode(stockTask.getBusinessPartnerCode());
-
+        stockReport.setBusinessPartnerName(stockTask.getBusinessPartnerName());
+        stockReport.setObjectCode(stockTask.getObjectCode());
+        stockReport.setReference1(stockTask.getReference1());
+        stockReport.setTransactionType(stockTask.getTransactionType());
+        stockReport.setDocumentDate(stockTask.getDocumentDate());
+        List<StockReportItem> stockReportItemList = new ArrayList<>();
         //TODO 按照文档赋单据表头值
-
         for (StockTaskItem item:stockTask.getStockTaskItems()) {
+            StockReportItem stockReportItem = new StockReportItem();
             if(StockTaskData.OPEN.equals(item.getLineStatus())){
                 //过滤已清的任务行
+                StockTaskItem  stockTaskItem= stockTask.getStockTaskItems().get(0);
+                stockReportItem.setObjectCode(stockTaskItem.getObjectCode());
+                stockReportItem.setReference1(stockTaskItem.getReference1());
+                stockReportItem.setReference2(stockTaskItem.getReference2());
+                stockReportItem.setBaseDocumentType(stockTaskItem.getDocumentType());
+                stockReportItem.setBaseDocumentEntry(stockTaskItem.getDocumentEntry());
+                stockReportItem.setBaseDocumentLineId(stockTaskItem.getDocumentLineId());
+                stockReportItem.setBatchNumberManagement(stockTaskItem.getBatchNumberManagement());
+                stockReportItem.setBaseDocumentLineId(stockTaskItem.getBaseDocumentLineId());
+                stockReportItem.setBaseDocumentEntry(stockTaskItem.getDocumentEntry());
+                stockReportItem.setItemCode(stockTaskItem.getItemCode());
+                stockReportItem.setItemDescription(stockTaskItem.getItemDescription());
+                stockReportItem.setFromLocation(stockTaskItem.getFromLocation());
+                stockReportItem.setFromWarehose(stockTaskItem.getFromWarehose());
+                stockReportItem.setToLocation(stockTaskItem.getToLocation());
+                stockReportItem.setToWarehouse(stockTaskItem.getToWarehouse());
                 //TODO 按照文档赋单据明细值
             }
+            stockReportItemList.add(stockReportItem);
         }
+        stockReport.setStockReportItems(stockReportItemList);
         return stockReport;
     }
     

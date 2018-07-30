@@ -1,7 +1,5 @@
 package org.edi.stocktask.bo.stocktask;
 
-import java.math.BigDecimal;
-
 /**
  * @author Fancy
  * @date 2018/5/25
@@ -52,13 +50,13 @@ public interface IStockTaskItem {
 
     void setItemDescription(String value);
 
-    BigDecimal getPackageQuantity();
+    Double getPackageQuantity();
 
-    void setPackageQuantity(BigDecimal value);
+    void setPackageQuantity(Double value);
 
-    BigDecimal getQuantity();
+    Double getQuantity();
 
-    void setQuantity(BigDecimal value);
+    void setQuantity(Double value);
 
     String getInventoryUoM();
 
@@ -76,21 +74,21 @@ public interface IStockTaskItem {
 
     void setServiceNumberManagement(String value);
 
-    BigDecimal getPrice();
+    Double getPrice();
 
-    void setPrice(BigDecimal value);
+    void setPrice(Double value);
 
     String getCurrency();
 
     void setCurrency(String value);
 
-    BigDecimal getCurrencyRate();
+    Double getCurrencyRate();
 
-    void setCurrencyRate(BigDecimal value);
+    void setCurrencyRate(Double value);
 
-    BigDecimal getLineTotal();
+    Double getLineTotal();
 
-    void setLineTotal(BigDecimal value);
+    void setLineTotal(Double value);
 
     String getFromWarehose();
 

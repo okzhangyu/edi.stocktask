@@ -1,6 +1,5 @@
 package org.edi.stocktask.mapper;
 
-import org.edi.stocktask.bo.stockreport.IStockReport;
 import org.edi.stocktask.bo.stockreport.StockReport;
 import org.edi.stocktask.bo.stockreport.StockReportItem;
 
@@ -22,7 +21,7 @@ public interface StockReportMapper {
 
     int fetchSequenceOfDocEntry();
 
-    List<IStockReport> fetchUnSyncStockReport();
+    List<StockReport> fetchUnSyncStockReport();
 
     void UpdateStockReportDocStatus(String B1DocEntry,Integer docEntry);
 }

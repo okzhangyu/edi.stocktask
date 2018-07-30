@@ -35,7 +35,7 @@ public interface IBORepositoryStockReport {
      * 查询未清任务汇报
      * @return
      */
-    List<IStockReport> fetchUnSyncStockReport();
+    List<StockReport> fetchUnSyncStockReport();
 
     void UpdateStockReportDocStatus(String B1DocEntry,Integer docEntry);
 
