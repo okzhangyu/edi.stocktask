@@ -1,6 +1,10 @@
 package org.edi.stocktask.bo.stockreport;
 
 
+import org.edi.freamwork.bo.BusinessObjectException;
+import org.edi.stocktask.data.StockOpResultCode;
+import org.edi.stocktask.data.StockOpResultDescription;
+
 /**
  * @author Fancy
  * @date 2018/5/27
@@ -530,5 +534,12 @@ public class StockReportItem implements IStockReportItem{
                 ", barCode4='" + barCode4 + '\'' +
                 ", barCode5='" + barCode5 + '\'' +
                 '}';
+    }
+
+    public void checkBO(){
+        if(getBaseDocumentType().isEmpty()){
+            throw new BusinessObjectException(StockOpResultCode.STOCK_OBJECT_BASEENTRY_IS_NULL,
+                    StockOpResultDescription.STOCK_OBJECT_BASETYPE_IS_NULL);
+        }
     }
 }

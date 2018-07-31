@@ -113,14 +113,16 @@ public class BORepositoryStockReport implements IBORepositoryStockReport{
     public void saveStockReports(List<StockReport> stockReports) throws ParseException{
         DefaultTransactionDefinition def = new DefaultTransactionDefinition();
         def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+        StockReport stockReport;
+        DateFormat df=DateFormat.getDateTimeInstance();
+        String nowDate=df.format(new Date());
         TransactionStatus status = ptm.getTransaction(def);
         try {
             for (int i = 0; i < stockReports.size(); i++) {
+                stockReport = stockReports.get(i);
+                //if(stockReport)
                 int docEntry = stockReportMapper.fetchSequenceOfDocEntry();
-                StockReport stockReport = stockReports.get(i);
                 stockReport.setDocEntry(docEntry);
-                DateFormat df=DateFormat.getDateTimeInstance();
-                String nowDate=df.format(new Date());
                 stockReport.setCreateDate(nowDate);
                 stockReportMapper.saveStockReport(stockReport);
                 for (int j = 0; j < stockReports.get(i).getStockReportItems().size(); j++) {

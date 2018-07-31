@@ -1,11 +1,13 @@
 package org.edi.stocktask.bo.stockreport;
 
 
+import org.edi.freamwork.bo.BusinessObjectException;
 import org.edi.freamwork.exception.BusinessException;
 import org.edi.stocktask.bo.stocktask.IStockTask;
 import org.edi.stocktask.bo.stocktask.IStockTaskItem;
 import org.edi.stocktask.bo.stocktask.StockTask;
 import org.edi.stocktask.bo.stocktask.StockTaskItem;
+import org.edi.stocktask.data.StockOpResultCode;
 import org.edi.stocktask.data.StockOpResultDescription;
 import org.edi.stocktask.data.StockTaskData;
 
@@ -414,5 +416,17 @@ public class StockReport implements IStockReport{
                 ", baseDocumentEntry=" + baseDocumentEntry +
                 ", stockReportItems=" + stockReportItems +
                 '}';
+    }
+
+    public void checkBO(){
+        if(this.companyName.isEmpty()){
+            throw new BusinessObjectException(StockOpResultCode.STOCK_OBJECT_COMPANY_IS_NULL,
+                    StockOpResultDescription.STOCK_OBJECT_COMPANY_IS_NULL);
+        }
+        if(this.baseDocumentType.isEmpty()){
+            throw new BusinessObjectException(StockOpResultCode.STOCK_OBJECT_BASETYPE_IS_NULL,
+                    StockOpResultDescription.STOCK_OBJECT_BASETYPE_IS_NULL);
+        }
+        this.stockReportItems.forEach(c->c.checkBO());
     }
 }
