@@ -96,9 +96,9 @@ public interface IStockTask {
 
     void setAnnotated(String annotated);
 
-    List<StockTaskItem> getStockTaskItems();
+    List<IStockTaskItem> getStockTaskItems();
 
-    void setStockTaskItems(List<StockTaskItem> value);
+    void setStockTaskItems(List<IStockTaskItem> value);
 
     List<IStockTaskBarCodeItem> getStockTaskBarCodeItems();
 

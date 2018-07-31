@@ -2,12 +2,11 @@ package org.edi.stocktask.repository;
 
 import org.edi.freamwork.exception.BusinessException;
 import org.edi.initialfantasy.data.ResultDescription;
-import org.edi.stocktask.bo.codeBar.CodeBar;
+import org.edi.stocktask.bo.codeBar.ICodeBar;
 import org.edi.stocktask.mapper.CodeBarMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -27,11 +26,11 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
      * @return
      */
     @Override
-    public List<CodeBar> parseCodeBar(String codebar) {
+    public List<ICodeBar> parseCodeBar(String codebar) {
         if(codebar==null||codebar.equals("")){
             throw new BusinessException(ResultDescription.CODEBAR_IS_NULL);
         }
-        List<CodeBar> listCodeBar = new ArrayList<>();
+        List<ICodeBar> listCodeBar;
         HashMap<String,String> codeBar = new HashMap();
         codeBar.put("codebar",codebar);
         codeBarMapper.parseCodeBar(codeBar);

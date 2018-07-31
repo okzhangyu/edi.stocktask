@@ -12,5 +12,5 @@ public class StockOpResultDescription extends OpResultDescription {
 
     public static final String STOCKTASK_IS_CLOSE = "单据已清，不能操作该单据";
 
-
+    public static final String DOCENTRY_IS_EMPTY = "单据号为空";
 }

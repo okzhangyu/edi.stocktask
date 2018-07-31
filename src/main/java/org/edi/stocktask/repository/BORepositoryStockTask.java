@@ -2,8 +2,10 @@ package org.edi.stocktask.repository;
 
 import org.edi.freamwork.exception.BusinessException;
 import org.edi.initialfantasy.data.ResultDescription;
-import org.edi.stocktask.bo.stocktask.StockTask;
-import org.edi.stocktask.bo.stocktask.StockTaskItem;
+import org.edi.stocktask.bo.material.IMaterial;
+import org.edi.stocktask.bo.stocktask.IStockTask;
+import org.edi.stocktask.bo.stocktask.IStockTaskItem;
+import org.edi.stocktask.data.StockOpResultDescription;
 import org.edi.stocktask.mapper.StockTaskMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -28,8 +30,8 @@ public class BORepositoryStockTask implements  IBORepositoryStockTask {
      * @return
      */
     @Override
-    public List<StockTask> fetchStockTask(String param){
-        List<StockTask> stockTasks;
+    public List<IStockTask> fetchStockTask(String param){
+        List<IStockTask> stockTasks;
         if(param!=null && !param.isEmpty()){
             stockTasks = stockTaskMapper.fetchStockTaskFuzzy(param);
         }else {
@@ -39,7 +41,7 @@ public class BORepositoryStockTask implements  IBORepositoryStockTask {
             return stockTasks;
         }
         for (int i = 0;i<stockTasks.size();i++){
-            List<StockTaskItem> stockTaskItems = stockTaskMapper.fetchStockTaskItem(stockTasks.get(i).getObjectKey());
+            List<IStockTaskItem> stockTaskItems = stockTaskMapper.fetchStockTaskItem(stockTasks.get(i).getObjectKey());
             if(stockTaskItems!=null){
                 stockTasks.get(i).setStockTaskItems(stockTaskItems);
             }
@@ -47,26 +49,20 @@ public class BORepositoryStockTask implements  IBORepositoryStockTask {
         return stockTasks;
     }
 
-
-
-    /**
-     * 条件查询库存任务
-     * @return
-     */
     @Override
-    public List<StockTask> fetchStockTaskByCondition(int docEntry, String docType){
+    public List<IStockTask> fetchStockTaskByCondition(int docEntry, String docType) {
         if(docEntry==0){
             throw new BusinessException(ResultDescription.DOCENTRY_IS_NULL);
         }
         HashMap<String,Object> stockTaskCondition = new HashMap<>();
         stockTaskCondition.put("docEntry",docEntry);
         stockTaskCondition.put("docType",docType);
-        List<StockTask>  stockTasks = stockTaskMapper.fetchStockTaskByCondition(stockTaskCondition);
+        List<IStockTask>  stockTasks = stockTaskMapper.fetchStockTaskByCondition(stockTaskCondition);
         if(stockTasks.size() == 0) {
             return stockTasks;
         }
         for (int i = 0;i<stockTasks.size();i++){
-            List<StockTaskItem> stockTaskItems = stockTaskMapper.fetchStockTaskItem(stockTasks.get(i).getObjectKey());
+            List<IStockTaskItem> stockTaskItems = stockTaskMapper.fetchStockTaskItem(stockTasks.get(i).getObjectKey());
             if(stockTaskItems!=null){
                 stockTasks.get(i).setStockTaskItems(stockTaskItems);
             }
@@ -75,28 +71,24 @@ public class BORepositoryStockTask implements  IBORepositoryStockTask {
     }
 
 
-
-
+    @Override
+    public List<IMaterial> fetchStockTaskMaterials(Integer docEntry) {
+        if(docEntry == 0){
+            throw new BusinessException(StockOpResultDescription.DOCENTRY_IS_EMPTY);
+        }
+        List<IMaterial> materials = stockTaskMapper.fetchStockTaskMaterial(docEntry);
+        return materials;
+    }
 
     /**
      * 根据OBJECTKEY查询库存任务明细
      * @param objectKey
      * @return
      */
-    public List<StockTaskItem> fetchStockTaskItem(Integer objectKey){
-        List<StockTaskItem> stockTaskItems = stockTaskMapper.fetchStockTaskItem(objectKey);
+    public List<IStockTaskItem> fetchStockTaskItem(Integer objectKey){
+        List<IStockTaskItem> stockTaskItems = stockTaskMapper.fetchStockTaskItem(objectKey);
         return stockTaskItems;
     }
 
 
-
-
-    /**
-     * 查询所有库存任务明细
-     * @return
-     */
-    public List<StockTaskItem> fetchAllStockTaskItem(){
-        List<StockTaskItem> stockTaskItems = stockTaskMapper.fetchAllStockTaskItem();
-        return stockTaskItems;
-    }
 }

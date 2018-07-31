@@ -2,6 +2,8 @@ package org.edi.stocktask.bo.stockreport;
 
 
 import org.edi.freamwork.exception.BusinessException;
+import org.edi.stocktask.bo.stocktask.IStockTask;
+import org.edi.stocktask.bo.stocktask.IStockTaskItem;
 import org.edi.stocktask.bo.stocktask.StockTask;
 import org.edi.stocktask.bo.stocktask.StockTaskItem;
 import org.edi.stocktask.data.StockOpResultDescription;
@@ -18,7 +20,7 @@ public class StockReport implements IStockReport{
 
     private static final String BUSINESS_CODE = "AVA_WM_STOCKREPORT";
 
-    public static StockReport createStockReport(StockTask stockTask){
+    public static StockReport createStockReport(IStockTask stockTask){
         if(stockTask == null) {
             throw new BusinessException(StockOpResultDescription.STOCKTASK_IS_EMPTY);
         }
@@ -36,29 +38,28 @@ public class StockReport implements IStockReport{
         stockReport.setDocumentDate(stockTask.getDocumentDate());
         List<StockReportItem> stockReportItemList = new ArrayList<>();
         //TODO 按照文档赋单据表头值
-        for (StockTaskItem item:stockTask.getStockTaskItems()) {
+        for (IStockTaskItem item:stockTask.getStockTaskItems()) {
             StockReportItem stockReportItem = new StockReportItem();
             if(StockTaskData.OPEN.equals(item.getLineStatus())){
                 //过滤已清的任务行
-                StockTaskItem  stockTaskItem= stockTask.getStockTaskItems().get(0);
-                stockReportItem.setObjectCode(stockTaskItem.getObjectCode());
-                stockReportItem.setReference1(stockTaskItem.getReference1());
-                stockReportItem.setReference2(stockTaskItem.getReference2());
-                stockReportItem.setBaseDocumentType(stockTaskItem.getDocumentType());
-                stockReportItem.setBaseDocumentEntry(stockTaskItem.getDocumentEntry());
-                stockReportItem.setBaseDocumentLineId(stockTaskItem.getDocumentLineId());
-                stockReportItem.setBatchNumberManagement(stockTaskItem.getBatchNumberManagement());
-                stockReportItem.setBaseDocumentLineId(stockTaskItem.getBaseDocumentLineId());
-                stockReportItem.setBaseDocumentEntry(stockTaskItem.getDocumentEntry());
-                stockReportItem.setItemCode(stockTaskItem.getItemCode());
-                stockReportItem.setItemDescription(stockTaskItem.getItemDescription());
-                stockReportItem.setFromLocation(stockTaskItem.getFromLocation());
-                stockReportItem.setFromWarehose(stockTaskItem.getFromWarehose());
-                stockReportItem.setToLocation(stockTaskItem.getToLocation());
-                stockReportItem.setToWarehouse(stockTaskItem.getToWarehouse());
                 //TODO 按照文档赋单据明细值
+                stockReportItem.setObjectCode(item.getObjectCode());
+                stockReportItem.setReference1(item.getReference1());
+                stockReportItem.setReference2(item.getReference2());
+                stockReportItem.setBaseDocumentType(item.getDocumentType());
+                stockReportItem.setBaseDocumentEntry(item.getDocumentEntry());
+                stockReportItem.setBaseDocumentLineId(item.getDocumentLineId());
+                stockReportItem.setBatchNumberManagement(item.getBatchNumberManagement());
+                stockReportItem.setBaseDocumentLineId(item.getBaseDocumentLineId());
+                stockReportItem.setBaseDocumentEntry(item.getDocumentEntry());
+                stockReportItem.setItemCode(item.getItemCode());
+                stockReportItem.setItemDescription(item.getItemDescription());
+                stockReportItem.setFromLocation(item.getFromLocation());
+                stockReportItem.setFromWarehose(item.getFromWarehose());
+                stockReportItem.setToLocation(item.getToLocation());
+                stockReportItem.setToWarehouse(item.getToWarehouse());
+                stockReportItemList.add(stockReportItem);
             }
-            stockReportItemList.add(stockReportItem);
         }
         stockReport.setStockReportItems(stockReportItemList);
         return stockReport;

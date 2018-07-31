@@ -8,6 +8,8 @@ public class CodeBar implements  ICodeBar{
 
     private String ProName;
     private String ProValue;
+    private String ProDesc;
+
 
     @Override
     public String getProName() {return this.ProName;}
@@ -15,6 +17,17 @@ public class CodeBar implements  ICodeBar{
     public void setProName(String value){
         this.ProName = value;
     }
+
+    @Override
+    public String getProDesc() {
+        return this.ProDesc;
+    }
+
+    @Override
+    public void setProDesc(String value) {
+        this.ProDesc = value;
+    }
+
     @Override
     public String getProValue() {
         return ProValue;

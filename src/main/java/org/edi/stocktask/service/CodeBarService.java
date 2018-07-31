@@ -11,6 +11,7 @@ import org.edi.initialfantasy.data.ServicePath;
 import org.edi.initialfantasy.dto.Result;
 import org.edi.initialfantasy.filter.UserRequest;
 import org.edi.stocktask.bo.codeBar.CodeBar;
+import org.edi.stocktask.bo.codeBar.ICodeBar;
 import org.edi.stocktask.data.StockTaskServicePath;
 import org.edi.stocktask.repository.IBORepositoryCodeBar;
 import org.glassfish.jersey.server.JSONP;
@@ -26,13 +27,10 @@ import java.util.List;
  * 条码相关服务
  */
 @Path("/v1")
-@UserRequest
 public class CodeBarService implements ICodeBarService{
 
     @Autowired
     private IBORepositoryCodeBar boRepositoryCodeBar;
-
-
 
     /**
      * 解析条码
@@ -44,15 +42,14 @@ public class CodeBarService implements ICodeBarService{
     @Produces("application/x-javascript;charset=utf-8")
     @Path("/codebar")
     @Override
-    public Result<CodeBar> parseCodeBar(@QueryParam(ServicePath.TOKEN_NAMER)String token,
-                                        @QueryParam(StockTaskServicePath.SERVICE_CODEBAR)String codeBar) {
-        Result<CodeBar> result = new Result<>();
+    public Result<ICodeBar> parseCodeBar(@QueryParam(ServicePath.TOKEN_NAMER)String token,
+                                         @QueryParam(StockTaskServicePath.SERVICE_CODEBAR)String codeBar) {
+        Result<ICodeBar> result;
         try{
-            List<CodeBar>  resultCodeBar = boRepositoryCodeBar.parseCodeBar(codeBar);
-            result = new Result<CodeBar>(ResultCode.OK, ResultDescription.OK,resultCodeBar);
+            List<ICodeBar>  resultCodeBar = boRepositoryCodeBar.parseCodeBar(codeBar);
+            result = new Result<>(ResultCode.OK, ResultDescription.OK,resultCodeBar);
         }catch (Exception e){
-            e.printStackTrace();
-            result = new Result(ResultCode.FAIL,"failed:"+(e.getCause()==null?e.getMessage():e.getCause().toString()),null);
+            result = new Result(ResultCode.FAIL,e);
         }
         return result;
     }

@@ -1,7 +1,9 @@
 package org.edi.stocktask.repository;
 
+import org.edi.stocktask.bo.material.IMaterial;
+import org.edi.stocktask.bo.material.Material;
+import org.edi.stocktask.bo.stocktask.IStockTask;
 import org.edi.stocktask.bo.stocktask.StockTask;
-import org.edi.stocktask.bo.stocktask.StockTaskItem;
 
 import java.util.List;
 
@@ -15,10 +17,9 @@ public interface IBORepositoryStockTask {
      * 查询库存任务
      * @return
      */
-    List<StockTask> fetchStockTask(String param);
+    List<IStockTask> fetchStockTask(String param);
 
-    List<StockTaskItem> fetchAllStockTaskItem();
+    List<IStockTask> fetchStockTaskByCondition(int docEntry, String docType);
 
-    List<StockTask> fetchStockTaskByCondition(int docEntry, String docType);
-
+    List<IMaterial> fetchStockTaskMaterials(Integer docEntry);
 }
