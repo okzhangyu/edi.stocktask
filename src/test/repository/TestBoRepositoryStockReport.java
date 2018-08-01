@@ -2,9 +2,9 @@ package repository;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
+import org.edi.stocktask.bo.codeBar.CodeBar;
 import org.edi.stocktask.bo.stockreport.StockReport;
 import org.edi.stocktask.bo.stocktask.StockTask;
-import org.edi.stocktask.bo.stocktask.StockTaskItem;
 import org.edi.stocktask.repository.BORepositoryCodeBar;
 import org.edi.stocktask.repository.IBORepositoryStockReport;
 import org.edi.stocktask.repository.IBORepositoryStockTask;
@@ -40,9 +40,18 @@ public class TestBoRepositoryStockReport extends TestCase{
     private StockReport stockReport;
     private List<StockReport> stockReports = new ArrayList<>();
 
-    private StockReport getStockReport() throws Exception{
-        if(stockReport == null){
+    private StockReport getStockReport() throws Exception {
+      /* if(stockReport == null){
             this.testSaveStockReport();
+        }*/
+        List<StockTask> stockTasks = boRepositoryStockTask.fetchStockTask("");
+        if (stockTasks.size() > 0) {
+            if (stockTasks != null) {
+                stockTask = stockTasks.get(0);
+            }
+            if (stockReport == null) {
+                stockReport = StockReport.createStockReport(stockTask);
+            }
         }
         return stockReport;
     }
@@ -56,7 +65,11 @@ public class TestBoRepositoryStockReport extends TestCase{
 
     @Test
     public void testParseCodeBar()throws Exception{
-      System.out.print(boRepositoryCodeBar.parseCodeBar("123456789963"));
+        List<CodeBar> codeBars = boRepositoryCodeBar.parseCodeBar("123456789963");
+        System.out.println(codeBars.get(0));
+        CodeBar codeBar = new CodeBar();
+        codeBar.setProName("ItemCode");
+        Assert.assertEquals(codeBars.get(0).getProName(),codeBar.getProName());
     }
 
 
@@ -69,30 +82,21 @@ public class TestBoRepositoryStockReport extends TestCase{
     public void testfetchStockTask() throws Exception{
         List<StockTask> stockTasks = boRepositoryStockTask.fetchStockTask("");
         if(stockTasks.size() > 0){
-            if(stockTasks == null){
+            if(stockTask == null){
                 stockTask = stockTasks.get(0);
             }
         }
+        Assert.assertEquals(stockTask.getObjectCode(),getStockReport().getObjectCode());
     }
 
 
 
-    @Test
-    public void testFetchStockTaskItem() throws Exception{
-        List<StockTaskItem>  stockTaskItemList = boRepositoryStockTask.fetchAllStockTaskItem();
-        for (int i=0;i<stockTaskItemList.size();i++){
-            System.out.println(stockTaskItemList.get(i).toString());
-        }
-
-    }
 
 
     @Test
     public void testFetchStockTaskByCondition() throws Exception{
-       List<StockTask>  stockTaskItemList = boRepositoryStockTask.fetchStockTaskByCondition(155,"202");
-        for (int i=0;i<stockTaskItemList.size();i++){
-            System.out.println(stockTaskItemList.get(i).toString());
-        }
+       List<StockTask>  stockTaskList = boRepositoryStockTask.fetchStockTaskByCondition(155,"202");
+       assertEquals(stockTaskList.get(0).getObjectKey().toString(),"155");
 
     }
 
@@ -104,11 +108,8 @@ public class TestBoRepositoryStockReport extends TestCase{
     @Test
     public void testFetchStockReport(){
         List<StockReport> stockReportList = boRepositoryStockReport.fetchStockReport("");
-        if(stockReportList.size() > 0){
-            if(stockReport == null){
-                stockReport = stockReportList.get(0);
-            }
-        }
+        System.out.println(stockReportList.get(0).getDocEntry());
+        assertEquals(stockReportList.get(0).getDocEntry().toString(),"2");
     }
 
 
@@ -140,7 +141,9 @@ public class TestBoRepositoryStockReport extends TestCase{
 
     @Test
     public void testDeleteStockReport(){
-             boRepositoryStockReport.deleteStockReport(4);
+        boRepositoryStockReport.deleteStockReport(5);
+        StockReport stockReport = boRepositoryStockReport.fetchStockReportByEntry(5);
+        assertEquals(stockReport,null);
     }
 
 
@@ -153,6 +156,7 @@ public class TestBoRepositoryStockReport extends TestCase{
                 stockReport = stockReportList.get(0);
             }
         }
+        assertEquals(stockReport.getBusinessPartnerCode(),"3698769");
     }
 
     @Test
@@ -163,6 +167,7 @@ public class TestBoRepositoryStockReport extends TestCase{
                 stockReport = stockReportList.get(0);
             }
         }
+        assertEquals(stockReport.getB1DocEntry().toString(),"0");
     }
 
 
@@ -175,5 +180,6 @@ public class TestBoRepositoryStockReport extends TestCase{
                 stockReport = stockReportList.get(0);
             }
         }
+        assertEquals(stockReport.getBydUUID(),"3697459");
     }
 }
