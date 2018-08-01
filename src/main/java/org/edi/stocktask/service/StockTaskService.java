@@ -5,6 +5,8 @@ import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.initialfantasy.data.ServicePath;
 import org.edi.initialfantasy.dto.Result;
 import org.edi.initialfantasy.filter.UserRequest;
+import org.edi.stocktask.bo.material.IMaterial;
+import org.edi.stocktask.bo.material.Material;
 import org.edi.stocktask.bo.stocktask.IStockTask;
 import org.edi.stocktask.bo.stocktask.StockTask;
 import org.edi.stocktask.data.StockTaskServicePath;
@@ -22,16 +24,13 @@ import java.util.List;
  * @date 2018/5/19
  */
 @Path("/v1")
-@UserRequest
 public class StockTaskService implements IStockTaskService{
 
     @Autowired
     private IBORepositoryStockTask boRepositoryStockTask;
 
-
     @Autowired
     private StockTaskMapper stockTaskMapper;
-
 
     @GET
     @JSONP(queryParam="callback")
@@ -40,18 +39,16 @@ public class StockTaskService implements IStockTaskService{
     /**
      * 查询库存任务
      */
-    public Result<StockTask> fetchStockTask(@QueryParam(ServicePath.TOKEN_NAMER)String token,@QueryParam(StockTaskServicePath.SERVICE_SEARCH_PARAMETER)String param){
+    public Result<IStockTask> fetchStockTask(@QueryParam(ServicePath.TOKEN_NAMER)String token,@QueryParam(StockTaskServicePath.SERVICE_SEARCH_PARAMETER)String param){
         Result result = new Result();
         try{
-            List<StockTask> stockTasks = boRepositoryStockTask.fetchStockTask(param);
-            result = new Result<StockTask>(ResultCode.OK,ResultDescription.OK,stockTasks);
+            List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask(param);
+            result = new Result<>(ResultCode.OK,ResultDescription.OK,stockTasks);
         }catch(Exception e){
-            e.printStackTrace();
-            result = new Result(ResultCode.FAIL,"failed:"+e.getCause(),null);
+            result = new Result(ResultCode.FAIL,e);
         }
      return result;
     }
-
 
 
     /**
@@ -61,36 +58,40 @@ public class StockTaskService implements IStockTaskService{
     @JSONP(queryParam="callback")
     @Produces("application/x-javascript;charset=utf-8")
     @Path("/stocktasksterm")
-    public Result<StockTask> fetchStockTaskByCondition(@QueryParam(ServicePath.TOKEN_NAMER)String token,
+    public Result<IStockTask> fetchStockTaskByCondition(@QueryParam(ServicePath.TOKEN_NAMER)String token,
                                                        @QueryParam(StockTaskServicePath.SERVICE_DOCENTRY)int docEntry,
                                                        @QueryParam(StockTaskServicePath.SERVICE_DOCTYPE)String docType){
-        Result result = new Result();
+        Result result;
         try{
-            List<StockTask> stockTasks = boRepositoryStockTask.fetchStockTaskByCondition(docEntry,docType);
-            result = new Result<StockTask>(ResultCode.OK,ResultDescription.OK,stockTasks);
+            List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTaskByCondition(docEntry,docType);
+            result = new Result<>(ResultCode.OK,ResultDescription.OK,stockTasks);
         }catch(Exception e){
-            e.printStackTrace();
-            result = new Result(ResultCode.FAIL,"failed:"+(e.getCause()==null?e.getMessage():e.getCause().toString()),null);
+            result = new Result(ResultCode.FAIL,e);
         }
         return result;
     }
 
-
-
-    @POST
+    /**
+     * 获取单据的物料信息
+     *
+     * @param docEntry
+     * @return
+     */
+    @GET
+    @JSONP(queryParam="callback")
+    @Produces("application/x-javascript;charset=utf-8")
+    @Path("/stocktaks/materials")
     @Override
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/stocktasks")
-    public Result saveStockTask(List<IStockTask> stockTasks,@QueryParam(ServicePath.TOKEN_NAMER)String token) {
-        Result result = new Result("0","ok",null);
+    public Result<IMaterial> fetchStockTaskMaterial(@QueryParam(ServicePath.TOKEN_NAMER)String token,
+                                                    @QueryParam(StockTaskServicePath.SERVICE_DOCENTRY)Integer docEntry) {
+        Result result;
+        try{
+            List<IMaterial> materials = boRepositoryStockTask.fetchStockTaskMaterials(docEntry);
+            result = new Result<>(ResultCode.OK,ResultDescription.OK,materials);
+        }catch(Exception e){
+            result = new Result(ResultCode.FAIL,e);
+        }
         return result;
     }
-
-
-    @GET
-    @Path("/getname")
-    @Produces("text/plain")
-    public String UserLogin(){ return "hello"; }
-
 
 }

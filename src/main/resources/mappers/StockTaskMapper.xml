@@ -49,9 +49,14 @@
         <result column="ToLC" property="toLocation" jdbcType="VARCHAR" />
         <result column="Ref1" property="reference1" jdbcType="VARCHAR" />
         <result column="Ref2" property="reference2" jdbcType="VARCHAR" />
-        <result column="Quantity" property="reference2" jdbcType="DECIMAL" />
+        <result column="Quantity" property="quantity" jdbcType="DECIMAL" />
+        <result column="OpenQuantity" property="openQuantity" jdbcType="DECIMAL" />
     </resultMap>
 
+    <resultMap id="MaterialMap" type="org.edi.stocktask.bo.material.Material">
+        <result column="ItemCode" property="itemCode" jdbcType="VARCHAR" />
+        <result column="ItemName" property="itemDescription" jdbcType="VARCHAR" />
+    </resultMap>
 
     <select id="fetchStockTask" resultMap="BaseResultMap">
         SELECT * FROM AVA_WM_VIEW_OSTK
@@ -91,6 +96,10 @@
                 and DocType = #{docType}
             </if>
         </where>
+    </select>
+
+    <select id="fetchStockTaskMaterial" resultMap="MaterialMap">
+        SELECT ItemCode,ItemName  FROM AVA_WM_VIEW_STK1 where ObjectKey=#{objectKey} and OpenQuantity > 0
     </select>
 
 </mapper>

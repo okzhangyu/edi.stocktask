@@ -4,6 +4,8 @@ import junit.framework.Assert;
 import junit.framework.TestCase;
 import org.edi.stocktask.bo.codeBar.CodeBar;
 import org.edi.stocktask.bo.stockreport.StockReport;
+import org.edi.stocktask.bo.stockreport.StockReportItem;
+import org.edi.stocktask.bo.stocktask.IStockTask;
 import org.edi.stocktask.bo.stocktask.StockTask;
 import org.edi.stocktask.repository.BORepositoryCodeBar;
 import org.edi.stocktask.repository.IBORepositoryStockReport;
@@ -31,12 +33,9 @@ public class TestBoRepositoryStockReport extends TestCase{
     @Autowired
     private IBORepositoryStockReport boRepositoryStockReport;
 
-    @Autowired
-    private BORepositoryCodeBar boRepositoryCodeBar;
 
 
-
-    private StockTask stockTask;
+    private IStockTask stockTask;
     private StockReport stockReport;
     private List<StockReport> stockReports = new ArrayList<>();
 
@@ -126,9 +125,9 @@ public class TestBoRepositoryStockReport extends TestCase{
 
     @Test
     public void testSaveStockReport() throws Exception{
-        List<StockTask> stockTasks = boRepositoryStockTask.fetchStockTask("");
+        List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask("");
         if(stockTasks.size() > 0){
-            if(stockTasks != null){
+            if(stockTasks == null){
                 stockTask = stockTasks.get(0);
             }
             if(stockReport == null){
