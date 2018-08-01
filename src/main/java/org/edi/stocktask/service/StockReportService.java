@@ -2,6 +2,7 @@ package org.edi.stocktask.service;
 
 
 import org.apache.log4j.Logger;
+import org.edi.freamwork.bo.BusinessObjectException;
 import org.edi.initialfantasy.data.ResultCode;
 import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.initialfantasy.filter.UserRequest;
@@ -45,10 +46,8 @@ public class StockReportService implements  IStockReportService{
       Result result;
       try {
             List<StockReport> stockReports = boRepositoryStockReport.fetchStockReport(param);
-            log.info(stockReports);
             result = new Result(ResultCode.OK, ResultDescription.OP_SUCCESSFUL,stockReports);
-        } catch (Exception e){
-          e.printStackTrace();
+        }catch (Exception e){
           result = new Result(ResultCode.FAIL, "failed:" + e.getCause(), null);
         }
         return result;
@@ -67,19 +66,17 @@ public class StockReportService implements  IStockReportService{
     @Path("/stockreports")
     @Override
     public Result saveStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token,List<StockReport> stockReports) {
-        log.info("parameter info:" + stockReports);
-        Result result ;
-            if (stockReports.size() > 0) {
-                try {
-                    boRepositoryStockReport.saveStockReports(stockReports);
-                    result = new Result(ResultCode.OK, ResultDescription.OP_SUCCESSFUL,null);
-                } catch (Exception e) {
-                    result = new Result(ResultCode.FAIL, e);
-                }
-            } else {
-                result = new Result(ResultCode.FAIL, "failed:"+ CharsetConvert.convert(ResultDescription.PARAMETER_IS_NULL), null);
-            }
-        return result;
+        if (stockReports.size() == 0) {
+            return new Result(ResultCode.FAIL, CharsetConvert.convert(ResultDescription.PARAMETER_IS_NULL), null);
+        }
+        try {
+            boRepositoryStockReport.saveStockReports(stockReports);
+            return new Result(ResultCode.OK, ResultDescription.OP_SUCCESSFUL, null);
+        } catch (BusinessObjectException e) {
+            return new Result(e);
+        } catch (Exception e) {
+            return new Result(ResultCode.FAIL, e);
+        }
     }
 
     /**
@@ -95,18 +92,18 @@ public class StockReportService implements  IStockReportService{
     @Override
     public Result updateStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token, List<StockReport> stockReports) {
         log.info("parameter info:" + stockReports);
-        Result result;
         if (stockReports.size() > 0) {
-            try {
-                boRepositoryStockReport.updateStockReport(stockReports);
-                result = new Result(ResultCode.OK, ResultDescription.OP_SUCCESSFUL,null);
-            } catch (Exception e) {
-                result = new Result(ResultCode.FAIL,e);
-            }
-        } else {
-            result = new Result(ResultCode.FAIL, "failed:"+ CharsetConvert.convert(ResultDescription.PARAMETER_IS_NULL), null);
+            return new Result(ResultCode.FAIL, CharsetConvert.convert(ResultDescription.PARAMETER_IS_NULL), null);
         }
-        return result;
+        try {
+            boRepositoryStockReport.updateStockReport(stockReports);
+            return new Result(ResultCode.OK, ResultDescription.OP_SUCCESSFUL,null);
+        }catch (BusinessObjectException e){
+            return new Result(e);
+        }
+        catch (Exception e) {
+            return new Result(ResultCode.FAIL,e);
+        }
     }
 
 
@@ -122,15 +119,13 @@ public class StockReportService implements  IStockReportService{
     @Produces(MediaType.APPLICATION_JSON)
     @Override
     public Result deleteStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token,@QueryParam("docEntry")int docEntry) {
-        Result result = new Result();
-            try {
-                boRepositoryStockReport.deleteStockReport(docEntry);
-                result = new Result(ResultCode.OK, ResultDescription.OP_SUCCESSFUL,null);
-            }catch (Exception e){
-                e.printStackTrace();
-                result = new Result(ResultCode.FAIL,e);
-            }
-       return  result;
+        try {
+            boRepositoryStockReport.deleteStockReport(docEntry);
+            return new Result(ResultCode.OK, ResultDescription.OP_SUCCESSFUL, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(ResultCode.FAIL, e);
+        }
     }
 
 
