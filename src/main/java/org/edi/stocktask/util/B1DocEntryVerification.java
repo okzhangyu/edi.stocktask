@@ -1,5 +1,6 @@
 package org.edi.stocktask.util;
 
+import org.edi.stocktask.bo.stockreport.IStockReport;
 import org.edi.stocktask.bo.stockreport.StockReport;
 import org.edi.stocktask.mapper.StockReportMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class B1DocEntryVerification {
 
     public boolean B1EntryCheck(int docEntry){
         boolean check = false;
-        StockReport stockReport = stockReportMapper.fetchStockReportByEntry(docEntry);
+        IStockReport stockReport = stockReportMapper.fetchStockReportByEntry(docEntry);
         if(stockReport.getB1DocEntry()==null||stockReport.getB1DocEntry().equals("")||stockReport.getB1DocEntry()==0){
             check = true;
         }

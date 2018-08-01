@@ -19,6 +19,7 @@ public class StockTaskItem implements IStockTaskItem{
     private String itemDescription;
     private Double packageQuantity;
     private Double quantity;
+    private Double openQuantity;
     private String inventoryUoM;
     private String serialNumberManagement;
     private String batchNumberManagement;
@@ -169,6 +170,16 @@ public class StockTaskItem implements IStockTaskItem{
     @Override
     public void setQuantity(Double quantity) {
         this.quantity = quantity;
+    }
+
+    @Override
+    public Double getOpenQuantity() {
+        return this.openQuantity;
+    }
+
+    @Override
+    public void setOpenQuantity(Double value) {
+        this.openQuantity = value;
     }
 
     @Override

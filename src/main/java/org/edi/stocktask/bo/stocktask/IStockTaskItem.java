@@ -1,5 +1,7 @@
 package org.edi.stocktask.bo.stocktask;
 
+import java.math.BigDecimal;
+
 /**
  * @author Fancy
  * @date 2018/5/25
@@ -57,6 +59,10 @@ public interface IStockTaskItem {
     Double getQuantity();
 
     void setQuantity(Double value);
+
+    Double getOpenQuantity();
+
+    void setOpenQuantity(Double value);
 
     String getInventoryUoM();
 

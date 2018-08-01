@@ -9,7 +9,12 @@ public interface ICodeBar {
      String getProName() ;
      void setProName(String value);
 
+     String getProDesc();
+     void setProDesc(String value);
+
      String getProValue();
      void setProValue(String value);
+
+
 
 }

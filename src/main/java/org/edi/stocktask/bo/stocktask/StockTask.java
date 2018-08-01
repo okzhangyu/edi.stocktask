@@ -32,7 +32,7 @@ public class StockTask implements  IStockTask{
     private String documentDate;
     private String schemaCode;
     private String annotated;
-    private List<StockTaskItem> stockTaskItems;
+    private List<IStockTaskItem> stockTaskItems;
     private List<IStockTaskBarCodeItem> stockTaskBarCodeItems;
 
     @Override
@@ -255,12 +255,12 @@ public class StockTask implements  IStockTask{
     }
 
     @Override
-    public List<StockTaskItem> getStockTaskItems() {
+    public List<IStockTaskItem> getStockTaskItems() {
         return stockTaskItems;
     }
 
     @Override
-    public void setStockTaskItems(List<StockTaskItem> stockTaskItems) {
+    public void setStockTaskItems(List<IStockTaskItem> stockTaskItems) {
         this.stockTaskItems = stockTaskItems;
     }
 

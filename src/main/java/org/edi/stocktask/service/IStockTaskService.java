@@ -2,6 +2,8 @@ package org.edi.stocktask.service;
 
 import org.edi.initialfantasy.dto.IResult;
 import org.edi.initialfantasy.dto.Result;
+import org.edi.stocktask.bo.material.IMaterial;
+import org.edi.stocktask.bo.material.Material;
 import org.edi.stocktask.bo.stocktask.IStockTask;
 import org.edi.stocktask.bo.stocktask.StockTask;
 
@@ -18,7 +20,7 @@ public interface IStockTaskService {
      * @param token
      * @return
      */
-    Result<StockTask> fetchStockTask(String token,String param);
+    Result<IStockTask> fetchStockTask(String token,String param);
 
     /**
      * 条件查询库存任务
@@ -27,15 +29,14 @@ public interface IStockTaskService {
      * @param docType
      * @return
      */
-    Result<StockTask> fetchStockTaskByCondition(String token,int docEntry,String docType);
+    Result<IStockTask> fetchStockTaskByCondition(String token,int docEntry,String docType);
+
 
     /**
-     * 保存库存任务
-     * @param stockTasks
-     * @param token
+     * 查询任务单据的物料信息
+     *
+     * @pram docEntry
      * @return
      */
-    IResult<?> saveStockTask(List<IStockTask> stockTasks, String token);
-
-
+    Result<IMaterial> fetchStockTaskMaterial(String token, Integer docEntry);
 }

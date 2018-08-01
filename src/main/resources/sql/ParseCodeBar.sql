@@ -1,5 +1,4 @@
-
-/****** Object:  StoredProcedure [dbo].[ava_parse_codebar]    Script Date: 2018/7/29 17:37:47 ******/
+/****** Object:  StoredProcedure [dbo].[ava_parse_codebar]    Script Date: 2018/7/31 10:31:01 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -17,11 +16,11 @@ As
 		select @quantity = SUBSTRING(@codebar,9,12);
 
 		--拼接结果 左边为字段名称  右边为值 返回类型注意都返回字符类型（该注释请勿删除）
-		select '物料编码' as ProName ,@itemCode as ProValue
+		select 'ItemCode' as ProName ,'物料编码' as ProDesc , @itemCode as ProValue
 		union
-		select '物料名称','联想G50'
+		select 'ItemDesc','物料名称','联想G50'
 		union
-		select '数量',@quantity
+		select 'Quantity','数量',@quantity
 		union
-		select '价格','19999.99'
+		select 'Price','价格','19999.99'
 	End
