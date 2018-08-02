@@ -34,7 +34,7 @@ public class CodeBarService implements ICodeBarService{
 
     /**
      * 解析条码
-     * @param codeBar
+     * @param codeBar 条码值
      * @return
      */
     @GET

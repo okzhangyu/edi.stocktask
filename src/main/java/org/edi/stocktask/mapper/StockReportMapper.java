@@ -23,5 +23,5 @@ public interface StockReportMapper {
 
     List<StockReport> fetchUnSyncStockReport();
 
-    void UpdateStockReportDocStatus(String B1DocEntry,Integer docEntry);
+    void updateStockReportDocStatus(StockReport stockReport);
 }

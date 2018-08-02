@@ -85,9 +85,9 @@ public interface IStockReport {
 
     void setRemarks(String value);
 
-    Integer getB1DocEntry();
+    String getB1DocEntry();
 
-    void setB1DocEntry(Integer value);
+    void setB1DocEntry(String value);
 
     String getBydUUID();
 

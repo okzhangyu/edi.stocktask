@@ -35,6 +35,9 @@ public class TestBoRepositoryStockReport extends TestCase{
     @Autowired
     private BORepositoryCodeBar boRepositoryCodeBar;
 
+
+    private String B1DocEntry = "1";
+
     private IStockTask stockTask;
     private StockReport stockReport;
     private List<StockReport> stockReports = new ArrayList<>();
@@ -127,7 +130,7 @@ public class TestBoRepositoryStockReport extends TestCase{
     public void testSaveStockReport() throws Exception{
         List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask("");
         if(stockTasks.size() > 0){
-            if(stockTasks == null){
+            if(stockTasks != null){
                 stockTask = stockTasks.get(0);
             }
             if(stockReport == null){
@@ -180,5 +183,26 @@ public class TestBoRepositoryStockReport extends TestCase{
             }
         }
         assertEquals(stockReport.getBydUUID(),"3697459");
+      }
+  
+    @Test
+    public void testFetchStockReportByEntry() throws Exception {
+        StockReport stockReport = boRepositoryStockReport.fetchStockReportByEntry(getStockReport().getDocEntry());
+        //StockReport stockReport = boRepositoryStockReport.fetchStockReportByEntry()
+        Assert.assertEquals(getStockReport().getDocEntry(),stockReport.getDocEntry());
+        Assert.assertEquals(getStockReport(),stockReport);
+
+    }
+
+    @Test
+    public void testUpdateDocStatus() throws Exception{
+        //boRepositoryStockReport.updateStockReportDocStatus(B1DocEntry, getStockReport().getDocEntry());
+        StockReport stockReport  = getStockReport();
+        stockReport.setB1DocEntry(B1DocEntry);
+        stockReport.setDocumentStatus("C");
+        boRepositoryStockReport.updateStockReportDocStatus(stockReport);
+        stockReport = boRepositoryStockReport.fetchStockReportByEntry(this.stockReport.getDocEntry());
+        Assert.assertEquals("C",stockReport.getDocumentStatus());
+        Assert.assertEquals(B1DocEntry,stockReport.getB1DocEntry());
     }
 }

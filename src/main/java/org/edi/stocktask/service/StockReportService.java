@@ -43,8 +43,8 @@ public class StockReportService implements  IStockReportService{
     @Override
     public Result<StockReport> fetchStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token,
                                                 @QueryParam(StockTaskServicePath.SERVICE_SEARCH_PARAMETER)String param) {
-      Result result;
-      try {
+        Result result;
+        try {
             List<StockReport> stockReports = boRepositoryStockReport.fetchStockReport(param);
             result = new Result(ResultCode.OK, ResultDescription.OP_SUCCESSFUL,stockReports);
         }catch (Exception e){
