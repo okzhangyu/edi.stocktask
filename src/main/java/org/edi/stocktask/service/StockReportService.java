@@ -5,14 +5,13 @@ import org.apache.log4j.Logger;
 import org.edi.freamwork.bo.BusinessObjectException;
 import org.edi.initialfantasy.data.ResultCode;
 import org.edi.initialfantasy.data.ResultDescription;
-import org.edi.initialfantasy.filter.UserRequest;
 import org.edi.initialfantasy.data.ServicePath;
 import org.edi.initialfantasy.dto.Result;
-import org.edi.initialfantasy.util.CharsetConvert;
+import org.edi.initialfantasy.filter.UserRequest;
 import org.edi.stocktask.bo.stockreport.StockReport;
 import org.edi.stocktask.data.StockTaskServicePath;
 import org.edi.stocktask.repository.BORepositoryStockReport;
-import org.edi.stocktask.repository.IBORepositoryStockReport;
+import org.edi.stocktask.util.ReportVerification;
 import org.glassfish.jersey.server.JSONP;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,6 +24,7 @@ import java.util.List;
  * @date 2018/5/31
  */
 @Path("/v1")
+@UserRequest
 public class StockReportService implements  IStockReportService{
     private static Logger log = Logger.getLogger(StockReportService.class);
 
@@ -48,6 +48,7 @@ public class StockReportService implements  IStockReportService{
             List<StockReport> stockReports = boRepositoryStockReport.fetchStockReport(param);
             result = new Result(ResultCode.OK, ResultDescription.OP_SUCCESSFUL,stockReports);
         }catch (Exception e){
+          e.printStackTrace();
           result = new Result(ResultCode.FAIL, "failed:" + e.getCause(), null);
         }
         return result;
@@ -66,15 +67,16 @@ public class StockReportService implements  IStockReportService{
     @Path("/stockreports")
     @Override
     public Result saveStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token,List<StockReport> stockReports) {
-        if (stockReports.size() == 0) {
-            return new Result(ResultCode.FAIL, CharsetConvert.convert(ResultDescription.PARAMETER_IS_NULL), null);
-        }
+       if (!ReportVerification.reportCheck(stockReports).equals("ok")){
+           return new Result(ResultCode.OK, ReportVerification.reportCheck(stockReports), null);
+       }
         try {
             boRepositoryStockReport.saveStockReports(stockReports);
             return new Result(ResultCode.OK, ResultDescription.OP_SUCCESSFUL, null);
         } catch (BusinessObjectException e) {
             return new Result(e);
         } catch (Exception e) {
+            e.printStackTrace();
             return new Result(ResultCode.FAIL, e);
         }
     }
@@ -92,8 +94,8 @@ public class StockReportService implements  IStockReportService{
     @Override
     public Result updateStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token, List<StockReport> stockReports) {
         log.info("parameter info:" + stockReports);
-        if (stockReports.size() > 0) {
-            return new Result(ResultCode.FAIL, CharsetConvert.convert(ResultDescription.PARAMETER_IS_NULL), null);
+        if (!ReportVerification.reportCheck(stockReports).equals("ok")){
+            return new Result(ResultCode.OK, ReportVerification.reportCheck(stockReports), null);
         }
         try {
             boRepositoryStockReport.updateStockReport(stockReports);
@@ -102,6 +104,7 @@ public class StockReportService implements  IStockReportService{
             return new Result(e);
         }
         catch (Exception e) {
+            e.printStackTrace();
             return new Result(ResultCode.FAIL,e);
         }
     }

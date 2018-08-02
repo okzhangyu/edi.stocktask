@@ -6,17 +6,17 @@ import org.edi.initialfantasy.data.ServicePath;
 import org.edi.initialfantasy.dto.Result;
 import org.edi.initialfantasy.filter.UserRequest;
 import org.edi.stocktask.bo.material.IMaterial;
-import org.edi.stocktask.bo.material.Material;
 import org.edi.stocktask.bo.stocktask.IStockTask;
-import org.edi.stocktask.bo.stocktask.StockTask;
 import org.edi.stocktask.data.StockTaskServicePath;
 import org.edi.stocktask.mapper.StockTaskMapper;
 import org.edi.stocktask.repository.IBORepositoryStockTask;
 import org.glassfish.jersey.server.JSONP;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import java.util.List;
 
 /**
@@ -24,6 +24,7 @@ import java.util.List;
  * @date 2018/5/19
  */
 @Path("/v1")
+@UserRequest
 public class StockTaskService implements IStockTaskService{
 
     @Autowired

@@ -10,7 +10,6 @@ import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.initialfantasy.data.ServicePath;
 import org.edi.initialfantasy.dto.Result;
 import org.edi.initialfantasy.filter.UserRequest;
-import org.edi.stocktask.bo.codeBar.CodeBar;
 import org.edi.stocktask.bo.codeBar.ICodeBar;
 import org.edi.stocktask.data.StockTaskServicePath;
 import org.edi.stocktask.repository.IBORepositoryCodeBar;
@@ -27,6 +26,7 @@ import java.util.List;
  * 条码相关服务
  */
 @Path("/v1")
+@UserRequest
 public class CodeBarService implements ICodeBarService{
 
     @Autowired

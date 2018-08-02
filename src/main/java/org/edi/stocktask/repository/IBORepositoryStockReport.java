@@ -1,6 +1,5 @@
 package org.edi.stocktask.repository;
 
-import org.edi.stocktask.bo.stockreport.IStockReport;
 import org.edi.stocktask.bo.stockreport.StockReport;
 
 import java.text.ParseException;
@@ -59,8 +58,14 @@ public interface IBORepositoryStockReport {
      * 更新库存任务汇报
      * @param stockReports
      */
-    void updateStockReport(List<StockReport> stockReports);
+    void updateStockReport(List<StockReport> stockReports)throws ParseException;
 
+
+    /**
+     * 更新保存库存任务汇报
+     * @param stockReport
+     */
+     void updateSingleStockReport(StockReport stockReport) throws ParseException;
     /**
      * 删除任务汇报
      * @param docEntry

@@ -3,10 +3,9 @@ package repository;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 import org.edi.stocktask.bo.codeBar.CodeBar;
+import org.edi.stocktask.bo.codeBar.ICodeBar;
 import org.edi.stocktask.bo.stockreport.StockReport;
-import org.edi.stocktask.bo.stockreport.StockReportItem;
 import org.edi.stocktask.bo.stocktask.IStockTask;
-import org.edi.stocktask.bo.stocktask.StockTask;
 import org.edi.stocktask.repository.BORepositoryCodeBar;
 import org.edi.stocktask.repository.IBORepositoryStockReport;
 import org.edi.stocktask.repository.IBORepositoryStockTask;
@@ -33,7 +32,8 @@ public class TestBoRepositoryStockReport extends TestCase{
     @Autowired
     private IBORepositoryStockReport boRepositoryStockReport;
 
-
+    @Autowired
+    private BORepositoryCodeBar boRepositoryCodeBar;
 
     private IStockTask stockTask;
     private StockReport stockReport;
@@ -43,7 +43,7 @@ public class TestBoRepositoryStockReport extends TestCase{
       /* if(stockReport == null){
             this.testSaveStockReport();
         }*/
-        List<StockTask> stockTasks = boRepositoryStockTask.fetchStockTask("");
+        List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask("");
         if (stockTasks.size() > 0) {
             if (stockTasks != null) {
                 stockTask = stockTasks.get(0);
@@ -64,7 +64,7 @@ public class TestBoRepositoryStockReport extends TestCase{
 
     @Test
     public void testParseCodeBar()throws Exception{
-        List<CodeBar> codeBars = boRepositoryCodeBar.parseCodeBar("123456789963");
+        List<ICodeBar> codeBars = boRepositoryCodeBar.parseCodeBar("123456789963");
         System.out.println(codeBars.get(0));
         CodeBar codeBar = new CodeBar();
         codeBar.setProName("ItemCode");
@@ -79,7 +79,7 @@ public class TestBoRepositoryStockReport extends TestCase{
 
     @Test
     public void testfetchStockTask() throws Exception{
-        List<StockTask> stockTasks = boRepositoryStockTask.fetchStockTask("");
+        List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask("");
         if(stockTasks.size() > 0){
             if(stockTask == null){
                 stockTask = stockTasks.get(0);
@@ -94,7 +94,7 @@ public class TestBoRepositoryStockReport extends TestCase{
 
     @Test
     public void testFetchStockTaskByCondition() throws Exception{
-       List<StockTask>  stockTaskList = boRepositoryStockTask.fetchStockTaskByCondition(155,"202");
+       List<IStockTask>  stockTaskList = boRepositoryStockTask.fetchStockTaskByCondition(155,"202");
        assertEquals(stockTaskList.get(0).getObjectKey().toString(),"155");
 
     }
