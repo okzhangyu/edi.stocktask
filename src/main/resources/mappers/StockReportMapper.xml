@@ -235,12 +235,20 @@
         SELECT top 10 * FROM AVA_WM_OSRP  with(XLOCK) where B1DocEntry is null or B1DocEntry = 0
     </select>
 
-    <update id="updateStockReportDocStatus"  parameterType="int">
+    <update id="updateStockReportDocStatus"  parameterType="org.edi.stocktask.bo.stockreport.StockReport">
+        <!--UPDATE AVA_WM_OSRP-->
+        <!--<trim prefix="set" suffixOverrides=",">-->
+        <!--<if test="documentStatus!=null">DocStatus=#{documentStatus},</if>-->
+        <!--<if test="b1DocEntry!=null">B1DocEntry=#{b1DocEntry}</if>-->
+        <!--</trim>-->
+        <!--WHERE DocEntry=#{docEntry}-->
         UPDATE AVA_WM_OSRP
-        <trim prefix="set" suffixOverrides=",">
-            <if test="b1DocEntry!=null">B1DocEntry=#{B1DocEntry}</if>
-        </trim>
-        WHERE DocEntry=#{docEntry}
+          set DocStatus=#{documentStatus},
+              B1DocEntry=#{b1DocEntry}
+        WHERE DocEntry=#{docEntry};
+        UPDATE AVA_WM_SRP1
+        set LineStatus=#{documentStatus}
+        WHERE DocEntry=#{docEntry};
     </update>
 
    <!-- int fetchSequenceOfDocEntry();-->

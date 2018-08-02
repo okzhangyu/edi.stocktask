@@ -24,6 +24,7 @@ import java.util.List;
  * @date 2018/5/19
  */
 @Path("/v1")
+@UserRequest
 public class StockTaskService implements IStockTaskService{
 
     @Autowired

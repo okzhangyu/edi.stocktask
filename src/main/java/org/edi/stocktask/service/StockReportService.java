@@ -25,6 +25,7 @@ import java.util.List;
  * @date 2018/5/31
  */
 @Path("/v1")
+@UserRequest
 public class StockReportService implements  IStockReportService{
     private static Logger log = Logger.getLogger(StockReportService.class);
 
@@ -43,12 +44,12 @@ public class StockReportService implements  IStockReportService{
     @Override
     public Result<StockReport> fetchStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token,
                                                 @QueryParam(StockTaskServicePath.SERVICE_SEARCH_PARAMETER)String param) {
-      Result result;
-      try {
+        Result result;
+        try {
             List<StockReport> stockReports = boRepositoryStockReport.fetchStockReport(param);
-            result = new Result(ResultCode.OK, ResultDescription.OP_SUCCESSFUL,stockReports);
-        }catch (Exception e){
-          result = new Result(ResultCode.FAIL, "failed:" + e.getCause(), null);
+            result = new Result(ResultCode.OK, ResultDescription.OP_SUCCESSFUL, stockReports);
+        } catch (Exception e) {
+            result = new Result(ResultCode.FAIL, e);
         }
         return result;
     }
