@@ -2,7 +2,6 @@ package org.edi.stocktask.repository;
 
 import org.edi.freamwork.exception.BusinessException;
 import org.edi.initialfantasy.data.ResultDescription;
-import org.edi.initialfantasy.util.CharsetConvert;
 import org.edi.stocktask.bo.stockreport.IStockReport;
 import org.edi.stocktask.bo.stockreport.StockReport;
 import org.edi.stocktask.bo.stockreport.StockReportItem;
@@ -141,37 +140,58 @@ public class BORepositoryStockReport implements IBORepositoryStockReport{
     }
 
 
+
+    /**
+     * 更新保存库存任务汇报
+     * @param stockReport
+     * @return
+     */
+    public void updateSingleStockReport(StockReport stockReport) throws ParseException{
+        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+        DateFormat df=DateFormat.getDateTimeInstance();
+        String nowDate=df.format(new Date());
+        TransactionStatus status = ptm.getTransaction(def);
+        try {
+                int docEntry = stockReport.getDocEntry();
+                stockReport.setDocEntry(docEntry);
+                stockReport.setUpdateDate(nowDate);
+                stockReportMapper.saveStockReport(stockReport);
+                for (int j = 0; j < stockReport.getStockReportItems().size(); j++) {
+                    StockReportItem stockReportItem = stockReport.getStockReportItems().get(j);
+                    stockReportItem.setDocEntry(docEntry);
+                    stockReportItem.setLineId(j + 1);
+                    stockReportMapper.saveStockReportItem(stockReportItem);
+                }
+
+            ptm.commit(status);
+        }catch(Exception e){
+            e.printStackTrace();
+            ptm.rollback(status);
+            throw e;
+        }
+    }
+
+
+
+
     /**
      * 更新库存任务汇报
      * @param stockReports
      * @return
      */
     @Override
-    public void updateStockReport(List<StockReport> stockReports) {
+    public void updateStockReport(List<StockReport> stockReports)throws ParseException{
         //TODO 更新库存任务汇报
         //1、先查询库存任务汇报是否生成单据  （条件：B1DocEntry的值为null或者0）
         //2、如果任务汇报没有生成单据，先删除再保存
-        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-        TransactionStatus status = ptm.getTransaction(def);
         for (int i=0;i<stockReports.size();i++) {
             StockReport stockReport = stockReports.get(i);
             if (!b1DocEntryVerification.B1EntryCheck(stockReport.getDocEntry())) {
-                throw new BusinessException(CharsetConvert.convert(ResultDescription.B1DOCENTRY_IS_EXISTENT));
+                throw new BusinessException(ResultDescription.B1DOCENTRY_IS_EXISTENT);
             }
-            try {
-                stockReportMapper.updateStockReport(stockReport);
-                for (int j = 0; j < stockReport.getStockReportItems().size(); j++) {
-                    StockReportItem stockReportItem = stockReport.getStockReportItems().get(j);
-                    stockReportMapper.updateStockReportItem(stockReportItem);
-                }
-                ptm.commit(status);
-            } catch (Exception e) {
-                e.printStackTrace();
-                ptm.rollback(status);
-                throw e;
-            }
-
+                deleteStockReport(stockReport.getDocEntry());
+                updateSingleStockReport(stockReport);
         }
 
     }
@@ -190,7 +210,7 @@ public class BORepositoryStockReport implements IBORepositoryStockReport{
         def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
         TransactionStatus status = ptm.getTransaction(def);
         if(!b1DocEntryVerification.B1EntryCheck(docEntry)){
-            throw new BusinessException(CharsetConvert.convert(ResultDescription.B1DOCENTRY_IS_EXISTENT));
+            throw new BusinessException(ResultDescription.B1DOCENTRY_IS_EXISTENT);
         }
         try {
             stockReportMapper.deleteStockReport(docEntry);
