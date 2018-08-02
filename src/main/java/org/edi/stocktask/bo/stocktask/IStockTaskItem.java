@@ -1,12 +1,14 @@
 package org.edi.stocktask.bo.stocktask;
 
+import org.edi.freamwork.bo.IDocumentBOLine;
+
 import java.math.BigDecimal;
 
 /**
  * @author Fancy
  * @date 2018/5/25
  */
-public interface IStockTaskItem {
+public interface IStockTaskItem extends IDocumentBOLine{
 
     Integer getObjectKey();
 

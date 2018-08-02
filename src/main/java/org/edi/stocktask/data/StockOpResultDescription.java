@@ -14,7 +14,5 @@ public class StockOpResultDescription extends OpResultDescription {
 
     public static final String DOCENTRY_IS_EMPTY = "单据号为空";
 
-    public static final String STOCK_OBJECT_COMPANY_IS_NULL = "字段[company]为空";
-
     public static final String STOCK_OBJECT_BASETYPE_IS_NULL = "字段[baseDocumentType]为空";
 }

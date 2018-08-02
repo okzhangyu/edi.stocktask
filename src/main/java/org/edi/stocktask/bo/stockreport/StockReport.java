@@ -2,6 +2,7 @@ package org.edi.stocktask.bo.stockreport;
 
 
 import org.edi.freamwork.bo.BusinessObjectException;
+import org.edi.freamwork.bo.DocumentBO;
 import org.edi.freamwork.exception.BusinessException;
 import org.edi.stocktask.bo.stocktask.IStockTask;
 import org.edi.stocktask.bo.stocktask.IStockTaskItem;
@@ -18,7 +19,7 @@ import java.util.List;
  * @author Fancy
  * @date 2018/5/27
  */
-public class StockReport implements IStockReport{
+public class StockReport extends DocumentBO implements IStockReport{
 
     private static final String BUSINESS_CODE = "AVA_WM_STOCKREPORT";
 
@@ -418,11 +419,9 @@ public class StockReport implements IStockReport{
                 '}';
     }
 
+    @Override
     public void checkBO(){
-        if(this.companyName.isEmpty()){
-            throw new BusinessObjectException(StockOpResultCode.STOCK_OBJECT_COMPANY_IS_NULL,
-                    StockOpResultDescription.STOCK_OBJECT_COMPANY_IS_NULL);
-        }
+        super.checkBO();
         if(this.baseDocumentType.isEmpty()){
             throw new BusinessObjectException(StockOpResultCode.STOCK_OBJECT_BASETYPE_IS_NULL,
                     StockOpResultDescription.STOCK_OBJECT_BASETYPE_IS_NULL);

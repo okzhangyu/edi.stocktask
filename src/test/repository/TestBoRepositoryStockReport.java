@@ -67,6 +67,7 @@ public class TestBoRepositoryStockReport extends TestCase{
         Assert.assertEquals(getStockReport(),stockReport);
     }
 
+
     @Test
     public void testUpdateDocStatus() throws Exception{
         //boRepositoryStockReport.updateStockReportDocStatus(B1DocEntry, getStockReport().getDocEntry());

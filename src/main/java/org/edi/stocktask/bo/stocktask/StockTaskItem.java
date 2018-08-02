@@ -1,10 +1,12 @@
 package org.edi.stocktask.bo.stocktask;
 
+import org.edi.freamwork.bo.DocumentBOLine;
+
 /**
  * @author Fancy
  * @date 2018/5/27
  */
-public class StockTaskItem implements IStockTaskItem{
+public class StockTaskItem extends DocumentBOLine implements IStockTaskItem{
 
     private Integer objectKey;
     private String objectCode;

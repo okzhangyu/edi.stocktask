@@ -11,7 +11,6 @@ public class StockOpResultCode extends OpResultCode{
     /**
      * 对象为空
      */
-    public static final String STOCK_OBJECT_COMPANY_IS_NULL = "6102001";
 
     public static final String STOCK_OBJECT_BASETYPE_IS_NULL = "6102002";
 
