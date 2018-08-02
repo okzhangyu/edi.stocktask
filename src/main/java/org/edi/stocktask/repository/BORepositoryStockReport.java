@@ -98,11 +98,11 @@ public class BORepositoryStockReport implements IBORepositoryStockReport{
 
     /**
      * 更新单据状态
-     * @param B1DocEntry 对应的B1单据号
+     * @param stockReport
      */
     @Override
-    public void UpdateStockReportDocStatus(String B1DocEntry,Integer docEntry) {
-        stockReportMapper.UpdateStockReportDocStatus(B1DocEntry,docEntry);
+    public void updateStockReportDocStatus(StockReport stockReport) {
+        stockReportMapper.updateStockReportDocStatus(stockReport);
     }
 
     /**
