@@ -118,11 +118,7 @@ public class TestBoRepositoryStockReport extends TestCase{
 
 
 
-    @Test
-    public void testFetchStockReportByEntry() throws Exception {
-        StockReport stockReport = boRepositoryStockReport.fetchStockReportByEntry(getStockReport().getDocEntry());
-        Assert.assertEquals(getStockReport().getDocEntry(),stockReport.getDocEntry());
-    }
+
 
 
 
