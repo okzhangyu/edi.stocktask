@@ -32,14 +32,14 @@ public class TestBoRepositoryStockReport extends TestCase{
     @Autowired
     private IBORepositoryStockReport boRepositoryStockReport;
 
-<<<<<<< HEAD
+
     @Autowired
     private BORepositoryCodeBar boRepositoryCodeBar;
 
-=======
 
     private String B1DocEntry = "1";
->>>>>>> upstream/master
+
+
     private IStockTask stockTask;
     private StockReport stockReport;
     private List<StockReport> stockReports = new ArrayList<>();
@@ -185,6 +185,17 @@ public class TestBoRepositoryStockReport extends TestCase{
             }
         }
         assertEquals(stockReport.getBydUUID(),"3697459");
+
+      }
+  
+    @Test
+    public void testFetchStockReportByEntry() throws Exception {
+        StockReport stockReport = boRepositoryStockReport.fetchStockReportByEntry(getStockReport().getDocEntry());
+        //StockReport stockReport = boRepositoryStockReport.fetchStockReportByEntry()
+        Assert.assertEquals(getStockReport().getDocEntry(),stockReport.getDocEntry());
+        Assert.assertEquals(getStockReport(),stockReport);
+
+
     }
 
     @Test
