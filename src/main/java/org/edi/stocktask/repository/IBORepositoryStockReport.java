@@ -36,7 +36,7 @@ public interface IBORepositoryStockReport {
      */
     List<StockReport> fetchUnSyncStockReport();
 
-    void UpdateStockReportDocStatus(String B1DocEntry,Integer docEntry);
+    void updateStockReportDocStatus(StockReport stockReport);
 
     /**
      * 保存任务汇报

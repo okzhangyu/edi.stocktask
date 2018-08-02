@@ -85,7 +85,7 @@ public class StockReport implements IStockReport{
     private String reference1;
     private String reference2;
     private String remarks;
-    private Integer b1DocEntry;
+    private String b1DocEntry;
     private String bydUUID;
     private String customType;
     private String transactionType;
@@ -288,12 +288,12 @@ public class StockReport implements IStockReport{
     }
 
     @Override
-    public Integer getB1DocEntry() {
+    public String getB1DocEntry() {
         return b1DocEntry;
     }
 
     @Override
-    public void setB1DocEntry(Integer b1DocEntry) {
+    public void setB1DocEntry(String b1DocEntry) {
         this.b1DocEntry = b1DocEntry;
     }
 
