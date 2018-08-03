@@ -12,7 +12,6 @@ import org.edi.stocktask.bo.stockreport.StockReport;
 import org.edi.stocktask.data.StockTaskServicePath;
 import org.edi.stocktask.repository.BORepositoryStockReport;
 import org.edi.stocktask.util.ReportVerification;
-import org.glassfish.jersey.server.JSONP;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.*;
@@ -37,8 +36,7 @@ public class StockReportService implements  IStockReportService{
      * @return
      */
     @GET
-    @JSONP(queryParam="callback")
-    @Produces("application/x-javascript;charset=utf-8")
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("/stockreports")
     @Override
     public Result<StockReport> fetchStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token,

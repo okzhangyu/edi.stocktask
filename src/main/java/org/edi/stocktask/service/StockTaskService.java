@@ -10,13 +10,13 @@ import org.edi.stocktask.bo.stocktask.IStockTask;
 import org.edi.stocktask.data.StockTaskServicePath;
 import org.edi.stocktask.mapper.StockTaskMapper;
 import org.edi.stocktask.repository.IBORepositoryStockTask;
-import org.glassfish.jersey.server.JSONP;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 /**
@@ -33,14 +33,18 @@ public class StockTaskService implements IStockTaskService{
     @Autowired
     private StockTaskMapper stockTaskMapper;
 
-    @GET
-    @JSONP(queryParam="callback")
-    @Produces("application/x-javascript;charset=utf-8")
-    @Path("/stocktasks")
+
+
     /**
      * 查询库存任务
      */
-    public Result<IStockTask> fetchStockTask(@QueryParam(ServicePath.TOKEN_NAMER)String token,@QueryParam(StockTaskServicePath.SERVICE_SEARCH_PARAMETER)String param){
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/stocktasks")
+    public Result<IStockTask> fetchStockTask(@QueryParam(ServicePath.TOKEN_NAMER)String token,@QueryParam(StockTaskServicePath.SERVICE_SEARCH_PARAMETER)String param,
+                                             @QueryParam(ServicePath.SERVICE_BEGININDEX)int biginIndex,@QueryParam(ServicePath.SERVICE_LIMIT)int limit){
+
+
         Result result = new Result();
         try{
             List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask(param);
@@ -52,12 +56,42 @@ public class StockTaskService implements IStockTaskService{
     }
 
 
+
+
+
+   /* @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/stocktasks")
+    public Result<IStockTask> fetchStockTask(@QueryParam(ServicePath.TOKEN_NAMER)String token,@QueryParam(StockTaskServicePath.SERVICE_SEARCH_PARAMETER)String param){
+        Result result = new Result();
+        try{
+            List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask(param);
+            result = new Result<>(ResultCode.OK,ResultDescription.OK,stockTasks);
+        }catch(Exception e){
+            result = new Result(ResultCode.FAIL,e);
+        }
+        return result;
+    }*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * 条件查询库存任务
      */
     @GET
-    @JSONP(queryParam="callback")
-    @Produces("application/x-javascript;charset=utf-8")
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("/stocktasksterm")
     public Result<IStockTask> fetchStockTaskByCondition(@QueryParam(ServicePath.TOKEN_NAMER)String token,
                                                        @QueryParam(StockTaskServicePath.SERVICE_DOCENTRY)int docEntry,
@@ -65,7 +99,11 @@ public class StockTaskService implements IStockTaskService{
         Result result;
         try{
             List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTaskByCondition(docEntry,docType);
-            result = new Result<>(ResultCode.OK,ResultDescription.OK,stockTasks);
+            if(stockTasks.size()==0){
+                result = new Result<>(ResultCode.OK,ResultDescription.TASK_IS_EMPTY,stockTasks);
+            }else {
+                result = new Result<>(ResultCode.OK, ResultDescription.OK, stockTasks);
+            }
         }catch(Exception e){
             result = new Result(ResultCode.FAIL,e);
         }
@@ -79,9 +117,8 @@ public class StockTaskService implements IStockTaskService{
      * @return
      */
     @GET
-    @JSONP(queryParam="callback")
-    @Produces("application/x-javascript;charset=utf-8")
-    @Path("/stocktaks/materials")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/stocktasks/materials")
     @Override
     public Result<IMaterial> fetchStockTaskMaterial(@QueryParam(ServicePath.TOKEN_NAMER)String token,
                                                     @QueryParam(StockTaskServicePath.SERVICE_DOCENTRY)Integer docEntry) {
