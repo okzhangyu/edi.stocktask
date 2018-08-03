@@ -537,10 +537,15 @@ public class StockReportItem extends DocumentBOLine implements IStockReportItem{
                 '}';
     }
 
+    @Override
     public void checkBO(){
-        if(getBaseDocumentType().isEmpty()){
+        if(getBaseDocumentType() == null || getBaseDocumentType().isEmpty()){
             throw new BusinessObjectException(StockOpResultCode.STOCK_OBJECT_BASEENTRY_IS_NULL,
                     StockOpResultDescription.STOCK_OBJECT_BASETYPE_IS_NULL);
+        }
+        if(getLineStatus() ==null || getLineStatus().isEmpty()){
+            throw new BusinessObjectException(StockOpResultCode.STOCK_OBJECT_LINESTATUS_IS_NULL,
+                    StockOpResultDescription.STOCK_OBJECT_LINESTATUS_IS_NULL);
         }
     }
 }

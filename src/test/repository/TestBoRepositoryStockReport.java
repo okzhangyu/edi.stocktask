@@ -2,6 +2,7 @@ package repository;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
+import org.edi.freamwork.exception.DBException;
 import org.edi.stocktask.bo.stockreport.StockReport;
 import org.edi.stocktask.bo.stockreport.StockReportItem;
 import org.edi.stocktask.bo.stocktask.IStockTask;
@@ -46,17 +47,21 @@ public class TestBoRepositoryStockReport extends TestCase{
 
     @Test
     public void testSaveStockReport() throws Exception{
-        List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask("");
-        if(stockTasks.size() > 0){
-            if(stockTasks != null){
-                stockTask = stockTasks.get(0);
+        try{
+            List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask("");
+            if(stockTasks.size() > 0){
+                if(stockTasks != null){
+                    stockTask = stockTasks.get(4);
+                }
+                if(stockReport == null){
+                    stockReport  = StockReport.createStockReport(stockTask);
+                }
+                boRepositoryStockReport.saveStockReport(stockReport);
             }
-            if(stockReport == null){
-                stockReport  = StockReport.createStockReport(stockTask);
-                stockReports.add(stockReport);
-            }
-            boRepositoryStockReport.saveStockReports(stockReports);
+        }catch (DBException ex){
+            System.out.println(ex.getCode()+"--"+ex.getMessage().toString());
         }
+
     }
 
     @Test

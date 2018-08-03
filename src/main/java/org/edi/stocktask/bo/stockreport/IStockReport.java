@@ -10,9 +10,7 @@ import java.util.List;
  */
 public interface IStockReport extends IDocumentBO{
 
-    String getCompanyName();
-
-    void setCompanyName(String value);
+   
 
     Integer getDocEntry();
 

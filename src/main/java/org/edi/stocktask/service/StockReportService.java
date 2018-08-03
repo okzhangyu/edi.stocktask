@@ -58,7 +58,7 @@ public class StockReportService implements  IStockReportService{
     /**
      * 保存库存任务汇报
      * @param token
-     * @param stockReports
+     * @param stockReport
      * @return
      */
     @POST
@@ -66,12 +66,12 @@ public class StockReportService implements  IStockReportService{
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/stockreports")
     @Override
-    public Result saveStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token,List<StockReport> stockReports) {
-        if (stockReports.size() == 0) {
+    public Result saveStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token,StockReport stockReport) {
+        if (stockReport == null) {
             return new Result(ResultCode.FAIL, CharsetConvert.convert(ResultDescription.PARAMETER_IS_NULL), null);
         }
         try {
-            boRepositoryStockReport.saveStockReports(stockReports);
+            boRepositoryStockReport.saveStockReport(stockReport);
             return new Result(ResultCode.OK, ResultDescription.OP_SUCCESSFUL, null);
         } catch (BusinessObjectException e) {
             return new Result(e);
@@ -89,15 +89,14 @@ public class StockReportService implements  IStockReportService{
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/stockreports")
+    @Path("/stockreport")
     @Override
-    public Result updateStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token, List<StockReport> stockReports) {
-        log.info("parameter info:" + stockReports);
-        if (stockReports.size() > 0) {
+    public Result updateStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token, StockReport stockReport) {
+        if (stockReport == null) {
             return new Result(ResultCode.FAIL, CharsetConvert.convert(ResultDescription.PARAMETER_IS_NULL), null);
         }
         try {
-            boRepositoryStockReport.updateStockReport(stockReports);
+            boRepositoryStockReport.updateStockReport(stockReport);
             return new Result(ResultCode.OK, ResultDescription.OP_SUCCESSFUL,null);
         }catch (BusinessObjectException e){
             return new Result(e);

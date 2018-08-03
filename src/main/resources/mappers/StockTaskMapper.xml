@@ -59,7 +59,6 @@
     </resultMap>
 
     <select id="fetchStockTask" resultMap="BaseResultMap">
---         select * from(select ROW_NUMBER() over(order by ObjectKey desc) as rowId,* from AVA_WM_VIEW_OSTK) as t0 where t0.rowId between 1 and 20
         SELECT * FROM AVA_WM_VIEW_OSTK
     </select>
 

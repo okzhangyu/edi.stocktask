@@ -37,7 +37,10 @@ public class StockReport extends DocumentBO implements IStockReport{
         stockReport.setBusinessPartnerName(stockTask.getBusinessPartnerName());
         stockReport.setObjectCode(stockTask.getObjectCode());
         stockReport.setReference1(stockTask.getReference1());
+        stockReport.setBaseDocumentEntry(stockTask.getDocumentEntry());
+        stockReport.setBaseDocumentType(stockTask.getDocumentType());
         stockReport.setTransactionType(stockTask.getTransactionType());
+        stockReport.setDocumentStatus(stockTask.getDocumentStatus());
         stockReport.setDocumentDate(stockTask.getDocumentDate());
         List<StockReportItem> stockReportItemList = new ArrayList<>();
         //TODO 按照文档赋单据表头值
@@ -53,9 +56,11 @@ public class StockReport extends DocumentBO implements IStockReport{
                 stockReportItem.setBaseDocumentEntry(item.getDocumentEntry());
                 stockReportItem.setBaseDocumentLineId(item.getDocumentLineId());
                 stockReportItem.setBatchNumberManagement(item.getBatchNumberManagement());
-                stockReportItem.setBaseDocumentLineId(item.getBaseDocumentLineId());
                 stockReportItem.setBaseDocumentEntry(item.getDocumentEntry());
                 stockReportItem.setItemCode(item.getItemCode());
+                stockReportItem.setQuantity(item.getQuantity());
+                stockReportItem.setPrice(item.getPrice());
+                stockReportItem.setLineStatus(item.getLineStatus());
                 stockReportItem.setItemDescription(item.getItemDescription());
                 stockReportItem.setFromLocation(item.getFromLocation());
                 stockReportItem.setFromWarehose(item.getFromWarehose());
@@ -69,7 +74,7 @@ public class StockReport extends DocumentBO implements IStockReport{
     }
     
     
-    private String companyName;
+//    private String companyName;
     private Integer docEntry;
     private Integer docNum;
     private String period;
@@ -98,15 +103,6 @@ public class StockReport extends DocumentBO implements IStockReport{
     private Integer baseDocumentEntry;
     private List<StockReportItem> stockReportItems;
 
-    @Override
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    @Override
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
 
     @Override
     public Integer getDocEntry() {
@@ -388,7 +384,7 @@ public class StockReport extends DocumentBO implements IStockReport{
     @Override
     public String toString() {
         return "StockReport{" +
-                "companyName='" + companyName + '\'' +
+                "companyName='" + this.getCompanyName() + '\'' +
                 ", docEntry=" + docEntry +
                 ", docNum=" + docNum +
                 ", period='" + period + '\'' +
@@ -422,9 +418,13 @@ public class StockReport extends DocumentBO implements IStockReport{
     @Override
     public void checkBO(){
         super.checkBO();
-        if(this.baseDocumentType.isEmpty()){
+        if(this.baseDocumentType == null || this.baseDocumentType.isEmpty()){
             throw new BusinessObjectException(StockOpResultCode.STOCK_OBJECT_BASETYPE_IS_NULL,
                     StockOpResultDescription.STOCK_OBJECT_BASETYPE_IS_NULL);
+        }
+        if(this.documentStatus == null || this.documentStatus.isEmpty()){
+            throw new BusinessObjectException(StockOpResultCode.STOCK_OBJECT_DOCSTATUS_IS_NULL,
+                    StockOpResultDescription.STOCK_OBJECT_DOCSTATUS_IS_NULL);
         }
         this.stockReportItems.forEach(c->c.checkBO());
     }
