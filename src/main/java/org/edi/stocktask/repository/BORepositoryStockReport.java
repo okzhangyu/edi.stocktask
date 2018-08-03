@@ -64,6 +64,36 @@ public class BORepositoryStockReport implements IBORepositoryStockReport{
 
 
     /**
+     * 查询任务汇报清单
+     * @return
+     */
+
+    public List<StockReport> fetchStockReportByPage (String param,int beginIndex,int limit){
+        List<StockReport> stockReports;
+        if(param!=null && !param.isEmpty()){
+            HashMap<String,Object> params = new HashMap<>();
+            params.put("value",param);
+            params.put("beginIndex",beginIndex);
+            params.put("limit",limit);
+            stockReports = stockReportMapper.fetchStockReportFuzzyByPage(params);
+        }else {
+            stockReports = stockReportMapper.fetchStockReportByPage(beginIndex,limit);
+        }
+        if(stockReports.size() == 0) {
+            return stockReports;
+        }
+        for(int i=0;i<stockReports.size();i++){
+            StockReport stockReport = stockReports.get(i);
+            List<StockReportItem> stockReportItems = stockReportMapper.fetchStockReportItem(stockReport.getDocEntry());
+            stockReport.setStockReportItems(stockReportItems);
+        }
+        return stockReports;
+    }
+
+
+
+
+    /**
      * 根据DOCENTRY查询库存任务汇报
      * @param docEntry
      * @return

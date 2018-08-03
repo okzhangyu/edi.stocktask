@@ -11,8 +11,8 @@ import org.edi.initialfantasy.filter.UserRequest;
 import org.edi.stocktask.bo.stockreport.StockReport;
 import org.edi.stocktask.data.StockTaskServicePath;
 import org.edi.stocktask.repository.BORepositoryStockReport;
+import org.edi.stocktask.util.PageVerification;
 import org.edi.stocktask.util.ReportVerification;
-import org.glassfish.jersey.server.JSONP;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.*;
@@ -36,9 +36,38 @@ public class StockReportService implements  IStockReportService{
      * @param token
      * @return
      */
+
     @GET
-    @JSONP(queryParam="callback")
-    @Produces("application/x-javascript;charset=utf-8")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/stockreports")
+    @Override
+    public Result<StockReport> fetchStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token,
+                                                @QueryParam(StockTaskServicePath.SERVICE_SEARCH_PARAMETER)String param,
+                                                @QueryParam(ServicePath.SERVICE_BEGININDEX)int beginIndex,
+                                                @QueryParam(ServicePath.SERVICE_LIMIT)int limit) {
+        Result result;
+        try {
+            limit = PageVerification.limitCalculation(beginIndex,limit);
+            List<StockReport> stockReports = boRepositoryStockReport.fetchStockReportByPage(param,beginIndex==0?1:beginIndex,limit);
+            if (stockReports.size()==0){
+                result = new Result(ResultCode.OK, ResultDescription.REPORT_IS_EMPTY,stockReports);
+            }else {
+                result = new Result(ResultCode.OK, ResultDescription.OP_SUCCESSFUL, stockReports);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            result = new Result(ResultCode.FAIL, "failed:" + e.getCause(), null);
+        }
+        return result;
+    }
+
+
+
+
+
+
+   /* @GET
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("/stockreports")
     @Override
     public Result<StockReport> fetchStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token,
@@ -52,7 +81,7 @@ public class StockReportService implements  IStockReportService{
           result = new Result(ResultCode.FAIL, "failed:" + e.getCause(), null);
         }
         return result;
-    }
+    }*/
 
 
     /**

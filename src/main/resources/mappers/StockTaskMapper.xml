@@ -62,6 +62,14 @@
         SELECT * FROM AVA_WM_VIEW_OSTK
     </select>
 
+
+    <!-- List<IStockTask> fetchStockTaskByPage(int beginIndex,int limit);-->
+    <select id="fetchStockTaskByPage" resultMap="BaseResultMap" parameterType="int">
+       select * from(select ROW_NUMBER() over(order by ObjectKey desc) as rowId,* from AVA_WM_VIEW_OSTK) as t0 where t0.rowId between #{0}
+        and #{1}
+    </select>
+
+
     <select id="fetchStockTaskItem" resultMap="BaseResultMapItem">
         SELECT * FROM AVA_WM_VIEW_STK1 where ObjectKey=#{objectKey}
     </select>
@@ -84,6 +92,29 @@
             </if>
         </where>
     </select>
+
+
+    <!-- List<IStockTask> fetchStockTaskFuzzyByPage(HashMap<String,Object> params);-->
+    <select id="fetchStockTaskFuzzyByPage" resultMap="BaseResultMap" parameterType="map">
+        select * from(select ROW_NUMBER() over(order by ObjectKey desc) as rowId,* from AVA_WM_VIEW_OSTK) as t0
+        <where>
+            t0.rowId between #{beginIndex}
+            and #{limit} AND
+            (<if test="value != null and value != ''">
+            DocEntry LIKE '%'+#{value}+'%'
+        </if>
+            <if test="value != null and value != ''">
+                or BpCode LIKE '%'+#{value}+'%'
+            </if>
+            <if test="value != null and value != ''">
+                or BpName LIKE '%'+#{value}+'%'
+            </if>)
+        </where>
+    </select>
+
+
+
+
 
 
     <select id="fetchStockTaskByCondition" resultMap="BaseResultMap" parameterType="Map">
