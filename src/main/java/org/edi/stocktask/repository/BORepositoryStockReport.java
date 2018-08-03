@@ -5,7 +5,6 @@ import org.edi.freamwork.exception.BusinessException;
 import org.edi.freamwork.exception.DBException;
 import org.edi.freamwork.repository.BORepository;
 import org.edi.initialfantasy.data.ResultDescription;
-import org.edi.initialfantasy.util.CharsetConvert;
 import org.edi.stocktask.bo.stockreport.IStockReport;
 import org.edi.stocktask.bo.stockreport.StockReport;
 import org.edi.stocktask.bo.stockreport.StockReportItem;
@@ -65,6 +64,36 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
         }
         return stockReports;
     }
+
+
+    /**
+     * 查询任务汇报清单
+     * @return
+     */
+
+    public List<StockReport> fetchStockReportByPage (String param,int beginIndex,int limit){
+        List<StockReport> stockReports;
+        if(param!=null && !param.isEmpty()){
+            HashMap<String,Object> params = new HashMap<>();
+            params.put("value",param);
+            params.put("beginIndex",beginIndex);
+            params.put("limit",limit);
+            stockReports = stockReportMapper.fetchStockReportFuzzyByPage(params);
+        }else {
+            stockReports = stockReportMapper.fetchStockReportByPage(beginIndex,limit);
+        }
+        if(stockReports.size() == 0) {
+            return stockReports;
+        }
+        for(int i=0;i<stockReports.size();i++){
+            StockReport stockReport = stockReports.get(i);
+            List<StockReportItem> stockReportItems = stockReportMapper.fetchStockReportItem(stockReport.getDocEntry());
+            stockReport.setStockReportItems(stockReportItems);
+        }
+        return stockReports;
+    }
+
+
 
 
     /**
@@ -130,6 +159,41 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
     }
 
 
+
+    /**
+     * 更新保存库存任务汇报
+     * @param stockReport
+     * @return
+     */
+    public void updateSingleStockReport(StockReport stockReport) throws ParseException{
+        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+        DateFormat df=DateFormat.getDateTimeInstance();
+        String nowDate=df.format(new Date());
+        TransactionStatus status = ptm.getTransaction(def);
+        try {
+                int docEntry = stockReport.getDocEntry();
+                stockReport.setDocEntry(docEntry);
+                stockReport.setUpdateDate(nowDate);
+                stockReportMapper.saveStockReport(stockReport);
+                for (int j = 0; j < stockReport.getStockReportItems().size(); j++) {
+                    StockReportItem stockReportItem = stockReport.getStockReportItems().get(j);
+                    stockReportItem.setDocEntry(docEntry);
+                    stockReportItem.setLineId(j + 1);
+                    stockReportMapper.saveStockReportItem(stockReportItem);
+                }
+
+            ptm.commit(status);
+        }catch(Exception e){
+            e.printStackTrace();
+            ptm.rollback(status);
+            throw e;
+        }
+    }
+
+
+
+
     /**
      * 更新库存任务汇报
      * @param stockReport
@@ -163,7 +227,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
         def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
         TransactionStatus status = ptm.getTransaction(def);
         if(!b1DocEntryVerification.B1EntryCheck(docEntry)){
-            throw new BusinessException(CharsetConvert.convert(ResultDescription.B1DOCENTRY_IS_EXISTENT));
+            throw new BusinessException(ResultDescription.B1DOCENTRY_IS_EXISTENT);
         }
         try {
             stockReportMapper.deleteStockReport(docEntry);
@@ -235,7 +299,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
     @Override
     protected void update(StockReport stockReport) {
         if (!b1DocEntryVerification.B1EntryCheck(stockReport.getDocEntry())) {
-            throw new BusinessException(CharsetConvert.convert(ResultDescription.B1DOCENTRY_IS_EXISTENT));
+            throw new BusinessException(ResultDescription.B1DOCENTRY_IS_EXISTENT);
         }
         stockReportMapper.updateStockReport(stockReport);
         for (int j = 0; j < stockReport.getStockReportItems().size(); j++) {

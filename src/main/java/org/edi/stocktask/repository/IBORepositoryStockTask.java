@@ -1,9 +1,7 @@
 package org.edi.stocktask.repository;
 
 import org.edi.stocktask.bo.material.IMaterial;
-import org.edi.stocktask.bo.material.Material;
 import org.edi.stocktask.bo.stocktask.IStockTask;
-import org.edi.stocktask.bo.stocktask.StockTask;
 
 import java.util.List;
 
@@ -18,6 +16,8 @@ public interface IBORepositoryStockTask {
      * @return
      */
     List<IStockTask> fetchStockTask(String param);
+
+    List<IStockTask> fetchStockTaskByPage(String param,int beginIndex,int limit);
 
     List<IStockTask> fetchStockTaskByCondition(int docEntry, String docType);
 

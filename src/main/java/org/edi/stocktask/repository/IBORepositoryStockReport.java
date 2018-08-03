@@ -19,6 +19,8 @@ public interface IBORepositoryStockReport {
      */
     List<StockReport> fetchStockReport(String param);
 
+    List<StockReport> fetchStockReportByPage ( String param,int beginIndex,int limit);
+
     /**
      * 条件查询任务汇报
      * @return
@@ -62,6 +64,11 @@ public interface IBORepositoryStockReport {
      */
     void updateStockReport(StockReport stockReport);
 
+    /**
+     * 更新保存库存任务汇报
+     * @param stockReport
+     */
+     void updateSingleStockReport(StockReport stockReport) throws ParseException;
     /**
      * 删除任务汇报
      * @param docEntry
