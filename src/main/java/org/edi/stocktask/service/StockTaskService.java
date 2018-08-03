@@ -10,6 +10,7 @@ import org.edi.stocktask.bo.stocktask.IStockTask;
 import org.edi.stocktask.data.StockTaskServicePath;
 import org.edi.stocktask.mapper.StockTaskMapper;
 import org.edi.stocktask.repository.IBORepositoryStockTask;
+import org.edi.stocktask.util.PageVerification;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.GET;
@@ -41,13 +42,15 @@ public class StockTaskService implements IStockTaskService{
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/stocktasks")
+    @Override
     public Result<IStockTask> fetchStockTask(@QueryParam(ServicePath.TOKEN_NAMER)String token,@QueryParam(StockTaskServicePath.SERVICE_SEARCH_PARAMETER)String param,
-                                             @QueryParam(ServicePath.SERVICE_BEGININDEX)int biginIndex,@QueryParam(ServicePath.SERVICE_LIMIT)int limit){
+                                             @QueryParam(ServicePath.SERVICE_BEGININDEX)int beginIndex,@QueryParam(ServicePath.SERVICE_LIMIT)int limit){
 
 
         Result result = new Result();
         try{
-            List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask(param);
+            limit = PageVerification.limitCalculation(beginIndex,limit);
+            List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTaskByPage(param,beginIndex==0?1:beginIndex,limit);
             result = new Result<>(ResultCode.OK,ResultDescription.OK,stockTasks);
         }catch(Exception e){
             result = new Result(ResultCode.FAIL,e);
@@ -72,15 +75,6 @@ public class StockTaskService implements IStockTaskService{
         }
         return result;
     }*/
-
-
-
-
-
-
-
-
-
 
 
 

@@ -26,19 +26,19 @@
 	<context:component-scan base-package="org.edi.stocktask.*" />
 	<context:component-scan base-package="org.edi.initialfantasy.*"/>
 
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+	<!--<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
 		<property name="url" value="jdbc:sqlserver://192.168.3.14;DatabaseName=StockManageDB"/>
 		<property name="username" value="sa"/>
 		<property name="password" value="avatech"/>
-	</bean>
+	</bean>-->
 
-	<!--<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
 		<property name="url" value="jdbc:sqlserver://192.168.1.70;DatabaseName=TEST_HT024_02"/>
 		<property name="username" value="avasa6"/>
 		<property name="password" value="AVAtechAVA2018!"/>
-	</bean>-->
+	</bean>
 
 
 	<!-- 设置默认数据连接 -->

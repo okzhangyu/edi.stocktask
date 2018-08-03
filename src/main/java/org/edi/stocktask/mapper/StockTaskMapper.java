@@ -1,11 +1,8 @@
 package org.edi.stocktask.mapper;
 
 import org.edi.stocktask.bo.material.IMaterial;
-import org.edi.stocktask.bo.material.Material;
 import org.edi.stocktask.bo.stocktask.IStockTask;
 import org.edi.stocktask.bo.stocktask.IStockTaskItem;
-import org.edi.stocktask.bo.stocktask.StockTask;
-import org.edi.stocktask.bo.stocktask.StockTaskItem;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,9 +10,11 @@ import java.util.List;
 public interface StockTaskMapper {
 
     List<IStockTask> fetchStockTask();
+    List<IStockTask> fetchStockTaskByPage(int beginIndex,int limit);
     List<IStockTaskItem> fetchStockTaskItem(Integer objectKey);
     List<IStockTaskItem> fetchAllStockTaskItem();
     List<IStockTask> fetchStockTaskFuzzy(String value);
+    List<IStockTask> fetchStockTaskFuzzyByPage(HashMap<String,Object> params);
     List<IStockTask> fetchStockTaskByCondition(HashMap<String,Object> stockTaskCondition);
 
     /**

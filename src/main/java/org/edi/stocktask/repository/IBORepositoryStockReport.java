@@ -17,6 +17,8 @@ public interface IBORepositoryStockReport {
      */
     List<StockReport> fetchStockReport(String param);
 
+    List<StockReport> fetchStockReportByPage ( String param,int beginIndex,int limit);
+
     /**
      * 条件查询任务汇报
      * @return
