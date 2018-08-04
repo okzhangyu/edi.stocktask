@@ -1,10 +1,7 @@
 package org.edi.stocktask.repository;
 
-import org.edi.freamwork.exception.DBException;
-import org.edi.stocktask.bo.stockreport.IStockReport;
 import org.edi.stocktask.bo.stockreport.StockReport;
 
-import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -17,9 +14,9 @@ public interface IBORepositoryStockReport {
      * 查询任务汇报清单
      * @return
      */
-    List<StockReport> fetchStockReport(String param);
+    List<StockReport> fetchStockReport(String param,int beginIndex,int limit);
 
-    List<StockReport> fetchStockReportByPage ( String param,int beginIndex,int limit);
+
 
     /**
      * 条件查询任务汇报
@@ -32,7 +29,7 @@ public interface IBORepositoryStockReport {
      * @param docEntry
      * @return
      */
-    StockReport fetchStockReportByEntry(Integer docEntry);
+    StockReport fetchStockReport(Integer docEntry);
 
     /**
      * 查询未清任务汇报
@@ -64,11 +61,8 @@ public interface IBORepositoryStockReport {
      */
     void updateStockReport(StockReport stockReport);
 
-    /**
-     * 更新保存库存任务汇报
-     * @param stockReport
-     */
-     void updateSingleStockReport(StockReport stockReport) throws ParseException;
+
+
     /**
      * 删除任务汇报
      * @param docEntry

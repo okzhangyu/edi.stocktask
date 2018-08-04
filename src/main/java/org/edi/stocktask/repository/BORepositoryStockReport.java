@@ -19,7 +19,6 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -42,28 +41,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
     private PlatformTransactionManager ptm;
 
 
-    /**
-     * 查询任务汇报清单
-     * @return
-     */
-    @Override
-    public List<StockReport> fetchStockReport(String param){
-        List<StockReport> stockReports;
-        if(param!=null && !param.isEmpty()){
-            stockReports = stockReportMapper.fetchStockReportFuzzy(param);
-        }else {
-            stockReports = stockReportMapper.fetchStockReport();
-        }
-        if(stockReports.size() == 0) {
-            return stockReports;
-        }
-        for(int i=0;i<stockReports.size();i++){
-            StockReport stockReport = stockReports.get(i);
-            List<StockReportItem> stockReportItems = stockReportMapper.fetchStockReportItem(stockReport.getDocEntry());
-            stockReport.setStockReportItems(stockReportItems);
-        }
-        return stockReports;
-    }
+
 
 
     /**
@@ -71,7 +49,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
      * @return
      */
 
-    public List<StockReport> fetchStockReportByPage (String param,int beginIndex,int limit){
+    public List<StockReport> fetchStockReport(String param,int beginIndex,int limit){
         List<StockReport> stockReports;
         if(param!=null && !param.isEmpty()){
             HashMap<String,Object> params = new HashMap<>();
@@ -102,7 +80,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
      * @return
      */
     @Override
-    public StockReport fetchStockReportByEntry(Integer docEntry){
+    public StockReport fetchStockReport(Integer docEntry){
         StockReport stockReport = stockReportMapper.fetchStockReportByEntry(docEntry);
         List<StockReportItem> stockReportItems = stockReportMapper.fetchStockReportItem(docEntry);
         stockReport.setStockReportItems(stockReportItems);
@@ -160,36 +138,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
 
 
 
-    /**
-     * 更新保存库存任务汇报
-     * @param stockReport
-     * @return
-     */
-    public void updateSingleStockReport(StockReport stockReport) throws ParseException{
-        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-        DateFormat df=DateFormat.getDateTimeInstance();
-        String nowDate=df.format(new Date());
-        TransactionStatus status = ptm.getTransaction(def);
-        try {
-                int docEntry = stockReport.getDocEntry();
-                stockReport.setDocEntry(docEntry);
-                stockReport.setUpdateDate(nowDate);
-                stockReportMapper.saveStockReport(stockReport);
-                for (int j = 0; j < stockReport.getStockReportItems().size(); j++) {
-                    StockReportItem stockReportItem = stockReport.getStockReportItems().get(j);
-                    stockReportItem.setDocEntry(docEntry);
-                    stockReportItem.setLineId(j + 1);
-                    stockReportMapper.saveStockReportItem(stockReportItem);
-                }
 
-            ptm.commit(status);
-        }catch(Exception e){
-            e.printStackTrace();
-            ptm.rollback(status);
-            throw e;
-        }
-    }
 
 
 
@@ -205,7 +154,8 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
         def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
         TransactionStatus status = ptm.getTransaction(def);
         try {
-            super.updateBO(stockReport);
+            delete(stockReport);
+            save(stockReport);
             ptm.commit(status);
         } catch (BusinessObjectException ex){
             throw ex;
@@ -282,11 +232,20 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
 
     @Override
     protected void save(StockReport stockReport) {
-        int docEntry = stockReportMapper.fetchSequenceOfDocEntry();
+        int docEntry;
+        if(stockReport.getDocEntry()==null){
+             docEntry = stockReportMapper.fetchSequenceOfDocEntry();
+        }else{
+             docEntry = stockReport.getDocEntry();
+        }
         stockReport.setDocEntry(docEntry);
         DateFormat df = DateFormat.getDateTimeInstance();
         String nowDate = df.format(new Date());
-        stockReport.setCreateDate(nowDate);
+       if(stockReport.getCreateDate()==null){
+           stockReport.setCreateDate(nowDate);
+       }else {
+           stockReport.setUpdateDate(nowDate);
+       }
         stockReportMapper.saveStockReport(stockReport);
         for (int j = 0; j < stockReport.getStockReportItems().size(); j++) {
             StockReportItem stockReportItem = stockReport.getStockReportItems().get(j);
@@ -310,6 +269,11 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
 
 
     @Override
-    protected void delete(StockReport bo) {
+    protected void delete(StockReport stockReport) {
+        if (!b1DocEntryVerification.B1EntryCheck(stockReport.getDocEntry())) {
+            throw new BusinessException(ResultDescription.B1DOCENTRY_IS_EXISTENT);
+        }
+        stockReportMapper.deleteStockReport(stockReport.getDocEntry());
+        stockReportMapper.deleteStockReportItem(stockReport.getDocEntry());
     }
 }

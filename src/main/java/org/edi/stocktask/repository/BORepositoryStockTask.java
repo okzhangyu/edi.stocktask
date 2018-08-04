@@ -25,36 +25,14 @@ public class BORepositoryStockTask implements  IBORepositoryStockTask {
     @Autowired
     private StockTaskMapper stockTaskMapper;
 
-    /**
-     * 查询库存任务
-     * @return
-     */
-    @Override
-    public List<IStockTask> fetchStockTask(String param){
-        List<IStockTask> stockTasks;
-        if(param!=null && !param.isEmpty()){
-            stockTasks = stockTaskMapper.fetchStockTaskFuzzy(param);
-        }else {
-            stockTasks = stockTaskMapper.fetchStockTask();
-        }
-        if(stockTasks.size() == 0) {
-            return stockTasks;
-        }
-        for (int i = 0;i<stockTasks.size();i++){
-            List<IStockTaskItem> stockTaskItems = stockTaskMapper.fetchStockTaskItem(stockTasks.get(i).getObjectKey());
-            if(stockTaskItems!=null){
-                stockTasks.get(i).setStockTaskItems(stockTaskItems);
-            }
-        }
-        return stockTasks;
-    }
+
 
 
     /**
      * 分页查询库存任务
      * @return
      */
-    public List<IStockTask> fetchStockTaskByPage(String param,int beginIndex,int limit){
+    public List<IStockTask> fetchStockTask(String param,int beginIndex,int limit){
         List<IStockTask> stockTasks;
         if(param!=null && !param.isEmpty()){
             HashMap<String,Object> params = new HashMap<>();

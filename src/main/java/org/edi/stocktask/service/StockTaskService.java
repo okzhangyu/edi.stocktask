@@ -41,7 +41,7 @@ public class StockTaskService implements IStockTaskService{
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/stocktasks")
+    @Path("/stocktask")
     @Override
     public Result<IStockTask> fetchStockTask(@QueryParam(ServicePath.TOKEN_NAMER)String token,@QueryParam(StockTaskServicePath.SERVICE_SEARCH_PARAMETER)String param,
                                              @QueryParam(ServicePath.SERVICE_BEGININDEX)int beginIndex,@QueryParam(ServicePath.SERVICE_LIMIT)int limit){
@@ -50,31 +50,19 @@ public class StockTaskService implements IStockTaskService{
         Result result = new Result();
         try{
             limit = PageVerification.limitCalculation(beginIndex,limit);
-            List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTaskByPage(param,beginIndex==0?1:beginIndex,limit);
-            result = new Result<>(ResultCode.OK,ResultDescription.OK,stockTasks);
+            List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask(param,beginIndex==0?1:beginIndex,limit);
+            if (stockTasks.size()==0){
+                result = new Result<>(ResultCode.OK,ResultDescription.TASK_IS_EMPTY,stockTasks);
+            }else {
+                result = new Result<>(ResultCode.OK,ResultDescription.OK,stockTasks);
+            }
+
         }catch(Exception e){
             result = new Result(ResultCode.FAIL,e);
         }
      return result;
     }
 
-
-
-
-
-   /* @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/stocktasks")
-    public Result<IStockTask> fetchStockTask(@QueryParam(ServicePath.TOKEN_NAMER)String token,@QueryParam(StockTaskServicePath.SERVICE_SEARCH_PARAMETER)String param){
-        Result result = new Result();
-        try{
-            List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask(param);
-            result = new Result<>(ResultCode.OK,ResultDescription.OK,stockTasks);
-        }catch(Exception e){
-            result = new Result(ResultCode.FAIL,e);
-        }
-        return result;
-    }*/
 
 
 
@@ -86,7 +74,7 @@ public class StockTaskService implements IStockTaskService{
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/stocktasksterm")
+    @Path("/stocktaskterm")
     public Result<IStockTask> fetchStockTaskByCondition(@QueryParam(ServicePath.TOKEN_NAMER)String token,
                                                        @QueryParam(StockTaskServicePath.SERVICE_DOCENTRY)int docEntry,
                                                        @QueryParam(StockTaskServicePath.SERVICE_DOCTYPE)String docType){
@@ -94,7 +82,7 @@ public class StockTaskService implements IStockTaskService{
         try{
             List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTaskByCondition(docEntry,docType);
             if(stockTasks.size()==0){
-                result = new Result<>(ResultCode.OK,ResultDescription.TASK_IS_EMPTY,stockTasks);
+                result = new Result<>(ResultCode.OK,ResultDescription.REPORTTASK_IS_EMPTY,stockTasks);
             }else {
                 result = new Result<>(ResultCode.OK, ResultDescription.OK, stockTasks);
             }
@@ -112,7 +100,7 @@ public class StockTaskService implements IStockTaskService{
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/stocktasks/materials")
+    @Path("/stocktask/materials")
     @Override
     public Result<IMaterial> fetchStockTaskMaterial(@QueryParam(ServicePath.TOKEN_NAMER)String token,
                                                     @QueryParam(StockTaskServicePath.SERVICE_DOCENTRY)Integer docEntry) {
