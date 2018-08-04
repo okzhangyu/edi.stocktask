@@ -49,7 +49,7 @@ public class TestBoRepositoryStockReport extends TestCase{
       /* if(stockReport == null){
             this.testSaveStockReport();
         }*/
-        List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask("");
+        List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask("",1,20);
         if (stockTasks.size() > 0) {
             if (stockTasks != null) {
                 stockTask = stockTasks.get(0);
@@ -85,7 +85,7 @@ public class TestBoRepositoryStockReport extends TestCase{
 
     @Test
     public void testfetchStockTask() throws Exception{
-        List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask("");
+        List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask("",1,20);
         if(stockTasks.size() > 0){
             if(stockTask == null){
                 stockTask = stockTasks.get(0);
@@ -112,7 +112,7 @@ public class TestBoRepositoryStockReport extends TestCase{
      * */
     @Test
     public void testFetchStockReport(){
-        List<StockReport> stockReportList = boRepositoryStockReport.fetchStockReport("");
+        List<StockReport> stockReportList = boRepositoryStockReport.fetchStockReport("",2,2);
         System.out.println(stockReportList.get(0).getDocEntry());
         assertEquals(stockReportList.get(0).getDocEntry().toString(),"2");
     }
@@ -128,7 +128,7 @@ public class TestBoRepositoryStockReport extends TestCase{
     @Test
     public void testSaveStockReport() throws Exception{
         try{
-            List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask("");
+            List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask("",1,30);
             if(stockTasks.size() > 0){
                 if(stockTasks != null){
                     stockTask = stockTasks.get(4);
@@ -147,7 +147,7 @@ public class TestBoRepositoryStockReport extends TestCase{
     @Test
     public void testDeleteStockReport(){
         boRepositoryStockReport.deleteStockReport(5);
-        StockReport stockReport = boRepositoryStockReport.fetchStockReportByEntry(5);
+        StockReport stockReport = boRepositoryStockReport.fetchStockReport(5);
         assertEquals(stockReport,null);
     }
 
@@ -191,7 +191,7 @@ public class TestBoRepositoryStockReport extends TestCase{
 
     @Test
     public void testFetchStockReportByEntry() throws Exception {
-        StockReport stockReport = boRepositoryStockReport.fetchStockReportByEntry(getStockReport().getDocEntry());
+        StockReport stockReport = boRepositoryStockReport.fetchStockReport(getStockReport().getDocEntry());
         //StockReport stockReport = boRepositoryStockReport.fetchStockReportByEntry()
         Assert.assertEquals(getStockReport().getDocEntry(),stockReport.getDocEntry());
         Assert.assertEquals(getStockReport(),stockReport);
@@ -207,7 +207,7 @@ public class TestBoRepositoryStockReport extends TestCase{
         stockReport.setB1DocEntry(B1DocEntry);
         stockReport.setDocumentStatus("C");
         boRepositoryStockReport.updateStockReportDocStatus(stockReport);
-        stockReport = boRepositoryStockReport.fetchStockReportByEntry(this.stockReport.getDocEntry());
+        stockReport = boRepositoryStockReport.fetchStockReport(this.stockReport.getDocEntry());
         Assert.assertEquals("C",stockReport.getDocumentStatus());
         Assert.assertEquals(B1DocEntry,stockReport.getB1DocEntry());
     }

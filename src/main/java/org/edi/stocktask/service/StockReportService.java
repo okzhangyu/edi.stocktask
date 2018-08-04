@@ -12,7 +12,6 @@ import org.edi.stocktask.bo.stockreport.StockReport;
 import org.edi.stocktask.data.StockTaskServicePath;
 import org.edi.stocktask.repository.BORepositoryStockReport;
 import org.edi.stocktask.util.PageVerification;
-import org.edi.stocktask.util.ReportVerification;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.*;
@@ -39,7 +38,7 @@ public class StockReportService implements  IStockReportService{
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/stockreports")
+    @Path("/stockreport")
     @Override
     public Result<StockReport> fetchStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token,
                                                 @QueryParam(StockTaskServicePath.SERVICE_SEARCH_PARAMETER)String param,
@@ -48,7 +47,7 @@ public class StockReportService implements  IStockReportService{
         Result result;
         try {
             limit = PageVerification.limitCalculation(beginIndex,limit);
-            List<StockReport> stockReports = boRepositoryStockReport.fetchStockReportByPage(param,beginIndex==0?1:beginIndex,limit);
+            List<StockReport> stockReports = boRepositoryStockReport.fetchStockReport(param,beginIndex==0?1:beginIndex,limit);
             if (stockReports.size()==0){
                 result = new Result(ResultCode.OK, ResultDescription.REPORT_IS_EMPTY,stockReports);
             }else {
@@ -65,25 +64,6 @@ public class StockReportService implements  IStockReportService{
 
 
 
-
-   /* @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/stockreports")
-    @Override
-    public Result<StockReport> fetchStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token,
-                                                @QueryParam(StockTaskServicePath.SERVICE_SEARCH_PARAMETER)String param) {
-        Result result;
-        try {
-            List<StockReport> stockReports = boRepositoryStockReport.fetchStockReport(param);
-            result = new Result(ResultCode.OK, ResultDescription.OP_SUCCESSFUL,stockReports);
-        }catch (Exception e){
-          e.printStackTrace();
-          result = new Result(ResultCode.FAIL, "failed:" + e.getCause(), null);
-        }
-        return result;
-    }*/
-
-
     /**
      * 保存库存任务汇报
      * @param token
@@ -93,7 +73,7 @@ public class StockReportService implements  IStockReportService{
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/stockreports")
+    @Path("/stockreport")
     @Override
     public Result saveStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token,StockReport stockReport) {
         if (stockReport == null) {
@@ -106,14 +86,14 @@ public class StockReportService implements  IStockReportService{
             return new Result(e);
         } catch (Exception e) {
             e.printStackTrace();
-            return new Result(ResultCode.FAIL, e);
+            return new Result(ResultCode.FAIL,e);
         }
     }
 
     /**
      * 更新任务汇报
      * @param token
-     * @param stockReports
+     * @param stockReport
      * @return
      */
     @PUT
@@ -145,7 +125,7 @@ public class StockReportService implements  IStockReportService{
      * @return
      */
     @DELETE
-    @Path("/stockreports")
+    @Path("/stockreport")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Override

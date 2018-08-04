@@ -15,9 +15,8 @@ public interface IBORepositoryStockTask {
      * 查询库存任务
      * @return
      */
-    List<IStockTask> fetchStockTask(String param);
 
-    List<IStockTask> fetchStockTaskByPage(String param,int beginIndex,int limit);
+    List<IStockTask> fetchStockTask(String param,int beginIndex,int limit);
 
     List<IStockTask> fetchStockTaskByCondition(int docEntry, String docType);
 
