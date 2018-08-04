@@ -2,6 +2,7 @@ package org.edi.stocktask.bo.stockreport;
 
 
 import org.edi.freamwork.bo.BusinessObjectException;
+import org.edi.freamwork.bo.DocumentBOLine;
 import org.edi.stocktask.data.StockOpResultCode;
 import org.edi.stocktask.data.StockOpResultDescription;
 
@@ -9,7 +10,7 @@ import org.edi.stocktask.data.StockOpResultDescription;
  * @author Fancy
  * @date 2018/5/27
  */
-public class StockReportItem implements IStockReportItem{
+public class StockReportItem extends DocumentBOLine implements IStockReportItem{
     private Integer docEntry;
     private Integer lineId;
     private String objectCode;
@@ -536,10 +537,15 @@ public class StockReportItem implements IStockReportItem{
                 '}';
     }
 
+    @Override
     public void checkBO(){
-        if(getBaseDocumentType().isEmpty()){
+        if(getBaseDocumentType() == null || getBaseDocumentType().isEmpty()){
             throw new BusinessObjectException(StockOpResultCode.STOCK_OBJECT_BASEENTRY_IS_NULL,
                     StockOpResultDescription.STOCK_OBJECT_BASETYPE_IS_NULL);
+        }
+        if(getLineStatus() ==null || getLineStatus().isEmpty()){
+            throw new BusinessObjectException(StockOpResultCode.STOCK_OBJECT_LINESTATUS_IS_NULL,
+                    StockOpResultDescription.STOCK_OBJECT_LINESTATUS_IS_NULL);
         }
     }
 }

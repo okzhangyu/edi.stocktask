@@ -1,10 +1,12 @@
 package org.edi.stocktask.bo.stockreport;
 
+import org.edi.freamwork.bo.IDocumentBOLine;
+
 /**
  * @author Fancy
  * @date 2018/5/25
  */
-public interface IStockReportItem {
+public interface IStockReportItem extends IDocumentBOLine{
 
     Integer getDocEntry();
 

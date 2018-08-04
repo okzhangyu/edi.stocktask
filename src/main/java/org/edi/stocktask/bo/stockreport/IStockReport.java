@@ -1,16 +1,16 @@
 package org.edi.stocktask.bo.stockreport;
 
+import org.edi.freamwork.bo.IDocumentBO;
+
 import java.util.List;
 
 /**
  * @author Fancy
  * @date 2018/5/25
  */
-public interface IStockReport {
+public interface IStockReport extends IDocumentBO{
 
-    String getCompanyName();
-
-    void setCompanyName(String value);
+   
 
     Integer getDocEntry();
 

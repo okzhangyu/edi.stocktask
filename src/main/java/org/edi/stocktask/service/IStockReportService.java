@@ -23,18 +23,18 @@ public interface IStockReportService {
     /**
      * 保存库存任务汇报
      * @param token
-     * @param stockReports
+     * @param stockReport
      * @return
      */
-    Result<?> saveStockReport(String token,List<StockReport> stockReports);
+    Result<?> saveStockReport(String token,StockReport stockReport);
 
     /**
      * 更新库存任务汇报
      * @param token
-     * @param stockReports
+     * @param stockReport
      * @return
      */
-    Result updateStockReport(String token,List<StockReport> stockReports);
+    Result updateStockReport(String token,StockReport stockReport);
 
     /**
      * 删除库存任务汇报

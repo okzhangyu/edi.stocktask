@@ -2,6 +2,7 @@ package repository;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
+import org.edi.freamwork.exception.DBException;
 import org.edi.stocktask.bo.codeBar.CodeBar;
 import org.edi.stocktask.bo.codeBar.ICodeBar;
 import org.edi.stocktask.bo.stockreport.StockReport;
@@ -126,17 +127,21 @@ public class TestBoRepositoryStockReport extends TestCase{
 
     @Test
     public void testSaveStockReport() throws Exception{
-        List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask("");
-        if(stockTasks.size() > 0){
-            if(stockTasks != null){
-                stockTask = stockTasks.get(0);
+        try{
+            List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask("");
+            if(stockTasks.size() > 0){
+                if(stockTasks != null){
+                    stockTask = stockTasks.get(4);
+                }
+                if(stockReport == null){
+                    stockReport  = StockReport.createStockReport(stockTask);
+                }
+                boRepositoryStockReport.saveStockReport(stockReport);
             }
-            if(stockReport == null){
-                stockReport  = StockReport.createStockReport(stockTask);
-                stockReports.add(stockReport);
-            }
-            boRepositoryStockReport.saveStockReports(stockReports);
+        }catch (DBException ex){
+            System.out.println(ex.getCode()+"--"+ex.getMessage().toString());
         }
+
     }
 
     @Test
@@ -183,7 +188,7 @@ public class TestBoRepositoryStockReport extends TestCase{
         assertEquals(stockReport.getBydUUID(),"3697459");
 
       }
-  
+
     @Test
     public void testFetchStockReportByEntry() throws Exception {
         StockReport stockReport = boRepositoryStockReport.fetchStockReportByEntry(getStockReport().getDocEntry());
@@ -193,6 +198,7 @@ public class TestBoRepositoryStockReport extends TestCase{
 
 
     }
+
 
     @Test
     public void testUpdateDocStatus() throws Exception{

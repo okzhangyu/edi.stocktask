@@ -1,12 +1,14 @@
 package org.edi.stocktask.bo.stocktask;
 
+import org.edi.freamwork.bo.DocumentBO;
+
 import java.util.List;
 
 /**
  * @author Fancy
  * @date 2018/5/27
  */
-public class StockTask implements  IStockTask{
+public class StockTask extends DocumentBO implements IStockTask{
 
     private static final String BUSINESS_CODE = "AVA_WM_STOCKTASK";
 

@@ -2,6 +2,7 @@ package org.edi.stocktask.bo.stockreport;
 
 
 import org.edi.freamwork.bo.BusinessObjectException;
+import org.edi.freamwork.bo.DocumentBO;
 import org.edi.freamwork.exception.BusinessException;
 import org.edi.stocktask.bo.stocktask.IStockTask;
 import org.edi.stocktask.bo.stocktask.IStockTaskItem;
@@ -16,7 +17,7 @@ import java.util.List;
  * @author Fancy
  * @date 2018/5/27
  */
-public class StockReport implements IStockReport{
+public class StockReport extends DocumentBO implements IStockReport{
 
     private static final String BUSINESS_CODE = "AVA_WM_STOCKREPORT";
 
@@ -34,7 +35,10 @@ public class StockReport implements IStockReport{
         stockReport.setBusinessPartnerName(stockTask.getBusinessPartnerName());
         stockReport.setObjectCode(stockTask.getObjectCode());
         stockReport.setReference1(stockTask.getReference1());
+        stockReport.setBaseDocumentEntry(stockTask.getDocumentEntry());
+        stockReport.setBaseDocumentType(stockTask.getDocumentType());
         stockReport.setTransactionType(stockTask.getTransactionType());
+        stockReport.setDocumentStatus(stockTask.getDocumentStatus());
         stockReport.setDocumentDate(stockTask.getDocumentDate());
         List<StockReportItem> stockReportItemList = new ArrayList<>();
         //TODO 按照文档赋单据表头值
@@ -50,9 +54,11 @@ public class StockReport implements IStockReport{
                 stockReportItem.setBaseDocumentEntry(item.getDocumentEntry());
                 stockReportItem.setBaseDocumentLineId(item.getDocumentLineId());
                 stockReportItem.setBatchNumberManagement(item.getBatchNumberManagement());
-                stockReportItem.setBaseDocumentLineId(item.getBaseDocumentLineId());
                 stockReportItem.setBaseDocumentEntry(item.getDocumentEntry());
                 stockReportItem.setItemCode(item.getItemCode());
+                stockReportItem.setQuantity(item.getQuantity());
+                stockReportItem.setPrice(item.getPrice());
+                stockReportItem.setLineStatus(item.getLineStatus());
                 stockReportItem.setItemDescription(item.getItemDescription());
                 stockReportItem.setFromLocation(item.getFromLocation());
                 stockReportItem.setFromWarehose(item.getFromWarehose());
@@ -66,7 +72,7 @@ public class StockReport implements IStockReport{
     }
     
     
-    private String companyName;
+//    private String companyName;
     private Integer docEntry;
     private Integer docNum;
     private String period;
@@ -95,15 +101,6 @@ public class StockReport implements IStockReport{
     private Integer baseDocumentEntry;
     private List<StockReportItem> stockReportItems;
 
-    @Override
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    @Override
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
 
     @Override
     public Integer getDocEntry() {
@@ -385,7 +382,7 @@ public class StockReport implements IStockReport{
     @Override
     public String toString() {
         return "StockReport{" +
-                "companyName='" + companyName + '\'' +
+                "companyName='" + this.getCompanyName() + '\'' +
                 ", docEntry=" + docEntry +
                 ", docNum=" + docNum +
                 ", period='" + period + '\'' +
@@ -416,14 +413,16 @@ public class StockReport implements IStockReport{
                 '}';
     }
 
+    @Override
     public void checkBO(){
-        if(this.companyName.isEmpty()){
-            throw new BusinessObjectException(StockOpResultCode.STOCK_OBJECT_COMPANY_IS_NULL,
-                    StockOpResultDescription.STOCK_OBJECT_COMPANY_IS_NULL);
-        }
-        if(this.baseDocumentType.isEmpty()){
+        super.checkBO();
+        if(this.baseDocumentType == null || this.baseDocumentType.isEmpty()){
             throw new BusinessObjectException(StockOpResultCode.STOCK_OBJECT_BASETYPE_IS_NULL,
                     StockOpResultDescription.STOCK_OBJECT_BASETYPE_IS_NULL);
+        }
+        if(this.documentStatus == null || this.documentStatus.isEmpty()){
+            throw new BusinessObjectException(StockOpResultCode.STOCK_OBJECT_DOCSTATUS_IS_NULL,
+                    StockOpResultDescription.STOCK_OBJECT_DOCSTATUS_IS_NULL);
         }
         this.stockReportItems.forEach(c->c.checkBO());
     }

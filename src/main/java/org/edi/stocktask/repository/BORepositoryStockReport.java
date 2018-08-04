@@ -1,10 +1,14 @@
 package org.edi.stocktask.repository;
 
+import org.edi.freamwork.bo.BusinessObjectException;
 import org.edi.freamwork.exception.BusinessException;
+import org.edi.freamwork.exception.DBException;
+import org.edi.freamwork.repository.BORepository;
 import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.stocktask.bo.stockreport.IStockReport;
 import org.edi.stocktask.bo.stockreport.StockReport;
 import org.edi.stocktask.bo.stockreport.StockReportItem;
+import org.edi.stocktask.data.StockOpResultCode;
 import org.edi.stocktask.mapper.StockReportMapper;
 import org.edi.stocktask.util.B1DocEntryVerification;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +30,7 @@ import java.util.List;
 
 
 @Component(value="boRepositoryStockReport")
-public class BORepositoryStockReport implements IBORepositoryStockReport{
+public class BORepositoryStockReport extends BORepository<StockReport> implements IBORepositoryStockReport{
 
     @Autowired
     private StockReportMapper stockReportMapper;
@@ -60,7 +64,6 @@ public class BORepositoryStockReport implements IBORepositoryStockReport{
         }
         return stockReports;
     }
-
 
 
     /**
@@ -136,36 +139,22 @@ public class BORepositoryStockReport implements IBORepositoryStockReport{
 
     /**
      * 保存任务汇报
-     * @param stockReports
+     * @param stockReport
      * @return
      */
-    public void saveStockReports(List<StockReport> stockReports) throws ParseException{
+    @Override
+    public void saveStockReport(StockReport stockReport) {
         DefaultTransactionDefinition def = new DefaultTransactionDefinition();
         def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-        StockReport stockReport;
-        DateFormat df=DateFormat.getDateTimeInstance();
-        String nowDate=df.format(new Date());
         TransactionStatus status = ptm.getTransaction(def);
         try {
-            for (int i = 0; i < stockReports.size(); i++) {
-                stockReport = stockReports.get(i);
-                //if(stockReport)
-                int docEntry = stockReportMapper.fetchSequenceOfDocEntry();
-                stockReport.setDocEntry(docEntry);
-                stockReport.setCreateDate(nowDate);
-                stockReportMapper.saveStockReport(stockReport);
-                for (int j = 0; j < stockReports.get(i).getStockReportItems().size(); j++) {
-                    StockReportItem stockReportItem = stockReports.get(i).getStockReportItems().get(j);
-                    stockReportItem.setDocEntry(docEntry);
-                    stockReportItem.setLineId(j + 1);
-                    stockReportMapper.saveStockReportItem(stockReportItem);
-                }
-            }
+            super.saveBO(stockReport);
             ptm.commit(status);
-        }catch(Exception e){
-            e.printStackTrace();
+        }catch (BusinessObjectException ex){
+            throw ex;
+        }catch (Exception e) {
             ptm.rollback(status);
-            throw e;
+            throw new DBException(StockOpResultCode.STOCK_OBJECT_DATABASE_ERROR,e.getMessage());
         }
     }
 
@@ -207,26 +196,24 @@ public class BORepositoryStockReport implements IBORepositoryStockReport{
 
     /**
      * 更新库存任务汇报
-     * @param stockReports
+     * @param stockReport
      * @return
      */
     @Override
-    public void updateStockReport(List<StockReport> stockReports)throws ParseException{
-        //TODO 更新库存任务汇报
-        //1、先查询库存任务汇报是否生成单据  （条件：B1DocEntry的值为null或者0）
-        //2、如果任务汇报没有生成单据，先删除再保存
-        for (int i=0;i<stockReports.size();i++) {
-            StockReport stockReport = stockReports.get(i);
-            if (!b1DocEntryVerification.B1EntryCheck(stockReport.getDocEntry())) {
-                throw new BusinessException(ResultDescription.B1DOCENTRY_IS_EXISTENT);
-            }
-                deleteStockReport(stockReport.getDocEntry());
-                updateSingleStockReport(stockReport);
+    public void updateStockReport(StockReport stockReport) {
+        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+        TransactionStatus status = ptm.getTransaction(def);
+        try {
+            super.updateBO(stockReport);
+            ptm.commit(status);
+        } catch (BusinessObjectException ex){
+            throw ex;
+        }catch (Exception e) {
+            ptm.rollback(status);
+            throw new DBException(StockOpResultCode.STOCK_OBJECT_DATABASE_ERROR,e.getMessage());
         }
-
     }
-
-
 
 
     /**
@@ -251,11 +238,7 @@ public class BORepositoryStockReport implements IBORepositoryStockReport{
             ptm.rollback(status);
             throw e;
         }
-
     }
-
-
-
 
     /**
      * 条件查询任务汇报
@@ -280,8 +263,6 @@ public class BORepositoryStockReport implements IBORepositoryStockReport{
     }
 
 
-
-
     /**
      * 模糊查询库存任务汇报
      * @param value
@@ -299,7 +280,36 @@ public class BORepositoryStockReport implements IBORepositoryStockReport{
     }
 
 
+    @Override
+    protected void save(StockReport stockReport) {
+        int docEntry = stockReportMapper.fetchSequenceOfDocEntry();
+        stockReport.setDocEntry(docEntry);
+        DateFormat df = DateFormat.getDateTimeInstance();
+        String nowDate = df.format(new Date());
+        stockReport.setCreateDate(nowDate);
+        stockReportMapper.saveStockReport(stockReport);
+        for (int j = 0; j < stockReport.getStockReportItems().size(); j++) {
+            StockReportItem stockReportItem = stockReport.getStockReportItems().get(j);
+            stockReportItem.setDocEntry(docEntry);
+            stockReportItem.setLineId(j + 1);
+            stockReportMapper.saveStockReportItem(stockReportItem);
+        }
+    }
+
+    @Override
+    protected void update(StockReport stockReport) {
+        if (!b1DocEntryVerification.B1EntryCheck(stockReport.getDocEntry())) {
+            throw new BusinessException(ResultDescription.B1DOCENTRY_IS_EXISTENT);
+        }
+        stockReportMapper.updateStockReport(stockReport);
+        for (int j = 0; j < stockReport.getStockReportItems().size(); j++) {
+            StockReportItem stockReportItem = stockReport.getStockReportItems().get(j);
+            stockReportMapper.updateStockReportItem(stockReportItem);
+        }
+    }
 
 
-
+    @Override
+    protected void delete(StockReport bo) {
+    }
 }

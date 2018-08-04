@@ -1,12 +1,14 @@
 package org.edi.stocktask.bo.stocktask;
 
+import org.edi.freamwork.bo.IDocumentBO;
+
 import java.util.List;
 
 /**
  * @author Fancy
  * @date 2018/5/25
  */
-public interface IStockTask {
+public interface IStockTask extends IDocumentBO{
 
     String getCompanyName();
 

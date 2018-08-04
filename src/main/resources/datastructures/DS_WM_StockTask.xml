@@ -25,6 +25,7 @@
         <Field Name="DocDueDate" Description="到期日" DataType="db_Date" SubType="st_None" EditSize="8" PropertyName="DeliveryDate" IsSystem="Yes" FixedDataType="System.DateTime" />
         <Field Name="TaxDate" Description="凭证日期" DataType="db_Date" SubType="st_None" EditSize="8" PropertyName="DocumentDate" IsSystem="Yes" FixedDataType="System.DateTime" />
         <Field Name="SchCode" Description="方案编码" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="SchemaCode" FixedDataType="System.String" />
+        <Field Name="IsDelete" Description="是否取消" DataType="db_Alpha" SubType="st_None" EditSize="1" PropertyName="IsDelete" FixedDataType="System.String" />
     </Table>
     <Table Name="AVA_WM_VIEW_STK1" Description="库存任务-行" Type="bott_SimpleBusinessObjectLines" State="bots_BoModelOnly" PropertyName="StockTaskLine">
         <Field Name="ObjectKey" Description="编号" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="ObjectKey" IsSystem="Yes" FixedDataType="System.Int32" IsPrimaryKey="Yes" />
@@ -66,6 +67,9 @@
             <ValidValue Value="2" Description="二条码扫描" />
             <ValidValue Value="3" Description="三条码扫描" />
         </Field>
+        <Field Name="CodeBar" Description="条码1" DataType="db_Alpha" SubType="st_None" EditSize="255" PropertyName="CodeBar" FixedDataType="System.String" />
+        <Field Name="CodeBar2" Description="条码2" DataType="db_Alpha" SubType="st_None" EditSize="255" PropertyName="CodeBar2" FixedDataType="System.String" />
+        <Field Name="CodeBar3" Description="条码3" DataType="db_Alpha" SubType="st_None" EditSize="255" PropertyName="CodeBar3" FixedDataType="System.String" />
         <Field Name="WaterCode" Description="行号" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="WaterCode"  FixedDataType="System.Int32" />
         <Field Name="GrapicCode" Description="编码" DataType="db_Alpha" SubType="st_None" EditSize="255" PropertyName="GrapicCode" FixedDataType="System.String" />
     </Table>
