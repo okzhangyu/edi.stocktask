@@ -4,12 +4,16 @@ import org.edi.freamwork.bo.BusinessObjectException;
 import org.edi.freamwork.exception.BusinessException;
 import org.edi.freamwork.exception.DBException;
 import org.edi.freamwork.repository.BORepository;
+import org.edi.freamwork.transcation.ITranscationParam;
+import org.edi.freamwork.transcation.TranscationParam;
+import org.edi.freamwork.transcation.TranscationResult;
 import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.stocktask.bo.stockreport.IStockReport;
 import org.edi.stocktask.bo.stockreport.StockReport;
 import org.edi.stocktask.bo.stockreport.StockReportItem;
 import org.edi.stocktask.data.StockOpResultCode;
 import org.edi.stocktask.mapper.StockReportMapper;
+import org.edi.stocktask.mapper.TranscationNoticeMapper;
 import org.edi.stocktask.util.B1DocEntryVerification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -40,7 +44,8 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
     @Autowired
     private PlatformTransactionManager ptm;
 
-
+    @Autowired
+    private TranscationNoticeMapper transcationNoticeMapper;
 
 
 
@@ -137,12 +142,6 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
     }
 
 
-
-
-
-
-
-
     /**
      * 更新库存任务汇报
      * @param stockReport
@@ -233,19 +232,20 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
     @Override
     protected void save(StockReport stockReport) {
         int docEntry;
-        if(stockReport.getDocEntry()==null){
-             docEntry = stockReportMapper.fetchSequenceOfDocEntry();
-        }else{
-             docEntry = stockReport.getDocEntry();
+        if (stockReport.getDocEntry() == null) {
+            docEntry = stockReportMapper.fetchSequenceOfDocEntry();
+            stockReport.setDocEntry(docEntry);
+        } else {
+            docEntry = stockReport.getDocEntry();
         }
-        stockReport.setDocEntry(docEntry);
+
         DateFormat df = DateFormat.getDateTimeInstance();
         String nowDate = df.format(new Date());
-       if(stockReport.getCreateDate()==null){
-           stockReport.setCreateDate(nowDate);
-       }else {
-           stockReport.setUpdateDate(nowDate);
-       }
+        if (stockReport.getCreateDate() == null) {
+            stockReport.setCreateDate(nowDate);
+        } else {
+            stockReport.setUpdateDate(nowDate);
+        }
         stockReportMapper.saveStockReport(stockReport);
         for (int j = 0; j < stockReport.getStockReportItems().size(); j++) {
             StockReportItem stockReportItem = stockReport.getStockReportItems().get(j);
@@ -275,5 +275,20 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
         }
         stockReportMapper.deleteStockReport(stockReport.getDocEntry());
         stockReportMapper.deleteStockReportItem(stockReport.getDocEntry());
+    }
+
+    @Override
+    protected void callTranscation(StockReport bo, String transType) {
+
+        HashMap<String,String> transParam = new HashMap<>();
+        transParam.put("object_type",bo.getObjectCode());
+        transParam.put("transaction_type",transType);
+        transParam.put("num_of_cols_in_key","1");
+        transParam.put("list_of_key_cols_tab_del","DocEntry");
+        transParam.put("list_of_cols_val_tab_del",bo.getDocEntry().toString());
+
+        TranscationResult result = transcationNoticeMapper.callTranscationNotice(transParam);
+        if(result.getErrorCode() != "0")
+            throw new BusinessObjectException(result.getErrorCode(),result.getMessage());
     }
 }

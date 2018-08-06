@@ -6,6 +6,8 @@ import org.edi.freamwork.bo.DocumentBOLine;
 import org.edi.stocktask.data.StockOpResultCode;
 import org.edi.stocktask.data.StockOpResultDescription;
 
+import java.util.List;
+
 /**
  * @author Fancy
  * @date 2018/5/27
@@ -25,14 +27,14 @@ public class StockReportItem extends DocumentBOLine implements IStockReportItem{
     private String distributionRule2;
     private String distributionRule3;
     private String distributionRule4;
-    private String distributionRule5;//
+    private String distributionRule5;
     private String originalDocumentType;
     private Integer originalDocumentEntry;
     private Integer originalDocumentLineId;
     private String targetDocumentType;
     private Integer targetDocumentEntry;
     private Integer targetDocumentLineId;
-    private String itemCode;//
+    private String itemCode;
     private String itemDescription;
     private Double quantity;
     private String inventoryUoM;
@@ -54,6 +56,7 @@ public class StockReportItem extends DocumentBOLine implements IStockReportItem{
     private String barCode3;
     private String barCode4;
     private String barCode5;
+    private List<StockReportMaterialItem> stockReportMaterialItems;
 
     @Override
     public Integer getDocEntry() {
@@ -484,6 +487,19 @@ public class StockReportItem extends DocumentBOLine implements IStockReportItem{
     public void setBarCode5(String barCode5) {
         this.barCode5 = barCode5;
     }
+
+
+    @Override
+    public List<StockReportMaterialItem> getStockReportMaterialItems() {
+        return stockReportMaterialItems;
+    }
+
+    @Override
+    public void setStockReportMaterialItems(List<StockReportMaterialItem> stockReportMaterialItems) {
+        this.stockReportMaterialItems = stockReportMaterialItems;
+    }
+
+    //public List<>
 
     public StockReportItem() {
     }

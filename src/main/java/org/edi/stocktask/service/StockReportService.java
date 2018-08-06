@@ -40,6 +40,7 @@ public class StockReportService implements  IStockReportService{
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/stockreport")
     @Override
+    @UserRequest
     public Result<StockReport> fetchStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token,
                                                 @QueryParam(StockTaskServicePath.SERVICE_SEARCH_PARAMETER)String param,
                                                 @QueryParam(ServicePath.SERVICE_BEGININDEX)int beginIndex,

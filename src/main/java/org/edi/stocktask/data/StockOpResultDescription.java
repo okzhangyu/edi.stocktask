@@ -19,4 +19,7 @@ public class StockOpResultDescription extends OpResultDescription {
     public static final String STOCK_OBJECT_DOCSTATUS_IS_NULL = "字段[documentStatus]为空";
 
     public static final String STOCK_OBJECT_LINESTATUS_IS_NULL = "字段[lineStatus]为空";
+
+    public static final String STOCK_OBJECT_OBJECTCODE_IS_NULL = "业务对象类型为空";
+
 }

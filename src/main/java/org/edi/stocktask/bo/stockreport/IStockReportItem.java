@@ -2,6 +2,8 @@ package org.edi.stocktask.bo.stockreport;
 
 import org.edi.freamwork.bo.IDocumentBOLine;
 
+import java.util.List;
+
 /**
  * @author Fancy
  * @date 2018/5/25
@@ -180,5 +182,8 @@ public interface IStockReportItem extends IDocumentBOLine{
 
     void setBarCode5(String value);
 
+    List<StockReportMaterialItem> getStockReportMaterialItems();
+
+    void setStockReportMaterialItems(List<StockReportMaterialItem> stockReportMaterialItems);
 
 }

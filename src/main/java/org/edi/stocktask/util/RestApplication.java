@@ -1,6 +1,7 @@
 package org.edi.stocktask.util;
 
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
+import org.edi.initialfantasy.filter.RequestFilter;
 import org.glassfish.jersey.server.ResourceConfig;
 
 
@@ -17,6 +18,7 @@ public class RestApplication extends ResourceConfig {
         packages("org.edi.initialfantasy.filter");
         //注册JSON转换器
         register(JacksonJsonProvider.class);
+        register(RequestFilter.class);
 
     }
 }

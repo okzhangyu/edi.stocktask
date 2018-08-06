@@ -67,12 +67,16 @@
         <Field Name="FromLC" Description="从库位" DataType="db_Alpha" SubType="st_None" EditSize="60" PropertyName="FromLocation" FixedDataType="System.String" />
         <Field Name="ToWH" Description="到仓库" DataType="db_Alpha" SubType="st_None" EditSize="8" PropertyName="ToWarehouse" FixedDataType="System.String" />
         <Field Name="ToLC" Description="到库位" DataType="db_Alpha" SubType="st_None" EditSize="60" PropertyName="ToLocation" FixedDataType="System.String" />
-        <Field Name="BatchNum" Description="批次号" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="BatchNumber" FixedDataType="System.String" />
-        <Field Name="SerialNum" Description="序列号" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="SerialNumber" FixedDataType="System.String" />
-        <Field Name="BarCode1" Description="条码1" DataType="db_Alpha" SubType="st_None" EditSize="60" PropertyName="BarCode1" FixedDataType="System.String" />
-        <Field Name="BarCode2" Description="条码2" DataType="db_Alpha" SubType="st_None" EditSize="60" PropertyName="BarCode2" FixedDataType="System.String" />
-        <Field Name="BarCode3" Description="条码3" DataType="db_Alpha" SubType="st_None" EditSize="60" PropertyName="BarCode3" FixedDataType="System.String" />
-        <Field Name="BarCode4" Description="条码4" DataType="db_Alpha" SubType="st_None" EditSize="60" PropertyName="BarCode4" FixedDataType="System.String" />
+    </Table>
+    <Table Name="AVA_WM_SRP1" Description="库存任务汇报-行" Type="bott_DocumentLines" State="bots_User" PropertyName="StockReportLine">
+        <Field Name="DocEntry" Description="编码" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="DocEntry" IsSystem="Yes" FixedDataType="System.Int32" IsPrimaryKey="Yes" />
+        <Field Name="LineId" Description="行号" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="LineId" IsSystem="Yes" FixedDataType="System.Int32" IsPrimaryKey="Yes" />
+        <Field Name="Object" Description="类型" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="ObjectCode" IsSystem="Yes" FixedDataType="System.String" />
+        <Field Name="ItemCode" Description="物料编码" DataType="db_Alpha" SubType="st_None" EditSize="20" PropertyName="ItemCode" FixedDataType="System.String" />
+        <Field Name="BarCode" Description="条码" DataType="db_Alpha" SubType="st_None" EditSize="60" PropertyName="BarCode" FixedDataType="System.String" />
+        <Field Name="BatchNumber" Description="批次号" DataType="db_Alpha" SubType="st_None" EditSize="60" PropertyName="BatchNumber" FixedDataType="System.String" />
+        <Field Name="SerialNumber" Description="序列号" DataType="db_Alpha" SubType="st_None" EditSize="60" PropertyName="SerialNumber" FixedDataType="System.String" />
+        <Field Name="Quantity" Description="数量" DataType="db_Float" SubType="st_Quantity" EditSize="8" PropertyName="Quantity" FixedDataType="System.Decimal" />
     </Table>
     <BusinessObject Code="AVA_WM_STKREPORT" Name="库存任务汇报" TableName="AVA_WM_OSRP" ObjectType="boud_Document" CanCancel="Yes" CanClose="Yes" CanDelete="Yes" CanYearTransfer="Yes" ManageSeries="Yes" PropertyName="StockReport">
         <ChildTables>

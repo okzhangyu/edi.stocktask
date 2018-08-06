@@ -74,6 +74,7 @@
         <result column="BarCode2" property="barCode2" jdbcType="VARCHAR" />
         <result column="BarCode3" property="barCode3" jdbcType="VARCHAR" />
         <result column="BarCode4" property="barCode4" jdbcType="VARCHAR" />
+
     </resultMap>
 
    <!-- SELECT * FROM AVA_WM_OSRP WITH(TABLOCKX)-->
