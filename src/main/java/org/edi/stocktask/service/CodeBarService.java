@@ -5,6 +5,7 @@ package org.edi.stocktask.service;
  * @date 2018/7/10
  */
 
+import org.apache.log4j.Logger;
 import org.edi.initialfantasy.data.ResultCode;
 import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.initialfantasy.data.ServicePath;
@@ -28,6 +29,9 @@ import java.util.List;
 @Path("/v1")
 @UserRequest
 public class CodeBarService implements ICodeBarService{
+    private static Logger log = Logger.getLogger(CodeBarService.class);
+
+
 
     @Autowired
     private IBORepositoryCodeBar boRepositoryCodeBar;
@@ -48,6 +52,7 @@ public class CodeBarService implements ICodeBarService{
             List<ICodeBar>  resultCodeBar = boRepositoryCodeBar.parseCodeBar(codeBar);
             result = new Result<>(ResultCode.OK, ResultDescription.OK,resultCodeBar);
         }catch (Exception e){
+            log.warn(e);
             result = new Result(ResultCode.FAIL,e);
         }
         return result;

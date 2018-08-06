@@ -56,6 +56,7 @@ public class StockReportService implements  IStockReportService{
             }
         }catch (Exception e){
             e.printStackTrace();
+            log.warn(e);
             result = new Result(ResultCode.FAIL, "failed:" + e.getCause(), null);
         }
         return result;
@@ -84,9 +85,11 @@ public class StockReportService implements  IStockReportService{
             boRepositoryStockReport.saveStockReport(stockReport);
             return new Result(ResultCode.OK, ResultDescription.OP_SUCCESSFUL, null);
         } catch (BusinessObjectException e) {
+            log.warn(e);
             return new Result(e);
         } catch (Exception e) {
             e.printStackTrace();
+            log.warn(e);
             return new Result(ResultCode.FAIL,e);
         }
     }
@@ -110,10 +113,12 @@ public class StockReportService implements  IStockReportService{
             boRepositoryStockReport.updateStockReport(stockReport);
             return new Result(ResultCode.OK, ResultDescription.OP_SUCCESSFUL,null);
         }catch (BusinessObjectException e){
+            log.warn(e);
             return new Result(e);
         }
         catch (Exception e) {
             e.printStackTrace();
+            log.warn(e);
             return new Result(ResultCode.FAIL,e);
         }
     }
@@ -136,6 +141,7 @@ public class StockReportService implements  IStockReportService{
             return new Result(ResultCode.OK, ResultDescription.OP_SUCCESSFUL, null);
         } catch (Exception e) {
             e.printStackTrace();
+            log.warn(e);
             return new Result(ResultCode.FAIL, e);
         }
     }

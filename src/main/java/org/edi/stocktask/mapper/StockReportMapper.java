@@ -22,10 +22,7 @@ public interface StockReportMapper {
     List<StockReport> fetchStockReportFuzzyByPage(HashMap<String,Object> params);
     void updateStockReport(StockReport stockReport);
     void updateStockReportItem(StockReportItem stockRepotItem);
-
     int fetchSequenceOfDocEntry();
-
     List<StockReport> fetchUnSyncStockReport();
-
     void updateStockReportDocStatus(StockReport stockReport);
 }
