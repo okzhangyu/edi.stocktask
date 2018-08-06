@@ -24,4 +24,8 @@ public class StockOpResultCode extends OpResultCode{
 
     public static final String STOCK_OBJECT_LINESTATUS_IS_NULL = "6102006";
 
+    public static final String STOCK_OBJECT_OBJECTCODE_IS_NULL = "6102007";
+
+    public static final String STOCK_CODEBAR_IS_NULL = "6102101";
+
 }

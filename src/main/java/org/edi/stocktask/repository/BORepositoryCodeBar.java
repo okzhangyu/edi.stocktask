@@ -3,6 +3,7 @@ package org.edi.stocktask.repository;
 import org.edi.freamwork.exception.BusinessException;
 import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.stocktask.bo.codeBar.ICodeBar;
+import org.edi.stocktask.data.StockOpResultCode;
 import org.edi.stocktask.mapper.CodeBarMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,8 +28,8 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
      */
     @Override
     public List<ICodeBar> parseCodeBar(String codebar) {
-        if(codebar==null||codebar.equals("")){
-            throw new BusinessException(ResultDescription.CODEBAR_IS_NULL);
+        if(codebar==null||codebar.isEmpty()){
+            throw new BusinessException(StockOpResultCode.STOCK_CODEBAR_IS_NULL,ResultDescription.CODEBAR_IS_NULL);
         }
         List<ICodeBar> listCodeBar;
         HashMap<String,String> codeBar = new HashMap();

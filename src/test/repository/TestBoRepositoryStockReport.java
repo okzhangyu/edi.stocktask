@@ -126,20 +126,20 @@ public class TestBoRepositoryStockReport extends TestCase{
 
 
     @Test
-    public void testSaveStockReport() throws Exception{
-        try{
-            List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask("",1,30);
-            if(stockTasks.size() > 0){
-                if(stockTasks != null){
-                    stockTask = stockTasks.get(4);
-                }
-                if(stockReport == null){
-                    stockReport  = StockReport.createStockReport(stockTask);
-                }
-                boRepositoryStockReport.saveStockReport(stockReport);
+    public void testSaveStockReport() {
+
+        List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask("", 1, 30);
+        if (stockTasks.size() > 0) {
+            if (stockTasks != null) {
+                stockTask = stockTasks.get(5);
             }
-        }catch (DBException ex){
-            System.out.println(ex.getCode()+"--"+ex.getMessage().toString());
+            if (stockReport == null) {
+                stockReport = StockReport.createStockReport(stockTask);
+            }
+            boRepositoryStockReport.saveStockReport(stockReport);
+            Assert.assertEquals(stockReport.getBaseDocumentType(), stockTask.getDocumentType());
+            Assert.assertEquals(stockReport.getBaseDocumentEntry(), stockTask.getDocumentEntry());
+
         }
 
     }

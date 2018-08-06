@@ -1,5 +1,6 @@
 package org.edi.stocktask.mapper;
 
+import org.edi.freamwork.transcation.TranscationResult;
 import org.edi.stocktask.bo.stockreport.StockReport;
 import org.edi.stocktask.bo.stockreport.StockReportItem;
 
