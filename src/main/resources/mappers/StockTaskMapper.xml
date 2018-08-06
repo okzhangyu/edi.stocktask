@@ -96,10 +96,8 @@
 
     <!-- List<IStockTask> fetchStockTaskFuzzyByPage(HashMap<String,Object> params);-->
     <select id="fetchStockTaskFuzzyByPage" resultMap="BaseResultMap" parameterType="map">
-        select * from(select ROW_NUMBER() over(order by ObjectKey desc) as rowId,* from AVA_WM_VIEW_OSTK) as t0
+        select * from(select ROW_NUMBER() over(order by ObjectKey desc) as rowId,* from AVA_WM_VIEW_OSTK
         <where>
-            t0.rowId between #{beginIndex}
-            and #{limit} AND
             (<if test="value != null and value != ''">
             DocEntry LIKE '%'+#{value}+'%'
         </if>
@@ -109,6 +107,11 @@
             <if test="value != null and value != ''">
                 or BpName LIKE '%'+#{value}+'%'
             </if>)
+        </where>
+        ) as t0
+        <where>
+            t0.rowId between #{beginIndex}
+            and #{limit}
         </where>
     </select>
 

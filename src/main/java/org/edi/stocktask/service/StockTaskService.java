@@ -1,5 +1,6 @@
 package org.edi.stocktask.service;
 
+import org.apache.log4j.Logger;
 import org.edi.initialfantasy.data.ResultCode;
 import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.initialfantasy.data.ServicePath;
@@ -27,6 +28,8 @@ import java.util.List;
 @Path("/v1")
 @UserRequest
 public class StockTaskService implements IStockTaskService{
+    private static Logger log = Logger.getLogger(StockTaskService.class);
+
 
     @Autowired
     private IBORepositoryStockTask boRepositoryStockTask;
@@ -58,6 +61,7 @@ public class StockTaskService implements IStockTaskService{
             }
 
         }catch(Exception e){
+            log.warn(e);
             result = new Result(ResultCode.FAIL,e);
         }
      return result;
@@ -87,6 +91,7 @@ public class StockTaskService implements IStockTaskService{
                 result = new Result<>(ResultCode.OK, ResultDescription.OK, stockTasks);
             }
         }catch(Exception e){
+            log.warn(e);
             result = new Result(ResultCode.FAIL,e);
         }
         return result;
@@ -109,6 +114,7 @@ public class StockTaskService implements IStockTaskService{
             List<IMaterial> materials = boRepositoryStockTask.fetchStockTaskMaterials(docEntry);
             result = new Result<>(ResultCode.OK,ResultDescription.OK,materials);
         }catch(Exception e){
+            log.warn(e);
             result = new Result(ResultCode.FAIL,e);
         }
         return result;

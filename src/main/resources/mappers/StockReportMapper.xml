@@ -162,19 +162,21 @@
 
 
     <select id="fetchStockReportFuzzyByPage" resultMap="BaseResultMap" parameterType="map">
-        select * from(select ROW_NUMBER() over(order by DocEntry desc) as rowId,* from AVA_WM_OSRP) as t0
+        select * from(select ROW_NUMBER() over(order by DocEntry desc) as rowId,* from AVA_WM_OSRP
         <where>
-            t0.rowId between #{beginIndex} and #{limit}
-            AND
             (<if test="value != null and value != ''">
-                DocEntry LIKE '%'+#{value}+'%'
-            </if>
+            DocEntry LIKE '%'+#{value}+'%'
+        </if>
             <if test="value != null and value != ''">
                 or BpCode LIKE '%'+#{value}+'%'
             </if>
             <if test="value != null and value != ''">
                 or BpName LIKE '%'+#{value}+'%'
             </if>)
+        </where>
+        ) as t0
+        <where>
+            t0.rowId between #{beginIndex} and #{limit}
         </where>
     </select>
 
