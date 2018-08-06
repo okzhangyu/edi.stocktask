@@ -18,7 +18,6 @@ public interface IStockTaskService {
 
     Result<IStockTask> fetchStockTask(String token,String param,int beginIndex,int limit);
 
-   /* Result<IStockTask> fetchStockTask(String token,String param);*/
 
     /**
      * 条件查询库存任务
