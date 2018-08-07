@@ -4,13 +4,12 @@ import org.edi.freamwork.bo.BusinessObjectException;
 import org.edi.freamwork.exception.BusinessException;
 import org.edi.freamwork.exception.DBException;
 import org.edi.freamwork.repository.BORepository;
-import org.edi.freamwork.transcation.ITranscationParam;
-import org.edi.freamwork.transcation.TranscationParam;
-import org.edi.freamwork.transcation.TranscationResult;
+import org.edi.initialfantasy.data.ResultCode;
 import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.stocktask.bo.stockreport.IStockReport;
 import org.edi.stocktask.bo.stockreport.StockReport;
 import org.edi.stocktask.bo.stockreport.StockReportItem;
+import org.edi.stocktask.bo.stockreport.StockReportMaterialItem;
 import org.edi.stocktask.data.StockOpResultCode;
 import org.edi.stocktask.mapper.StockReportMapper;
 import org.edi.stocktask.mapper.TranscationNoticeMapper;
@@ -71,6 +70,11 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
         for(int i=0;i<stockReports.size();i++){
             StockReport stockReport = stockReports.get(i);
             List<StockReportItem> stockReportItems = stockReportMapper.fetchStockReportItem(stockReport.getDocEntry());
+            for (int j=0;j<stockReportItems.size();j++){
+               StockReportItem stockReportItem = stockReportItems.get(j);
+                List<StockReportMaterialItem> stockReportMaterialItemList= stockReportMapper.fetchStockReportMaterialItem(stockReportItem.getDocEntry(),stockReportItem.getLineId());
+                stockReportItem.setStockReportMaterialItems(stockReportMaterialItemList);
+            }
             stockReport.setStockReportItems(stockReportItems);
         }
         return stockReports;
@@ -88,6 +92,10 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
     public StockReport fetchStockReport(Integer docEntry){
         StockReport stockReport = stockReportMapper.fetchStockReportByEntry(docEntry);
         List<StockReportItem> stockReportItems = stockReportMapper.fetchStockReportItem(docEntry);
+        for(StockReportItem stockReportItem:stockReportItems){
+          List<StockReportMaterialItem> stockReportMaterialItemList = stockReportMapper.fetchStockReportMaterialItem(stockReportItem.getDocEntry(),stockReportItem.getLineId());
+            stockReportItem.setStockReportMaterialItems(stockReportMaterialItemList);
+        }
         stockReport.setStockReportItems(stockReportItems);
         return stockReport;
     }
@@ -105,6 +113,10 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
             for(int i=0;i<stockReports.size();i++){
                 IStockReport stockReport = stockReports.get(i);
                 stockReportItems = stockReportMapper.fetchStockReportItem(stockReport.getDocEntry());
+                for(StockReportItem stockReportItem:stockReportItems){
+                    List<StockReportMaterialItem> stockReportMaterialItemList = stockReportMapper.fetchStockReportMaterialItem(stockReportItem.getDocEntry(),stockReportItem.getLineId());
+                    stockReportItem.setStockReportMaterialItems(stockReportMaterialItemList);
+                }
                 stockReport.setStockReportItems(stockReportItems);
             }
         }
@@ -181,6 +193,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
         try {
             stockReportMapper.deleteStockReport(docEntry);
             stockReportMapper.deleteStockReportItem(docEntry);
+            stockReportMapper.deleteStockReportMaterialItem(docEntry);
             ptm.commit(status);
         }catch(Exception e){
             e.printStackTrace();
@@ -206,7 +219,12 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
         for(int i=0;i<StockReports.size();i++){
             StockReport stockReport = StockReports.get(i);
             List<StockReportItem> StockReportItems = stockReportMapper.fetchStockReportItem(stockReport.getDocEntry());
+            for(StockReportItem stockReportItem:StockReportItems){
+                List<StockReportMaterialItem> stockReportMaterialItemList = stockReportMapper.fetchStockReportMaterialItem(stockReportItem.getDocEntry(),stockReportItem.getLineId());
+                stockReportItem.setStockReportMaterialItems(stockReportMaterialItemList);
+            }
             stockReport.setStockReportItems(StockReportItems);
+
         }
         return StockReports;
     }
@@ -223,6 +241,10 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
         for(int i=0;i<StockReports.size();i++){
             StockReport stockReport = StockReports.get(i);
             List<StockReportItem> StockReportItems = stockReportMapper.fetchStockReportItem(stockReport.getDocEntry());
+            for(StockReportItem stockReportItem:StockReportItems){
+                List<StockReportMaterialItem> stockReportMaterialItemList = stockReportMapper.fetchStockReportMaterialItem(stockReportItem.getDocEntry(),stockReportItem.getLineId());
+                stockReportItem.setStockReportMaterialItems(stockReportMaterialItemList);
+            }
             stockReport.setStockReportItems(StockReportItems);
         }
         return StockReports;
@@ -247,11 +269,20 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
             stockReport.setUpdateDate(nowDate);
         }
         stockReportMapper.saveStockReport(stockReport);
-        for (int j = 0; j < stockReport.getStockReportItems().size(); j++) {
-            StockReportItem stockReportItem = stockReport.getStockReportItems().get(j);
+        for (int i = 0;i< stockReport.getStockReportItems().size(); i++) {
+            StockReportItem stockReportItem = stockReport.getStockReportItems().get(i);
             stockReportItem.setDocEntry(docEntry);
-            stockReportItem.setLineId(j + 1);
+            stockReportItem.setLineId(i + 1);
             stockReportMapper.saveStockReportItem(stockReportItem);
+            for (int j=0;j<stockReportItem.getStockReportMaterialItems().size();j++){
+                StockReportMaterialItem stockReportMaterialItem = stockReportItem.getStockReportMaterialItems().get(j);
+                stockReportMaterialItem.setDocEntry(docEntry);
+                stockReportMaterialItem.setLineId(stockReportItem.getLineId());
+                if(stockReportMaterialItem.getBarCode()==null||stockReportMaterialItem.getBarCode().equals("")){
+                    throw new BusinessException(ResultCode.CODEBAR_IS_NULL,ResultDescription.CODEBAR_IS_NULL);
+                }
+                stockReportMapper.saveStockReportMaterialItem(stockReportMaterialItem);
+            }
         }
     }
 
@@ -275,9 +306,11 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
         }
         stockReportMapper.deleteStockReport(stockReport.getDocEntry());
         stockReportMapper.deleteStockReportItem(stockReport.getDocEntry());
+        stockReportMapper.deleteStockReportMaterialItem(stockReport.getDocEntry());
+
     }
 
-    @Override
+    /*@Override
     protected void callTranscation(StockReport bo, String transType) {
 
         HashMap<String,String> transParam = new HashMap<>();
@@ -290,5 +323,5 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
         TranscationResult result = transcationNoticeMapper.callTranscationNotice(transParam);
         if(result.getErrorCode() != "0")
             throw new BusinessObjectException(result.getErrorCode(),result.getMessage());
-    }
+    }*/
 }

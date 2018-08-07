@@ -104,4 +104,31 @@ CREATE TABLE [dbo].[AVA_WM_SRP1](
 
 GO
 
+/******************************************************************************************/
+
+/****** Object:  Table [dbo].[AVA_WM_SRP2]    Script Date: 2018/8/6 19:40:49 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[AVA_WM_SRP2](
+	[DocEntry] [int] NOT NULL,
+	[LineId] [int] NOT NULL,
+	[Object] [nvarchar](50) NULL,
+	[ItemCode] [nvarchar](50) NULL,
+	[BarCode] [nvarchar](50) NOT NULL,
+	[BatchNumber] [nvarchar](50) NULL,
+	[SerialNumber] [nvarchar](50) NULL,
+	[Quantity] [numeric](19, 6) NULL,
+ CONSTRAINT [PK_AVA_WM_SRP2] PRIMARY KEY CLUSTERED
+(
+	[DocEntry] ASC,
+	[LineId] ASC,
+	[BarCode] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
 
