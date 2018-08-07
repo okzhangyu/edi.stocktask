@@ -154,33 +154,6 @@ public interface IStockReportItem extends IDocumentBOLine{
 
     void setToLocation(String value);
 
-    String getBatchNumber();
-
-    void setBatchNumber(String value);
-
-    String getSerialNumber();
-
-    void setSerialNumber(String value);
-
-    String getBarCode1();
-
-    void setBarCode1(String value);
-
-    String getBarCode2();
-
-    void setBarCode2(String value);
-
-    String getBarCode3();
-
-    void setBarCode3(String value);
-
-    String getBarCode4();
-
-    void setBarCode4(String value);
-
-    String getBarCode5();
-
-    void setBarCode5(String value);
 
     List<StockReportMaterialItem> getStockReportMaterialItems();
 
