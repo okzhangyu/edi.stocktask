@@ -4,6 +4,7 @@ import org.edi.freamwork.bo.BusinessObjectException;
 import org.edi.freamwork.exception.BusinessException;
 import org.edi.freamwork.exception.DBException;
 import org.edi.freamwork.repository.BORepository;
+import org.edi.freamwork.transcation.TranscationResult;
 import org.edi.initialfantasy.data.ResultCode;
 import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.stocktask.bo.stockreport.IStockReport;
@@ -310,7 +311,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
 
     }
 
-    /*@Override
+    @Override
     protected void callTranscation(StockReport bo, String transType) {
 
         HashMap<String,String> transParam = new HashMap<>();
