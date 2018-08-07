@@ -288,7 +288,8 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
         transParam.put("list_of_cols_val_tab_del",bo.getDocEntry().toString());
 
         TranscationResult result = transcationNoticeMapper.callTranscationNotice(transParam);
-        if(result.getErrorCode() != "0")
-            throw new BusinessObjectException(result.getErrorCode(),result.getMessage());
+        if(!result.getErrorCode().equals("0")) {
+            throw new BusinessObjectException(result.getErrorCode(), result.getMessage());
+        }
     }
 }

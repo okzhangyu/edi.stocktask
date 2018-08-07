@@ -6,51 +6,48 @@ package org.edi.stocktask.bo.codeBar;
  */
 public class CodeBar implements  ICodeBar{
 
-    private String ProName;
-    private String ProValue;
-    private String ProDesc;
+    private String proName;
+    private String proValue;
+    private String proDesc;
 
 
     @Override
-    public String getProName() {return this.ProName;}
+    public String getProName() {return this.proName;}
     @Override
     public void setProName(String value){
-        this.ProName = value;
+        this.proName = value;
     }
 
     @Override
     public String getProDesc() {
-        return this.ProDesc;
+        return this.proDesc;
     }
 
     @Override
     public void setProDesc(String value) {
-        this.ProDesc = value;
+        this.proDesc = value;
     }
 
     @Override
     public String getProValue() {
-        return ProValue;
+        return proValue;
     }
     @Override
     public void setProValue(String value){
-        this.ProValue = value;
+        this.proValue = value;
     }
 
     public CodeBar() {
 
     }
 
-    public CodeBar(String proName, String proValue) {
-        ProName = proName;
-        ProValue = proValue;
-    }
 
     @Override
     public String toString() {
         return "CodeBar{" +
-                "ProName='" + ProName + '\'' +
-                ", ProValue='" + ProValue + '\'' +
+                "ProName='" + proName + '\'' +
+                ", ProValue='" + proValue + '\'' +
+                ", ProDesc='" + proDesc + '\'' +
                 '}';
     }
 }
