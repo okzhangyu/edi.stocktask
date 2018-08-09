@@ -3,6 +3,7 @@ package org.edi.stocktask.repository;
 import org.edi.freamwork.exception.BusinessException;
 import org.edi.freamwork.exception.DBException;
 import org.edi.freamwork.repository.BORepository;
+import org.edi.freamwork.transcation.TranscationResult;
 import org.edi.initialfantasy.data.ResultCode;
 import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.stocktask.bo.stockreport.IStockReport;
@@ -317,7 +318,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
 
     }
 
-    /*@Override
+    @Override
     protected void callTranscation(StockReport bo, String transType) {
 
         HashMap<String,String> transParam = new HashMap<>();
@@ -328,7 +329,8 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
         transParam.put("list_of_cols_val_tab_del",bo.getDocEntry().toString());
 
         TranscationResult result = transcationNoticeMapper.callTranscationNotice(transParam);
-        if(result.getErrorCode() != "0")
-            throw new BusinessObjectException(result.getErrorCode(),result.getMessage());
-    }*/
+        if(!result.getErrorCode().equals("0")) {
+            throw new BusinessObjectException(result.getErrorCode(), result.getMessage());
+        }
+    }
 }

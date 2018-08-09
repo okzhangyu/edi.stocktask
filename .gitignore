@@ -34,10 +34,7 @@ hs_err_pid*
 .DS_Store
 .cache
 *.iml
-
-edi.stocktask.iml
-edi.stocktask.iml
-edi.stocktask.iml
 web/index.jsp
 *.prefs
 .project
+
