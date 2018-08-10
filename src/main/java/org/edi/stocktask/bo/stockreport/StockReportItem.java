@@ -420,7 +420,7 @@ public class StockReportItem extends DocumentBOLine implements IStockReportItem{
 
     @Override
     public void setStockReportMaterialItems(List<StockReportMaterialItem> stockReportMaterialItems) {
-        this.stockReportMaterialItems = stockReportMaterialItems;
+        this.stockReportMaterialItems =stockReportMaterialItems;
     }
 
     //public List<>
@@ -480,5 +480,26 @@ public class StockReportItem extends DocumentBOLine implements IStockReportItem{
             throw new BusinessObjectException(StockOpResultCode.STOCK_OBJECT_LINESTATUS_IS_NULL,
                     StockOpResultDescription.STOCK_OBJECT_LINESTATUS_IS_NULL);
         }
+        if(getItemCode() ==null || getItemCode().isEmpty()){
+            throw new BusinessObjectException(StockOpResultCode.STOCK_OBJECT_ITEMCODE_IS_NULL,
+                    StockOpResultDescription.STOCK_OBJECT_ITEMCODE_IS_NULL);
+        }
+        if(getBaseDocumentEntry()<=0){
+            throw new BusinessObjectException(StockOpResultCode.STOCK_OBJECT_BASEENTRY_IS_INVALID,
+                    StockOpResultDescription.STOCK_OBJECT_BASEENTRY_IS_INVALID);
+        }
+        if(getBaseDocumentLineId()==null || getBaseDocumentLineId()==0){
+            throw new BusinessObjectException(StockOpResultCode.STOCK_OBJECT_BASELINE_IS_NULL,
+                    StockOpResultDescription.STOCK_OBJECT_BASELINE_IS_NULL);
+        }
+        if(getQuantity()<=0){
+            throw new BusinessObjectException(StockOpResultCode.STOCK_OBJECT_QUANTITY_IS_INVALID,
+                    StockOpResultDescription.STOCK_OBJECT_QUANTITY_IS_INVALID);
+        }
+        if(getToWarehouse() ==null || getToWarehouse().isEmpty()){
+            throw new BusinessObjectException(StockOpResultCode.STOCK_OBJECT_TOWAREHOUSE_IS_NULL,
+                    StockOpResultDescription.STOCK_OBJECT_TOWAREHOUSE_IS_NULL);
+        }
+
     }
 }

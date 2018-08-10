@@ -15,6 +15,7 @@ import org.edi.stocktask.data.StockOpResultCode;
 import org.edi.stocktask.mapper.StockReportMapper;
 import org.edi.stocktask.mapper.TranscationNoticeMapper;
 import org.edi.stocktask.util.B1DocEntryVerification;
+import org.edi.stocktask.util.ReportVerification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -146,11 +147,14 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
         try {
             super.saveBO(stockReport);
             ptm.commit(status);
-        }catch (BusinessObjectException ex){
+        }catch (BusinessException ex){
             throw ex;
-        }catch (Exception e) {
+        }catch (DBException e) {
             ptm.rollback(status);
             throw new DBException(StockOpResultCode.STOCK_OBJECT_DATABASE_ERROR,e.getMessage());
+        }catch(Exception e){
+            ptm.rollback(status);
+            throw  e;
         }
     }
 
@@ -169,11 +173,14 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
             delete(stockReport);
             save(stockReport);
             ptm.commit(status);
-        } catch (BusinessObjectException ex){
+        } catch (BusinessException ex){
             throw ex;
-        }catch (Exception e) {
+        }catch (DBException e) {
             ptm.rollback(status);
             throw new DBException(StockOpResultCode.STOCK_OBJECT_DATABASE_ERROR,e.getMessage());
+        }catch(Exception e){
+            ptm.rollback(status);
+            throw  e;
         }
     }
 
@@ -275,6 +282,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
             stockReportItem.setDocEntry(docEntry);
             stockReportItem.setLineId(i + 1);
             stockReportMapper.saveStockReportItem(stockReportItem);
+            ReportVerification.materialItemCheck(stockReportItem.getStockReportMaterialItems());
             for (int j=0;j<stockReportItem.getStockReportMaterialItems().size();j++){
                 StockReportMaterialItem stockReportMaterialItem = stockReportItem.getStockReportMaterialItems().get(j);
                 stockReportMaterialItem.setDocEntry(docEntry);
@@ -311,7 +319,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
 
     }
 
-    @Override
+
     protected void callTranscation(StockReport bo, String transType) {
 
         HashMap<String,String> transParam = new HashMap<>();

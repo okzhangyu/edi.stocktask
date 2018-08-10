@@ -84,7 +84,7 @@ public class BORepositoryStockTask implements  IBORepositoryStockTask {
 
 
     @Override
-    public List<IMaterial> fetchStockTaskMaterials(Integer docEntry) {
+    public List<IMaterial> fetchStockTaskMaterials(Integer docEntry){
         if(docEntry == 0){
             throw new BusinessException(StockOpResultDescription.DOCENTRY_IS_EMPTY);
         }

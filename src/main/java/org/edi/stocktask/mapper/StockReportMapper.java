@@ -27,8 +27,8 @@ public interface StockReportMapper {
     void updateStockReportDocStatus(StockReport stockReport);
 
 
-
     List<StockReportMaterialItem> fetchStockReportMaterialItem(Integer docEntry,Integer lineId);
     void saveStockReportMaterialItem(StockReportMaterialItem stockReportMaterialItem);
     void deleteStockReportMaterialItem(int docEntry);
+
 }
