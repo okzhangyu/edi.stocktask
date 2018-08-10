@@ -26,8 +26,10 @@ public class StockOpResultDescription extends OpResultDescription {
 
     public static final String STOCK_OBJECT_BASEENTRY_IS_INVALID = "字段[baseDocumentEntry]无效";
 
-    public static final String STOCK_OBJECT_BASELINE_IS_INVALID = "字段[baseDocumentLineId]无效";
+    public static final String STOCK_OBJECT_BASELINE_IS_NULL = "字段[baseDocumentLineId]为空";
 
     public static final String STOCK_OBJECT_QUANTITY_IS_INVALID = "字段[quantity]无效";
+
+    public static final String STOCK_OBJECT_TOWAREHOUSE_IS_NULL = "字段[toWareHouse]为空";
 
 }

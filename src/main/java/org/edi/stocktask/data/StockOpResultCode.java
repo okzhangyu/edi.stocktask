@@ -32,8 +32,10 @@ public class StockOpResultCode extends OpResultCode{
 
     public static final String STOCK_OBJECT_BASEENTRY_IS_INVALID = "6102103";
 
-    public static final String STOCK_OBJECT_BASELINE_IS_INVALID = "6102104";
+    public static final String STOCK_OBJECT_BASELINE_IS_NULL = "6102104";
 
     public static final String STOCK_OBJECT_QUANTITY_IS_INVALID = "6102105";
+
+    public static final String STOCK_OBJECT_TOWAREHOUSE_IS_NULL = "6102106";
 
 }

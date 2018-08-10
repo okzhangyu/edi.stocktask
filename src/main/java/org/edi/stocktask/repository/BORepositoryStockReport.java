@@ -1,5 +1,6 @@
 package org.edi.stocktask.repository;
 
+import org.edi.freamwork.bo.BusinessObjectException;
 import org.edi.freamwork.exception.BusinessException;
 import org.edi.freamwork.exception.DBException;
 import org.edi.freamwork.repository.BORepository;
@@ -318,7 +319,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
 
     }
 
-    @Override
+
     protected void callTranscation(StockReport bo, String transType) {
 
         HashMap<String,String> transParam = new HashMap<>();
