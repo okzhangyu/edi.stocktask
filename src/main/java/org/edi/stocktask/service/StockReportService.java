@@ -2,7 +2,7 @@ package org.edi.stocktask.service;
 
 
 import org.apache.log4j.Logger;
-import org.edi.freamwork.bo.BusinessObjectException;
+import org.edi.freamwork.exception.BusinessException;
 import org.edi.initialfantasy.data.ResultCode;
 import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.initialfantasy.data.ServicePath;
@@ -84,13 +84,13 @@ public class StockReportService implements  IStockReportService{
         try {
             boRepositoryStockReport.saveStockReport(stockReport);
             return new Result(ResultCode.OK, ResultDescription.OP_SUCCESSFUL, null);
-        } catch (BusinessObjectException e) {
+        } catch (BusinessException e) {
             log.warn(e);
             return new Result(e);
-        } catch (Exception e) {
+        }catch (Exception e){
             e.printStackTrace();
             log.warn(e);
-            return new Result(ResultCode.FAIL,e);
+            return new Result(e);
         }
     }
 
@@ -112,14 +112,13 @@ public class StockReportService implements  IStockReportService{
         try {
             boRepositoryStockReport.updateStockReport(stockReport);
             return new Result(ResultCode.OK, ResultDescription.OP_SUCCESSFUL,null);
-        }catch (BusinessObjectException e){
+        }catch (BusinessException e){
             log.warn(e);
             return new Result(e);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             log.warn(e);
-            return new Result(ResultCode.FAIL,e);
+            return new Result(e);
         }
     }
 
