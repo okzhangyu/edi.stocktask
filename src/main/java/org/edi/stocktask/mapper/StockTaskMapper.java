@@ -22,4 +22,6 @@ public interface StockTaskMapper {
      * @return
      */
     List<IMaterial> fetchStockTaskMaterial(Integer docEntry);
+
+    List<IStockTaskItem> fetchUnSyncStockTaskItem(Integer docEntry,String docType);
 }
