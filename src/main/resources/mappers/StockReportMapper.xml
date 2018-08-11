@@ -268,7 +268,7 @@
     </update>
 
     <select id="fetchUnSyncStockReport" resultMap="BaseResultMap" >
-        SELECT top 10 * FROM AVA_WM_OSRP  with(XLOCK) where B1DocEntry is null or B1DocEntry = 0
+        SELECT top 10 * FROM AVA_WM_OSRP  with(XLOCK) where (B1DocEntry is null or B1DocEntry = 0) and DocStatus = 'O' and IsDelete = 'N'
     </select>
 
     <update id="updateStockReportDocStatus"  parameterType="org.edi.stocktask.bo.stockreport.StockReport">
