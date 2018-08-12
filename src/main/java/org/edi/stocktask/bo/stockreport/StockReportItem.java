@@ -49,13 +49,7 @@ public class StockReportItem extends DocumentBOLine implements IStockReportItem{
     private String fromLocation;
     private String toWarehouse;
     private String toLocation;
-    private String batchNumber;
-    private String serialNumber;
-    private String barCode1;
-    private String barCode2;
-    private String barCode3;
-    private String barCode4;
-    private String barCode5;
+
     private List<StockReportMaterialItem> stockReportMaterialItems;
 
     @Override
@@ -418,76 +412,6 @@ public class StockReportItem extends DocumentBOLine implements IStockReportItem{
         this.toLocation = toLocation;
     }
 
-    @Override
-    public String getBatchNumber() {
-        return batchNumber;
-    }
-
-    @Override
-    public void setBatchNumber(String batchNumber) {
-        this.batchNumber = batchNumber;
-    }
-
-    @Override
-    public String getSerialNumber() {
-        return serialNumber;
-    }
-
-    @Override
-    public void setSerialNumber(String serialNumber) {
-        this.serialNumber = serialNumber;
-    }
-
-    @Override
-    public String getBarCode1() {
-        return barCode1;
-    }
-
-    @Override
-    public void setBarCode1(String barCode1) {
-        this.barCode1 = barCode1;
-    }
-
-    @Override
-    public String getBarCode2() {
-        return barCode2;
-    }
-
-    @Override
-    public void setBarCode2(String barCode2) {
-        this.barCode2 = barCode2;
-    }
-
-    @Override
-    public String getBarCode3() {
-        return barCode3;
-    }
-
-    @Override
-    public void setBarCode3(String barCode3) {
-        this.barCode3 = barCode3;
-    }
-
-    @Override
-    public String getBarCode4() {
-        return barCode4;
-    }
-
-    @Override
-    public void setBarCode4(String barCode4) {
-        this.barCode4 = barCode4;
-    }
-
-    @Override
-    public String getBarCode5() {
-        return barCode5;
-    }
-
-    @Override
-    public void setBarCode5(String barCode5) {
-        this.barCode5 = barCode5;
-    }
-
 
     @Override
     public List<StockReportMaterialItem> getStockReportMaterialItems() {
@@ -496,7 +420,7 @@ public class StockReportItem extends DocumentBOLine implements IStockReportItem{
 
     @Override
     public void setStockReportMaterialItems(List<StockReportMaterialItem> stockReportMaterialItems) {
-        this.stockReportMaterialItems = stockReportMaterialItems;
+        this.stockReportMaterialItems =stockReportMaterialItems;
     }
 
     //public List<>
@@ -543,13 +467,6 @@ public class StockReportItem extends DocumentBOLine implements IStockReportItem{
                 ", fromLocation='" + fromLocation + '\'' +
                 ", toWarehouse='" + toWarehouse + '\'' +
                 ", toLocation='" + toLocation + '\'' +
-                ", batchNumber='" + batchNumber + '\'' +
-                ", serialNumber='" + serialNumber + '\'' +
-                ", barCode1='" + barCode1 + '\'' +
-                ", barCode2='" + barCode2 + '\'' +
-                ", barCode3='" + barCode3 + '\'' +
-                ", barCode4='" + barCode4 + '\'' +
-                ", barCode5='" + barCode5 + '\'' +
                 '}';
     }
 
@@ -563,5 +480,26 @@ public class StockReportItem extends DocumentBOLine implements IStockReportItem{
             throw new BusinessObjectException(StockOpResultCode.STOCK_OBJECT_LINESTATUS_IS_NULL,
                     StockOpResultDescription.STOCK_OBJECT_LINESTATUS_IS_NULL);
         }
+        if(getItemCode() ==null || getItemCode().isEmpty()){
+            throw new BusinessObjectException(StockOpResultCode.STOCK_OBJECT_ITEMCODE_IS_NULL,
+                    StockOpResultDescription.STOCK_OBJECT_ITEMCODE_IS_NULL);
+        }
+        if(getBaseDocumentEntry()<=0){
+            throw new BusinessObjectException(StockOpResultCode.STOCK_OBJECT_BASEENTRY_IS_INVALID,
+                    StockOpResultDescription.STOCK_OBJECT_BASEENTRY_IS_INVALID);
+        }
+        if(getBaseDocumentLineId()==null || getBaseDocumentLineId()==0){
+            throw new BusinessObjectException(StockOpResultCode.STOCK_OBJECT_BASELINE_IS_NULL,
+                    StockOpResultDescription.STOCK_OBJECT_BASELINE_IS_NULL);
+        }
+        if(getQuantity()<=0){
+            throw new BusinessObjectException(StockOpResultCode.STOCK_OBJECT_QUANTITY_IS_INVALID,
+                    StockOpResultDescription.STOCK_OBJECT_QUANTITY_IS_INVALID);
+        }
+        if(getToWarehouse() ==null || getToWarehouse().isEmpty()){
+            throw new BusinessObjectException(StockOpResultCode.STOCK_OBJECT_TOWAREHOUSE_IS_NULL,
+                    StockOpResultDescription.STOCK_OBJECT_TOWAREHOUSE_IS_NULL);
+        }
+
     }
 }

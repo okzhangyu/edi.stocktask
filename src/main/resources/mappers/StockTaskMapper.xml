@@ -78,6 +78,12 @@
         SELECT * FROM AVA_WM_VIEW_STK1
     </select>
 
+    <select id="fetchUnSyncStockTaskItem" resultMap="BaseResultMapItem" >
+          select t1.* from AVA_WM_SRP1 t0 inner join AVA_WM_VIEW_STK1 t1
+         on t0.BaseType = t1.DocType and t0.BaseEntry = t1.ObjectKey and t0.BaseLine = t1.LineId
+         where t0.BaseEntry = #{objectKey} and t0.BaseType = #{docType}
+    </select>
+
     <select id="fetchStockTaskFuzzy" resultMap="BaseResultMap" parameterType="string">
         SELECT * FROM AVA_WM_VIEW_OSTK with(XLOCK)
         <where>

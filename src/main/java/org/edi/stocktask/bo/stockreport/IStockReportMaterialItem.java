@@ -19,9 +19,6 @@ public interface IStockReportMaterialItem  extends IDocumentBOLine {
 
     void setItemCode(String value);
 
-    String getItemDescription();
-
-    void setItemDescription(String value);
 
     Double getQuantity();
 

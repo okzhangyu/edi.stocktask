@@ -1,8 +1,8 @@
 package org.edi.stocktask.mapper;
 
-import org.edi.freamwork.transcation.TranscationResult;
 import org.edi.stocktask.bo.stockreport.StockReport;
 import org.edi.stocktask.bo.stockreport.StockReportItem;
+import org.edi.stocktask.bo.stockreport.StockReportMaterialItem;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,4 +25,10 @@ public interface StockReportMapper {
     int fetchSequenceOfDocEntry();
     List<StockReport> fetchUnSyncStockReport();
     void updateStockReportDocStatus(StockReport stockReport);
+
+
+    List<StockReportMaterialItem> fetchStockReportMaterialItem(Integer docEntry,Integer lineId);
+    void saveStockReportMaterialItem(StockReportMaterialItem stockReportMaterialItem);
+    void deleteStockReportMaterialItem(int docEntry);
+
 }

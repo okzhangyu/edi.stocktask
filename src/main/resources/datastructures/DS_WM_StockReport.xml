@@ -68,7 +68,8 @@
         <Field Name="ToWH" Description="到仓库" DataType="db_Alpha" SubType="st_None" EditSize="8" PropertyName="ToWarehouse" FixedDataType="System.String" />
         <Field Name="ToLC" Description="到库位" DataType="db_Alpha" SubType="st_None" EditSize="60" PropertyName="ToLocation" FixedDataType="System.String" />
     </Table>
-    <Table Name="AVA_WM_SRP1" Description="库存任务汇报-行" Type="bott_DocumentLines" State="bots_User" PropertyName="StockReportLine">
+
+    <Table Name="AVA_WM_SRP2" Description="库存任务汇报-行" Type="bott_DocumentLines" State="bots_User" PropertyName="StockReportLine">
         <Field Name="DocEntry" Description="编码" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="DocEntry" IsSystem="Yes" FixedDataType="System.Int32" IsPrimaryKey="Yes" />
         <Field Name="LineId" Description="行号" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="LineId" IsSystem="Yes" FixedDataType="System.Int32" IsPrimaryKey="Yes" />
         <Field Name="Object" Description="类型" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="ObjectCode" IsSystem="Yes" FixedDataType="System.String" />

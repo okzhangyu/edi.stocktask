@@ -68,14 +68,22 @@
         <result column="FromLC" property="fromLocation" jdbcType="VARCHAR" />
         <result column="ToWH" property="toWarehouse" jdbcType="VARCHAR" />
         <result column="ToLC" property="toLocation" jdbcType="VARCHAR" />
-        <result column="BatchNum" property="batchNumber" jdbcType="VARCHAR" />
-        <result column="SerialNum" property="serialNumber" jdbcType="VARCHAR" />
-        <result column="BarCode1" property="barCode1" jdbcType="VARCHAR" />
-        <result column="BarCode2" property="barCode2" jdbcType="VARCHAR" />
-        <result column="BarCode3" property="barCode3" jdbcType="VARCHAR" />
-        <result column="BarCode4" property="barCode4" jdbcType="VARCHAR" />
 
     </resultMap>
+
+
+    <resultMap id="BaseResultMapMaterialItem" type="org.edi.stocktask.bo.stockreport.StockReportMaterialItem">
+        <result column="DocEntry" property="docEntry" jdbcType="INTEGER" />
+        <result column="LineId" property="lineId" jdbcType="INTEGER" />
+        <result column="Object" property="objectCode" jdbcType="VARCHAR" />
+        <result column="ItemCode" property="itemCode" jdbcType="VARCHAR" />
+        <result column="BatchNumber" property="batchNumber" jdbcType="VARCHAR" />
+        <result column="SerialNumber" property="serialNumber" jdbcType="VARCHAR" />
+        <result column="BarCode" property="barCode" jdbcType="VARCHAR" />
+        <result column="Quantity" property="quantity" jdbcType="DECIMAL" />
+    </resultMap>
+
+
 
    <!-- SELECT * FROM AVA_WM_OSRP WITH(TABLOCKX)-->
     <select id="fetchStockReport" resultMap="BaseResultMap">
@@ -106,11 +114,11 @@
     <insert id="saveStockReportItem" parameterType="org.edi.stocktask.bo.stockreport.StockReportItem">
         INSERT INTO AVA_WM_SRP1([DocEntry] ,[LineId] ,[Object] ,[LineStatus] ,[Ref1] ,[Ref2] ,[BaseType] ,[BaseEntry],[BaseLine] ,[Project] ,[OcrCode1] ,[OcrCode2],[OcrCode3]
         ,[OcrCode4],[OcrCode5],[BSType] ,[BSEntry] ,[BSLine] ,[TargetType] ,[TargetEntry] ,[TargetLine] ,[ItemCode] ,[ItemName] ,[Quantity] ,[Uom] ,[ManSerNum] ,[ManBtchNum]
-        ,[ManServiceNum] ,[Price] ,[Currency] ,[Rate] ,[LineTotal] ,[FromWH] ,[FromLC] ,[ToWH] ,[ToLC] ,[BatchNum] ,[SerialNum] ,[BarCode1] ,[BarCode2] ,[BarCode3] ,[BarCode4])
+        ,[ManServiceNum] ,[Price] ,[Currency] ,[Rate] ,[LineTotal] ,[FromWH] ,[FromLC] ,[ToWH] ,[ToLC])
         VALUES (#{docEntry} ,#{lineId} ,#{objectCode} ,#{lineStatus} ,#{reference1} ,#{reference2},#{baseDocumentType} ,#{baseDocumentEntry} ,#{baseDocumentLineId} ,#{projectCode},#{distributionRule1}
         ,#{distributionRule2},#{distributionRule3} ,#{distributionRule4} ,#{distributionRule5},#{originalDocumentType} ,#{originalDocumentEntry} ,#{originalDocumentLineId},#{targetDocumentType} ,#{targetDocumentEntry} ,#{targetDocumentLineId},#{itemCode}
         ,#{itemDescription} ,#{quantity} ,#{inventoryUoM} ,#{serialNumberManagement} ,#{batchNumberManagement} ,#{serviceNumberManagement} ,#{price} ,#{currency} ,#{currencyRate} ,#{lineTotal} ,#{fromWarehose}
-        ,#{fromLocation} ,#{toWarehouse} ,#{toLocation} ,#{batchNumber} ,#{serialNumber} ,#{barCode1} ,#{barCode2} ,#{barCode3} ,#{barCode4})
+        ,#{fromLocation} ,#{toWarehouse} ,#{toLocation})
     </insert>
 
 
@@ -255,19 +263,15 @@
             <if test="fromLocation!=null">FromLC=#{fromLocation},</if>
             <if test="toWarehouse!=null">ToWH=#{toWarehouse},</if>
             <if test="toLocation!=null">ToLC=#{toLocation},</if>
-            <if test="batchNumber!=null">BatchNum=#{batchNumber},</if>
-            <if test="serialNumber!=null">SerialNum=#{serialNumber},</if>
-            <if test="barCode1!=null">BarCode1=#{barCode1},</if>
-            <if test="barCode2!=null">BarCode2=#{barCode2},</if>
-            <if test="barCode3!=null">BarCode3=#{barCode3},</if>
-            <if test="barCode4!=null">BarCode4=#{barCode4},</if>
         </trim>
         WHERE DocEntry=#{docEntry}
     </update>
 
     <select id="fetchUnSyncStockReport" resultMap="BaseResultMap" >
-        SELECT top 10 * FROM AVA_WM_OSRP  with(XLOCK) where B1DocEntry is null or B1DocEntry = 0
+        SELECT top 10 * FROM AVA_WM_OSRP  with(XLOCK) where (B1DocEntry is null or B1DocEntry = 0) and DocStatus = 'O' and IsDelete = 'N'
     </select>
+
+
 
     <update id="updateStockReportDocStatus"  parameterType="org.edi.stocktask.bo.stockreport.StockReport">
         <!--UPDATE AVA_WM_OSRP-->
@@ -289,5 +293,29 @@
     <select id="fetchSequenceOfDocEntry" resultType="int">
         SELECT NEXT VALUE FOR Seq_DocEntry
     </select>
+
+
+
+
+   <!--  List<StockReportMaterialItem> fetchStockReportMaterialItem(Integer docEntry,Integer lineId);-->
+    <select id="fetchStockReportMaterialItem" resultMap="BaseResultMapMaterialItem" parameterType="int">
+        SELECT * FROM AVA_WM_SRP2 where DocEntry=#{0} and LineId =#{1}
+    </select>
+
+
+    <!--void saveStockReportMaterialItem(StockReportMaterialItem stockReportMaterialItem);-->
+   <insert id="saveStockReportMaterialItem" parameterType="org.edi.stocktask.bo.stockreport.StockReportMaterialItem">
+    INSERT INTO [dbo].[AVA_WM_SRP2]([DocEntry],[LineId],[Object],[ItemCode],[BarCode],[BatchNumber],[SerialNumber],[Quantity])
+    VALUES(#{docEntry} ,#{lineId} ,#{objectCode} ,#{itemCode} ,#{barCode} ,#{batchNumber},#{serialNumber} ,#{quantity})
+   </insert>
+
+
+   <!--void deleteStockReportMaterialItem(int docEntry);-->
+    <delete id="deleteStockReportMaterialItem" parameterType="int">
+        delete from AVA_WM_SRP2
+        where docEntry = #{docEntry}
+    </delete>
+
+
 
 </mapper>
