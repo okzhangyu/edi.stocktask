@@ -34,11 +34,11 @@
     </bean>-->
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
-		<property name="url" value="jdbc:sqlserver://192.168.1.70;DatabaseName=TEST_HT024_02"/>
-		<property name="username" value="avasa6"/>
-		<property name="password" value="AVAtechAVA2018!"/>
-	</bean>
+	<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+	<property name="url" value="jdbc:sqlserver://192.168.1.70;DatabaseName=TEST_HT024_02"/>
+	<property name="username" value="avasa6"/>
+	<property name="password" value="AVAtechAVA2018!"/>
+    </bean>
 
 
 	<!-- 设置默认数据连接 -->
