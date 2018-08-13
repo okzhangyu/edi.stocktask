@@ -488,7 +488,7 @@ public class StockReportItem extends DocumentBOLine implements IStockReportItem{
             throw new BusinessObjectException(StockOpResultCode.STOCK_OBJECT_BASEENTRY_IS_INVALID,
                     StockOpResultDescription.STOCK_OBJECT_BASEENTRY_IS_INVALID);
         }
-        if(getBaseDocumentLineId()==null || getBaseDocumentLineId()==0){
+        if(getBaseDocumentLineId()==null){
             throw new BusinessObjectException(StockOpResultCode.STOCK_OBJECT_BASELINE_IS_NULL,
                     StockOpResultDescription.STOCK_OBJECT_BASELINE_IS_NULL);
         }
