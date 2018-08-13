@@ -11,7 +11,7 @@ public interface StockTaskMapper {
 
     List<IStockTask> fetchStockTask();
     List<IStockTask> fetchStockTaskByPage(int beginIndex,int limit);
-    List<IStockTaskItem> fetchStockTaskItem(Integer objectKey);
+    List<IStockTaskItem> fetchStockTaskItem(Integer objectKey,String docType);
     List<IStockTaskItem> fetchAllStockTaskItem();
     List<IStockTask> fetchStockTaskFuzzy(String value);
     List<IStockTask> fetchStockTaskFuzzyByPage(HashMap<String,Object> params);
@@ -23,5 +23,11 @@ public interface StockTaskMapper {
      */
     List<IMaterial> fetchStockTaskMaterial(Integer docEntry);
 
-    List<IStockTaskItem> fetchUnSyncStockTaskItem(Integer docEntry,String docType);
+    /**
+     * 查询已汇报的任务行
+     * @param docEntry 单据号
+     * @param docType 单据类型
+     * @return
+     */
+    List<IStockTaskItem> fetchSyncStockTaskItem(Integer docEntry,String docType);
 }

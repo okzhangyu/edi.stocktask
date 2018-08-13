@@ -1,6 +1,7 @@
 package org.edi.stocktask.bo.stocktask;
 
 import org.edi.freamwork.bo.DocumentBO;
+import org.edi.stocktask.data.StockTaskData;
 
 import java.util.List;
 
@@ -307,5 +308,23 @@ public class StockTask extends DocumentBO implements IStockTask{
                 ", stockTaskItems=" + stockTaskItems +
                 ", stockTaskBarCodeItems=" + stockTaskBarCodeItems +
                 '}';
+    }
+
+    @Override
+    public  void initDocStatus(){
+        if(this.getStockTaskItems() == null){
+            return;
+        }
+        Boolean isAllClose = true;
+        for (IStockTaskItem item:this.getStockTaskItems()) {
+            if(StockTaskData.OPEN.equals(item.getLineStatus())){
+                isAllClose = false;
+                break;
+            }
+        }
+        if(isAllClose){
+            this.setDocumentStatus(StockTaskData.CLOSE);
+        }
+
     }
 }
