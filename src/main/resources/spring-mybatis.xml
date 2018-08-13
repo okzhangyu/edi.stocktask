@@ -26,12 +26,12 @@
 	<context:component-scan base-package="org.edi.stocktask.*" />
 	<context:component-scan base-package="org.edi.initialfantasy.*"/>
 
-	<!--<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-	<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
-	<property name="url" value="jdbc:sqlserver://192.168.3.14;DatabaseName=StockManageDB"/>
-	<property name="username" value="sa"/>
-	<property name="password" value="avatech"/>
-    </bean>-->
+	<!--<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">-->
+	<!--<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>-->
+	<!--<property name="url" value="jdbc:sqlserver://192.168.3.14;DatabaseName=StockManageDB"/>-->
+	<!--<property name="username" value="sa"/>-->
+	<!--<property name="password" value="avatech"/>-->
+    <!--</bean>-->
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 	<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
