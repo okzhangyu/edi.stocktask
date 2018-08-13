@@ -105,4 +105,6 @@ public interface IStockTask extends IDocumentBO{
     List<IStockTaskBarCodeItem> getStockTaskBarCodeItems();
 
     void setStockTaskBarCodeItems(List<IStockTaskBarCodeItem> value);
+
+    void initDocStatus();
 }
