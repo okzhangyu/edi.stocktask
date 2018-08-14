@@ -57,4 +57,28 @@ public class ReportVerification {
               return keyList;
            }
 
+
+
+    public static void reportSaveCheck(StockReport stockReport){
+        if (stockReport.getBaseDocumentType()==null||stockReport.getBaseDocumentType().isEmpty()) {
+            throw new BusinessException(ResultCode.PARAMETER_IS_NULL,ResultDescription.PARAMETER_IS_NULL);
+        }
+        if(stockReport.getStockReportItems().size()==0){
+            throw new BusinessException(ResultCode.DETAIL_IS_NULL,ResultDescription.DETAIL_IS_NULL);
+        }
+
+    }
+
+
+
+    public static void reportUpdateCheck(StockReport stockReport){
+        if (stockReport.getDocEntry()==null) {
+            throw new BusinessException(ResultCode.PARAMETER_IS_NULL,ResultDescription.PARAMETER_IS_NULL);
+        }
+        if(stockReport.getStockReportItems().size()==0){
+            throw new BusinessException(ResultCode.DETAIL_IS_NULL,ResultDescription.DETAIL_IS_NULL);
+        }
+
+    }
+
 }

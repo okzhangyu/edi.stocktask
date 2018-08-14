@@ -2,6 +2,7 @@ package org.edi.stocktask.service;
 
 
 import org.apache.log4j.Logger;
+import org.edi.freamwork.bo.BusinessObjectException;
 import org.edi.freamwork.exception.BusinessException;
 import org.edi.initialfantasy.data.ResultCode;
 import org.edi.initialfantasy.data.ResultDescription;
@@ -12,6 +13,7 @@ import org.edi.stocktask.bo.stockreport.StockReport;
 import org.edi.stocktask.data.StockTaskServicePath;
 import org.edi.stocktask.repository.BORepositoryStockReport;
 import org.edi.stocktask.util.PageVerification;
+import org.edi.stocktask.util.ReportVerification;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.*;
@@ -78,13 +80,14 @@ public class StockReportService implements  IStockReportService{
     @Path("/stockreport")
     @Override
     public Result saveStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token,StockReport stockReport) {
-        if (stockReport == null) {
-            return new Result(ResultCode.FAIL, ResultDescription.PARAMETER_IS_NULL, null);
-        }
         try {
+            ReportVerification.reportSaveCheck(stockReport);
             boRepositoryStockReport.saveStockReport(stockReport);
             return new Result(ResultCode.OK, ResultDescription.OP_SUCCESSFUL, null);
         } catch (BusinessException e) {
+            log.warn(e);
+            return new Result(e);
+        }catch (BusinessObjectException e) {
             log.warn(e);
             return new Result(e);
         }catch (Exception e){
@@ -106,13 +109,14 @@ public class StockReportService implements  IStockReportService{
     @Path("/stockreport")
     @Override
     public Result updateStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token, StockReport stockReport) {
-        if (stockReport == null) {
-            return new Result(ResultCode.FAIL, ResultDescription.PARAMETER_IS_NULL, null);
-        }
         try {
+            ReportVerification.reportUpdateCheck(stockReport);
             boRepositoryStockReport.updateStockReport(stockReport);
             return new Result(ResultCode.OK, ResultDescription.OP_SUCCESSFUL,null);
         }catch (BusinessException e){
+            log.warn(e);
+            return new Result(e);
+        }catch (BusinessObjectException e) {
             log.warn(e);
             return new Result(e);
         } catch (Exception e) {
