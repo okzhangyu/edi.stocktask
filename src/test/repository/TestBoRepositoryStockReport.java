@@ -2,7 +2,6 @@ package repository;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
-import org.edi.freamwork.exception.DBException;
 import org.edi.stocktask.bo.codeBar.CodeBar;
 import org.edi.stocktask.bo.codeBar.ICodeBar;
 import org.edi.stocktask.bo.stockreport.StockReport;
@@ -70,7 +69,7 @@ public class TestBoRepositoryStockReport extends TestCase{
 
     @Test
     public void testParseCodeBar()throws Exception{
-        List<ICodeBar> codeBars = boRepositoryCodeBar.parseCodeBar("123456789963");
+        List<ICodeBar> codeBars = boRepositoryCodeBar.parseCodeBar("123456789963","",3,6);
         System.out.println(codeBars.get(0));
         CodeBar codeBar = new CodeBar();
         codeBar.setProName("ItemCode");

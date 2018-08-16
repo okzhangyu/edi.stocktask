@@ -7,14 +7,20 @@
         <result column="ProDesc" property="proDesc" jdbcType="VARCHAR" />
     </resultMap>
 
-    <parameterMap type="map" id="param">
+    <parameterMap type="map" id="codeBarParam">
         <parameter property="codebar" jdbcType="NVARCHAR" mode="IN"/>
+        <parameter property="baseType" jdbcType="NVARCHAR" mode="IN"/>
+        <parameter property="baseEntry" jdbcType="INTEGER" mode="IN"/>
+        <parameter property="baseLine" jdbcType="INTEGER" mode="IN"/>
     </parameterMap>
 
 
-    <select id="parseCodeBar" statementType="CALLABLE" parameterMap="param" resultMap="BaseResultMap">
-        {call ava_parse_codebar(
-    #{codebar, jdbcType = NVARCHAR, mode = IN}
+    <select id="parseCodeBar" statementType="CALLABLE" parameterMap="codeBarParam" resultMap="BaseResultMap">
+        {call AVA_SP_PARSE_CODEBAR(
+    #{codebar, jdbcType = NVARCHAR, mode = IN},
+    #{baseType, jdbcType = NVARCHAR, mode = IN},
+    #{baseEntry, jdbcType = INTEGER, mode = IN},
+    #{baseLine, jdbcType = INTEGER, mode = IN}
     )}
     </select>
 
