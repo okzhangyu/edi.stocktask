@@ -1,5 +1,6 @@
 package org.edi.stocktask.repository;
 
+import org.apache.log4j.Logger;
 import org.edi.freamwork.exception.BusinessException;
 import org.edi.initialfantasy.data.ResultCode;
 import org.edi.initialfantasy.data.ResultDescription;
@@ -17,6 +18,9 @@ import java.util.List;
  */
 @Component(value="boRepositoryCodeBar")
 public class BORepositoryCodeBar implements IBORepositoryCodeBar{
+    private static Logger log = Logger.getLogger(BORepositoryCodeBar.class);
+
+
 
     @Autowired
     private CodeBarMapper codeBarMapper;
@@ -37,13 +41,20 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
         if(baseEntry==0){
             throw new BusinessException(ResultCode.STOCK_BASEENTRY_IS_NULL,ResultDescription.STOCK_BASEENTRY_IS_NULL);
         }
-        List<ICodeBar> listCodeBar;
+        List<ICodeBar> listCodeBar = null;
         HashMap<String,Object> codeBarParam = new HashMap();
         codeBarParam.put("codebar",codebar);
         codeBarParam.put("baseType",baseType);
         codeBarParam.put("baseEntry",baseEntry);
         codeBarParam.put("baseLine",baseLine);
-        listCodeBar = codeBarMapper.parseCodeBar(codeBarParam);
+        try {
+            listCodeBar = codeBarMapper.parseCodeBar(codeBarParam);
+        }catch (Exception e){
+            e.printStackTrace();
+            log.warn(e);
+            throw new BusinessException(ResultCode.BARCODE_ANALYSIS_IS_FAIL,ResultDescription.BARCODE_ANALYSIS_IS_FAIL);
+        }
+
         return listCodeBar;
     }
 }
