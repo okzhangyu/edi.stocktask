@@ -98,7 +98,7 @@
 
 
     <select id="fetchStockReportByEntry" resultMap="BaseResultMap" parameterType="int">
-        SELECT * FROM AVA_WM_OSRP  with(XLOCK) where docEntry=#{docEntry}
+        SELECT * FROM AVA_WM_OSRP  where docEntry=#{docEntry}
     </select>
     <select id="fetchStockReportItem" resultMap="BaseResultMapItem" parameterType="int">
         SELECT * FROM AVA_WM_SRP1 where docEntry=#{docEntry}
@@ -136,7 +136,7 @@
 
 
     <select id="fetchStockReportByCondition" resultMap="BaseResultMap" parameterType="Map">
-        SELECT * FROM AVA_WM_OSRP with(XLOCK)
+        SELECT * FROM AVA_WM_OSRP
         <where>
             <if test="companyName != null and companyName != ''">
                 CompanyName = #{companyName}
@@ -154,7 +154,7 @@
 
 
     <select id="fetchStockReportFuzzy" resultMap="BaseResultMap" parameterType="string">
-        SELECT * FROM AVA_WM_OSRP with(XLOCK)
+        SELECT * FROM AVA_WM_OSRP
         <where>
             <if test="value != null and value != ''">
                 DocEntry LIKE '%'+#{value}+'%'
@@ -268,7 +268,7 @@
     </update>
 
     <select id="fetchUnSyncStockReport" resultMap="BaseResultMap" >
-        SELECT top 10 * FROM AVA_WM_OSRP  with(XLOCK) where (B1DocEntry is null or B1DocEntry = 0) and DocStatus = 'O' and IsDelete = 'N'
+        SELECT top 10 * FROM AVA_WM_OSRP  where (B1DocEntry is null or B1DocEntry = 0) and DocStatus = 'O' and IsDelete = 'N'
     </select>
 
 

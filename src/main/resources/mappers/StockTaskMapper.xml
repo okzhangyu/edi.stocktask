@@ -85,7 +85,7 @@
     </select>
 
     <select id="fetchStockTaskFuzzy" resultMap="BaseResultMap" parameterType="string">
-        SELECT * FROM AVA_WM_VIEW_OSTK with(XLOCK)
+        SELECT * FROM AVA_WM_VIEW_OSTK
         <where>
             <if test="value != null and value != ''">
                 DocEntry LIKE '%'+#{value}+'%'
@@ -127,7 +127,7 @@
 
 
     <select id="fetchStockTaskByCondition" resultMap="BaseResultMap" parameterType="Map">
-        SELECT * FROM AVA_WM_VIEW_OSTK with(XLOCK)
+        SELECT * FROM AVA_WM_VIEW_OSTK
         <where>
             <if test="docEntry != null and docEntry != ''">
                 DocEntry = #{docEntry}
