@@ -1,6 +1,5 @@
 package org.edi.stocktask.mapper;
 
-import org.edi.stocktask.bo.codeBar.CodeBar;
 import org.edi.stocktask.bo.codeBar.ICodeBar;
 
 import java.util.HashMap;
@@ -14,8 +13,8 @@ public interface CodeBarMapper {
 
     /**
      * 解析条码
-     * @param codeBar 条码值
+     * @param codeBarParam 条码值
      * @return 解析结果集合
      */
-    List<ICodeBar> parseCodeBar(HashMap<String,String> codeBar);
+    List<ICodeBar> parseCodeBar(HashMap<String,Object> codeBarParam);
 }

@@ -1,10 +1,7 @@
 package org.edi.stocktask.service;
 
 import org.edi.initialfantasy.dto.Result;
-import org.edi.stocktask.bo.codeBar.CodeBar;
 import org.edi.stocktask.bo.codeBar.ICodeBar;
-
-import java.util.HashMap;
 
 /**
  * @author Fancy
@@ -16,5 +13,5 @@ public interface ICodeBarService {
      * @param codeBar
      * @return
      */
-    Result<ICodeBar> parseCodeBar(String token, String codeBar);
+    Result<ICodeBar> parseCodeBar(String token, String codeBar ,String baseType, int baseEntry, int baseLine);
 }

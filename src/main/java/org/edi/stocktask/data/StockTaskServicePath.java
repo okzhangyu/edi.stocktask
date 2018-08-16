@@ -14,4 +14,10 @@ public class StockTaskServicePath {
 
     public final static String SERVICE_DOCTYPE = "docType";
 
+    public final static String SERVICE_BASETYPE = "baseType";
+
+    public final static String SERVICE_BASEENTRY= "baseEntry";
+
+    public final static String SERVICE_BASELINE = "baseLine";
+
 }

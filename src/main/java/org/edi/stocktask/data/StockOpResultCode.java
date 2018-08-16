@@ -38,4 +38,6 @@ public class StockOpResultCode extends OpResultCode{
 
     public static final String STOCK_OBJECT_TOWAREHOUSE_IS_NULL = "6102106";
 
+
+
 }
