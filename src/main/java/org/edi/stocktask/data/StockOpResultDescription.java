@@ -32,6 +32,8 @@ public class StockOpResultDescription extends OpResultDescription {
 
     public static final String STOCK_OBJECT_TOWAREHOUSE_IS_NULL = "字段[toWareHouse]为空";
 
+    public static final String STOCK_CODEBAR_IS_EMPTY = "条码信息为空";
+
     public static final String STOCK_BASETYPE_IS_NULL = "6102107";
 
     public static final String STOCK_BASEENTRY_IS_NULL = "6102108";
