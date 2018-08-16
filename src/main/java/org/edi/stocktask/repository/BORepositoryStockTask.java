@@ -6,6 +6,7 @@ import org.edi.stocktask.bo.material.IMaterial;
 import org.edi.stocktask.bo.stocktask.IStockTask;
 import org.edi.stocktask.bo.stocktask.IStockTaskItem;
 import org.edi.stocktask.data.StockOpResultDescription;
+import org.edi.stocktask.data.StockTaskData;
 import org.edi.stocktask.mapper.StockTaskMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,6 +35,7 @@ public class BORepositoryStockTask implements  IBORepositoryStockTask {
      */
     public List<IStockTask> fetchStockTask(String param,int beginIndex,int limit){
         List<IStockTask> stockTasks;
+        Boolean isAllColse;
         if(param!=null && !param.isEmpty()){
             HashMap<String,Object> params = new HashMap<>();
             params.put("value",param);
@@ -47,18 +49,14 @@ public class BORepositoryStockTask implements  IBORepositoryStockTask {
             return stockTasks;
         }
         for (int i = 0;i<stockTasks.size();i++){
-            List<IStockTaskItem> stockTaskItems = stockTaskMapper.fetchStockTaskItem(stockTasks.get(i).getObjectKey());
+            List<IStockTaskItem> stockTaskItems = stockTaskMapper.fetchStockTaskItem(stockTasks.get(i).getObjectKey(),stockTasks.get(i).getDocumentType());
             if(stockTaskItems!=null){
-                stockTasks.get(i).setStockTaskItems(stockTaskItems);
+               stockTasks.get(i).setStockTaskItems(stockTaskItems);
+               stockTasks.get(i).initDocStatus();
             }
         }
         return stockTasks;
     }
-
-
-
-
-
 
 
     @Override
@@ -66,6 +64,7 @@ public class BORepositoryStockTask implements  IBORepositoryStockTask {
         if(docEntry==0){
             throw new BusinessException(ResultDescription.DOCENTRY_IS_NULL);
         }
+        Boolean isAllColse;
         HashMap<String,Object> stockTaskCondition = new HashMap<>();
         stockTaskCondition.put("docEntry",docEntry);
         stockTaskCondition.put("docType",docType);
@@ -74,14 +73,14 @@ public class BORepositoryStockTask implements  IBORepositoryStockTask {
             return stockTasks;
         }
         for (int i = 0;i<stockTasks.size();i++){
-            List<IStockTaskItem> stockTaskItems = stockTaskMapper.fetchStockTaskItem(stockTasks.get(i).getObjectKey());
+            List<IStockTaskItem> stockTaskItems = stockTaskMapper.fetchSyncStockTaskItem(stockTasks.get(i).getObjectKey(),stockTasks.get(i).getDocumentType());
             if(stockTaskItems!=null){
                 stockTasks.get(i).setStockTaskItems(stockTaskItems);
+                stockTasks.get(i).initDocStatus();
             }
         }
         return stockTasks;
     }
-
 
     @Override
     public List<IMaterial> fetchStockTaskMaterials(Integer docEntry){
@@ -92,15 +91,6 @@ public class BORepositoryStockTask implements  IBORepositoryStockTask {
         return materials;
     }
 
-    /**
-     * 根据OBJECTKEY查询库存任务明细
-     * @param objectKey
-     * @return
-     */
-    public List<IStockTaskItem> fetchStockTaskItem(Integer objectKey){
-        List<IStockTaskItem> stockTaskItems = stockTaskMapper.fetchStockTaskItem(objectKey);
-        return stockTaskItems;
-    }
 
 
 }

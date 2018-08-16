@@ -1,10 +1,18 @@
-/****** Object:  StoredProcedure [dbo].[ava_parse_codebar]    Script Date: 2018/7/31 10:31:01 ******/
+USE [StockManageDB]
+GO
+
+/****** Object:  StoredProcedure [dbo].[AVA_SP_PARSE_CODEBAR]    Script Date: 2018/8/15 15:12:10 ******/
 SET ANSI_NULLS ON
 GO
+
 SET QUOTED_IDENTIFIER ON
 GO
-ALTER PROCEDURE [dbo].[ava_parse_codebar](
-	@codebar nvarchar(300) --条码值
+
+CREATE PROCEDURE [dbo].[AVA_SP_PARSE_CODEBAR](
+	@codebar nvarchar(300), --条码值
+	@basetype nvarchar(300), --基于类型
+	@baseentry int, --基于单号
+	@baseline int --基于行号
 )
 As
 
@@ -24,3 +32,6 @@ As
 		union
 		select 'Price','价格','19999.99'
 	End
+GO
+
+

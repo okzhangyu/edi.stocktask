@@ -28,21 +28,6 @@ public class ReportVerification {
         if(stockReportMaterialItems.size()==0||stockReportMaterialItems==null){
             throw new BusinessException(ResultCode.MATERIALITEM_IS_NULL,ResultDescription.MATERIALITEM_IS_NULL);
         }
-
-        HashMap<Integer,String> codeBarMap = new HashMap<>();
-        for(int i=0;i<stockReportMaterialItems.size();i++){
-            StockReportMaterialItem stockReportMaterialItem = stockReportMaterialItems.get(i);
-            codeBarMap.put(i+1,stockReportMaterialItem.getBarCode());
-        }
-
-
-        for(StockReportMaterialItem stockReportMaterialItem:stockReportMaterialItems){
-            String barCode = stockReportMaterialItem.getBarCode();
-            if(getKeyList(codeBarMap,barCode).size()>1){
-                throw new BusinessException(ResultCode.CODEBAR_IS_REPEAT,ResultDescription.CODEBAR_IS_REPEAT);
-            }
-
-        }
     }
 
 
@@ -56,5 +41,29 @@ public class ReportVerification {
                    }
               return keyList;
            }
+
+
+
+    public static void reportSaveCheck(StockReport stockReport){
+        if (stockReport.getBaseDocumentType()==null||stockReport.getBaseDocumentType().isEmpty()) {
+            throw new BusinessException(ResultCode.PARAMETER_IS_NULL,ResultDescription.PARAMETER_IS_NULL);
+        }
+        if(stockReport.getStockReportItems().size()==0){
+            throw new BusinessException(ResultCode.DETAIL_IS_NULL,ResultDescription.DETAIL_IS_NULL);
+        }
+
+    }
+
+
+
+    public static void reportUpdateCheck(StockReport stockReport){
+        if (stockReport.getDocEntry()==null) {
+            throw new BusinessException(ResultCode.PARAMETER_IS_NULL,ResultDescription.PARAMETER_IS_NULL);
+        }
+        if(stockReport.getStockReportItems().size()==0){
+            throw new BusinessException(ResultCode.DETAIL_IS_NULL,ResultDescription.DETAIL_IS_NULL);
+        }
+
+    }
 
 }

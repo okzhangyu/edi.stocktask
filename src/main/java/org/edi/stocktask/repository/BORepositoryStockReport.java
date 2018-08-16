@@ -73,7 +73,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
             StockReport stockReport = stockReports.get(i);
             List<StockReportItem> stockReportItems = stockReportMapper.fetchStockReportItem(stockReport.getDocEntry());
             for (int j=0;j<stockReportItems.size();j++){
-               StockReportItem stockReportItem = stockReportItems.get(j);
+                StockReportItem stockReportItem = stockReportItems.get(j);
                 List<StockReportMaterialItem> stockReportMaterialItemList= stockReportMapper.fetchStockReportMaterialItem(stockReportItem.getDocEntry(),stockReportItem.getLineId());
                 stockReportItem.setStockReportMaterialItems(stockReportMaterialItemList);
             }
@@ -216,6 +216,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
      * @param baseDocumentType
      * @param baseDocumentEntry
      * @return
+     *
      */
     @Override
     public List<StockReport> fetchStockReportByCondition(String companyName, String baseDocumentType, String baseDocumentEntry) {
@@ -321,7 +322,6 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
 
 
     protected void callTranscation(StockReport bo, String transType) {
-
         HashMap<String,String> transParam = new HashMap<>();
         transParam.put("object_type",bo.getObjectCode());
         transParam.put("transaction_type",transType);
@@ -330,7 +330,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
         transParam.put("list_of_cols_val_tab_del",bo.getDocEntry().toString());
 
         TranscationResult result = transcationNoticeMapper.callTranscationNotice(transParam);
-        if(!result.getErrorCode().equals("0")) {
+        if(!result.getErrorCode().equals("0")){
             throw new BusinessObjectException(result.getErrorCode(), result.getMessage());
         }
     }

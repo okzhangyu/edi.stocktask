@@ -6,6 +6,7 @@ package org.edi.stocktask.service;
  */
 
 import org.apache.log4j.Logger;
+import org.edi.freamwork.exception.BusinessException;
 import org.edi.initialfantasy.data.ResultCode;
 import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.initialfantasy.data.ServicePath;
@@ -46,14 +47,24 @@ public class CodeBarService implements ICodeBarService{
     @Path("/codebar")
     @Override
     public Result<ICodeBar> parseCodeBar(@QueryParam(ServicePath.TOKEN_NAMER)String token,
-                                         @QueryParam(StockTaskServicePath.SERVICE_CODEBAR)String codeBar) {
+                                         @QueryParam(StockTaskServicePath.SERVICE_CODEBAR)String codeBar,
+                                         @QueryParam(StockTaskServicePath.SERVICE_BASETYPE)String baseType,
+                                         @QueryParam(StockTaskServicePath.SERVICE_BASEENTRY)int baseEntry,
+                                         @QueryParam(StockTaskServicePath.SERVICE_BASELINE)int baseLine) {
         Result<ICodeBar> result;
         try{
-            List<ICodeBar>  resultCodeBar = boRepositoryCodeBar.parseCodeBar(codeBar);
-            result = new Result<>(ResultCode.OK, ResultDescription.OK,resultCodeBar);
+            List<ICodeBar>  resultCodeBar = boRepositoryCodeBar.parseCodeBar(codeBar,baseType,baseEntry,baseLine);
+            if (resultCodeBar.size()==0){
+                result = new Result(ResultCode.OK, ResultDescription.CODEBARINFO_IS_EMPTY,resultCodeBar);
+            }else {
+                result = new Result<>(ResultCode.OK, ResultDescription.OK,resultCodeBar);
+            }
+        }catch (BusinessException e){
+            log.warn(e);
+            result = new Result(e);
         }catch (Exception e){
             log.warn(e);
-            result = new Result(ResultCode.FAIL,e);
+            result = new Result(e);
         }
         return result;
     }
