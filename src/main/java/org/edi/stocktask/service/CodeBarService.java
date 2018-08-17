@@ -59,7 +59,7 @@ public class CodeBarService implements ICodeBarService{
         try{
             List<ICodeBar>  resultCodeBar = boRepositoryCodeBar.parseCodeBar(codeBar,baseType,baseEntry,baseLine);
             if (resultCodeBar.size()==0){
-                result = new Result(ResultCode.OK, ResultDescription.CODEBARINFO_IS_EMPTY,resultCodeBar);
+                result = new Result(ResultCode.OK, StockOpResultDescription.CODEBARINFO_IS_EMPTY,resultCodeBar);
             }else {
                 result = new Result<>(ResultCode.OK, ResultDescription.OK,resultCodeBar);
             }

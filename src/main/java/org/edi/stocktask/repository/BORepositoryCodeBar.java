@@ -1,15 +1,12 @@
 package org.edi.stocktask.repository;
 
 import org.apache.log4j.Logger;
-import org.edi.freamwork.bo.BusinessObjectException;
 import org.edi.freamwork.exception.BusinessException;
-import org.edi.initialfantasy.data.ResultCode;
-import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.stocktask.bo.codeBar.ICodeBar;
 import org.edi.stocktask.bo.stockreport.StockReportItem;
-import org.edi.stocktask.bo.stocktask.IStockTask;
 import org.edi.stocktask.bo.stocktask.IStockTaskItem;
-import org.edi.stocktask.bo.stocktask.StockTask;
+import org.edi.stocktask.data.StockOpResultCode;
+import org.edi.stocktask.data.StockOpResultDescription;
 import org.edi.stocktask.data.StockTaskData;
 import org.edi.stocktask.mapper.CodeBarMapper;
 import org.edi.stocktask.mapper.StockTaskMapper;
@@ -27,6 +24,9 @@ import java.util.List;
 @Component(value="boRepositoryCodeBar")
 public class BORepositoryCodeBar implements IBORepositoryCodeBar{
     private static Logger log = Logger.getLogger(BORepositoryCodeBar.class);
+    private final static String OK = "0";
+    private final static String CODE = "RETURNCODE";
+    private final static String MESSAGE = "MESSAGE";
 
 
 
@@ -44,13 +44,13 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
     @Override
     public List<ICodeBar> parseCodeBar(String codebar,String baseType,int baseEntry,int baseLine) {
         if(codebar==null||codebar.isEmpty()){
-            throw new BusinessException(ResultCode.CODEBAR_IS_NULL,ResultDescription.CODEBAR_IS_NULL);
+            throw new BusinessException(StockOpResultCode.CODEBAR_IS_NULL,StockOpResultDescription.CODEBAR_IS_NULL);
         }
         if(baseType==null||baseType.isEmpty()){
-            throw new BusinessException(ResultCode.STOCK_BASETYPE_IS_NULL,ResultDescription.STOCK_BASETYPE_IS_NULL);
+            throw new BusinessException(StockOpResultCode.STOCK_BASETYPE_IS_NULL, StockOpResultDescription.STOCK_BASETYPE_IS_NULL);
         }
         if(baseEntry==0){
-            throw new BusinessException(ResultCode.STOCK_BASEENTRY_IS_NULL,ResultDescription.STOCK_BASEENTRY_IS_NULL);
+            throw new BusinessException(StockOpResultCode.STOCK_BASEENTRY_IS_NULL,StockOpResultDescription.STOCK_BASEENTRY_IS_NULL);
         }
         List<ICodeBar> listCodeBar = null;
         HashMap<String,Object> codeBarParam = new HashMap();
@@ -60,10 +60,20 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
         codeBarParam.put("baseLine",baseLine);
         try {
             listCodeBar = codeBarMapper.parseCodeBar(codeBarParam);
+            for (ICodeBar item:listCodeBar) {
+                if(CODE.equals(item.getProName().toUpperCase())){
+                    if(!item.getProValue().equals(OK)){
+                        throw new BusinessException(item.getProValue(),item.getProDesc());
+                    }else {
+                        return listCodeBar;
+                    }
+                }
+            }
+
         }catch (Exception e){
             e.printStackTrace();
             log.warn(e);
-            throw new BusinessException(ResultCode.BARCODE_ANALYSIS_IS_FAIL,String.format(ResultDescription.BARCODE_ANALYSIS_IS_FAIL,codebar));
+            throw new BusinessException(StockOpResultCode.BARCODE_ANALYSIS_IS_FAIL,String.format(StockOpResultDescription.BARCODE_ANALYSIS_IS_FAIL,codebar));
         }
 
         return listCodeBar;
@@ -77,10 +87,9 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
     @Override
     public List<StockReportItem> parseBatchCodeBar(List<String> codeBars) {
         try{
-            List<ICodeBar> listCodeBar = null;
             HashMap<String,Object> codeBarParam;
             List<StockReportItem> stockReportItems = new ArrayList<>();
-            StockReportItem stockReportItem;
+            List<ICodeBar> listCodeBar = null;
             List<List<ICodeBar>> listCodeBars = new ArrayList<>();
             //解析条码集合
             for (String codeBar:codeBars) {
@@ -91,7 +100,7 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
                 codeBarParam.put("baseLine","");
                 listCodeBar = codeBarMapper.parseCodeBar(codeBarParam);
                 if(listCodeBar == null || listCodeBar.size() ==0){
-                    throw new BusinessException(ResultCode.BARCODE_ANALYSIS_IS_FAIL,String.format(ResultDescription.BARCODE_ANALYSIS_IS_FAIL,codeBar));
+                    throw new BusinessException(StockOpResultCode.BARCODE_ANALYSIS_IS_FAIL,String.format(StockOpResultDescription.BARCODE_ANALYSIS_IS_FAIL,codeBar));
                 }
                 listCodeBars.add(listCodeBar);
             }
@@ -107,14 +116,11 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
 
             // 对解析对条码和任务行进行匹配   根据任务行获取汇报行  调用汇报行的静态方法
             if(stockTasks == null || stockTasks.size() == 0){
-                throw new BusinessException(ResultCode.BARCODE_ANALYSIS_IS_FAIL,ResultDescription.BARCODE_ANALYSIS_IS_FAIL);
+                throw new BusinessException(StockOpResultCode.BARCODE_ANALYSIS_IS_FAIL,StockOpResultDescription.BARCODE_ANALYSIS_IS_FAIL);
             }
-
-
-
             return stockReportItems;
         }catch (Exception e){
-            throw new BusinessException(ResultCode.BARCODE_ANALYSIS_IS_FAIL,ResultDescription.BARCODE_ANALYSIS_IS_FAIL);
+            throw new BusinessException(StockOpResultCode.BARCODE_ANALYSIS_IS_FAIL,StockOpResultDescription.BARCODE_ANALYSIS_IS_FAIL);
         }
     }
 

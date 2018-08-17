@@ -5,13 +5,12 @@ import org.edi.freamwork.exception.BusinessException;
 import org.edi.freamwork.exception.DBException;
 import org.edi.freamwork.repository.BORepository;
 import org.edi.freamwork.transcation.TranscationResult;
-import org.edi.initialfantasy.data.ResultCode;
-import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.stocktask.bo.stockreport.IStockReport;
 import org.edi.stocktask.bo.stockreport.StockReport;
 import org.edi.stocktask.bo.stockreport.StockReportItem;
 import org.edi.stocktask.bo.stockreport.StockReportMaterialItem;
 import org.edi.stocktask.data.StockOpResultCode;
+import org.edi.stocktask.data.StockOpResultDescription;
 import org.edi.stocktask.mapper.StockReportMapper;
 import org.edi.stocktask.mapper.TranscationNoticeMapper;
 import org.edi.stocktask.util.B1DocEntryVerification;
@@ -172,6 +171,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
         try {
             delete(stockReport);
             save(stockReport);
+            this.callTranscation(stockReport,"U");
             ptm.commit(status);
         } catch (BusinessException ex){
             throw ex;
@@ -196,7 +196,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
         def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
         TransactionStatus status = ptm.getTransaction(def);
         if(!b1DocEntryVerification.B1EntryCheck(docEntry)){
-            throw new BusinessException(ResultDescription.B1DOCENTRY_IS_EXISTENT);
+            throw new BusinessException(StockOpResultCode.B1DOCENTRY_IS_EXISTENT, StockOpResultDescription.B1DOCENTRY_IS_EXISTENT);
         }
         try {
             stockReportMapper.deleteStockReport(docEntry);
@@ -289,7 +289,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
                 stockReportMaterialItem.setDocEntry(docEntry);
                 stockReportMaterialItem.setLineId(stockReportItem.getLineId());
                 if(stockReportMaterialItem.getBarCode()==null||stockReportMaterialItem.getBarCode().equals("")){
-                    throw new BusinessException(ResultCode.CODEBAR_IS_NULL,ResultDescription.CODEBAR_IS_NULL);
+                    throw new BusinessException(StockOpResultCode.CODEBAR_IS_NULL,StockOpResultDescription.CODEBAR_IS_NULL);
                 }
                 stockReportMapper.saveStockReportMaterialItem(stockReportMaterialItem);
             }
@@ -299,7 +299,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
     @Override
     protected void update(StockReport stockReport) {
         if (!b1DocEntryVerification.B1EntryCheck(stockReport.getDocEntry())) {
-            throw new BusinessException(ResultDescription.B1DOCENTRY_IS_EXISTENT);
+            throw new BusinessException(StockOpResultCode.B1DOCENTRY_IS_EXISTENT,StockOpResultDescription.B1DOCENTRY_IS_EXISTENT);
         }
         stockReportMapper.updateStockReport(stockReport);
         for (int j = 0; j < stockReport.getStockReportItems().size(); j++) {
@@ -312,7 +312,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
     @Override
     protected void delete(StockReport stockReport) {
         if (!b1DocEntryVerification.B1EntryCheck(stockReport.getDocEntry())) {
-            throw new BusinessException(ResultDescription.B1DOCENTRY_IS_EXISTENT);
+            throw new BusinessException(StockOpResultCode.B1DOCENTRY_IS_EXISTENT,StockOpResultDescription.B1DOCENTRY_IS_EXISTENT);
         }
         stockReportMapper.deleteStockReport(stockReport.getDocEntry());
         stockReportMapper.deleteStockReportItem(stockReport.getDocEntry());

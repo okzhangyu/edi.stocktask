@@ -71,7 +71,7 @@
 
 
     <select id="fetchStockTaskItem" resultMap="BaseResultMapItem">
-        SELECT * FROM AVA_WM_VIEW_STK1 where ObjectKey=#{objectKey} and BaseType =  #{docType}
+        SELECT * FROM AVA_WM_VIEW_STK1 where ObjectKey=#{0} and DocType =  #{1}
     </select>
 
     <select id="fetchAllStockTaskItem" resultMap="BaseResultMapItem">
@@ -81,7 +81,7 @@
     <select id="fetchSyncStockTaskItem" resultMap="BaseResultMapItem" >
           select t1.* from AVA_WM_SRP1 t0 inner join AVA_WM_VIEW_STK1 t1
          on t0.BaseType = t1.DocType and t0.BaseEntry = t1.ObjectKey and t0.BaseLine = t1.LineId
-         where t0.BaseEntry = #{objectKey} and t0.BaseType = #{docType}
+         where t0.BaseEntry = #{0} and t0.BaseType = #{1}
     </select>
 
     <select id="fetchStockTaskFuzzy" resultMap="BaseResultMap" parameterType="string">
