@@ -8,6 +8,7 @@ import org.edi.initialfantasy.dto.Result;
 import org.edi.initialfantasy.filter.UserRequest;
 import org.edi.stocktask.bo.material.IMaterial;
 import org.edi.stocktask.bo.stocktask.IStockTask;
+import org.edi.stocktask.data.StockOpResultDescription;
 import org.edi.stocktask.data.StockTaskServicePath;
 import org.edi.stocktask.mapper.StockTaskMapper;
 import org.edi.stocktask.repository.IBORepositoryStockTask;
@@ -55,7 +56,7 @@ public class StockTaskService implements IStockTaskService{
             limit = PageVerification.limitCalculation(beginIndex,limit);
             List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask(param,beginIndex==0?1:beginIndex,limit);
             if (stockTasks.size()==0){
-                result = new Result<>(ResultCode.OK,ResultDescription.TASK_IS_EMPTY,stockTasks);
+                result = new Result<>(ResultCode.OK, StockOpResultDescription.TASK_IS_EMPTY,stockTasks);
             }else {
                 result = new Result<>(ResultCode.OK,ResultDescription.OK,stockTasks);
             }
@@ -86,7 +87,7 @@ public class StockTaskService implements IStockTaskService{
         try{
             List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTaskByCondition(docEntry,docType);
             if(stockTasks.size()==0){
-                result = new Result<>(ResultCode.OK,ResultDescription.REPORTTASK_IS_EMPTY,stockTasks);
+                result = new Result<>(ResultCode.OK,StockOpResultDescription.REPORTTASK_IS_EMPTY,stockTasks);
             }else {
                 result = new Result<>(ResultCode.OK, ResultDescription.OK, stockTasks);
             }

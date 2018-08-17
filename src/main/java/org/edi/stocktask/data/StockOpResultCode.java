@@ -38,6 +38,34 @@ public class StockOpResultCode extends OpResultCode{
 
     public static final String STOCK_OBJECT_TOWAREHOUSE_IS_NULL = "6102106";
 
+    public static final String STOCK_BASETYPE_IS_NULL = "6102107";
+
+    public static final String STOCK_BASEENTRY_IS_NULL = "6102108";
+
+    public static final String STOCK_BASELINE_IS_NULL = "6102109";
+
+    public static final String B1DOCENTRY_IS_EXISTENT = "1101007";
+
+    public static final String PARAMETER_IS_NULL= "1101108";
+
+    public static final String CODEBAR_IS_NULL= "1101009";
+
+    public static final String DOCTYPE_IS_NULL= "1101010";
+
+    public static final String DETAIL_IS_NULL= "1101011";
+
+    public static final String REPORTTASK_IS_EMPTY= "1101012";
+
+    public static final String REPORT_IS_EMPTY= "1101013";
+
+    public static final String TASK_IS_EMPTY= "1101014";
+
+    public static final String MATERIALITEM_IS_NULL= "1101015";
+
+    public static final String CODEBAR_IS_REPEAT= "1101016";
+
+    public static final String BARCODE_ANALYSIS_IS_FAIL = "1101020";
+
 
 
 }

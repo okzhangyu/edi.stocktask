@@ -34,10 +34,34 @@ public class StockOpResultDescription extends OpResultDescription {
 
     public static final String STOCK_CODEBAR_IS_EMPTY = "条码信息为空";
 
-    public static final String STOCK_BASETYPE_IS_NULL = "6102107";
+    public static final String B1DOCENTRY_IS_EXISTENT = "单据已生成";
 
-    public static final String STOCK_BASEENTRY_IS_NULL = "6102108";
+    public static final String PARAMETER_IS_NULL= "参数信息为空";
 
-    public static final String STOCK_BASELINE_IS_NULL = "6102109";
+    public static final String CODEBAR_IS_NULL= "条码信息为空";
+
+    public static final String DOCTYPE_IS_NULL= "[DOCTYPE]信息为空";
+
+    public static final String DETAIL_IS_NULL= "汇报明细为空";
+
+    public static final String REPORTTASK_IS_EMPTY= "未找到汇报库存任务";
+
+    public static final String REPORT_IS_EMPTY= "未找到库存汇报";
+
+    public static final String TASK_IS_EMPTY= "未找到库存任务";
+
+    public static final String MATERIALITEM_IS_NULL= "物料条码信息为空";
+
+    public static final String CODEBAR_IS_REPEAT= "汇报行条码信息不可重复";
+
+    public static final String STOCK_BASETYPE_IS_NULL = "[baseType]信息为空";
+
+    public static final String STOCK_BASEENTRY_IS_NULL = "[baseEntry]信息为空";
+
+    public static final String STOCK_BASELINE_IS_NULL = "[baseLine]信息为空";
+
+    public static final String CODEBARINFO_IS_EMPTY = "条形码与对应任务行的物料不匹配";
+
+    public static final String BARCODE_ANALYSIS_IS_FAIL = "条码[%s]解析失败";
 
 }
