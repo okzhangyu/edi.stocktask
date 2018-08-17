@@ -8,6 +8,7 @@ import org.edi.stocktask.bo.stocktask.IStockTaskItem;
 import org.edi.stocktask.data.StockOpResultCode;
 import org.edi.stocktask.data.StockOpResultDescription;
 import org.edi.stocktask.data.StockTaskData;
+import org.edi.stocktask.dto.CodeBarParam;
 import org.edi.stocktask.mapper.CodeBarMapper;
 import org.edi.stocktask.mapper.StockTaskMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,39 +86,14 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
      * @return
      */
     @Override
-    public List<StockReportItem> parseBatchCodeBar(List<String> codeBars) {
+    public List<StockReportItem> parseBatchCodeBar(List<CodeBarParam> codeBars) {
         try{
             HashMap<String,Object> codeBarParam;
             List<StockReportItem> stockReportItems = new ArrayList<>();
             List<ICodeBar> listCodeBar = null;
             List<List<ICodeBar>> listCodeBars = new ArrayList<>();
             //解析条码集合
-            for (String codeBar:codeBars) {
-                codeBarParam = new HashMap();
-                codeBarParam.put("codebar",codeBar);
-                codeBarParam.put("baseType","");
-                codeBarParam.put("baseEntry","");
-                codeBarParam.put("baseLine","");
-                listCodeBar = codeBarMapper.parseCodeBar(codeBarParam);
-                if(listCodeBar == null || listCodeBar.size() ==0){
-                    throw new BusinessException(StockOpResultCode.BARCODE_ANALYSIS_IS_FAIL,String.format(StockOpResultDescription.BARCODE_ANALYSIS_IS_FAIL,codeBar));
-                }
-                listCodeBars.add(listCodeBar);
-            }
 
-
-            //获取解析后的单据类型、单据号
-            List<ICodeBar> defaultCodeBars = listCodeBars.get(0);
-            HashMap<String,String> docInfo = this.getTaskInfo(defaultCodeBars);
-
-            //查找对应的任务行集合
-            List<IStockTaskItem>  stockTasks = stockTaskMapper.fetchSyncStockTaskItem(Integer.valueOf(docInfo.get(StockTaskData.DOCENTRY)),
-                    docInfo.get(StockTaskData.DOCTYPE));
-
-            // 对解析对条码和任务行进行匹配   根据任务行获取汇报行  调用汇报行的静态方法
-            if(stockTasks == null || stockTasks.size() == 0){
-                throw new BusinessException(StockOpResultCode.BARCODE_ANALYSIS_IS_FAIL,StockOpResultDescription.BARCODE_ANALYSIS_IS_FAIL);
-            }
             return stockReportItems;
         }catch (Exception e){
             throw new BusinessException(StockOpResultCode.BARCODE_ANALYSIS_IS_FAIL,StockOpResultDescription.BARCODE_ANALYSIS_IS_FAIL);
