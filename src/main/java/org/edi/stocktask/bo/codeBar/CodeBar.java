@@ -2,6 +2,7 @@ package org.edi.stocktask.bo.codeBar;
 
 /**
  * @author Fancy
+ * 条码解析返回对象
  * @date 2018/7/19
  */
 public class CodeBar implements  ICodeBar{
