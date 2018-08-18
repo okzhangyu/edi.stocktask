@@ -7,16 +7,43 @@
         <result column="ProDesc" property="proDesc" jdbcType="VARCHAR" />
     </resultMap>
 
+
+    <resultMap id="TransMessageMap" type="org.edi.stocktask.dto.TransMessage">
+        <result column="Code" property="code" jdbcType="VARCHAR" />
+        <result column="Message" property="message" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <resultMap id="CodeBarAnalysisMap" type="org.edi.stocktask.dto.CodeBarAnalysis">
+        <result column="BaseEntry" property="baseEntry" jdbcType="INTEGER" />
+        <result column="BaseType" property="baseType" jdbcType="VARCHAR" />
+        <result column="BaseLine" property="baseLine" jdbcType="INTEGER" />
+        <result column="CodeBar" property="codeBar" jdbcType="VARCHAR" />
+        <result column="ItemCode" property="itemCode" jdbcType="VARCHAR" />
+        <result column="Quantity" property="quantity" jdbcType="DECIMAL" />
+        <result column="Price" property="price" jdbcType="DECIMAL" />
+        <result column="BatchNum" property="batchNumber" jdbcType="VARCHAR" />
+        <result column="SerialNum" property="serialNumber" jdbcType="VARCHAR" />
+    </resultMap>
+
     <parameterMap type="map" id="codeBarParam">
+        <parameter property="itemCode" jdbcType="NVARCHAR" mode="IN"/>
         <parameter property="codebar" jdbcType="NVARCHAR" mode="IN"/>
         <parameter property="baseType" jdbcType="NVARCHAR" mode="IN"/>
         <parameter property="baseEntry" jdbcType="INTEGER" mode="IN"/>
         <parameter property="baseLine" jdbcType="INTEGER" mode="IN"/>
     </parameterMap>
 
+    <parameterMap type="map" id="codeBarParams">
+        <parameter property="baseType" jdbcType="NVARCHAR" mode="IN"/>
+        <parameter property="baseEntry" jdbcType="INTEGER" mode="IN"/>
+        <!--<parameter property="codebars" jdbcType="ARRAY" typeHandler="org.edi.stocktask.util.ArrayTypeHandler" mode="IN"/>-->
+        <parameter property="codebars" jdbcType="NVARCHAR"  mode="IN"/>
+    </parameterMap>
+
 
     <select id="parseCodeBar" statementType="CALLABLE" parameterMap="codeBarParam" resultMap="BaseResultMap">
         {call AVA_SP_PARSE_CODEBAR(
+    #{itemCode, jdbcType = NVARCHAR, mode = IN},
     #{codebar, jdbcType = NVARCHAR, mode = IN},
     #{baseType, jdbcType = NVARCHAR, mode = IN},
     #{baseEntry, jdbcType = INTEGER, mode = IN},
@@ -24,5 +51,13 @@
     )}
     </select>
 
+   <!-- List<CodeBarAnalysis> parseBatchCodeBar(HashMap<String,Object> codeBarParamas);-->
+    <select id="parseBatchCodeBar" statementType="CALLABLE" parameterMap="codeBarParams" resultMap="TransMessageMap,CodeBarAnalysisMap">
+        {call AVA_SP_BATCH_PARSE_CODEBAR(
+        #{baseType, jdbcType = NVARCHAR, mode = IN},
+        #{baseEntry, jdbcType = INTEGER, mode = IN},
+        #{codeBars, jdbcType = NVARCHAR, mode = IN}
+        )}
+    </select>
 
 </mapper>

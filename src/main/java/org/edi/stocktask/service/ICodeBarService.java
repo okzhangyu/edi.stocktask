@@ -2,9 +2,8 @@ package org.edi.stocktask.service;
 
 import org.edi.initialfantasy.dto.Result;
 import org.edi.stocktask.bo.codeBar.ICodeBar;
-import org.edi.stocktask.bo.stockreport.StockReportItem;
-
-import java.util.List;
+import org.edi.stocktask.dto.CodeBarAnalysis;
+import org.edi.stocktask.dto.CodeBarParam;
 
 /**
  * @author Fancy
@@ -16,14 +15,14 @@ public interface ICodeBarService {
      * @param codeBar
      * @return
      */
-    Result<ICodeBar> parseCodeBar(String token, String codeBar ,String baseType, int baseEntry, int baseLine);
+    Result<ICodeBar> parseCodeBar(String token, String codeBar ,String baseType, int baseEntry, int baseLine,String itemCode);
 
 
     /**
      * 批量解析codebar
      * @param token
-     * @param codeBars 条码集合
+     * @param codeBarParam 条码集合
      * @return
      */
-    Result<StockReportItem> parseBatchCodeBar(String token, List<String> codeBars);
+    Result<CodeBarAnalysis> parseBatchCodeBar(String token, CodeBarParam codeBarParam);
 }

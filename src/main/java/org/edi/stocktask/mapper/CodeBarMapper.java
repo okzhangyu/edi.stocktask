@@ -17,4 +17,6 @@ public interface CodeBarMapper {
      * @return 解析结果集合
      */
     List<ICodeBar> parseCodeBar(HashMap<String,Object> codeBarParam);
+
+    List<List<?>> parseBatchCodeBar(HashMap<String,Object> codeBarParamas);
 }
