@@ -23,9 +23,9 @@ public interface IBORepositoryCodeBar {
 
     /**
      * 批量解析条码
-     * @param codeBars 条码集合
+     * @param codeBarParam 条码集合
      * @return
      */
-    public List<List<?>> parseBatchCodeBar(CodeBarParam codeBarParam);
+    public List<CodeBarAnalysis> parseBatchCodeBar(CodeBarParam codeBarParam);
 
 }
