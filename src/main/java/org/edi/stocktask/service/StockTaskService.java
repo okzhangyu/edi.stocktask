@@ -1,6 +1,8 @@
 package org.edi.stocktask.service;
 
 import org.apache.log4j.Logger;
+import org.edi.freamwork.exception.BusinessException;
+import org.edi.freamwork.exception.DBException;
 import org.edi.initialfantasy.data.ResultCode;
 import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.initialfantasy.data.ServicePath;
@@ -39,7 +41,6 @@ public class StockTaskService implements IStockTaskService{
     private StockTaskMapper stockTaskMapper;
 
 
-
     /**
      * 查询库存任务
      */
@@ -50,27 +51,25 @@ public class StockTaskService implements IStockTaskService{
     public Result<IStockTask> fetchStockTask(@QueryParam(ServicePath.TOKEN_NAMER)String token,@QueryParam(StockTaskServicePath.SERVICE_SEARCH_PARAMETER)String param,
                                              @QueryParam(ServicePath.SERVICE_BEGININDEX)int beginIndex,@QueryParam(ServicePath.SERVICE_LIMIT)int limit){
 
-
-        Result result = new Result();
         try{
             limit = PageVerification.limitCalculation(beginIndex,limit);
             List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask(param,beginIndex==0?1:beginIndex,limit);
             if (stockTasks.size()==0){
-                result = new Result<>(ResultCode.OK, StockOpResultDescription.TASK_IS_EMPTY,stockTasks);
+                return new Result<>(ResultCode.OK, StockOpResultDescription.TASK_IS_EMPTY,stockTasks);
             }else {
-                result = new Result<>(ResultCode.OK,ResultDescription.OK,stockTasks);
+                return new Result<>(ResultCode.OK,ResultDescription.OK,stockTasks);
             }
 
+        }catch (BusinessException e){
+            log.warn(e);
+            return new Result(e);
+        }catch (DBException e){
+            return new Result(e);
         }catch(Exception e){
             log.warn(e);
-            result = new Result(ResultCode.FAIL,e);
+            return new Result(ResultCode.FAIL,e);
         }
-     return result;
     }
-
-
-
-
 
 
 
@@ -83,19 +82,22 @@ public class StockTaskService implements IStockTaskService{
     public Result<IStockTask> fetchStockTaskByCondition(@QueryParam(ServicePath.TOKEN_NAMER)String token,
                                                        @QueryParam(StockTaskServicePath.SERVICE_DOCENTRY)int docEntry,
                                                        @QueryParam(StockTaskServicePath.SERVICE_DOCTYPE)String docType){
-        Result result;
         try{
             List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTaskByCondition(docEntry,docType);
             if(stockTasks.size()==0){
-                result = new Result<>(ResultCode.OK,StockOpResultDescription.REPORTTASK_IS_EMPTY,stockTasks);
+                return new Result<>(ResultCode.OK,StockOpResultDescription.REPORTTASK_IS_EMPTY,stockTasks);
             }else {
-                result = new Result<>(ResultCode.OK, ResultDescription.OK, stockTasks);
+                return new Result<>(ResultCode.OK, ResultDescription.OK, stockTasks);
             }
+        }catch (BusinessException e){
+            log.warn(e);
+            return new Result(e);
+        }catch (DBException e){
+            return new Result(e);
         }catch(Exception e){
             log.warn(e);
-            result = new Result(ResultCode.FAIL,e);
+            return new Result(ResultCode.FAIL,e);
         }
-        return result;
     }
 
     /**
@@ -110,15 +112,18 @@ public class StockTaskService implements IStockTaskService{
     @Override
     public Result<IMaterial> fetchStockTaskMaterial(@QueryParam(ServicePath.TOKEN_NAMER)String token,
                                                     @QueryParam(StockTaskServicePath.SERVICE_DOCENTRY)Integer docEntry) {
-        Result result;
         try{
             List<IMaterial> materials = boRepositoryStockTask.fetchStockTaskMaterials(docEntry);
-            result = new Result<>(ResultCode.OK,ResultDescription.OK,materials);
+            return new Result<>(ResultCode.OK,ResultDescription.OK,materials);
+        }catch (BusinessException e){
+            log.warn(e);
+            return new Result(e);
+        }catch (DBException e){
+            return new Result(e);
         }catch(Exception e){
             log.warn(e);
-            result = new Result(ResultCode.FAIL,e);
+            return new Result(ResultCode.FAIL,e);
         }
-        return result;
     }
 
 }

@@ -69,4 +69,5 @@ public interface IBORepositoryStockReport {
      */
     void deleteStockReport(Integer docEntry);
 
+    void deleteStockReport(StockReport stockReport);
 }

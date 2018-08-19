@@ -26,8 +26,6 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
     private static Logger log = Logger.getLogger(BORepositoryCodeBar.class);
     private final static String OK = "0";
     private final static String CODE = "RETURNCODE";
-    private final static String MESSAGE = "MESSAGE";
-
 
 
     @Autowired

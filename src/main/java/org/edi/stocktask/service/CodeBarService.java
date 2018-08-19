@@ -7,6 +7,7 @@ package org.edi.stocktask.service;
 
 import org.apache.log4j.Logger;
 import org.edi.freamwork.exception.BusinessException;
+import org.edi.freamwork.exception.DBException;
 import org.edi.initialfantasy.data.ResultCode;
 import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.initialfantasy.data.ServicePath;
@@ -32,7 +33,6 @@ import java.util.List;
 @UserRequest
 public class CodeBarService implements ICodeBarService{
     private static Logger log = Logger.getLogger(CodeBarService.class);
-
 
 
     @Autowired
@@ -83,7 +83,6 @@ public class CodeBarService implements ICodeBarService{
     @Path("/codebars")
     @Override
     public Result<CodeBarAnalysis> parseBatchCodeBar(@QueryParam(ServicePath.TOKEN_NAMER)String token,CodeBarParam codeBarParam) {
-        Result<CodeBarAnalysis> result = null;
         try{
             if(codeBarParam == null || codeBarParam.getCodeBar().size() == 0){
                 throw new BusinessObjectException(StockOpResultCode.STOCK_CODEBAR_IS_NULL,StockOpResultDescription.STOCK_CODEBAR_IS_EMPTY);
@@ -92,10 +91,13 @@ public class CodeBarService implements ICodeBarService{
             result = new Result<>(ResultCode.OK, ResultDescription.OK,batchCodeBarList);
         }catch (BusinessException e){
             log.warn(e);
-            result = new Result(e);
-        }catch (Exception e){
+            return new Result(e);
+        }catch (DBException e){
+            return new Result<>(e);
+        }
+        catch (Exception e){
             log.warn(e);
-            result = new Result(e);
+            return new Result(e);
         }
         return result;
     }*/

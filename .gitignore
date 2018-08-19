@@ -38,3 +38,4 @@ web/index.jsp
 *.prefs
 .project
 
+.classpath

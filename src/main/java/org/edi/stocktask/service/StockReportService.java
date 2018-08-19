@@ -4,6 +4,7 @@ package org.edi.stocktask.service;
 import org.apache.log4j.Logger;
 import org.edi.freamwork.bo.BusinessObjectException;
 import org.edi.freamwork.exception.BusinessException;
+import org.edi.freamwork.exception.DBException;
 import org.edi.initialfantasy.data.ResultCode;
 import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.initialfantasy.data.ServicePath;
@@ -26,7 +27,6 @@ import java.util.List;
  * @date 2018/5/31
  */
 @Path("/v1")
-@UserRequest
 public class StockReportService implements  IStockReportService{
     private static Logger log = Logger.getLogger(StockReportService.class);
 
@@ -66,9 +66,6 @@ public class StockReportService implements  IStockReportService{
     }
 
 
-
-
-
     /**
      * 保存库存任务汇报
      * @param token
@@ -91,6 +88,8 @@ public class StockReportService implements  IStockReportService{
             return new Result(e);
         }catch (BusinessObjectException e) {
             log.warn(e);
+            return new Result(e);
+        }catch (DBException e){
             return new Result(e);
         }catch (Exception e){
             e.printStackTrace();
@@ -122,7 +121,9 @@ public class StockReportService implements  IStockReportService{
         }catch (BusinessObjectException e) {
             log.warn(e);
             return new Result(e);
-        } catch (Exception e) {
+        } catch (DBException e){
+            return new Result(e);
+        }catch (Exception e) {
             e.printStackTrace();
             log.warn(e);
             return new Result(e);
@@ -145,7 +146,12 @@ public class StockReportService implements  IStockReportService{
         try {
             boRepositoryStockReport.deleteStockReport(docEntry);
             return new Result(ResultCode.OK, ResultDescription.OP_SUCCESSFUL, null);
-        } catch (Exception e) {
+        } catch (BusinessException e){
+            log.warn(e);
+            return new Result(e);
+        }catch (DBException e){
+            return new Result(e);
+        }catch (Exception e) {
             e.printStackTrace();
             log.warn(e);
             return new Result(ResultCode.FAIL, e);

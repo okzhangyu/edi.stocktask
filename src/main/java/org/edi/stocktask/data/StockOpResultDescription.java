@@ -8,6 +8,7 @@ import org.edi.freamwork.data.operation.OpResultDescription;
  */
 public class StockOpResultDescription extends OpResultDescription {
 
+    public static final String STOCK_DATABASE_ERROR ="数据库操作错误";
     public static final String STOCKTASK_IS_EMPTY = "the stocktask is null";
 
     public static final String STOCKTASK_IS_CLOSE = "单据已清，不能操作该单据";
