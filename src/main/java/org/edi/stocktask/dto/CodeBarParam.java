@@ -1,34 +1,14 @@
 package org.edi.stocktask.dto;
 
 
-import javax.persistence.criteria.CriteriaBuilder;
+import java.util.List;
 
 public class CodeBarParam implements ICodeBarParam {
-
-    private String codeBar;
-
-    @Override
-    public String getCodeBar() {
-        return codeBar;
-    }
-
-    @Override
-    public void setCodeBar(String codeBar) {
-        this.codeBar = codeBar;
-    }
-
-    private String baseType;
-    @Override
-    public String getBaseType() {
-        return baseType;
-    }
-
-    @Override
-    public void setBaseType(String baseType) {
-        this.baseType = baseType;
-    }
-
     private Integer baseEntry;
+    private String baseType;
+    private List<String> codeBar;
+
+
     @Override
     public Integer getBaseEntry() {
         return baseEntry;
@@ -39,14 +19,22 @@ public class CodeBarParam implements ICodeBarParam {
         this.baseEntry = baseEntry;
     }
 
-    private String baseLine;
     @Override
-    public String getBaseLine() {
-        return baseLine;
+    public String getBaseType() {
+        return baseType;
     }
 
     @Override
-    public void setBaseLine(String baseLine) {
-        this.baseLine = baseLine;
+    public void setBaseType(String baseType) {
+        this.baseType = baseType;
+    }
+
+    @Override
+    public List<String> getCodeBar() {
+        return codeBar;
+    }
+
+    public void setCodeBar(List<String> codeBar) {
+        this.codeBar = codeBar;
     }
 }

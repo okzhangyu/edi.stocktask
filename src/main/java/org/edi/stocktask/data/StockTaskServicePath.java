@@ -20,4 +20,6 @@ public class StockTaskServicePath {
 
     public final static String SERVICE_BASELINE = "baseLine";
 
+    public final static String SERVICE_ITEMCODE = "itemCode";
+
 }

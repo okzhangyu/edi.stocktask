@@ -69,7 +69,7 @@ public class TestBoRepositoryStockReport extends TestCase{
 
     @Test
     public void testParseCodeBar()throws Exception{
-        List<ICodeBar> codeBars = boRepositoryCodeBar.parseCodeBar("123456789963","",3,6);
+        List<ICodeBar> codeBars = boRepositoryCodeBar.parseCodeBar("123456789963","",3,6,"");
         System.out.println(codeBars.get(0));
         CodeBar codeBar = new CodeBar();
         codeBar.setProName("ItemCode");
