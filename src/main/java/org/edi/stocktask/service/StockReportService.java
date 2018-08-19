@@ -27,6 +27,7 @@ import java.util.List;
  * @date 2018/5/31
  */
 @Path("/v1")
+@UserRequest
 public class StockReportService implements  IStockReportService{
     private static Logger log = Logger.getLogger(StockReportService.class);
 

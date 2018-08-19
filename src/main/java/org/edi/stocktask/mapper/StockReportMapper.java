@@ -31,4 +31,6 @@ public interface StockReportMapper {
     void saveStockReportMaterialItem(StockReportMaterialItem stockReportMaterialItem);
     void deleteStockReportMaterialItem(int docEntry);
 
+    void updateIsDelete(Integer docEntry);
+
 }
