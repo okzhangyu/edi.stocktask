@@ -3,6 +3,8 @@ package org.edi.stocktask.service;
 import org.edi.initialfantasy.dto.Result;
 import org.edi.stocktask.bo.stockreport.StockReport;
 
+import java.util.List;
+
 /**
  * @author Fancy
  * @date 2018/5/25
@@ -43,6 +45,7 @@ public interface IStockReportService {
     Result deleteStockReport(String token,int docEntry);
 
 
+    Result syncStockReportToB1(String token,List<StockReport> stockReports);
 
 
 }

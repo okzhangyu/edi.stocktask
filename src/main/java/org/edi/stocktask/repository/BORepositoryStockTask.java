@@ -20,7 +20,6 @@ import java.util.List;
 /**
  * Created by asus on 2018/6/29.
  */
-@Transactional
 @Component(value="boRepositoryStockTask")
 public class BORepositoryStockTask implements  IBORepositoryStockTask {
 

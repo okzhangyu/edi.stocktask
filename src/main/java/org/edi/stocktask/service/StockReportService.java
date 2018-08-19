@@ -158,5 +158,11 @@ public class StockReportService implements  IStockReportService{
         }
     }
 
+    @Override
+    public Result syncStockReportToB1(String token, List<StockReport> stockReports) {
+
+        return null;
+    }
+
 
 }
