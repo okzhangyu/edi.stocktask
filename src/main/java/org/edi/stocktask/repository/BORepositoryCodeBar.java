@@ -6,7 +6,9 @@ import org.edi.stocktask.bo.codeBar.ICodeBar;
 import org.edi.stocktask.data.StockOpResultCode;
 import org.edi.stocktask.data.StockOpResultDescription;
 import org.edi.stocktask.data.StockTaskData;
+import org.edi.stocktask.dto.CodeBarAnalysis;
 import org.edi.stocktask.dto.CodeBarParam;
+import org.edi.stocktask.dto.TransMessage;
 import org.edi.stocktask.mapper.CodeBarMapper;
 import org.edi.stocktask.mapper.StockTaskMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,15 +50,8 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
         codeBarParam.put("itemCode",itemCode);
         try {
             listCodeBar = codeBarMapper.parseCodeBar(codeBarParam);
-            for (int index = 0;index<listCodeBar.size();index++) {
-                if(CODE.equals(listCodeBar.get(index).getProName().toUpperCase())){
-                    if(!listCodeBar.get(index).getProValue().equals(OK)){
-                        throw new BusinessException(listCodeBar.get(index).getProValue(),listCodeBar.get(index).getProDesc());
-                    }else {
-                        listCodeBar.remove(index);
-                        return listCodeBar;
-                    }
-                }
+            if((int)codeBarParam.get("code")!=0){
+                throw new BusinessException(codeBarParam.get("code").toString(),codeBarParam.get("message").toString());
             }
         }catch (BusinessException e){
             e.printStackTrace();
@@ -75,14 +70,18 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
      * @return
      */
     @Override
-    public List<List<?>> parseBatchCodeBar(CodeBarParam codeBarParam) {
+    public List<CodeBarAnalysis> parseBatchCodeBar(CodeBarParam codeBarParam) {
         HashMap<String,Object> codeBarParams = new HashMap();
         codeBarParams.put("baseType",codeBarParam.getBaseType());
         codeBarParams.put("baseEntry",codeBarParam.getBaseEntry());
         codeBarParams.put("codeBars","013|3977|1|22|4");
-        List<List<?>> listCodeBars = null;
+        List<CodeBarAnalysis> listCodeBars = null;
         try{
             listCodeBars = codeBarMapper.parseBatchCodeBar(codeBarParams);
+            TransMessage transMessage = new TransMessage(codeBarParams.get("code").toString(),codeBarParams.get("message").toString());
+            if(!transMessage.getCode().equals("0")){
+                throw new BusinessException(StockOpResultCode.BARCODE_ANALYSIS_IS_FAIL,StockOpResultDescription.BARCODE_ANALYSIS_IS_FAIL);
+            }
         }catch (Exception e){
             throw new BusinessException(StockOpResultCode.BARCODE_ANALYSIS_IS_FAIL,StockOpResultDescription.BARCODE_ANALYSIS_IS_FAIL);
         }
