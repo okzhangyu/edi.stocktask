@@ -47,16 +47,20 @@
     #{codebar, jdbcType = NVARCHAR, mode = IN},
     #{baseType, jdbcType = NVARCHAR, mode = IN},
     #{baseEntry, jdbcType = INTEGER, mode = IN},
-    #{baseLine, jdbcType = INTEGER, mode = IN}
+    #{baseLine, jdbcType = INTEGER, mode = IN},
+    #{code, jdbcType = INTEGER, mode = OUT},
+    #{message, jdbcType = NVARCHAR, mode = OUT}
     )}
     </select>
 
    <!-- List<CodeBarAnalysis> parseBatchCodeBar(HashMap<String,Object> codeBarParamas);-->
-    <select id="parseBatchCodeBar" statementType="CALLABLE" parameterMap="codeBarParams" resultMap="TransMessageMap,CodeBarAnalysisMap">
+    <select id="parseBatchCodeBar" statementType="CALLABLE" parameterMap="codeBarParams" resultMap="CodeBarAnalysisMap">
         {call AVA_SP_BATCH_PARSE_CODEBAR(
         #{baseType, jdbcType = NVARCHAR, mode = IN},
         #{baseEntry, jdbcType = INTEGER, mode = IN},
-        #{codeBars, jdbcType = NVARCHAR, mode = IN}
+        #{codeBars, jdbcType = NVARCHAR, mode = IN},
+        #{code, jdbcType = NVARCHAR, mode = OUT},
+        #{message, jdbcType = NVARCHAR, mode = OUT}
         )}
     </select>
 

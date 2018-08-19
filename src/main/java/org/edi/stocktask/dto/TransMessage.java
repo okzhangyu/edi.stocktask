@@ -1,7 +1,5 @@
 package org.edi.stocktask.dto;
 
-import java.util.List;
-
 /**
  * Created by asus on 2018/8/18.
  */
@@ -30,5 +28,11 @@ public class TransMessage implements ITransMessage {
         this.message = message;
     }
 
+    public TransMessage(String code, String message) {
+        this.code = code;
+        this.message = message;
+    }
 
+    public TransMessage() {
+    }
 }
