@@ -10,6 +10,8 @@ public class StockTaskData {
 
     public static final String CLOSE = "C";
 
+    public static final String PARTIAL = "P";
+
     public static final String DOCTYPE = "DOCTYPE";
 
     public static final String DOCENTRY = "DOCENTRY";

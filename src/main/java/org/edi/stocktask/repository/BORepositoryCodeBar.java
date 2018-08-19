@@ -24,8 +24,6 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
     private static Logger log = Logger.getLogger(BORepositoryCodeBar.class);
     private final static String OK = "0";
     private final static String CODE = "RETURNCODE";
-    private final static String MESSAGE = "MESSAGE";
-
 
 
     @Autowired
@@ -68,7 +66,6 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
             log.warn(e);
             throw new BusinessException(StockOpResultCode.BARCODE_ANALYSIS_IS_FAIL,String.format(StockOpResultDescription.BARCODE_ANALYSIS_IS_FAIL,codebar));
         }
-
         return listCodeBar;
     }
 
