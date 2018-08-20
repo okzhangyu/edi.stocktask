@@ -29,6 +29,7 @@
         <result column="BpName" property="businessPartnerName" jdbcType="VARCHAR" />
         <result column="BaseType" property="baseDocumentType" jdbcType="VARCHAR" />
         <result column="BaseEntry" property="baseDocumentEntry" jdbcType="INTEGER" />
+        <result column="IsDelete" property="isDeleted" jdbcType="VARCHAR" />
     </resultMap>
 
     <resultMap id="BaseResultMapItem" type="org.edi.stocktask.bo.stockreport.StockReportItem">
@@ -87,18 +88,18 @@
 
    <!-- SELECT * FROM AVA_WM_OSRP WITH(TABLOCKX)-->
     <select id="fetchStockReport" resultMap="BaseResultMap">
-        SELECT * FROM AVA_WM_OSRP
+        SELECT * FROM AVA_WM_OSRP and IsDelete = 'N'
     </select>
 
     <!--List<StockReport> fetchStockReportByPage(int beginIndex,int limit);-->
     <select id="fetchStockReportByPage" resultMap="BaseResultMap">
          select * from(select ROW_NUMBER() over(order by DocEntry desc) as rowId,* from AVA_WM_OSRP) as t0 where t0.rowId between #{0}
-         and #{1}
+         and #{1} and t0.IsDelete = 'N'
     </select>
 
 
     <select id="fetchStockReportByEntry" resultMap="BaseResultMap" parameterType="int">
-        SELECT * FROM AVA_WM_OSRP  where docEntry=#{docEntry}
+        SELECT * FROM AVA_WM_OSRP  where docEntry=#{docEntry} and IsDelete = 'N'
     </select>
     <select id="fetchStockReportItem" resultMap="BaseResultMapItem" parameterType="int">
         SELECT * FROM AVA_WM_SRP1 where docEntry=#{docEntry}
@@ -147,6 +148,7 @@
             <if test="baseDocumentEntry != null and baseDocumentEntry != ''">
                 and BaseEntry = #{baseDocumentEntry}
             </if>
+                and IsDelete = 'N'
         </where>
     </select>
 
@@ -165,6 +167,7 @@
             <if test="value != null and value != ''">
                 or BpName LIKE '%'+#{value}+'%'
             </if>
+                and IsDelete = 'N'
         </where>
     </select>
 
@@ -175,7 +178,7 @@
         <where>
             (<if test="value != null and value != ''">
             DocEntry LIKE '%'+#{value}+'%'
-        </if>
+             </if>
             <if test="value != null and value != ''">
                 or BpCode LIKE '%'+#{value}+'%'
             </if>
@@ -185,7 +188,7 @@
         </where>
         ) as t0
         <where>
-            t0.rowId between #{beginIndex} and #{limit}
+            t0.rowId between #{beginIndex} and #{limit} and t0.IsDelete = 'N'
         </where>
     </select>
 
@@ -315,6 +318,11 @@
         delete from AVA_WM_SRP2
         where docEntry = #{docEntry}
     </delete>
+
+    <!--void updateIsDelete(Integer docEntry);-->
+    <update id="updateIsDelete"  parameterType="int">
+        UPDATE AVA_WM_OSRP set IsDelete='N' WHERE DocEntry=#{docEntry};
+    </update>
 
 
 
