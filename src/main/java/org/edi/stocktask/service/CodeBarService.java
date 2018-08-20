@@ -13,6 +13,7 @@ import org.edi.freamwork.exception.DBException;
 import org.edi.initialfantasy.data.ResultCode;
 import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.initialfantasy.data.ServicePath;
+import org.edi.initialfantasy.dto.Result;
 import org.edi.initialfantasy.filter.UserRequest;
 import org.edi.stocktask.bo.codeBar.ICodeBar;
 import org.edi.stocktask.data.StockOpResultCode;
@@ -58,9 +59,9 @@ public class CodeBarService implements ICodeBarService{
         try{
             List<ICodeBar>  resultCodeBar = boRepositoryCodeBar.parseCodeBar(codeBar,baseType,baseEntry,baseLine,itemCode);
             if (resultCodeBar.size()==0){
-                result = new Result(ResultCode.SUCCESS, StockOpResultDescription.CODEBARINFO_IS_EMPTY,resultCodeBar);
+                result = new Result(ResultCode.OK, StockOpResultDescription.CODEBARINFO_IS_EMPTY,resultCodeBar);
             }else {
-                result = new Result<>(ResultCode.SUCCESS, ResultDescription.OK,resultCodeBar);
+                result = new Result<>(ResultCode.OK, ResultDescription.OK,resultCodeBar);
             }
         }catch (BusinessException e){
             log.warn(e);
