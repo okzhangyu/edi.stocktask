@@ -1,6 +1,6 @@
 package org.edi.stocktask.service;
 
-import org.edi.initialfantasy.dto.Result;
+import org.edi.freamwork.data.Result;
 import org.edi.stocktask.bo.stockreport.StockReport;
 
 import java.util.List;

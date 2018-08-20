@@ -1,18 +1,24 @@
 package org.edi.stocktask.service;
 
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.apache.log4j.Logger;
 import org.edi.freamwork.bo.BusinessObjectException;
+import org.edi.freamwork.data.IResult;
+import org.edi.freamwork.data.Result;
+import org.edi.freamwork.data.operation.OpResult;
 import org.edi.freamwork.exception.BusinessException;
 import org.edi.freamwork.exception.DBException;
+import org.edi.freamwork.httpclient.HttpRequest;
 import org.edi.initialfantasy.data.ResultCode;
 import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.initialfantasy.data.ServicePath;
-import org.edi.initialfantasy.dto.Result;
 import org.edi.initialfantasy.filter.UserRequest;
 import org.edi.stocktask.bo.stockreport.StockReport;
 import org.edi.stocktask.data.StockOpResultDescription;
 import org.edi.stocktask.data.StockTaskServicePath;
+import org.edi.stocktask.dto.DocumentSyncResult;
 import org.edi.stocktask.repository.BORepositoryStockReport;
 import org.edi.stocktask.util.PageVerification;
 import org.edi.stocktask.util.ReportVerification;
@@ -54,9 +60,9 @@ public class StockReportService implements  IStockReportService{
             limit = PageVerification.limitCalculation(beginIndex,limit);
             List<StockReport> stockReports = boRepositoryStockReport.fetchStockReport(param,beginIndex==0?1:beginIndex,limit);
             if (stockReports.size()==0){
-                result = new Result(ResultCode.OK, StockOpResultDescription.REPORT_IS_EMPTY,stockReports);
+                result = new Result(ResultCode.SUCCESS, StockOpResultDescription.REPORT_IS_EMPTY,stockReports);
             }else {
-                result = new Result(ResultCode.OK, ResultDescription.OP_SUCCESSFUL, stockReports);
+                result = new Result(ResultCode.SUCCESS, ResultDescription.OP_SUCCESSFUL, stockReports);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -83,7 +89,7 @@ public class StockReportService implements  IStockReportService{
             log.warn(ReportVerification.getReportRecord(stockReport));
             ReportVerification.reportSaveCheck(stockReport);
             boRepositoryStockReport.saveStockReport(stockReport);
-            return new Result(ResultCode.OK, ResultDescription.OP_SUCCESSFUL, null);
+            return new Result(ResultCode.SUCCESS, ResultDescription.OP_SUCCESSFUL, null);
         } catch (BusinessException e) {
             log.warn(e);
             return new Result(e);
@@ -115,7 +121,7 @@ public class StockReportService implements  IStockReportService{
             log.warn(ReportVerification.getReportRecord(stockReport));
             ReportVerification.reportUpdateCheck(stockReport);
             boRepositoryStockReport.updateStockReport(stockReport);
-            return new Result(ResultCode.OK, ResultDescription.OP_SUCCESSFUL,null);
+            return new Result(ResultCode.SUCCESS, ResultDescription.OP_SUCCESSFUL,null);
         }catch (BusinessException e){
             log.warn(e);
             return new Result(e);
@@ -146,7 +152,7 @@ public class StockReportService implements  IStockReportService{
     public Result deleteStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token,@QueryParam("docEntry")int docEntry) {
         try {
             boRepositoryStockReport.deleteStockReport(docEntry);
-            return new Result(ResultCode.OK, ResultDescription.OP_SUCCESSFUL, null);
+            return new Result(ResultCode.SUCCESS, ResultDescription.OP_SUCCESSFUL, null);
         } catch (BusinessException e){
             log.warn(e);
             return new Result(e);
@@ -159,10 +165,21 @@ public class StockReportService implements  IStockReportService{
         }
     }
 
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/stockreport/sync")
     @Override
     public Result syncStockReportToB1(String token, List<StockReport> stockReports) {
-
-        return null;
+        try{
+            Gson gson = new Gson();
+            String orderJson = gson .toJson(stockReports);
+            String resultMsg = HttpRequest.post(orderJson);
+            Result<DocumentSyncResult> resultOpResult = gson.fromJson(resultMsg,new TypeToken<Result<DocumentSyncResult>>(){}.getType());
+            return resultOpResult;
+        }catch (Exception e){
+            return new Result(ResultCode.NET_CONNECT_ERROR, ResultDescription.NET_CONNECT_ERROR);
+        }
     }
 
 
