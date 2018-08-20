@@ -82,13 +82,15 @@ public class CodeBarService implements ICodeBarService{
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/codebars")
     @Override
-    public Result<CodeBarResult> parseBatchCodeBar(@QueryParam(ServicePath.TOKEN_NAMER)String token,List<CodeBarParam>  codeBarParam) {
+    public Result<CodeBarResult> parseBatchCodeBar(@QueryParam(ServicePath.TOKEN_NAMER)String token,List<CodeBarParam>  codeBarParam,
+                                                   @QueryParam(StockTaskServicePath.SERVICE_BASETYPE)String baseType,
+                                                   @QueryParam(StockTaskServicePath.SERVICE_BASEENTRY)Integer baseEntry) {
         Result<CodeBarResult> result;
         try{
             if(codeBarParam == null){
                 throw new BusinessObjectException(StockOpResultCode.STOCK_CODEBAR_IS_NULL,StockOpResultDescription.STOCK_CODEBAR_IS_EMPTY);
             }
-            List<CodeBarResult> batchCodeBarList= boRepositoryCodeBar.parseBatchCodeBar(codeBarParam);
+            List<CodeBarResult> batchCodeBarList= boRepositoryCodeBar.parseBatchCodeBar(codeBarParam,baseType,baseEntry);
             result = new Result<>(ResultCode.SUCCESS, ResultDescription.OK,batchCodeBarList);
         }catch (BusinessException e){
             log.warn(e);

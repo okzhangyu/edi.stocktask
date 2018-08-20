@@ -18,18 +18,16 @@ public class TableTypeHandler extends BaseTypeHandler<Object> {
 
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i, Object parameter, JdbcType jdbcType) throws SQLException {
-        SQLServerDataTable sourceDataTable = new SQLServerDataTable();
-        sourceDataTable.addColumnMetadata("CodeBar" , Types.NVARCHAR);
-        sourceDataTable.addColumnMetadata("BaseType" , Types.VARCHAR);
-        sourceDataTable.addColumnMetadata("BaseEntry" ,Types.INTEGER);
-        sourceDataTable.addColumnMetadata("BaseLine" , Types.INTEGER);
-        sourceDataTable.addColumnMetadata("ItemCode" , Types.NVARCHAR);
-        sourceDataTable.addColumnMetadata("Quantity" , Types.DOUBLE);
-        List<CodeBarParam> dataList = (List)parameter;
-        for (CodeBarParam item : dataList) {
-             sourceDataTable.addRow(item.getCodeBar(),item.getBaseType(),item.getBaseEntry(),item.getBaseLine(),item.getItemCode(),item.getQuantity());
-        }
-        ps.setObject(i, sourceDataTable);
+//        SQLServerDataTable sourceDataTable = new SQLServerDataTable();
+//        sourceDataTable.addColumnMetadata("CodeBar" , Types.NVARCHAR);
+//        sourceDataTable.addColumnMetadata("BaseLine" , Types.INTEGER);
+//        sourceDataTable.addColumnMetadata("ItemCode" , Types.NVARCHAR);
+//        sourceDataTable.addColumnMetadata("Quantity" , Types.DOUBLE);
+//        List<CodeBarParam> dataList = (List)parameter;
+//        for (CodeBarParam item : dataList) {
+//             sourceDataTable.addRow(item.getCodeBar(),item.getBaseLine(),item.getItemCode(),item.getQuantity());
+//        }
+//        ps.setObject(i, sourceDataTable);
     }
 
     @Override

@@ -67,9 +67,11 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
      * @return
      */
     @Override
-    public List<CodeBarResult> parseBatchCodeBar(List<CodeBarParam>  codeBarParams) {
+    public List<CodeBarResult> parseBatchCodeBar(List<CodeBarParam>  codeBarParams,String baseType,Integer baseEntry) {
         HashMap<String,Object> codeBarParamsList = new HashMap<>();
         codeBarParamsList.put("codeBarParams",codeBarParams);
+        codeBarParamsList.put("baseType",baseType);
+        codeBarParamsList.put("baseEntry",baseEntry);
         List<CodeBarResult> listCodeBars = null;
         try{
             listCodeBars = codeBarMapper.parseBatchCodeBar(codeBarParamsList);
@@ -82,20 +84,6 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
             throw new BusinessException(StockOpResultCode.BARCODE_ANALYSIS_IS_FAIL,StockOpResultDescription.BARCODE_ANALYSIS_IS_FAIL);
         }
         return listCodeBars;
-    }
-
-
-    private HashMap<String,String> getTaskInfo(List<ICodeBar> codeBars){
-        HashMap<String,String> docInfo = new HashMap<>();
-        for (ICodeBar codeBar:codeBars) {
-            if(StockTaskData.DOCTYPE.equals(codeBar.getProName().toUpperCase())){
-                docInfo.put(StockTaskData.DOCTYPE,codeBar.getProValue());
-            }
-            if (StockTaskData.DOCENTRY.equals(codeBar.getProName().toUpperCase())){
-                docInfo.put(StockTaskData.DOCENTRY,codeBar.getProValue());
-            }
-        }
-        return docInfo;
     }
 
 }
