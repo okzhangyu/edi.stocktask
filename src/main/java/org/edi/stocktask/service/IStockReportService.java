@@ -1,7 +1,9 @@
 package org.edi.stocktask.service;
 
-import org.edi.initialfantasy.dto.Result;
+import org.edi.freamwork.data.Result;
 import org.edi.stocktask.bo.stockreport.StockReport;
+
+import java.util.List;
 
 /**
  * @author Fancy
@@ -43,6 +45,7 @@ public interface IStockReportService {
     Result deleteStockReport(String token,int docEntry);
 
 
+    Result syncStockReportToB1(String token,List<StockReport> stockReports);
 
 
 }
