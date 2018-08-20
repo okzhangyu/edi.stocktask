@@ -26,17 +26,17 @@
 	<context:component-scan base-package="org.edi.stocktask.*" />
 	<context:component-scan base-package="org.edi.initialfantasy.*"/>
 
-	<!--<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">-->
-	<!--<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>-->
-	<!--<property name="url" value="jdbc:sqlserver://192.168.3.14;DatabaseName=StockManageDB"/>-->
-	<!--<property name="username" value="sa"/>-->
-	<!--<property name="password" value="avatech"/>-->
-	<!--<property name="maxActive" value="20"></property>-->
-	<!--<property name="minIdle" value="20"></property>-->
-	<!--<property name="maxIdle" value="20"></property>-->
-	<!--<property name="maxWait" value="1800"></property>-->
-	<!--<property name="initialSize" value="10"></property>-->
-    <!--</bean>-->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+		<property name="url" value="jdbc:sqlserver://192.168.3.14;DatabaseName=StockManageDB"/>
+		<property name="username" value="sa"/>
+		<property name="password" value="avatech"/>
+		<property name="maxActive" value="20"></property>
+		<property name="minIdle" value="20"></property>
+		<property name="maxIdle" value="20"></property>
+		<property name="maxWait" value="1800"></property>
+		<property name="initialSize" value="10"></property>
+    </bean>
 
 
 
@@ -59,7 +59,11 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:mybatis.xml" />
 		<property name="mapperLocations" value="classpath:mappers/*.xml"></property>
+		<!--<property name="typeHandlers" ref="TableTypeHandler"/>-->
+
 	</bean>
+
+
 
 	<!-- DAO接口所在包名，Spring会自动查找其下的类 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">

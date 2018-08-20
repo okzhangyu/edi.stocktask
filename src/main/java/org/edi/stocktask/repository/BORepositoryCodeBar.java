@@ -24,9 +24,6 @@ import java.util.List;
 @Component(value="boRepositoryCodeBar")
 public class BORepositoryCodeBar implements IBORepositoryCodeBar{
     private static Logger log = Logger.getLogger(BORepositoryCodeBar.class);
-    private final static String OK = "0";
-    private final static String CODE = "RETURNCODE";
-
 
     @Autowired
     private CodeBarMapper codeBarMapper;
@@ -81,6 +78,7 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
                 throw new BusinessException(StockOpResultCode.BARCODE_ANALYSIS_IS_FAIL,StockOpResultDescription.BARCODE_ANALYSIS_IS_FAIL);
             }
         }catch (Exception e){
+            e.printStackTrace();
             throw new BusinessException(StockOpResultCode.BARCODE_ANALYSIS_IS_FAIL,StockOpResultDescription.BARCODE_ANALYSIS_IS_FAIL);
         }
         return listCodeBars;

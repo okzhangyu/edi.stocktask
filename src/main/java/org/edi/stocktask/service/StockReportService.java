@@ -170,7 +170,7 @@ public class StockReportService implements  IStockReportService{
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/stockreport/sync")
     @Override
-    public Result syncStockReportToB1(String token, List<StockReport> stockReports) {
+    public Result syncStockReportToB1(@QueryParam(ServicePath.TOKEN_NAMER)String token, List<StockReport> stockReports) {
         try{
             Gson gson = new Gson();
             String orderJson = gson .toJson(stockReports);
@@ -178,6 +178,7 @@ public class StockReportService implements  IStockReportService{
             Result<DocumentSyncResult> resultOpResult = gson.fromJson(resultMsg,new TypeToken<Result<DocumentSyncResult>>(){}.getType());
             return resultOpResult;
         }catch (Exception e){
+            e.printStackTrace();
             return new Result(ResultCode.NET_CONNECT_ERROR, ResultDescription.NET_CONNECT_ERROR);
         }
     }
