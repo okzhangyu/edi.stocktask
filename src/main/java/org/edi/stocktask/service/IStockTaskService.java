@@ -1,6 +1,6 @@
 package org.edi.stocktask.service;
 
-import org.edi.initialfantasy.dto.Result;
+import org.edi.freamwork.data.Result;
 import org.edi.stocktask.bo.material.IMaterial;
 import org.edi.stocktask.bo.stocktask.IStockTask;
 
@@ -26,7 +26,7 @@ public interface IStockTaskService {
      * @param docType
      * @return
      */
-    Result<IStockTask> fetchStockTaskByCondition(String token,int docEntry,String docType);
+    Result<IStockTask> fetchStockTaskByCondition(String token, int docEntry, String docType);
 
 
     /**
