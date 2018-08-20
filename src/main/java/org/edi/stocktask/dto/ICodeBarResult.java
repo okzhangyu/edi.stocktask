@@ -3,7 +3,7 @@ package org.edi.stocktask.dto;
 /**
  * Created by asus on 2018/8/20.
  */
-public interface ICodeBarParam {
+public interface ICodeBarResult {
     String getBaseType();
 
     void setBaseType(String baseType);
@@ -11,6 +11,10 @@ public interface ICodeBarParam {
     Integer getBaseEntry();
 
     void setBaseEntry(Integer baseEntry);
+
+    Integer getBaseLine();
+
+    void setBaseLine(Integer baseLine);
 
     String getItemCode();
 

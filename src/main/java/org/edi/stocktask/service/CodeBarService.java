@@ -6,22 +6,24 @@ package org.edi.stocktask.service;
  */
 
 import org.apache.log4j.Logger;
-import org.edi.freamwork.data.Result;
+import org.edi.freamwork.bo.BusinessObjectException;
 import org.edi.freamwork.exception.BusinessException;
+import org.edi.freamwork.exception.DBException;
 import org.edi.initialfantasy.data.ResultCode;
 import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.initialfantasy.data.ServicePath;
+import org.edi.initialfantasy.dto.Result;
 import org.edi.initialfantasy.filter.UserRequest;
 import org.edi.stocktask.bo.codeBar.ICodeBar;
+import org.edi.stocktask.data.StockOpResultCode;
 import org.edi.stocktask.data.StockOpResultDescription;
 import org.edi.stocktask.data.StockTaskServicePath;
+import org.edi.stocktask.dto.CodeBarParam;
+import org.edi.stocktask.dto.CodeBarResult;
 import org.edi.stocktask.repository.IBORepositoryCodeBar;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
@@ -56,9 +58,9 @@ public class CodeBarService implements ICodeBarService{
         try{
             List<ICodeBar>  resultCodeBar = boRepositoryCodeBar.parseCodeBar(codeBar,baseType,baseEntry,baseLine,itemCode);
             if (resultCodeBar.size()==0){
-                result = new Result(ResultCode.SUCCESS, StockOpResultDescription.CODEBARINFO_IS_EMPTY,resultCodeBar);
+                result = new Result(ResultCode.OK, StockOpResultDescription.CODEBARINFO_IS_EMPTY,resultCodeBar);
             }else {
-                result = new Result<>(ResultCode.SUCCESS, ResultDescription.OK,resultCodeBar);
+                result = new Result<>(ResultCode.OK, ResultDescription.OK,resultCodeBar);
             }
         }catch (BusinessException e){
             log.warn(e);
@@ -76,17 +78,18 @@ public class CodeBarService implements ICodeBarService{
      * @param codeBarParam 条码集合
      * @return
      */
-   /* @POST
+    @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/codebars")
     @Override
-    public Result<CodeBarAnalysis> parseBatchCodeBar(@QueryParam(ServicePath.TOKEN_NAMER)String token,CodeBarParam codeBarParam) {
+    public Result<CodeBarResult> parseBatchCodeBar(@QueryParam(ServicePath.TOKEN_NAMER)String token,List<CodeBarParam>  codeBarParam) {
+        Result<CodeBarResult> result;
         try{
-            if(codeBarParam == null || codeBarParam.getCodeBar().size() == 0){
+            if(codeBarParam == null){
                 throw new BusinessObjectException(StockOpResultCode.STOCK_CODEBAR_IS_NULL,StockOpResultDescription.STOCK_CODEBAR_IS_EMPTY);
             }
-            List<CodeBarAnalysis> batchCodeBarList= boRepositoryCodeBar.parseBatchCodeBar(codeBarParam);
+            List<CodeBarResult> batchCodeBarList= boRepositoryCodeBar.parseBatchCodeBar(codeBarParam);
             result = new Result<>(ResultCode.OK, ResultDescription.OK,batchCodeBarList);
         }catch (BusinessException e){
             log.warn(e);
@@ -99,5 +102,5 @@ public class CodeBarService implements ICodeBarService{
             return new Result(e);
         }
         return result;
-    }*/
+    }
 }

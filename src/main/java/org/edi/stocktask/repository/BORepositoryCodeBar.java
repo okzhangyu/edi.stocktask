@@ -6,8 +6,8 @@ import org.edi.stocktask.bo.codeBar.ICodeBar;
 import org.edi.stocktask.data.StockOpResultCode;
 import org.edi.stocktask.data.StockOpResultDescription;
 import org.edi.stocktask.data.StockTaskData;
-import org.edi.stocktask.dto.CodeBarAnalysis;
 import org.edi.stocktask.dto.CodeBarParam;
+import org.edi.stocktask.dto.CodeBarResult;
 import org.edi.stocktask.dto.TransMessage;
 import org.edi.stocktask.mapper.CodeBarMapper;
 import org.edi.stocktask.mapper.StockTaskMapper;
@@ -66,19 +66,17 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
 
     /**
      * 批量解析条码
-     * @param codeBarParam 条码集合
+     * @param codeBarParams 条码集合
      * @return
      */
     @Override
-    public List<CodeBarAnalysis> parseBatchCodeBar(CodeBarParam codeBarParam) {
-        HashMap<String,Object> codeBarParams = new HashMap();
-        codeBarParams.put("baseType",codeBarParam.getBaseType());
-        codeBarParams.put("baseEntry",codeBarParam.getBaseEntry());
-        codeBarParams.put("codeBars","013|3977|1|22|4");
-        List<CodeBarAnalysis> listCodeBars = null;
+    public List<CodeBarResult> parseBatchCodeBar(List<CodeBarParam>  codeBarParams) {
+        HashMap<String,Object> codeBarParamsList = new HashMap<>();
+        codeBarParamsList.put("codeBarParams",codeBarParams);
+        List<CodeBarResult> listCodeBars = null;
         try{
-            listCodeBars = codeBarMapper.parseBatchCodeBar(codeBarParams);
-            TransMessage transMessage = new TransMessage(codeBarParams.get("code").toString(),codeBarParams.get("message").toString());
+            listCodeBars = codeBarMapper.parseBatchCodeBar(codeBarParamsList);
+            TransMessage transMessage = new TransMessage(codeBarParamsList.get("code").toString(),codeBarParamsList.get("message").toString());
             if(!transMessage.getCode().equals("0")){
                 throw new BusinessException(StockOpResultCode.BARCODE_ANALYSIS_IS_FAIL,StockOpResultDescription.BARCODE_ANALYSIS_IS_FAIL);
             }
