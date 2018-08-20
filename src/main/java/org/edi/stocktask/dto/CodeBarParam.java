@@ -1,11 +1,14 @@
 package org.edi.stocktask.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by asus on 2018/8/20.
  */
 public class CodeBarParam implements ICodeBarParam{
+
+
 
     private Integer baseLine;
     private Double quantity;

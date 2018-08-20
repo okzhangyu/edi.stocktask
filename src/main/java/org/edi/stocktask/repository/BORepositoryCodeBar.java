@@ -7,6 +7,7 @@ import org.edi.stocktask.data.StockOpResultCode;
 import org.edi.stocktask.data.StockOpResultDescription;
 import org.edi.stocktask.data.StockTaskData;
 import org.edi.stocktask.dto.CodeBarParam;
+import org.edi.stocktask.dto.CodeBarParseParam;
 import org.edi.stocktask.dto.CodeBarResult;
 import org.edi.stocktask.dto.TransMessage;
 import org.edi.stocktask.mapper.CodeBarMapper;
@@ -14,6 +15,7 @@ import org.edi.stocktask.mapper.StockTaskMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -68,22 +70,31 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
      */
     @Override
     public List<CodeBarResult> parseBatchCodeBar(List<CodeBarParam>  codeBarParams,String baseType,Integer baseEntry) {
+        List<CodeBarParseParam> codeBarParseParams = CodeBarParseParam.createParseParam(codeBarParams);
         HashMap<String,Object> codeBarParamsList = new HashMap<>();
-        codeBarParamsList.put("codeBarParams",codeBarParams);
+        codeBarParamsList.put("codeBarParams",codeBarParseParams);
         codeBarParamsList.put("baseType",baseType);
         codeBarParamsList.put("baseEntry",baseEntry);
         List<CodeBarResult> listCodeBars = null;
         try{
             listCodeBars = codeBarMapper.parseBatchCodeBar(codeBarParamsList);
             TransMessage transMessage = new TransMessage(codeBarParamsList.get("code").toString(),codeBarParamsList.get("message").toString());
-            if(!transMessage.getCode().equals("0")){
-                throw new BusinessException(StockOpResultCode.BARCODE_ANALYSIS_IS_FAIL,StockOpResultDescription.BARCODE_ANALYSIS_IS_FAIL);
+//            if(!transMessage.getCode().equals("0")){
+//                throw new BusinessException(StockOpResultCode.BARCODE_ANALYSIS_IS_FAIL,StockOpResultDescription.BARCODE_ANALYSIS_IS_FAIL);
+//            }
+            if((int)codeBarParamsList.get("code")!=0){
+                throw new BusinessException(codeBarParamsList.get("code").toString(),codeBarParamsList.get("message").toString());
             }
+        }catch (BusinessException e){
+            e.printStackTrace();
+            throw e;
         }catch (Exception e){
             e.printStackTrace();
             throw new BusinessException(StockOpResultCode.BARCODE_ANALYSIS_IS_FAIL,StockOpResultDescription.BARCODE_ANALYSIS_IS_FAIL);
         }
         return listCodeBars;
     }
+
+
 
 }
