@@ -7,12 +7,12 @@ package org.edi.stocktask.service;
 
 import org.apache.log4j.Logger;
 import org.edi.freamwork.bo.BusinessObjectException;
+import org.edi.freamwork.data.Result;
 import org.edi.freamwork.exception.BusinessException;
 import org.edi.freamwork.exception.DBException;
 import org.edi.initialfantasy.data.ResultCode;
 import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.initialfantasy.data.ServicePath;
-import org.edi.initialfantasy.dto.Result;
 import org.edi.initialfantasy.filter.UserRequest;
 import org.edi.stocktask.bo.codeBar.ICodeBar;
 import org.edi.stocktask.data.StockOpResultCode;
@@ -58,9 +58,9 @@ public class CodeBarService implements ICodeBarService{
         try{
             List<ICodeBar>  resultCodeBar = boRepositoryCodeBar.parseCodeBar(codeBar,baseType,baseEntry,baseLine,itemCode);
             if (resultCodeBar.size()==0){
-                result = new Result(ResultCode.OK, StockOpResultDescription.CODEBARINFO_IS_EMPTY,resultCodeBar);
+                result = new Result(ResultCode.SUCCESS, StockOpResultDescription.CODEBARINFO_IS_EMPTY,resultCodeBar);
             }else {
-                result = new Result<>(ResultCode.OK, ResultDescription.OK,resultCodeBar);
+                result = new Result<>(ResultCode.SUCCESS, ResultDescription.OK,resultCodeBar);
             }
         }catch (BusinessException e){
             log.warn(e);
@@ -90,7 +90,7 @@ public class CodeBarService implements ICodeBarService{
                 throw new BusinessObjectException(StockOpResultCode.STOCK_CODEBAR_IS_NULL,StockOpResultDescription.STOCK_CODEBAR_IS_EMPTY);
             }
             List<CodeBarResult> batchCodeBarList= boRepositoryCodeBar.parseBatchCodeBar(codeBarParam);
-            result = new Result<>(ResultCode.OK, ResultDescription.OK,batchCodeBarList);
+            result = new Result<>(ResultCode.SUCCESS, ResultDescription.OK,batchCodeBarList);
         }catch (BusinessException e){
             log.warn(e);
             return new Result(e);

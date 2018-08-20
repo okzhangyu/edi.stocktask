@@ -1,6 +1,6 @@
 package org.edi.stocktask.service;
 
-import org.edi.initialfantasy.dto.Result;
+import org.edi.freamwork.data.Result;
 import org.edi.stocktask.bo.codeBar.ICodeBar;
 import org.edi.stocktask.dto.CodeBarParam;
 import org.edi.stocktask.dto.CodeBarResult;
@@ -17,7 +17,7 @@ public interface ICodeBarService {
      * @param codeBar
      * @return
      */
-    Result<ICodeBar> parseCodeBar(String token, String codeBar ,String baseType, int baseEntry, int baseLine,String itemCode);
+    Result<ICodeBar> parseCodeBar(String token, String codeBar , String baseType, int baseEntry, int baseLine, String itemCode);
 
 
     /**
