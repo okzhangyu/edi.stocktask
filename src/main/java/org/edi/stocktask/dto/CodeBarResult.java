@@ -3,9 +3,10 @@ package org.edi.stocktask.dto;
 /**
  * Created by asus on 2018/8/20.
  */
-public class CodeBarParam implements ICodeBarParam{
+public class CodeBarResult implements ICodeBarResult {
     private String baseType;
     private Integer baseEntry;
+    private Integer baseLine;
     private String itemCode;
     private String codeBar;
 
@@ -25,6 +26,13 @@ public class CodeBarParam implements ICodeBarParam{
         this.baseEntry = baseEntry;
     }
 
+    public Integer getBaseLine() {
+        return baseLine;
+    }
+
+    public void setBaseLine(Integer baseLine) {
+        this.baseLine = baseLine;
+    }
 
     public String getItemCode() {
         return itemCode;

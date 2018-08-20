@@ -321,7 +321,7 @@
 
     <!--void updateIsDelete(Integer docEntry);-->
     <update id="updateIsDelete"  parameterType="int">
-        UPDATE AVA_WM_OSRP set IsDelete='N' WHERE DocEntry=#{docEntry};
+        UPDATE AVA_WM_OSRP set IsDelete='Y' WHERE DocEntry=#{docEntry};
     </update>
 
 
