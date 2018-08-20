@@ -1,6 +1,5 @@
 package org.edi.stocktask.repository;
 
-import org.edi.freamwork.bo.BusinessObject;
 import org.edi.freamwork.bo.BusinessObjectException;
 import org.edi.freamwork.exception.BusinessException;
 import org.edi.freamwork.exception.DBException;
@@ -209,9 +208,10 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
             if(!b1DocEntryVerification.B1EntryCheck(docEntry)){
                 throw new BusinessException(StockOpResultCode.B1DOCENTRY_IS_EXISTENT, StockOpResultDescription.B1DOCENTRY_IS_EXISTENT);
             }
-            stockReportMapper.deleteStockReport(docEntry);
+          /*stockReportMapper.deleteStockReport(docEntry);
             stockReportMapper.deleteStockReportItem(docEntry);
-            stockReportMapper.deleteStockReportMaterialItem(docEntry);
+            stockReportMapper.deleteStockReportMaterialItem(docEntry);*/
+            stockReportMapper.updateIsDelete(docEntry);
             StockReport stockReport = new StockReport();
             stockReport.setDocEntry(docEntry);
             callTranscation(stockReport,"D");

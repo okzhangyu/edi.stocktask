@@ -327,7 +327,7 @@ public class StockTask extends DocumentBO implements IStockTask{
         if(itemCloseCount == this.getStockTaskItems().size()){
             this.setDocumentStatus(StockTaskData.CLOSE);
         }else if(itemCloseCount >0 && itemCloseCount < this.getStockTaskItems().size()){
-            this.setDocumentStatus(StockTaskData.PARTIAL);
+            this.setDocumentStatus(StockTaskData.EXEUCTING);
         }
     }
 }
