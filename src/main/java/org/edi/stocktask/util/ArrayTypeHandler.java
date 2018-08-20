@@ -6,7 +6,7 @@ import org.apache.ibatis.type.TypeException;
 
 import java.sql.*;
 
-// 继承自BaseTypeHandler<Object[]> 使用时传入的参数一定要是Object[]，例如 int[]是 Object, 不是Object[]，所以传入int[] 会报错的
+
 public class ArrayTypeHandler extends BaseTypeHandler<Object[]> {
 
     private static final String TYPE_NAME_VARCHAR = "varchar";

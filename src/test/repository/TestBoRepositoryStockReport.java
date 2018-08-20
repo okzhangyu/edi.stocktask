@@ -210,4 +210,6 @@ public class TestBoRepositoryStockReport extends TestCase{
         Assert.assertEquals("C",stockReport.getDocumentStatus());
         Assert.assertEquals(B1DocEntry,stockReport.getB1DocEntry());
     }
+
+
 }

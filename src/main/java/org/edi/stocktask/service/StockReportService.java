@@ -176,6 +176,7 @@ public class StockReportService implements  IStockReportService{
             Result<DocumentSyncResult> resultOpResult = gson.fromJson(resultMsg,new TypeToken<Result<DocumentSyncResult>>(){}.getType());
             return resultOpResult;
         }catch (Exception e){
+            e.printStackTrace();
             return new Result(ResultCode.NET_CONNECT_ERROR, ResultDescription.NET_CONNECT_ERROR);
         }
     }

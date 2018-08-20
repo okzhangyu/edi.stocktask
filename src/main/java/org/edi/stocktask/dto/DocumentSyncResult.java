@@ -7,32 +7,40 @@ package org.edi.stocktask.dto;
 public class DocumentSyncResult implements IDocumentSyncResult{
     private String code;
 
+    @Override
     public String getCode(){return code;}
 
+    @Override
     public void setCode(String code){this.code = code;}
 
     private String uniquekey;
 
+    @Override
     public String getUniquekey(){return uniquekey;}
 
+    @Override
     public void setUniquekey(String uniquekey){
         this.uniquekey = uniquekey;
     }
 
     private String message;
 
+    @Override
     public String getMessage(){
         return message;
     }
 
+    @Override
     public void setMessage(String message){
         this.message = message;
     }
 
     private String returnEntry;
 
+    @Override
     public String getReturnEntry(){return returnEntry;}
 
+    @Override
     public void setReturnEntry(String returnEntry){
         this.returnEntry = returnEntry;
     }

@@ -19,4 +19,12 @@ public interface ICodeBarParam {
     String getCodeBar();
 
     void setCodeBar(String codeBar);
+
+    Double getQuantity();
+
+    void setQuantity(Double quantity);
+
+    Integer getBaseLine();
+
+    void setBaseLine(Integer baseLine);
 }

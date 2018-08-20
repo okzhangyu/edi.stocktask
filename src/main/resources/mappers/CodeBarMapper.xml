@@ -7,7 +7,6 @@
         <result column="ProDesc" property="proDesc" jdbcType="VARCHAR" />
     </resultMap>
 
-
     <parameterMap id="codeBarParam" type="map">
         <parameter property="itemCode" jdbcType="NVARCHAR" mode="IN"/>
         <parameter property="codebar" jdbcType="NVARCHAR" mode="IN"/>
@@ -16,18 +15,8 @@
         <parameter property="baseLine" jdbcType="INTEGER" mode="IN"/>
     </parameterMap>
 
-
-    <resultMap id="TransMessageMap" type="org.edi.stocktask.dto.TransMessage">
-        <result column="Code" property="code" jdbcType="VARCHAR" />
-        <result column="Message" property="message" jdbcType="VARCHAR" />
-    </resultMap>
-
-
-    <parameterMap id="BatchCodeBarParamMap" type="org.edi.stocktask.dto.CodeBarParam">
-        <parameter property="baseType" jdbcType="NVARCHAR" mode="IN"/>
-        <parameter property="baseEntry" jdbcType="INTEGER" mode="IN"/>
-        <parameter property="itemCode" jdbcType="NVARCHAR" mode="IN"/>
-        <parameter property="codeBar" jdbcType="NVARCHAR" mode="IN"/>
+    <parameterMap id="BatchCodeBarParamMap" type="map">
+        <parameter property="codeBarParams" jdbcType="ARRAY" javaType="java.util.List" mode="IN" typeHandler="org.edi.stocktask.util.TableTypeHandler"/>
     </parameterMap>
 
     <resultMap id="BatchCodeBarResultMap" type="org.edi.stocktask.dto.CodeBarResult">
@@ -54,10 +43,10 @@
     </select>
 
     <!-- List<CodeBarAnalysis> parseBatchCodeBar(HashMap<String,Object> codeBarParamsList);-->
-    <select id="parseBatchCodeBar" statementType="CALLABLE"  resultMap="BatchCodeBarResultMap">
+    <select id="parseBatchCodeBar" statementType="CALLABLE" parameterMap="BatchCodeBarParamMap"  resultMap="BatchCodeBarResultMap">
         {call AVA_SP_BATCH_PARSE_CODEBAR(
-        #{codeBarParams, jdbcType = NVARCHAR, mode = IN},
-        #{code, jdbcType = NVARCHAR, mode = OUT},
+        #{codeBarParams,typeHandler = org.edi.stocktask.util.TableTypeHandler,jdbcType = ARRAY, mode = IN},
+        #{code, jdbcType = INTEGER, mode = OUT},
         #{message, jdbcType = NVARCHAR, mode = OUT}
         )}
     </select>
