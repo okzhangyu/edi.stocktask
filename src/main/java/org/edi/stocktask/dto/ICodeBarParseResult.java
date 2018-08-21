@@ -1,12 +1,10 @@
 package org.edi.stocktask.dto;
 
-import java.util.List;
-
 /**
- * Created by asus on 2018/8/20.
+ * @author Fancy
+ * @date 2018/8/21
  */
-public interface ICodeBarResult {
-
+public interface ICodeBarParseResult {
     Integer getBaseLine();
 
     void setBaseLine(Integer baseLine);
@@ -15,11 +13,15 @@ public interface ICodeBarResult {
 
     void setItemCode(String itemCode);
 
+    String getCodeBar();
+
+    void setCodeBar(String codeBar);
+
     Double getQuantity();
 
     void setQuantity(Double quantity);
 
-    List<CodeBarItem> getCodeBarItems();
+    Double getCodeBarQty();
 
-    void setCodeBarItems(List<CodeBarItem> codeBarItems);
+    void setCodeBarQty(Double quantity);
 }

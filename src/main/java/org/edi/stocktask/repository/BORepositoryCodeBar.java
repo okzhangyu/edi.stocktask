@@ -5,10 +5,8 @@ import org.edi.freamwork.exception.BusinessException;
 import org.edi.stocktask.bo.codeBar.ICodeBar;
 import org.edi.stocktask.data.StockOpResultCode;
 import org.edi.stocktask.data.StockOpResultDescription;
-import org.edi.stocktask.dto.CodeBarParam;
-import org.edi.stocktask.dto.CodeBarParseParam;
-import org.edi.stocktask.dto.CodeBarResult;
-import org.edi.stocktask.dto.TransMessage;
+import org.edi.stocktask.data.StockTaskData;
+import org.edi.stocktask.dto.*;
 import org.edi.stocktask.mapper.CodeBarMapper;
 import org.edi.stocktask.mapper.StockTaskMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,13 +71,9 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
         codeBarParamsList.put("codeBarParams",codeBarParseParams);
         codeBarParamsList.put("baseType",baseType);
         codeBarParamsList.put("baseEntry",baseEntry);
-        List<CodeBarResult> listCodeBars = null;
+        List<CodeBarParseResult> listCodeBars = null;
         try{
             listCodeBars = codeBarMapper.parseBatchCodeBar(codeBarParamsList);
-            TransMessage transMessage = new TransMessage(codeBarParamsList.get("code").toString(),codeBarParamsList.get("message").toString());
-//            if(!transMessage.getCode().equals("0")){
-//                throw new BusinessException(StockOpResultCode.BARCODE_ANALYSIS_IS_FAIL,StockOpResultDescription.BARCODE_ANALYSIS_IS_FAIL);
-//            }
             if((int)codeBarParamsList.get("code")!=0){
                 throw new BusinessException(codeBarParamsList.get("code").toString(),codeBarParamsList.get("message").toString());
             }
@@ -90,7 +84,7 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
             e.printStackTrace();
             throw new BusinessException(StockOpResultCode.BARCODE_ANALYSIS_IS_FAIL,StockOpResultDescription.BARCODE_ANALYSIS_IS_FAIL);
         }
-        return listCodeBars;
+        return CodeBarResult.createCodeBarResult(listCodeBars);
     }
 
 

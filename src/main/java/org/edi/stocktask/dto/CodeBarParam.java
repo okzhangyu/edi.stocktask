@@ -8,13 +8,14 @@ import java.util.List;
  */
 public class CodeBarParam implements ICodeBarParam{
 
-
-
     private Integer baseLine;
     private Double quantity;
     private String itemCode;
     private List<CodeBarItem> codeBarItems;
 
+    public CodeBarParam(){
+        this.codeBarItems = new ArrayList<>();
+    }
     @Override
     public String getItemCode() {
         return itemCode;
