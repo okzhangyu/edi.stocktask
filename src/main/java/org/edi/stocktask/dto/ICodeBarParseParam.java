@@ -1,13 +1,10 @@
 package org.edi.stocktask.dto;
 
-import com.sun.org.apache.bcel.internal.classfile.Code;
-
-import java.util.List;
-
 /**
- * Created by asus on 2018/8/20.
+ * @author Fancy
+ * @date 2018/8/20
  */
-public interface ICodeBarParam {
+public interface ICodeBarParseParam {
 
     String getItemCode();
 
@@ -21,7 +18,11 @@ public interface ICodeBarParam {
 
     void setBaseLine(Integer baseLine);
 
-    List<CodeBarItem> getCodeBarItems();
+    String getCodeBar();
 
-    void setCodeBarItems(List<CodeBarItem> codeBarItems);
+    void setCodeBar(String codeBar);
+
+    Double getCodeBarQty();
+
+    void setCodeBarQty(Double quantity);
 }

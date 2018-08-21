@@ -26,5 +26,8 @@ public interface ICodeBarService {
      * @param codeBarParam 条码集合
      * @return
      */
-    Result<CodeBarResult> parseBatchCodeBar(String token,List<CodeBarParam> codeBarParam);
+    Result<CodeBarResult> parseBatchCodeBar(String token,List<CodeBarParam> codeBarParam,
+                                                String baseType,
+                                                Integer baseEntry);
+
 }

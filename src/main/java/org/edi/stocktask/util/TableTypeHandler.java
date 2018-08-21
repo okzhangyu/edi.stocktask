@@ -5,6 +5,7 @@ import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedJdbcTypes;
 import org.edi.stocktask.dto.CodeBarParam;
+import org.edi.stocktask.dto.CodeBarParseParam;
 
 import java.sql.*;
 import java.util.List;
@@ -20,14 +21,13 @@ public class TableTypeHandler extends BaseTypeHandler<Object> {
     public void setNonNullParameter(PreparedStatement ps, int i, Object parameter, JdbcType jdbcType) throws SQLException {
         SQLServerDataTable sourceDataTable = new SQLServerDataTable();
         sourceDataTable.addColumnMetadata("CodeBar" , Types.NVARCHAR);
-        sourceDataTable.addColumnMetadata("BaseType" , Types.VARCHAR);
-        sourceDataTable.addColumnMetadata("BaseEntry" ,Types.INTEGER);
         sourceDataTable.addColumnMetadata("BaseLine" , Types.INTEGER);
         sourceDataTable.addColumnMetadata("ItemCode" , Types.NVARCHAR);
         sourceDataTable.addColumnMetadata("Quantity" , Types.DOUBLE);
-        List<CodeBarParam> dataList = (List)parameter;
-        for (CodeBarParam item : dataList) {
-             sourceDataTable.addRow(item.getCodeBar(),item.getBaseType(),item.getBaseEntry(),item.getBaseLine(),item.getItemCode(),item.getQuantity());
+        sourceDataTable.addColumnMetadata("CodeBarQty" , Types.DOUBLE);
+        List<CodeBarParseParam> dataList = (List)parameter;
+        for (CodeBarParseParam item : dataList) {
+             sourceDataTable.addRow(item.getCodeBar(),item.getBaseLine(),item.getItemCode(),item.getQuantity(),item.getCodeBarQty());
         }
         ps.setObject(i, sourceDataTable);
     }
