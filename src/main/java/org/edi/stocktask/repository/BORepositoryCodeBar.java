@@ -5,7 +5,6 @@ import org.edi.freamwork.exception.BusinessException;
 import org.edi.stocktask.bo.codeBar.ICodeBar;
 import org.edi.stocktask.data.StockOpResultCode;
 import org.edi.stocktask.data.StockOpResultDescription;
-import org.edi.stocktask.data.StockTaskData;
 import org.edi.stocktask.dto.CodeBarParam;
 import org.edi.stocktask.dto.CodeBarParseParam;
 import org.edi.stocktask.dto.CodeBarResult;
@@ -15,7 +14,6 @@ import org.edi.stocktask.mapper.StockTaskMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
