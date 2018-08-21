@@ -7,11 +7,19 @@ package org.edi.stocktask.dto;
  */
 public interface ICodeBarItem {
 
-    String getCodeBar();
+    String getItemCode();
 
-    void setCodeBar(String codeBar);
+    void setItemCode(String itemCode);
 
-    Double getCodeBarQty();
+    Integer getBaseLine();
 
-    void setCodeBarQty(Double quantity);
+    void setBaseLine(Integer baseLine);
+
+    String getBarCode();
+
+    void setBarCode(String barCode);
+
+    Double getQuantity();
+
+    void setQuantity(Double quantity);
 }

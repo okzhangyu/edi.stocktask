@@ -177,6 +177,7 @@ public class StockReportService implements  IStockReportService{
             return resultOpResult;
         }catch (Exception e){
             e.printStackTrace();
+            log.warn(e);
             return new Result(ResultCode.NET_CONNECT_ERROR, ResultDescription.NET_CONNECT_ERROR);
         }
     }

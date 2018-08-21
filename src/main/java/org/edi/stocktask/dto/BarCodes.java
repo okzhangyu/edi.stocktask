@@ -1,11 +1,9 @@
 package org.edi.stocktask.dto;
 
 /**
- * @author Fancy
- * @date 2018/8/20
+ * Created by asus on 2018/8/21.
  */
-public class CodeBarItem implements ICodeBarItem{
-
+public class BarCodes implements IBarCodes{
     private String itemCode;
     private Integer baseLine;
     private String barCode;

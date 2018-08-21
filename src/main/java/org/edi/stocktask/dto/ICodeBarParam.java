@@ -1,7 +1,5 @@
 package org.edi.stocktask.dto;
 
-import com.sun.org.apache.bcel.internal.classfile.Code;
-
 import java.util.List;
 
 /**
@@ -9,19 +7,15 @@ import java.util.List;
  */
 public interface ICodeBarParam {
 
-    String getItemCode();
+     Integer getBaseEntry();
 
-    void setItemCode(String itemCode);
+     void setBaseEntry(Integer baseEntry);
 
-    Double getQuantity();
+     String getBaseType();
 
-    void setQuantity(Double quantity);
+     void setBaseType(String baseType);
 
-    Integer getBaseLine();
+     List<CodeBarItem> getBarCodes();
 
-    void setBaseLine(Integer baseLine);
-
-    List<CodeBarItem> getCodeBarItems();
-
-    void setCodeBarItems(List<CodeBarItem> codeBarItems);
+     void setBarCodes(List<CodeBarItem> barCodes);
 }

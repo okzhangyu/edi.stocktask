@@ -11,28 +11,24 @@ import java.util.List;
 public class CodeBarParseParam implements ICodeBarParseParam{
 
 
-    public static List<CodeBarParseParam> createParseParam(List<CodeBarParam>codeBarParams){
+    public static List<CodeBarParseParam> createParseParam(CodeBarParam codeBarParams){
         List<CodeBarParseParam> codeBarParseParams = new ArrayList<>();
         CodeBarParseParam codeBarParseParam;
-        for (CodeBarParam codeBarParam:
-             codeBarParams) {
             for (CodeBarItem item:
-                    codeBarParam.getCodeBarItems()) {
+                    codeBarParams.getBarCodes()) {
                 codeBarParseParam = new CodeBarParseParam();
-                codeBarParseParam.setBaseLine(codeBarParam.getBaseLine());
-                codeBarParseParam.setItemCode(codeBarParam.getItemCode());
-                codeBarParseParam.setQuantity(codeBarParam.getQuantity());
-                codeBarParseParam.setCodeBar(item.getCodeBar());
-                codeBarParseParam.setCodeBarQty(item.getCodeBarQty());
+                codeBarParseParam.setItemCode(item.getItemCode());
+                codeBarParseParam.setBaseLine(item.getBaseLine());
+                codeBarParseParam.setCodeBar(item.getBarCode());
+                codeBarParseParam.setQuantity(item.getQuantity());
                 codeBarParseParams.add(codeBarParseParam);
             }
-        }
+
         return codeBarParseParams;
     }
     private Integer baseLine;
     private Double quantity;
     private String itemCode;
-    private Double codeBarQty;
     private String codeBar;
 
     @Override
@@ -75,13 +71,5 @@ public class CodeBarParseParam implements ICodeBarParseParam{
         this.codeBar = codeBar;
     }
 
-    @Override
-    public Double getCodeBarQty() {
-        return codeBarQty;
-    }
 
-    @Override
-    public void setCodeBarQty(Double codeBarQty) {
-        this.codeBarQty = codeBarQty;
-    }
 }
