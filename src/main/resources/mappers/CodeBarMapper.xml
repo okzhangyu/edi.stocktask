@@ -19,7 +19,7 @@
         <parameter property="codeBarParams" jdbcType="ARRAY" javaType="java.util.List" mode="IN" typeHandler="org.edi.stocktask.util.TableTypeHandler"/>
     </parameterMap>
 
-    <resultMap id="BatchCodeBarResultMap" type="org.edi.stocktask.dto.CodeBarResult">
+    <resultMap id="BatchCodeBarResultMap" type="org.edi.stocktask.dto.CodeBarParseResult">
         <result column="BaseType" property="baseType" jdbcType="VARCHAR" />
         <result column="BaseEntry" property="baseEntry" jdbcType="INTEGER" />
         <result column="BaseLine" property="baseLine" jdbcType="INTEGER" />
