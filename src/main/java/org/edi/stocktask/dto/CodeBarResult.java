@@ -1,14 +1,51 @@
 package org.edi.stocktask.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * Created by asus on 2018/8/20.
  */
 public class CodeBarResult implements ICodeBarResult {
+
+    public static List<CodeBarResult> createCodeBarResult(List<CodeBarParseResult> codeBarParseResults){
+        List<CodeBarResult> codeBarResults = new ArrayList<>();
+        CodeBarResult codeBarResult ;
+        CodeBarItem codeBarItem;
+        for (CodeBarParseResult codeBarParseResult:
+                codeBarParseResults) {
+            codeBarItem = new CodeBarItem();
+            codeBarItem.setCodeBar(codeBarParseResult.getCodeBar());
+            codeBarItem.setCodeBarQty(codeBarParseResult.getCodeBarQty());
+
+            List<CodeBarResult> newList = codeBarResults.stream()
+                    .filter(c->c.getBaseLine().equals(codeBarParseResult.getBaseLine())
+                            && c.getItemCode().equals(codeBarParseResult.getItemCode())
+                            && c.getQuantity().equals(codeBarParseResult.getQuantity()))
+                    .collect(Collectors.toList());
+
+            if(newList != null && newList.size() > 0){
+               newList.get(0).getCodeBarItems().add(codeBarItem);
+            }else{
+                codeBarResult = new CodeBarResult();
+                codeBarResult.getCodeBarItems().add(codeBarItem);
+                codeBarResult.setItemCode(codeBarParseResult.getItemCode());
+                codeBarResult.setBaseLine(codeBarParseResult.getBaseLine());
+                codeBarResult.setQuantity(codeBarParseResult.getQuantity());
+                codeBarResults.add(codeBarResult);
+            }
+        }
+        return codeBarResults;
+    }
+
+    public CodeBarResult(){
+        this.codeBarItems = new ArrayList<>();
+    }
     private Integer baseLine;
     private String itemCode;
-    private String codeBar;
     private Double quantity;
-
+    private List<CodeBarItem> codeBarItems;
     @Override
     public Integer getBaseLine() {
         return baseLine;
@@ -30,16 +67,6 @@ public class CodeBarResult implements ICodeBarResult {
     }
 
     @Override
-    public String getCodeBar() {
-        return codeBar;
-    }
-
-    @Override
-    public void setCodeBar(String codeBar) {
-        this.codeBar = codeBar;
-    }
-
-    @Override
     public Double getQuantity() {
         return quantity;
     }
@@ -47,6 +74,16 @@ public class CodeBarResult implements ICodeBarResult {
     @Override
     public void setQuantity(Double quantity) {
         this.quantity = quantity;
+    }
+
+    @Override
+    public List<CodeBarItem> getCodeBarItems() {
+        return codeBarItems;
+    }
+
+    @Override
+    public void setCodeBarItems(List<CodeBarItem> codeBarItems) {
+        this.codeBarItems = codeBarItems;
     }
 
 }

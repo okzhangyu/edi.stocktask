@@ -1,7 +1,7 @@
 package org.edi.stocktask.mapper;
 
 import org.edi.stocktask.bo.codeBar.ICodeBar;
-import org.edi.stocktask.dto.CodeBarResult;
+import org.edi.stocktask.dto.CodeBarParseResult;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,5 +19,5 @@ public interface CodeBarMapper {
      */
     List<ICodeBar> parseCodeBar(HashMap<String,Object> codeBarParam);
 
-    List<CodeBarResult> parseBatchCodeBar(HashMap<String,Object> codeBarParamsList);
+    List<CodeBarParseResult> parseBatchCodeBar(HashMap<String,Object> codeBarParamsList);
 }
