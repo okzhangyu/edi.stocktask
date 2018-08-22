@@ -16,8 +16,7 @@ public class CodeBarResult implements ICodeBarResult {
         for (CodeBarParseResult codeBarParseResult:
                 codeBarParseResults) {
             codeBarItem = new CodeBarItem();
-            codeBarItem.setCodeBar(codeBarParseResult.getCodeBar());
-            codeBarItem.setCodeBarQty(codeBarParseResult.getCodeBarQty());
+            codeBarItem.setBarCode(codeBarParseResult.getCodeBar());
 
             List<CodeBarResult> newList = codeBarResults.stream()
                     .filter(c->c.getBaseLine().equals(codeBarParseResult.getBaseLine())

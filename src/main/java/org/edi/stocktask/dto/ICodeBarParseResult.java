@@ -5,6 +5,8 @@ package org.edi.stocktask.dto;
  * @date 2018/8/21
  */
 public interface ICodeBarParseResult {
+
+
     Integer getBaseLine();
 
     void setBaseLine(Integer baseLine);
@@ -20,8 +22,4 @@ public interface ICodeBarParseResult {
     Double getQuantity();
 
     void setQuantity(Double quantity);
-
-    Double getCodeBarQty();
-
-    void setCodeBarQty(Double quantity);
 }

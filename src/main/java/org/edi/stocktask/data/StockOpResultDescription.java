@@ -65,4 +65,6 @@ public class StockOpResultDescription extends OpResultDescription {
 
     public static final String BARCODE_ANALYSIS_IS_FAIL = "条码[%s]解析失败";
 
+    public static final String BARCODE_PARSE_RESULT_IS_ERROR = "条码解析结果错误，无法找到任务行信息";
+
 }

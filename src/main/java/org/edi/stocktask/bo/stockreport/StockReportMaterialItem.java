@@ -1,9 +1,18 @@
 package org.edi.stocktask.bo.stockreport;
 
 import org.edi.freamwork.bo.DocumentBOLine;
+import org.edi.stocktask.dto.CodeBarParseResult;
 
 public class StockReportMaterialItem extends DocumentBOLine implements IStockReportMaterialItem {
 
+    public static StockReportMaterialItem createMaterialItem(CodeBarParseResult codeBarParseResult){
+        StockReportMaterialItem stockReportMaterialItem = new StockReportMaterialItem();
+        stockReportMaterialItem.setBarCode(codeBarParseResult.getCodeBar());
+        stockReportMaterialItem.setQuantity(codeBarParseResult.getQuantity());
+        stockReportMaterialItem.setItemCode(codeBarParseResult.getItemCode());
+        stockReportMaterialItem.setIsDeleted("N");
+        return  stockReportMaterialItem;
+    }
 
     private Integer docEntry;
     private Integer lineId;

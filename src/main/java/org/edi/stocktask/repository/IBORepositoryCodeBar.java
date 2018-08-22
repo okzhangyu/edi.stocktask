@@ -1,8 +1,8 @@
 package org.edi.stocktask.repository;
 
 import org.edi.stocktask.bo.codeBar.ICodeBar;
+import org.edi.stocktask.bo.stockreport.StockReportItem;
 import org.edi.stocktask.dto.CodeBarParam;
-import org.edi.stocktask.dto.CodeBarResult;
 
 import java.util.List;
 
@@ -25,10 +25,8 @@ public interface IBORepositoryCodeBar {
     /**
      * 批量解析条码
      * @param codeBarParams 条码集合
-     * @param baseEntry 基于单据号
-     * @param baseType 基于单据类型
      * @return
      */
-    public List<CodeBarResult> parseBatchCodeBar(List<CodeBarParam>  codeBarParams,String baseType,Integer baseEntry);
+    public List<StockReportItem> parseBatchCodeBar(CodeBarParam codeBarParams);
 
 }
