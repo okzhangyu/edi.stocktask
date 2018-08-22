@@ -35,6 +35,7 @@ public class StockTask extends DocumentBO implements IStockTask{
     private String documentDate;
     private String schemaCode;
     private String annotated;
+    private String targetDocumentType;
     private List<IStockTaskItem> stockTaskItems;
     private List<IStockTaskBarCodeItem> stockTaskBarCodeItems;
 
@@ -224,6 +225,16 @@ public class StockTask extends DocumentBO implements IStockTask{
     }
 
     @Override
+    public String getTargetDocumentType() {
+        return targetDocumentType;
+    }
+
+    @Override
+    public void setTargetDocumentType(String value) {
+        this.targetDocumentType = value;
+    }
+
+    @Override
     public void setDeliveryDate(String deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
@@ -283,30 +294,32 @@ public class StockTask extends DocumentBO implements IStockTask{
 
     @Override
     public String toString() {
-        return "StockTask{" +
-                "companyName='" + companyName + '\'' +
-                ", objectKey=" + objectKey +
-                ", objectCode='" + objectCode + '\'' +
-                ", createDate='" + createDate + '\'' +
-                ", createTime=" + createTime +
-                ", updateDate='" + updateDate + '\'' +
-                ", updateTime=" + updateTime +
-                ", reference1='" + reference1 + '\'' +
-                ", reference2='" + reference2 + '\'' +
-                ", remarks='" + remarks + '\'' +
-                ", documentType='" + documentType + '\'' +
-                ", documentEntry=" + documentEntry +
-                ", documentLineId=" + documentLineId +
-                ", businessPartnerCode='" + businessPartnerCode + '\'' +
-                ", businessPartnerName='" + businessPartnerName + '\'' +
-                ", transactionType='" + transactionType + '\'' +
-                ", postingDate=" + postingDate +
-                ", deliveryDate=" + deliveryDate +
-                ", documentDate='" + documentDate + '\'' +
-                ", schemaCode='" + schemaCode + '\'' +
-                ", annotated='" + annotated + '\'' +
-                ", stockTaskItems=" + stockTaskItems +
-                ", stockTaskBarCodeItems=" + stockTaskBarCodeItems +
+        return "{" +
+                "companyName:'" + companyName + '\'' +
+                ", objectKey:" + objectKey +
+                ", objectCode:'" + objectCode + '\'' +
+                ", createDate:'" + createDate + '\'' +
+                ", createTime:" + createTime +
+                ", updateDate:'" + updateDate + '\'' +
+                ", updateTime:" + updateTime +
+                ", reference1:'" + reference1 + '\'' +
+                ", reference2:'" + reference2 + '\'' +
+                ", remarks:'" + remarks + '\'' +
+                ", documentType:'" + documentType + '\'' +
+                ", documentStatus:'" + documentStatus + '\'' +
+                ", documentEntry:" + documentEntry +
+                ", documentLineId:" + documentLineId +
+                ", targetDocumentType:'" + targetDocumentType + '\'' +
+                ", businessPartnerCode:'" + businessPartnerCode + '\'' +
+                ", businessPartnerName:'" + businessPartnerName + '\'' +
+                ", transactionType:'" + transactionType + '\'' +
+                ", postingDate:'" + postingDate + '\'' +
+                ", deliveryDate:'" + deliveryDate + '\'' +
+                ", documentDate:'" + documentDate + '\'' +
+                ", schemaCode:'" + schemaCode + '\'' +
+                ", annotated:'" + annotated + '\'' +
+                ", stockTaskItems:" + stockTaskItems +
+                ", stockTaskBarCodeItems:" + stockTaskBarCodeItems +
                 '}';
     }
 

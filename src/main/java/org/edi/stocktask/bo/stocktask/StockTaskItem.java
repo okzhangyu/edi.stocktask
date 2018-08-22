@@ -396,80 +396,47 @@ public class StockTaskItem extends DocumentBOLine implements IStockTaskItem{
 
 
     public StockTaskItem() {
-    }
 
-    public StockTaskItem(Integer objectKey, String objectCode, Integer lineId, String reference1, String reference2, String documentType, Integer documentEntry, Integer documentLineId, String itemCode, String itemDescription, Double packageQuantity, Double quantity, String inventoryUoM, String serialNumberManagement, String batchNumberManagement, String serviceNumberManagement, Double price, String currency, Double currencyRate, Double lineTotal, String fromWarehose, String fromLocation, String toWarehouse, String toLocation, String transactionType, String baseDocumentType, Integer baseDocumentEntry, Integer baseDocumentLineId, String originalDocumentType, Integer originalDocumentEntry, Integer originalDocumentLineId, String scanningType, String waterCode) {
-        this.objectKey = objectKey;
-        this.objectCode = objectCode;
-        this.lineId = lineId;
-        this.reference1 = reference1;
-        this.reference2 = reference2;
-        this.documentType = documentType;
-        this.documentEntry = documentEntry;
-        this.documentLineId = documentLineId;
-        this.itemCode = itemCode;
-        this.itemDescription = itemDescription;
-        this.packageQuantity = packageQuantity;
-        this.quantity = quantity;
-        this.inventoryUoM = inventoryUoM;
-        this.serialNumberManagement = serialNumberManagement;
-        this.batchNumberManagement = batchNumberManagement;
-        this.serviceNumberManagement = serviceNumberManagement;
-        this.price = price;
-        this.currency = currency;
-        this.currencyRate = currencyRate;
-        this.lineTotal = lineTotal;
-        this.fromWarehose = fromWarehose;
-        this.fromLocation = fromLocation;
-        this.toWarehouse = toWarehouse;
-        this.toLocation = toLocation;
-        this.transactionType = transactionType;
-        this.baseDocumentType = baseDocumentType;
-        this.baseDocumentEntry = baseDocumentEntry;
-        this.baseDocumentLineId = baseDocumentLineId;
-        this.originalDocumentType = originalDocumentType;
-        this.originalDocumentEntry = originalDocumentEntry;
-        this.originalDocumentLineId = originalDocumentLineId;
-        this.scanningType = scanningType;
-        this.waterCode = waterCode;
     }
 
     @Override
     public String toString() {
-        return "StockTaskItem{" +
-                "objectKey=" + objectKey +
-                ", objectCode='" + objectCode + '\'' +
-                ", lineId=" + lineId +
-                ", reference1='" + reference1 + '\'' +
-                ", reference2='" + reference2 + '\'' +
-                ", documentType='" + documentType + '\'' +
-                ", documentEntry=" + documentEntry +
-                ", documentLineId=" + documentLineId +
-                ", itemCode='" + itemCode + '\'' +
-                ", itemDescription='" + itemDescription + '\'' +
-                ", packageQuantity=" + packageQuantity +
-                ", quantity=" + quantity +
-                ", inventoryUoM='" + inventoryUoM + '\'' +
-                ", serialNumberManagement='" + serialNumberManagement + '\'' +
-                ", batchNumberManagement='" + batchNumberManagement + '\'' +
-                ", serviceNumberManagement='" + serviceNumberManagement + '\'' +
-                ", price=" + price +
-                ", currency='" + currency + '\'' +
-                ", currencyRate=" + currencyRate +
-                ", lineTotal=" + lineTotal +
-                ", fromWarehose='" + fromWarehose + '\'' +
-                ", fromLocation='" + fromLocation + '\'' +
-                ", toWarehouse='" + toWarehouse + '\'' +
-                ", toLocation='" + toLocation + '\'' +
-                ", transactionType='" + transactionType + '\'' +
-                ", baseDocumentType='" + baseDocumentType + '\'' +
-                ", baseDocumentEntry=" + baseDocumentEntry +
-                ", baseDocumentLineId=" + baseDocumentLineId +
-                ", originalDocumentType='" + originalDocumentType + '\'' +
-                ", originalDocumentEntry=" + originalDocumentEntry +
-                ", originalDocumentLineId=" + originalDocumentLineId +
-                ", scanningType='" + scanningType + '\'' +
-                ", waterCode='" + waterCode + '\'' +
+        return "{" +
+                "objectKey:" + objectKey +
+                ", objectCode:'" + objectCode + '\'' +
+                ", lineId:" + lineId +
+                ", lineStatus:'" + lineStatus + '\'' +
+                ", reference1:'" + reference1 + '\'' +
+                ", reference2:'" + reference2 + '\'' +
+                ", documentType:'" + documentType + '\'' +
+                ", documentEntry:" + documentEntry +
+                ", documentLineId:" + documentLineId +
+                ", itemCode:'" + itemCode + '\'' +
+                ", itemDescription:'" + itemDescription + '\'' +
+                ", packageQuantity:" + packageQuantity +
+                ", quantity:" + quantity +
+                ", openQuantity:" + openQuantity +
+                ", inventoryUoM:'" + inventoryUoM + '\'' +
+                ", serialNumberManagement:'" + serialNumberManagement + '\'' +
+                ", batchNumberManagement:'" + batchNumberManagement + '\'' +
+                ", serviceNumberManagement:'" + serviceNumberManagement + '\'' +
+                ", price:" + price +
+                ", currency:'" + currency + '\'' +
+                ", currencyRate:" + currencyRate +
+                ", lineTotal:" + lineTotal +
+                ", fromWarehose:'" + fromWarehose + '\'' +
+                ", fromLocation:'" + fromLocation + '\'' +
+                ", toWarehouse:'" + toWarehouse + '\'' +
+                ", toLocation:'" + toLocation + '\'' +
+                ", transactionType:'" + transactionType + '\'' +
+                ", baseDocumentType:'" + baseDocumentType + '\'' +
+                ", baseDocumentEntry:" + baseDocumentEntry +
+                ", baseDocumentLineId:" + baseDocumentLineId +
+                ", originalDocumentType:'" + originalDocumentType + '\'' +
+                ", originalDocumentEntry:" + originalDocumentEntry +
+                ", originalDocumentLineId:" + originalDocumentLineId +
+                ", scanningType:'" + scanningType + '\'' +
+                ", waterCode:'" + waterCode + '\'' +
                 '}';
     }
 }

@@ -98,6 +98,10 @@ public interface IStockReport extends IDocumentBO{
 
     void setCustomType(String value );
 
+    String getTargetDocumentType();
+
+    void setTargetDocumentType(String value);
+
     String getTransactionType();
 
     void setTransactionType(String value);
