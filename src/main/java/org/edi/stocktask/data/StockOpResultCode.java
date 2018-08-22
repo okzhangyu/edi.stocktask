@@ -14,35 +14,37 @@ public class StockOpResultCode extends OpResultCode{
 
     public static final String STOCK_DATABASE_ERROR = "3202000";
 
-    public static final String STOCK_OBJECT_BASETYPE_IS_NULL = "6102002";
+    public static final String STOCK_OBJECT_BASETYPE_IS_NULL = "5102002";
 
-    public static final String STOCK_OBJECT_BASEENTRY_IS_NULL = "6102003";
+    public static final String STOCK_OBJECT_BASEENTRY_IS_NULL = "5102003";
 
-    public static final String STOCK_OBJECT_BASELINEID_IS_NULL = "6102004";
+    public static final String STOCK_OBJECT_BASELINEID_IS_NULL = "5102004";
 
-    public static final String STOCK_OBJECT_DOCSTATUS_IS_NULL = "6102005";
+    public static final String STOCK_OBJECT_DOCSTATUS_IS_NULL = "5102005";
 
-    public static final String STOCK_OBJECT_LINESTATUS_IS_NULL = "6102006";
+    public static final String STOCK_OBJECT_LINESTATUS_IS_NULL = "5102006";
 
-    public static final String STOCK_OBJECT_OBJECTCODE_IS_NULL = "6102007";
+    public static final String STOCK_OBJECT_OBJECTCODE_IS_NULL = "5102007";
 
-    public static final String STOCK_CODEBAR_IS_NULL = "6102101";
+    public static final String STOCK_CODEBAR_IS_NULL = "5102101";
 
-    public static final String STOCK_OBJECT_ITEMCODE_IS_NULL = "6102102";
+    public static final String STOCK_OBJECT_ITEMCODE_IS_NULL = "5102102";
 
-    public static final String STOCK_OBJECT_BASEENTRY_IS_INVALID = "6102103";
+    public static final String STOCK_OBJECT_BASEENTRY_IS_INVALID = "5102103";
 
-    public static final String STOCK_OBJECT_BASELINE_IS_NULL = "6102104";
+    public static final String STOCK_OBJECT_BASELINE_IS_NULL = "5102104";
 
-    public static final String STOCK_OBJECT_QUANTITY_IS_INVALID = "6102105";
+    public static final String STOCK_OBJECT_QUANTITY_IS_INVALID = "5102105";
 
-    public static final String STOCK_OBJECT_TOWAREHOUSE_IS_NULL = "6102106";
+    public static final String STOCK_OBJECT_TOWAREHOUSE_IS_NULL = "5102106";
 
-    public static final String STOCK_BASETYPE_IS_NULL = "6102107";
+    public static final String STOCK_BASETYPE_IS_NULL = "5102107";
 
-    public static final String STOCK_BASEENTRY_IS_NULL = "6102108";
+    public static final String STOCK_BASEENTRY_IS_NULL = "5102108";
 
-    public static final String STOCK_BASELINE_IS_NULL = "6102109";
+    public static final String STOCK_BASELINE_IS_NULL = "5102109";
+
+    public static final String BARCODE_PARSE_RESULT_IS_ERROR = "5102110";
 
     public static final String B1DOCENTRY_IS_EXISTENT = "1101007";
 
@@ -65,6 +67,8 @@ public class StockOpResultCode extends OpResultCode{
     public static final String CODEBAR_IS_REPEAT= "1101016";
 
     public static final String BARCODE_ANALYSIS_IS_FAIL = "1101020";
+
+
 
 
 

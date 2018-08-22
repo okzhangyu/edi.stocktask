@@ -144,4 +144,10 @@
 
 
 
+  <!--  List<IStockTaskItem> fetchNoDealStockTaskItem(Integer docEntry,String docType);-->
+    <select id="fetchNoDealStockTaskItem" resultMap="BaseResultMapItem">
+        SELECT * FROM AVA_WM_VIEW_STK1 where DocEntry=#{0} and DocType =  #{1} and LineStatus='O'
+    </select>
+
+
 </mapper>

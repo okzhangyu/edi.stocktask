@@ -1,6 +1,5 @@
 package org.edi.stocktask.dto;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,53 +7,37 @@ import java.util.List;
  */
 public class CodeBarParam implements ICodeBarParam{
 
-    private Integer baseLine;
-    private Double quantity;
-    private String itemCode;
-    private List<CodeBarItem> codeBarItems;
+    private Integer baseEntry;
+    private String baseType;
+    private List<CodeBarItem> barCodes;
 
-    public CodeBarParam(){
-        this.codeBarItems = new ArrayList<>();
-    }
     @Override
-    public String getItemCode() {
-        return itemCode;
+    public Integer getBaseEntry() {
+        return baseEntry;
     }
 
     @Override
-    public void setItemCode(String itemCode) {
-        this.itemCode = itemCode;
+    public void setBaseEntry(Integer baseEntry) {
+        this.baseEntry = baseEntry;
     }
 
     @Override
-    public Double getQuantity() {
-        return quantity;
+    public String getBaseType() {
+        return baseType;
     }
 
     @Override
-    public void setQuantity(Double quantity) {
-        this.quantity = quantity;
-    }
-
-
-    @Override
-    public Integer getBaseLine() {
-        return baseLine;
+    public void setBaseType(String baseType) {
+        this.baseType = baseType;
     }
 
     @Override
-    public void setBaseLine(Integer baseLine) {
-        this.baseLine = baseLine;
+    public List<CodeBarItem> getBarCodes() {
+        return barCodes;
     }
 
     @Override
-    public List<CodeBarItem> getCodeBarItems() {
-        return codeBarItems;
+    public void setBarCodes(List<CodeBarItem> barCodes) {
+        this.barCodes = barCodes;
     }
-
-    @Override
-    public void setCodeBarItems(List<CodeBarItem> codeBarItems) {
-        this.codeBarItems = codeBarItems;
-    }
-
 }

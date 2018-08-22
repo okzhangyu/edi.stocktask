@@ -5,9 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.apache.log4j.Logger;
 import org.edi.freamwork.bo.BusinessObjectException;
-import org.edi.freamwork.data.IResult;
 import org.edi.freamwork.data.Result;
-import org.edi.freamwork.data.operation.OpResult;
 import org.edi.freamwork.exception.BusinessException;
 import org.edi.freamwork.exception.DBException;
 import org.edi.freamwork.httpclient.HttpRequest;
@@ -178,6 +176,7 @@ public class StockReportService implements  IStockReportService{
             return resultOpResult;
         }catch (Exception e){
             e.printStackTrace();
+            log.warn(e);
             return new Result(ResultCode.NET_CONNECT_ERROR, ResultDescription.NET_CONNECT_ERROR);
         }
     }

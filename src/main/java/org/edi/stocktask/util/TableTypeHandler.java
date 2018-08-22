@@ -4,7 +4,6 @@ import com.microsoft.sqlserver.jdbc.SQLServerDataTable;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedJdbcTypes;
-import org.edi.stocktask.dto.CodeBarParam;
 import org.edi.stocktask.dto.CodeBarParseParam;
 
 import java.sql.*;
@@ -24,10 +23,9 @@ public class TableTypeHandler extends BaseTypeHandler<Object> {
         sourceDataTable.addColumnMetadata("BaseLine" , Types.INTEGER);
         sourceDataTable.addColumnMetadata("ItemCode" , Types.NVARCHAR);
         sourceDataTable.addColumnMetadata("Quantity" , Types.DOUBLE);
-        sourceDataTable.addColumnMetadata("CodeBarQty" , Types.DOUBLE);
         List<CodeBarParseParam> dataList = (List)parameter;
         for (CodeBarParseParam item : dataList) {
-             sourceDataTable.addRow(item.getCodeBar(),item.getBaseLine(),item.getItemCode(),item.getQuantity(),item.getCodeBarQty());
+             sourceDataTable.addRow(item.getCodeBar(),item.getBaseLine(),item.getItemCode(),item.getQuantity());
         }
         ps.setObject(i, sourceDataTable);
     }

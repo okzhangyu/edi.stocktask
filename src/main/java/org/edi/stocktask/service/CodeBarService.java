@@ -13,13 +13,12 @@ import org.edi.freamwork.exception.DBException;
 import org.edi.initialfantasy.data.ResultCode;
 import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.initialfantasy.data.ServicePath;
-import org.edi.initialfantasy.filter.UserRequest;
 import org.edi.stocktask.bo.codeBar.ICodeBar;
+import org.edi.stocktask.bo.stockreport.StockReportItem;
 import org.edi.stocktask.data.StockOpResultCode;
 import org.edi.stocktask.data.StockOpResultDescription;
 import org.edi.stocktask.data.StockTaskServicePath;
 import org.edi.stocktask.dto.CodeBarParam;
-import org.edi.stocktask.dto.CodeBarResult;
 import org.edi.stocktask.repository.IBORepositoryCodeBar;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -77,25 +76,50 @@ public class CodeBarService implements ICodeBarService{
      * @param codeBarParam 条码集合
      * @return
      */
+//    @POST
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Produces(MediaType.APPLICATION_JSON)
+//    @Path("/codebars")
+//    @Override
+//    public Result<CodeBarResult> parseBatchCodeBar(@QueryParam(ServicePath.TOKEN_NAMER)String token,CodeBarParam  codeBarParam) {
+//        Result<CodeBarResult> result;
+//        try{
+//            if(codeBarParam == null){
+//                throw new BusinessObjectException(StockOpResultCode.STOCK_CODEBAR_IS_NULL,StockOpResultDescription.STOCK_CODEBAR_IS_EMPTY);
+//            }
+//            List<CodeBarResult> batchCodeBarList= boRepositoryCodeBar.parseBatchCodeBar(codeBarParam);
+//            result = new Result<>(ResultCode.SUCCESS, ResultDescription.OK,batchCodeBarList);
+//        }catch (BusinessException e){
+//            log.warn(e);
+//            return new Result(e);
+//        }catch (DBException e){
+//            return new Result<>(e);
+//        }
+//        catch (Exception e){
+//            log.warn(e);
+//            return new Result(e);
+//        }
+//        return result;
+//    }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/codebars")
     @Override
-    public Result<CodeBarResult> parseBatchCodeBar(@QueryParam(ServicePath.TOKEN_NAMER)String token,List<CodeBarParam>  codeBarParam,
-                                                   @QueryParam(StockTaskServicePath.SERVICE_BASETYPE)String baseType,
-                                                   @QueryParam(StockTaskServicePath.SERVICE_BASEENTRY)Integer baseEntry) {
-        Result<CodeBarResult> result;
+    public Result<StockReportItem> parseBatchCodeBar(@QueryParam(ServicePath.TOKEN_NAMER)String token, CodeBarParam  codeBarParam) {
+        Result<StockReportItem> result;
         try{
             if(codeBarParam == null){
                 throw new BusinessObjectException(StockOpResultCode.STOCK_CODEBAR_IS_NULL,StockOpResultDescription.STOCK_CODEBAR_IS_EMPTY);
             }
-            List<CodeBarResult> batchCodeBarList= boRepositoryCodeBar.parseBatchCodeBar(codeBarParam,baseType,baseEntry);
-            result = new Result<>(ResultCode.SUCCESS, ResultDescription.OK,batchCodeBarList);
+            List<StockReportItem> stockReportItemList= boRepositoryCodeBar.parseBatchCodeBar(codeBarParam);
+            result = new Result<>(ResultCode.SUCCESS, ResultDescription.OK,stockReportItemList);
         }catch (BusinessException e){
             log.warn(e);
             return new Result(e);
         }catch (DBException e){
+            log.warn(e);
             return new Result<>(e);
         }
         catch (Exception e){

@@ -22,7 +22,4 @@ public interface ICodeBarParseParam {
 
     void setCodeBar(String codeBar);
 
-    Double getCodeBarQty();
-
-    void setCodeBarQty(Double quantity);
 }

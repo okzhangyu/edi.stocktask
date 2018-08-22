@@ -30,4 +30,14 @@ public interface StockTaskMapper {
      * @return
      */
     List<IStockTaskItem> fetchSyncStockTaskItem(Integer docEntry,String docType);
+
+
+    /**
+     * 查询未汇报的任务行
+     * @param docEntry 单据号
+     * @param docType 单据类型
+     * @return
+     */
+    List<IStockTaskItem> fetchNoDealStockTaskItem(Integer docEntry,String docType);
+
 }

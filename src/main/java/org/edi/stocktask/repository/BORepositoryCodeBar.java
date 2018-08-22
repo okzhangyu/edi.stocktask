@@ -3,16 +3,18 @@ package org.edi.stocktask.repository;
 import org.apache.log4j.Logger;
 import org.edi.freamwork.exception.BusinessException;
 import org.edi.stocktask.bo.codeBar.ICodeBar;
+import org.edi.stocktask.bo.stockreport.StockReportItem;
+import org.edi.stocktask.bo.stocktask.IStockTaskItem;
 import org.edi.stocktask.data.StockOpResultCode;
 import org.edi.stocktask.data.StockOpResultDescription;
-import org.edi.stocktask.data.StockTaskData;
-import org.edi.stocktask.dto.*;
+import org.edi.stocktask.dto.CodeBarParam;
+import org.edi.stocktask.dto.CodeBarParseParam;
+import org.edi.stocktask.dto.CodeBarParseResult;
 import org.edi.stocktask.mapper.CodeBarMapper;
 import org.edi.stocktask.mapper.StockTaskMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -66,12 +68,12 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
      * @return
      */
     @Override
-    public List<CodeBarResult> parseBatchCodeBar(List<CodeBarParam>  codeBarParams,String baseType,Integer baseEntry) {
+    public List<StockReportItem> parseBatchCodeBar(CodeBarParam codeBarParams) {
         List<CodeBarParseParam> codeBarParseParams = CodeBarParseParam.createParseParam(codeBarParams);
         HashMap<String,Object> codeBarParamsList = new HashMap<>();
         codeBarParamsList.put("codeBarParams",codeBarParseParams);
-        codeBarParamsList.put("baseType",baseType);
-        codeBarParamsList.put("baseEntry",baseEntry);
+        codeBarParamsList.put("baseType",codeBarParams.getBaseType());
+        codeBarParamsList.put("baseEntry",codeBarParams.getBaseEntry());
         List<CodeBarParseResult> listCodeBars = null;
         try{
             listCodeBars = codeBarMapper.parseBatchCodeBar(codeBarParamsList);
@@ -85,7 +87,8 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
             e.printStackTrace();
             throw new BusinessException(StockOpResultCode.BARCODE_ANALYSIS_IS_FAIL,StockOpResultDescription.BARCODE_ANALYSIS_IS_FAIL);
         }
-        return CodeBarResult.createCodeBarResult(listCodeBars);
+        List<IStockTaskItem> stockTaskItems = stockTaskMapper.fetchNoDealStockTaskItem(codeBarParams.getBaseEntry(),codeBarParams.getBaseType());
+       return StockReportItem.createStockReportItemList(stockTaskItems,listCodeBars);
     }
 
 
