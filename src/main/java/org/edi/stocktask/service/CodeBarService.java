@@ -13,6 +13,7 @@ import org.edi.freamwork.exception.DBException;
 import org.edi.initialfantasy.data.ResultCode;
 import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.initialfantasy.data.ServicePath;
+import org.edi.initialfantasy.filter.UserRequest;
 import org.edi.stocktask.bo.codeBar.ICodeBar;
 import org.edi.stocktask.bo.stockreport.StockReportItem;
 import org.edi.stocktask.data.StockOpResultCode;
@@ -30,6 +31,7 @@ import java.util.List;
  * 条码相关服务
  */
 @Path("/v1")
+@UserRequest
 public class CodeBarService implements ICodeBarService{
     private static Logger log = Logger.getLogger(CodeBarService.class);
 
