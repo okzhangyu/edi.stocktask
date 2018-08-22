@@ -30,6 +30,7 @@
         </Field>
         <Field Name="BpCode" Description="业务伙伴编码" DataType="db_Alpha" SubType="st_None" EditSize="20" PropertyName="BusinessPartnerCode" FixedDataType="System.String" />
         <Field Name="BpName" Description="业务伙伴名称" DataType="db_Alpha" SubType="st_None" EditSize="100" PropertyName="BusinessPartnerName" FixedDataType="System.String" />
+        <Field Name="TargetType" Description="目标单据类型" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="TargetDocumentType" FixedDataType="System.String" />
         <Field Name="BaseType" Description="基础单据类型" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="BaseDocumentType" FixedDataType="System.String" />
         <Field Name="BaseEntry" Description="基础单据编号" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="BaseDocumentEntry" FixedDataType="System.Int32" />
     </Table>

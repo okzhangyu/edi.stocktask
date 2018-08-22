@@ -33,7 +33,6 @@ import java.util.List;
 public class CodeBarService implements ICodeBarService{
     private static Logger log = Logger.getLogger(CodeBarService.class);
 
-
     @Autowired
     private IBORepositoryCodeBar boRepositoryCodeBar;
 

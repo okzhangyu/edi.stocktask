@@ -10,10 +10,6 @@ import java.util.List;
  */
 public interface IStockTask extends IDocumentBO{
 
-    String getCompanyName();
-
-    void setCompanyName(String value);
-
     Integer getObjectKey();
 
     void setObjectKey(Integer value);
@@ -83,6 +79,10 @@ public interface IStockTask extends IDocumentBO{
     void setPostingDate(String value);
 
     String getDeliveryDate();
+
+    String getTargetDocumentType();
+
+    void setTargetDocumentType(String value);
 
     void setDeliveryDate(String value);
 

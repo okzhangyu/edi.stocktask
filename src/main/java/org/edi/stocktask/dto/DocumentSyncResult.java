@@ -44,4 +44,14 @@ public class DocumentSyncResult implements IDocumentSyncResult{
     public void setReturnEntry(String returnEntry){
         this.returnEntry = returnEntry;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "code:'" + code + '\'' +
+                ", uniquekey:'" + uniquekey + '\'' +
+                ", message:'" + message + '\'' +
+                ", returnEntry:'" + returnEntry + '\'' +
+                '}';
+    }
 }

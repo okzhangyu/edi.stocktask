@@ -50,4 +50,14 @@ public class CodeBarItem implements ICodeBarItem{
     public void setQuantity(Double quantity) {
         this.quantity = quantity;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "itemCode:'" + itemCode + '\'' +
+                ", baseLine:" + baseLine +
+                ", barCode:'" + barCode + '\'' +
+                ", quantity:" + quantity +
+                '}';
+    }
 }

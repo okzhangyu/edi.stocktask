@@ -11,10 +11,13 @@ import org.edi.stocktask.bo.stockreport.StockReportItem;
 import org.edi.stocktask.bo.stockreport.StockReportMaterialItem;
 import org.edi.stocktask.data.StockOpResultCode;
 import org.edi.stocktask.data.StockOpResultDescription;
+import org.edi.stocktask.data.StockTaskData;
 import org.edi.stocktask.mapper.StockReportMapper;
 import org.edi.stocktask.mapper.TranscationNoticeMapper;
 import org.edi.stocktask.util.B1DocEntryVerification;
 import org.edi.stocktask.util.ReportVerification;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -35,6 +38,7 @@ import java.util.List;
 @Component(value="boRepositoryStockReport")
 public class BORepositoryStockReport extends BORepository<StockReport> implements IBORepositoryStockReport{
 
+    Logger logger = LoggerFactory.getLogger(BORepositoryStockReport.class);
     @Autowired
     private StockReportMapper stockReportMapper;
 
@@ -81,6 +85,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
             }
             return stockReports;
         }catch (Exception e){
+            logger.info(StockTaskData.OPREATION_EXCEPTION,e);
             throw new DBException(StockOpResultCode.STOCK_DATABASE_ERROR,StockOpResultDescription.STOCK_DATABASE_ERROR);
         }
     }
@@ -127,6 +132,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
                 }
             }
         }catch (DBException e){
+            logger.info(StockTaskData.OPREATION_EXCEPTION,e);
             throw new DBException(StockOpResultCode.STOCK_DATABASE_ERROR,StockOpResultDescription.STOCK_DATABASE_ERROR);
         }
         return stockReports;
@@ -157,11 +163,13 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
             ptm.commit(status);
         }catch (BusinessException ex){
             ptm.rollback(status);
+            logger.info(StockTaskData.OPREATION_EXCEPTION,ex);
             throw ex;
         }catch (Exception e) {
             if(status != null){
                 ptm.rollback(status);
             }
+            logger.info(StockTaskData.OPREATION_EXCEPTION,e);
             throw new DBException(StockOpResultCode.STOCK_DATABASE_ERROR,StockOpResultDescription.STOCK_DATABASE_ERROR);
         }
     }
@@ -183,11 +191,13 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
             ptm.commit(status);
         } catch (BusinessException ex){
             ptm.rollback(status);
+            logger.info(StockTaskData.OPREATION_EXCEPTION,ex);
             throw ex;
         }catch (Exception e) {
             if(status != null){
                 ptm.rollback(status);
             }
+            logger.info(StockTaskData.OPREATION_EXCEPTION,e);
             throw new DBException(StockOpResultCode.STOCK_DATABASE_ERROR,StockOpResultDescription.STOCK_DATABASE_ERROR);
         }
     }
@@ -205,16 +215,10 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
         TransactionStatus status =null;
         try {
             status = ptm.getTransaction(def);
-            if(!b1DocEntryVerification.B1EntryCheck(docEntry)){
-                throw new BusinessException(StockOpResultCode.B1DOCENTRY_IS_EXISTENT, StockOpResultDescription.B1DOCENTRY_IS_EXISTENT);
-            }
-          /*stockReportMapper.deleteStockReport(docEntry);
-            stockReportMapper.deleteStockReportItem(docEntry);
-            stockReportMapper.deleteStockReportMaterialItem(docEntry);*/
-            stockReportMapper.updateIsDelete(docEntry);
             StockReport stockReport = new StockReport();
             stockReport.setDocEntry(docEntry);
-            callTranscation(stockReport,"D");
+            stockReport.setIsDeleted("Y");
+            super.deleteBO(stockReport);
             ptm.commit(status);
         }catch (BusinessException e){
             ptm.rollback(status);
@@ -223,26 +227,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
             if(status != null){
                 ptm.rollback(status);
             }
-            throw new DBException(StockOpResultCode.STOCK_DATABASE_ERROR,StockOpResultDescription.STOCK_DATABASE_ERROR);
-        }
-    }
-
-
-    @Override
-    public void deleteStockReport(StockReport stockReport){
-        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-        TransactionStatus status = ptm.getTransaction(def);
-        try {
-            super.deleteBO(stockReport);
-            ptm.commit(status);
-        } catch (BusinessException ex){
-            ptm.rollback(status);
-            throw ex;
-        } catch(Exception e){
-            if(status != null){
-                ptm.rollback(status);
-            }
+            logger.info(StockTaskData.OPREATION_EXCEPTION,e);
             throw new DBException(StockOpResultCode.STOCK_DATABASE_ERROR,StockOpResultDescription.STOCK_DATABASE_ERROR);
         }
     }
@@ -274,6 +259,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
             }
             return StockReports;
         }catch (Exception e){
+            logger.info(StockTaskData.OPREATION_EXCEPTION,e);
             throw new DBException(StockOpResultCode.STOCK_DATABASE_ERROR,StockOpResultDescription.STOCK_DATABASE_ERROR);
         }
     }
@@ -299,10 +285,10 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
             }
             return StockReports;
         }catch (Exception e){
+            logger.info(StockTaskData.OPREATION_EXCEPTION,e);
             throw new DBException(StockOpResultCode.STOCK_DATABASE_ERROR,StockOpResultDescription.STOCK_DATABASE_ERROR);
         }
     }
-
 
     @Override
     protected void save(StockReport stockReport) {
@@ -352,16 +338,12 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
         }
     }
 
-
     @Override
     protected void delete(StockReport stockReport) {
         if (!b1DocEntryVerification.B1EntryCheck(stockReport.getDocEntry())) {
             throw new BusinessException(StockOpResultCode.B1DOCENTRY_IS_EXISTENT,StockOpResultDescription.B1DOCENTRY_IS_EXISTENT);
         }
-        stockReportMapper.deleteStockReport(stockReport.getDocEntry());
-        stockReportMapper.deleteStockReportItem(stockReport.getDocEntry());
-        stockReportMapper.deleteStockReportMaterialItem(stockReport.getDocEntry());
-
+        stockReportMapper.updateIsDelete(stockReport.getDocEntry());
     }
 
     @Override

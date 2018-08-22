@@ -45,33 +45,27 @@ public class ReportVerification {
            }
 
 
+//
+//    public static void reportSaveCheck(StockReport stockReport){
+//        if (stockReport.getBaseDocumentType()==null||stockReport.getBaseDocumentType().isEmpty()) {
+//            throw new BusinessException(StockOpResultCode.PARAMETER_IS_NULL,StockOpResultDescription.PARAMETER_IS_NULL);
+//        }
+//        if(stockReport.getStockReportItems().size()==0){
+//            throw new BusinessException(StockOpResultCode.DETAIL_IS_NULL,StockOpResultDescription.DETAIL_IS_NULL);
+//        }
+//
+//    }
 
-    public static void reportSaveCheck(StockReport stockReport){
-        if (stockReport.getBaseDocumentType()==null||stockReport.getBaseDocumentType().isEmpty()) {
-            throw new BusinessException(StockOpResultCode.PARAMETER_IS_NULL,StockOpResultDescription.PARAMETER_IS_NULL);
-        }
-        if(stockReport.getStockReportItems().size()==0){
-            throw new BusinessException(StockOpResultCode.DETAIL_IS_NULL,StockOpResultDescription.DETAIL_IS_NULL);
-        }
 
-    }
+//
+//    public static void reportUpdateCheck(StockReport stockReport){
+//        if (stockReport.getDocEntry()==null) {
+//            throw new BusinessException(StockOpResultCode.PARAMETER_IS_NULL,StockOpResultDescription.PARAMETER_IS_NULL);
+//        }
+//        if(stockReport.getStockReportItems().size()==0){
+//            throw new BusinessException(StockOpResultCode.DETAIL_IS_NULL,StockOpResultDescription.DETAIL_IS_NULL);
+//        }
+//
+//    }
 
-
-
-    public static void reportUpdateCheck(StockReport stockReport){
-        if (stockReport.getDocEntry()==null) {
-            throw new BusinessException(StockOpResultCode.PARAMETER_IS_NULL,StockOpResultDescription.PARAMETER_IS_NULL);
-        }
-        if(stockReport.getStockReportItems().size()==0){
-            throw new BusinessException(StockOpResultCode.DETAIL_IS_NULL,StockOpResultDescription.DETAIL_IS_NULL);
-        }
-
-    }
-
-    public static String getReportRecord(StockReport stockReport) throws IOException{
-        ObjectMapper mapper = new ObjectMapper();
-        String stockReportJson = mapper.writeValueAsString(stockReport);
-        return stockReportJson;
-
-    }
 }
