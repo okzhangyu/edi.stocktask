@@ -443,6 +443,10 @@ public class StockReport extends DocumentBO implements IStockReport{
             throw new BusinessObjectException(StockOpResultCode.STOCK_OBJECT_OBJECTCODE_IS_NULL,
                     StockOpResultDescription.STOCK_OBJECT_OBJECTCODE_IS_NULL);
         }
+        if(this.getTargetDocumentType() == null || this.getTargetDocumentType().isEmpty()){
+            throw new BusinessObjectException(StockOpResultCode.STOCK_OBJECT_TargetDocumentType_IS_NULL,
+                    StockOpResultDescription.STOCK_OBJECT_TargetDocumentType_IS_NULL);
+        }
         this.stockReportItems.forEach(c->c.checkBO());
     }
 }

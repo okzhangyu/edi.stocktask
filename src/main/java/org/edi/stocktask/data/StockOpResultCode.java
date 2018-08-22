@@ -68,6 +68,8 @@ public class StockOpResultCode extends OpResultCode{
 
     public static final String BARCODE_ANALYSIS_IS_FAIL = "1101020";
 
+    public static final String STOCK_OBJECT_TargetDocumentType_IS_NULL = "1101021";
+
 
 
 

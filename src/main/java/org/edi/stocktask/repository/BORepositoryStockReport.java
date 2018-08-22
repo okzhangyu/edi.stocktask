@@ -160,6 +160,10 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
             ptm.rollback(status);
             logger.info(StockTaskData.OPREATION_EXCEPTION,ex);
             throw ex;
+        }catch (BusinessObjectException ex){
+            ptm.rollback(status);
+            logger.info(StockTaskData.OPREATION_EXCEPTION,ex);
+            throw ex;
         }catch (Exception e) {
             if(status != null){
                 ptm.rollback(status);
@@ -185,6 +189,10 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
             super.updateBO(stockReport);
             ptm.commit(status);
         } catch (BusinessException ex){
+            ptm.rollback(status);
+            logger.info(StockTaskData.OPREATION_EXCEPTION,ex);
+            throw ex;
+        }catch (BusinessObjectException ex){
             ptm.rollback(status);
             logger.info(StockTaskData.OPREATION_EXCEPTION,ex);
             throw ex;
@@ -216,6 +224,11 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
             ptm.commit(status);
         }catch (BusinessException e){
             ptm.rollback(status);
+            logger.info(StockTaskData.OPREATION_EXCEPTION,e);
+            throw e;
+        }catch (BusinessObjectException e){
+            ptm.rollback(status);
+            logger.info(StockTaskData.OPREATION_EXCEPTION,e);
             throw e;
         }catch (Exception e){
             if(status != null){
@@ -324,11 +337,11 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
         if (stockReport.getB1DocEntry() !=null && stockReport.getB1DocEntry() > 0) {
             throw new BusinessException(StockOpResultCode.B1DOCENTRY_IS_EXISTENT,StockOpResultDescription.B1DOCENTRY_IS_EXISTENT);
         }
-        stockReportMapper.updateStockReport(stockReport);
-        for (int j = 0; j < stockReport.getStockReportItems().size(); j++) {
-            StockReportItem stockReportItem = stockReport.getStockReportItems().get(j);
-            stockReportMapper.updateStockReportItem(stockReportItem);
-        }
+        stockReportMapper.deleteStockReport(stockReport.getDocEntry());
+        stockReportMapper.deleteStockReportItem(stockReport.getDocEntry());
+        stockReportMapper.deleteStockReportMaterialItem(stockReport.getDocEntry());
+        save(stockReport);
+
     }
 
     @Override
