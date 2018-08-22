@@ -15,7 +15,6 @@ import org.edi.stocktask.data.StockTaskData;
 import org.edi.stocktask.mapper.StockReportMapper;
 import org.edi.stocktask.mapper.TranscationNoticeMapper;
 import org.edi.stocktask.util.B1DocEntryVerification;
-import org.edi.stocktask.util.ReportVerification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -165,6 +164,10 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
             ptm.rollback(status);
             logger.info(StockTaskData.OPREATION_EXCEPTION,ex);
             throw ex;
+        }catch (BusinessObjectException ex){
+            ptm.rollback(status);
+            logger.info(StockTaskData.OPREATION_EXCEPTION,ex);
+            throw ex;
         }catch (Exception e) {
             if(status != null){
                 ptm.rollback(status);
@@ -190,6 +193,10 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
             super.updateBO(stockReport);
             ptm.commit(status);
         } catch (BusinessException ex){
+            ptm.rollback(status);
+            logger.info(StockTaskData.OPREATION_EXCEPTION,ex);
+            throw ex;
+        }catch (BusinessObjectException ex){
             ptm.rollback(status);
             logger.info(StockTaskData.OPREATION_EXCEPTION,ex);
             throw ex;
@@ -222,6 +229,11 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
             ptm.commit(status);
         }catch (BusinessException e){
             ptm.rollback(status);
+            logger.info(StockTaskData.OPREATION_EXCEPTION,e);
+            throw e;
+        }catch (BusinessObjectException e){
+            ptm.rollback(status);
+            logger.info(StockTaskData.OPREATION_EXCEPTION,e);
             throw e;
         }catch (Exception e){
             if(status != null){
@@ -313,7 +325,9 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
             stockReportItem.setDocEntry(docEntry);
             stockReportItem.setLineId(i + 1);
             stockReportMapper.saveStockReportItem(stockReportItem);
-            ReportVerification.materialItemCheck(stockReportItem.getStockReportMaterialItems());
+            if(stockReportItem.getStockReportMaterialItems().size()==0||stockReportItem.getStockReportMaterialItems()==null){
+                throw new BusinessException(StockOpResultCode.MATERIALITEM_IS_NULL,StockOpResultDescription.MATERIALITEM_IS_NULL);
+            }
             for (int j=0;j<stockReportItem.getStockReportMaterialItems().size();j++){
                 StockReportMaterialItem stockReportMaterialItem = stockReportItem.getStockReportMaterialItems().get(j);
                 stockReportMaterialItem.setDocEntry(docEntry);
@@ -331,11 +345,11 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
         if (!b1DocEntryVerification.B1EntryCheck(stockReport.getDocEntry())) {
             throw new BusinessException(StockOpResultCode.B1DOCENTRY_IS_EXISTENT,StockOpResultDescription.B1DOCENTRY_IS_EXISTENT);
         }
-        stockReportMapper.updateStockReport(stockReport);
-        for (int j = 0; j < stockReport.getStockReportItems().size(); j++) {
-            StockReportItem stockReportItem = stockReport.getStockReportItems().get(j);
-            stockReportMapper.updateStockReportItem(stockReportItem);
-        }
+        stockReportMapper.deleteStockReport(stockReport.getDocEntry());
+        stockReportMapper.deleteStockReportItem(stockReport.getDocEntry());
+        stockReportMapper.deleteStockReportMaterialItem(stockReport.getDocEntry());
+        save(stockReport);
+
     }
 
     @Override

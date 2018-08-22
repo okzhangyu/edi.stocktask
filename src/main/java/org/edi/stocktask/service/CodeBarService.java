@@ -61,7 +61,7 @@ public class CodeBarService implements ICodeBarService{
             }else {
                 result = new Result<>(ResultCode.SUCCESS, ResultDescription.OK,resultCodeBar);
             }
-        }catch (BusinessException e){
+        }catch(BusinessException e){
             log.warn(e);
             result = new Result(e);
         }catch (Exception e){
@@ -77,31 +77,6 @@ public class CodeBarService implements ICodeBarService{
      * @param codeBarParam 条码集合
      * @return
      */
-//    @POST
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Path("/codebars")
-//    @Override
-//    public Result<CodeBarResult> parseBatchCodeBar(@QueryParam(ServicePath.TOKEN_NAMER)String token,CodeBarParam  codeBarParam) {
-//        Result<CodeBarResult> result;
-//        try{
-//            if(codeBarParam == null){
-//                throw new BusinessObjectException(StockOpResultCode.STOCK_CODEBAR_IS_NULL,StockOpResultDescription.STOCK_CODEBAR_IS_EMPTY);
-//            }
-//            List<CodeBarResult> batchCodeBarList= boRepositoryCodeBar.parseBatchCodeBar(codeBarParam);
-//            result = new Result<>(ResultCode.SUCCESS, ResultDescription.OK,batchCodeBarList);
-//        }catch (BusinessException e){
-//            log.warn(e);
-//            return new Result(e);
-//        }catch (DBException e){
-//            return new Result<>(e);
-//        }
-//        catch (Exception e){
-//            log.warn(e);
-//            return new Result(e);
-//        }
-//        return result;
-//    }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -122,8 +97,7 @@ public class CodeBarService implements ICodeBarService{
         }catch (DBException e){
             log.warn(e);
             return new Result<>(e);
-        }
-        catch (Exception e){
+        }catch (Exception e){
             log.warn(e);
             return new Result(e);
         }
