@@ -14,7 +14,6 @@ import org.edi.stocktask.data.StockOpResultDescription;
 import org.edi.stocktask.data.StockTaskData;
 import org.edi.stocktask.mapper.StockReportMapper;
 import org.edi.stocktask.mapper.TranscationNoticeMapper;
-import org.edi.stocktask.util.B1DocEntryVerification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +39,6 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
     Logger logger = LoggerFactory.getLogger(BORepositoryStockReport.class);
     @Autowired
     private StockReportMapper stockReportMapper;
-
-    @Autowired
-    private B1DocEntryVerification b1DocEntryVerification;
 
     @Autowired
     private PlatformTransactionManager ptm;
@@ -222,8 +218,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
         TransactionStatus status =null;
         try {
             status = ptm.getTransaction(def);
-            StockReport stockReport = new StockReport();
-            stockReport.setDocEntry(docEntry);
+            StockReport stockReport = stockReportMapper.fetchStockReportByEntry(docEntry);
             stockReport.setIsDeleted("Y");
             super.deleteBO(stockReport);
             ptm.commit(status);
@@ -325,9 +320,6 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
             stockReportItem.setDocEntry(docEntry);
             stockReportItem.setLineId(i + 1);
             stockReportMapper.saveStockReportItem(stockReportItem);
-            if(stockReportItem.getStockReportMaterialItems().size()==0||stockReportItem.getStockReportMaterialItems()==null){
-                throw new BusinessException(StockOpResultCode.MATERIALITEM_IS_NULL,StockOpResultDescription.MATERIALITEM_IS_NULL);
-            }
             for (int j=0;j<stockReportItem.getStockReportMaterialItems().size();j++){
                 StockReportMaterialItem stockReportMaterialItem = stockReportItem.getStockReportMaterialItems().get(j);
                 stockReportMaterialItem.setDocEntry(docEntry);
@@ -342,7 +334,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
 
     @Override
     protected void update(StockReport stockReport) {
-        if (!b1DocEntryVerification.B1EntryCheck(stockReport.getDocEntry())) {
+        if (stockReport.getB1DocEntry() !=null && stockReport.getB1DocEntry() > 0) {
             throw new BusinessException(StockOpResultCode.B1DOCENTRY_IS_EXISTENT,StockOpResultDescription.B1DOCENTRY_IS_EXISTENT);
         }
         stockReportMapper.deleteStockReport(stockReport.getDocEntry());
@@ -354,7 +346,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
 
     @Override
     protected void delete(StockReport stockReport) {
-        if (!b1DocEntryVerification.B1EntryCheck(stockReport.getDocEntry())) {
+        if (stockReport.getB1DocEntry() !=null && stockReport.getB1DocEntry() > 0) {
             throw new BusinessException(StockOpResultCode.B1DOCENTRY_IS_EXISTENT,StockOpResultDescription.B1DOCENTRY_IS_EXISTENT);
         }
         stockReportMapper.updateIsDelete(stockReport.getDocEntry());

@@ -37,7 +37,7 @@ public class TestBoRepositoryStockReport extends TestCase{
     private BORepositoryCodeBar boRepositoryCodeBar;
 
 
-    private String B1DocEntry = "1";
+    private Integer B1DocEntry = 1;
 
 
     private IStockTask stockTask;
@@ -45,9 +45,6 @@ public class TestBoRepositoryStockReport extends TestCase{
     private List<StockReport> stockReports = new ArrayList<>();
 
     private StockReport getStockReport() throws Exception {
-      /* if(stockReport == null){
-            this.testSaveStockReport();
-        }*/
         List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask("",1,20);
         if (stockTasks.size() > 0) {
             if (stockTasks != null) {
@@ -60,21 +57,6 @@ public class TestBoRepositoryStockReport extends TestCase{
         return stockReport;
     }
 
-
-
-    /**
-     * 条码解析
-     * @return
-     */
-
-    @Test
-    public void testParseCodeBar()throws Exception{
-        List<ICodeBar> codeBars = boRepositoryCodeBar.parseCodeBar("123456789963","",3,6,"");
-        System.out.println(codeBars.get(0));
-        CodeBar codeBar = new CodeBar();
-        codeBar.setProName("ItemCode");
-        Assert.assertEquals(codeBars.get(0).getProName(),codeBar.getProName());
-    }
 
 
     /**
@@ -115,14 +97,6 @@ public class TestBoRepositoryStockReport extends TestCase{
         System.out.println(stockReportList.get(0).getDocEntry());
         assertEquals(stockReportList.get(0).getDocEntry().toString(),"2");
     }
-
-
-
-
-
-
-
-
 
     @Test
     public void testSaveStockReport() {

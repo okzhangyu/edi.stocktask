@@ -1,6 +1,9 @@
 package org.edi.stocktask.bo.stockreport;
 
 import org.edi.freamwork.bo.DocumentBOLine;
+import org.edi.freamwork.exception.BusinessException;
+import org.edi.stocktask.data.StockOpResultCode;
+import org.edi.stocktask.data.StockOpResultDescription;
 import org.edi.stocktask.dto.CodeBarParseResult;
 
 public class StockReportMaterialItem extends DocumentBOLine implements IStockReportMaterialItem {
@@ -106,6 +109,11 @@ public class StockReportMaterialItem extends DocumentBOLine implements IStockRep
 
 
     public StockReportMaterialItem() {
+    }
+
+    @Override
+    public void checkBO(){
+
     }
 
     @Override

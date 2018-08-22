@@ -564,6 +564,9 @@ public class StockReportItem extends DocumentBOLine implements IStockReportItem{
             throw new BusinessObjectException(StockOpResultCode.STOCK_OBJECT_TOWAREHOUSE_IS_NULL,
                     StockOpResultDescription.STOCK_OBJECT_TOWAREHOUSE_IS_NULL);
         }
-
+        if(stockReportMaterialItems==null || stockReportMaterialItems.size() ==0){
+            throw new BusinessException(StockOpResultCode.MATERIALITEM_IS_NULL, StockOpResultDescription.MATERIALITEM_IS_NULL);
+        }
+        this.stockReportMaterialItems.forEach(c->c.checkBO());
     }
 }

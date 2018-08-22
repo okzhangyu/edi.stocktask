@@ -18,6 +18,14 @@ public class StockTaskData {
 
     public static final String APPENDER_NAME = "stocktask";
 
+    public static final String CODEBAR_PARSE_INFO = "条码解析信息>>>>>>>>";
+
+    public static final String CODEBAR_PARSE_RESULT = "条码解析结果信息>>>>>>>>";
+
+    public static final String CODEBARS_PARSE_INFO = "批量条码解析信息>>>>>>>>";
+
+    public static final String CODEBARS_PARSE_RESULT = "批量条码解析结果信息>>>>>>>>";
+
     public static final String STOCKREPORT_SAVE_INFO = "汇报保存信息>>>>>>>>";
 
     public static final String STOCKREPORT_SAVE_RETURN_INFO = "汇报保存返回信息>>>>>>>>";
