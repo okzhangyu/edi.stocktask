@@ -20,7 +20,6 @@ import org.edi.stocktask.data.StockTaskServicePath;
 import org.edi.stocktask.dto.DocumentSyncResult;
 import org.edi.stocktask.repository.BORepositoryStockReport;
 import org.edi.stocktask.util.PageVerification;
-import org.edi.stocktask.util.ReportVerification;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
