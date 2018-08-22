@@ -112,7 +112,7 @@ public class StockReportService implements  IStockReportService{
     public Result updateStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token, StockReport stockReport) {
         Result result ;
         try {
-            logger.info(StockTaskData.STOCKREPORT_UPDATE_INFO,stockReport.toString());
+            logger.info(StockTaskData.STOCKREPORT_UPDATE_INFO + stockReport.toString());
             boRepositoryStockReport.updateStockReport(stockReport);
             result = new Result(ResultCode.SUCCESS, ResultDescription.OP_SUCCESSFUL,null);
         }catch (BusinessException e){
@@ -124,7 +124,7 @@ public class StockReportService implements  IStockReportService{
         }catch (Exception e) {
             result = new Result(e);
         }
-        logger.info(StockTaskData.STOCKREPORT_UPDATE_RETURN_INFO,result.toString());
+        logger.info(StockTaskData.STOCKREPORT_UPDATE_RETURN_INFO + result.toString());
         return result;
     }
 
@@ -163,16 +163,16 @@ public class StockReportService implements  IStockReportService{
     @Override
     public Result syncStockReportToB1(@QueryParam(ServicePath.TOKEN_NAMER)String token, List<StockReport> stockReports) {
         try{
-            logger.info(StockTaskData.STOCKREPORT_SYNC_INFO,stockReports.toString());
+            logger.info(StockTaskData.STOCKREPORT_SYNC_INFO + stockReports.toString());
             Gson gson = new Gson();
             String orderJson = gson .toJson(stockReports);
             String resultMsg = HttpRequest.post(orderJson);
             Result<DocumentSyncResult> resultOpResult = gson.fromJson(resultMsg,new TypeToken<Result<DocumentSyncResult>>(){}.getType());
-            logger.info(StockTaskData.STOCKREPORT_SYNC_RETURN_INFO,resultOpResult);
+            logger.info(StockTaskData.STOCKREPORT_SYNC_RETURN_INFO + resultOpResult.toString());
             return resultOpResult;
         }catch (Exception e){
             logger.info(StockTaskData.OPREATION_EXCEPTION,e);
-            return new Result(ResultCode.NET_CONNECT_ERROR, ResultDescription.NET_CONNECT_ERROR);
+            return new Result(ResultCode.NET_CONNECT_ERROR,ResultDescription.NET_CONNECT_ERROR);
         }
     }
 

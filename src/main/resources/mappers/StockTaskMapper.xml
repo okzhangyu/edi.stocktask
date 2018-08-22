@@ -66,7 +66,7 @@
 
     <!-- List<IStockTask> fetchStockTaskByPage(int beginIndex,int limit);-->
     <select id="fetchStockTaskByPage" resultMap="BaseResultMap" parameterType="int">
-       select * from(select ROW_NUMBER() over(order by ObjectKey desc) as rowId,* from AVA_WM_VIEW_OSTK) as t0 where t0.rowId between #{0}
+       select * from(select ROW_NUMBER() over(order by DocType, ObjectKey desc) as rowId,* from AVA_WM_VIEW_OSTK) as t0 where t0.rowId between #{0}
         and #{1}
     </select>
 

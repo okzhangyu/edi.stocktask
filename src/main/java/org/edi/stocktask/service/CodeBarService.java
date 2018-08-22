@@ -69,12 +69,11 @@ public class CodeBarService implements ICodeBarService{
                 result = new Result<>(ResultCode.SUCCESS, ResultDescription.OK,resultCodeBar);
             }
         }catch(BusinessException e){
-            log.warn(e);
             result = new Result(e);
         }catch (Exception e){
             result = new Result(e);
         }
-        logger.info(StockTaskData.CODEBAR_PARSE_RESULT,result.toString());
+        logger.info(StockTaskData.CODEBAR_PARSE_RESULT + result.toString());
         return result;
     }
 
@@ -93,7 +92,7 @@ public class CodeBarService implements ICodeBarService{
     public Result<StockReportItem> parseBatchCodeBar(@QueryParam(ServicePath.TOKEN_NAMER)String token, CodeBarParam  codeBarParam) {
         Result<StockReportItem> result;
         try{
-            logger.info(StockTaskData.CODEBARS_PARSE_INFO,codeBarParam.toString());
+            logger.info(StockTaskData.CODEBARS_PARSE_INFO + codeBarParam.toString());
             if(codeBarParam == null){
                 throw new BusinessObjectException(StockOpResultCode.STOCK_CODEBAR_IS_NULL,StockOpResultDescription.STOCK_CODEBAR_IS_EMPTY);
             }
@@ -104,10 +103,9 @@ public class CodeBarService implements ICodeBarService{
         }catch (DBException e){
             return new Result<>(e);
         }catch (Exception e){
-            log.warn(e);
             return new Result(e);
         }
-        logger.info(StockTaskData.CODEBARS_PARSE_RESULT,result.toString());
+        logger.info(StockTaskData.CODEBARS_PARSE_RESULT + result.toString());
         return result;
     }
 }
