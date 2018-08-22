@@ -40,4 +40,13 @@ public class CodeBarParam implements ICodeBarParam{
     public void setBarCodes(List<CodeBarItem> barCodes) {
         this.barCodes = barCodes;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "baseEntry:" + baseEntry +
+                ", baseType:'" + baseType + '\'' +
+                ", barCodes=" + barCodes +
+                '}';
+    }
 }

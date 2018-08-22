@@ -48,4 +48,14 @@ public class BarCodes implements IBarCodes{
     public void setQuantity(Double quantity) {
         this.quantity = quantity;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "itemCode:'" + itemCode + '\'' +
+                ", baseLine:" + baseLine +
+                ", barCode:'" + barCode + '\'' +
+                ", quantity:" + quantity +
+                '}';
+    }
 }

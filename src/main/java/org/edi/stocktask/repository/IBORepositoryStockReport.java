@@ -62,12 +62,10 @@ public interface IBORepositoryStockReport {
     void updateStockReport(StockReport stockReport);
 
 
-
     /**
      * 删除任务汇报
      * @param docEntry
      */
     void deleteStockReport(Integer docEntry);
 
-    void deleteStockReport(StockReport stockReport);
 }

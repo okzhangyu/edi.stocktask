@@ -71,5 +71,13 @@ public class CodeBarParseParam implements ICodeBarParseParam{
         this.codeBar = codeBar;
     }
 
-
+    @Override
+    public String toString() {
+        return "{" +
+                "baseLine:" + baseLine +
+                ", quantity:" + quantity +
+                ", itemCode:'" + itemCode + '\'' +
+                ", codeBar:'" + codeBar + '\'' +
+                '}';
+    }
 }

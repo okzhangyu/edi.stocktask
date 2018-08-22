@@ -45,10 +45,10 @@ public class CodeBar implements  ICodeBar{
 
     @Override
     public String toString() {
-        return "CodeBar{" +
-                "ProName='" + proName + '\'' +
-                ", ProValue='" + proValue + '\'' +
-                ", ProDesc='" + proDesc + '\'' +
+        return "{" +
+                "ProName:'" + proName + '\'' +
+                ", ProValue:'" + proValue + '\'' +
+                ", ProDesc:'" + proDesc + '\'' +
                 '}';
     }
 }

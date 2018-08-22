@@ -99,6 +99,7 @@ public class StockReport extends DocumentBO implements IStockReport{
     private String businessPartnerName;
     private String baseDocumentType;
     private Integer baseDocumentEntry;
+    private String targetDocumentType;
     private List<StockReportItem> stockReportItems;
 
 
@@ -320,6 +321,16 @@ public class StockReport extends DocumentBO implements IStockReport{
     }
 
     @Override
+    public String getTargetDocumentType() {
+        return targetDocumentType;
+    }
+
+    @Override
+    public void setTargetDocumentType(String targetDocumentType) {
+        this.targetDocumentType = targetDocumentType;
+    }
+
+    @Override
     public void setTransactionType(String transactionType) {
         this.transactionType = transactionType;
     }
@@ -381,35 +392,36 @@ public class StockReport extends DocumentBO implements IStockReport{
 
     @Override
     public String toString() {
-        return "StockReport{" +
-                "companyName='" + this.getCompanyName() + '\'' +
-                ", docEntry=" + docEntry +
-                ", docNum=" + docNum +
-                ", period='" + period + '\'' +
-                ", objectCode='" + objectCode + '\'' +
-                ", transfered='" + transfered + '\'' +
-                ", createDate='" + createDate + '\'' +
-                ", createTime=" + createTime +
-                ", updateDate='" + updateDate + '\'' +
-                ", updateTime=" + updateTime +
-                ", createUserSign='" + createUserSign + '\'' +
-                ", updateUserSign='" + updateUserSign + '\'' +
-                ", documentStatus='" + documentStatus + '\'' +
-                ", postingDate='" + postingDate + '\'' +
-                ", deliveryDate='" + deliveryDate + '\'' +
-                ", documentDate='" + documentDate + '\'' +
-                ", reference1='" + reference1 + '\'' +
-                ", reference2='" + reference2 + '\'' +
-                ", remarks='" + remarks + '\'' +
-                ", b1DocEntry=" + b1DocEntry +
-                ", bydUUID='" + bydUUID + '\'' +
-                ", customType='" + customType + '\'' +
-                ", transactionType='" + transactionType + '\'' +
-                ", businessPartnerCode='" + businessPartnerCode + '\'' +
-                ", businessPartnerName='" + businessPartnerName + '\'' +
-                ", baseDocumentType='" + baseDocumentType + '\'' +
-                ", baseDocumentEntry=" + baseDocumentEntry +
-                ", stockReportItems=" + stockReportItems +
+        return "{" +
+                "companyName:'" + this.getCompanyName() + '\'' +
+                ", docEntry:" + docEntry +
+                ", docNum:" + docNum +
+                ", period:'" + period + '\'' +
+                ", objectCode:'" + objectCode + '\'' +
+                ", transfered:'" + transfered + '\'' +
+                ", createDate:'" + createDate + '\'' +
+                ", createTime:" + createTime +
+                ", updateDate:'" + updateDate + '\'' +
+                ", updateTime:" + updateTime +
+                ", createUserSign:'" + createUserSign + '\'' +
+                ", updateUserSign:'" + updateUserSign + '\'' +
+                ", documentStatus:'" + documentStatus + '\'' +
+                ", postingDate:'" + postingDate + '\'' +
+                ", deliveryDate:'" + deliveryDate + '\'' +
+                ", documentDate:'" + documentDate + '\'' +
+                ", reference1:'" + reference1 + '\'' +
+                ", reference2:'" + reference2 + '\'' +
+                ", remarks:'" + remarks + '\'' +
+                ", b1DocEntry:" + b1DocEntry +
+                ", bydUUID:'" + bydUUID + '\'' +
+                ", customType:'" + customType + '\'' +
+                ", targetDocumentType:'" + targetDocumentType + '\'' +
+                ", transactionType:'" + transactionType + '\'' +
+                ", businessPartnerCode:'" + businessPartnerCode + '\'' +
+                ", businessPartnerName:'" + businessPartnerName + '\'' +
+                ", baseDocumentType:'" + baseDocumentType + '\'' +
+                ", baseDocumentEntry:" + baseDocumentEntry +
+                ", stockReportItems:" + stockReportItems +
                 '}';
     }
 

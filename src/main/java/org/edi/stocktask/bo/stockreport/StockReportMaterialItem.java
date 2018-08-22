@@ -108,6 +108,20 @@ public class StockReportMaterialItem extends DocumentBOLine implements IStockRep
     public StockReportMaterialItem() {
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+                "docEntry:" + docEntry +
+                ", lineId:" + lineId +
+                ", objectCode:'" + objectCode + '\'' +
+                ", itemCode:'" + itemCode + '\'' +
+                ", batchNumber:'" + batchNumber + '\'' +
+                ", serialNumber:'" + serialNumber + '\'' +
+                ", barCode:'" + barCode + '\'' +
+                ", quantity:" + quantity +
+                '}';
+    }
+
     public StockReportMaterialItem(Integer docEntry, Integer lineId, String objectCode, String itemCode, String batchNumber, String serialNumber, String barCode, Double quantity) {
         this.docEntry = docEntry;
         this.lineId = lineId;

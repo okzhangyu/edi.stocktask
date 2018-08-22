@@ -85,4 +85,13 @@ public class CodeBarResult implements ICodeBarResult {
         this.codeBarItems = codeBarItems;
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+                "baseLine:" + baseLine +
+                ", itemCode:'" + itemCode + '\'' +
+                ", quantity:" + quantity +
+                ", codeBarItems:" + codeBarItems +
+                '}';
+    }
 }
