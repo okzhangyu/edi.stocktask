@@ -176,7 +176,7 @@
 
 
     <select id="fetchStockReportFuzzyByPage" resultMap="BaseResultMap" parameterType="map">
-        select * from(select ROW_NUMBER() over(order by DocEntry desc) as rowId,* from AVA_WM_OSRP
+        select * from(select ROW_NUMBER() over(order by BaseType, DocEntry desc) as rowId,* from AVA_WM_OSRP
         <where>
             (<if test="value != null and value != ''">
             DocEntry LIKE '%'+#{value}+'%'

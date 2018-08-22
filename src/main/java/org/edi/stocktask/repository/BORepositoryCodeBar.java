@@ -1,17 +1,19 @@
 package org.edi.stocktask.repository;
 
-import org.apache.log4j.Logger;
 import org.edi.freamwork.exception.BusinessException;
 import org.edi.stocktask.bo.codeBar.ICodeBar;
 import org.edi.stocktask.bo.stockreport.StockReportItem;
 import org.edi.stocktask.bo.stocktask.IStockTaskItem;
 import org.edi.stocktask.data.StockOpResultCode;
 import org.edi.stocktask.data.StockOpResultDescription;
+import org.edi.stocktask.data.StockTaskData;
 import org.edi.stocktask.dto.CodeBarParam;
 import org.edi.stocktask.dto.CodeBarParseParam;
 import org.edi.stocktask.dto.CodeBarParseResult;
 import org.edi.stocktask.mapper.CodeBarMapper;
 import org.edi.stocktask.mapper.StockTaskMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,7 +26,7 @@ import java.util.List;
  */
 @Component(value="boRepositoryCodeBar")
 public class BORepositoryCodeBar implements IBORepositoryCodeBar{
-    private static Logger log = Logger.getLogger(BORepositoryCodeBar.class);
+    Logger logger = LoggerFactory.getLogger(BORepositoryCodeBar.class);
 
     @Autowired
     private CodeBarMapper codeBarMapper;
@@ -52,11 +54,10 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
                 throw new BusinessException(codeBarParam.get("code").toString(),codeBarParam.get("message").toString());
             }
         }catch (BusinessException e){
-            e.printStackTrace();
+            logger.info(StockTaskData.OPREATION_EXCEPTION,e);
             throw e;
         } catch (Exception e){
-            e.printStackTrace();
-            log.warn(e);
+            logger.info(StockTaskData.OPREATION_EXCEPTION,e);
             throw new BusinessException(StockOpResultCode.BARCODE_ANALYSIS_IS_FAIL,String.format(StockOpResultDescription.BARCODE_ANALYSIS_IS_FAIL,codebar));
         }
         return listCodeBar;
@@ -81,10 +82,10 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
                 throw new BusinessException(codeBarParamsList.get("code").toString(),codeBarParamsList.get("message").toString());
             }
         }catch (BusinessException e){
-            e.printStackTrace();
+            logger.info(StockTaskData.OPREATION_EXCEPTION,e);
             throw e;
         }catch (Exception e){
-            e.printStackTrace();
+            logger.info(StockTaskData.OPREATION_EXCEPTION,e);
             throw new BusinessException(StockOpResultCode.BARCODE_ANALYSIS_IS_FAIL,StockOpResultDescription.BARCODE_ANALYSIS_IS_FAIL);
         }
         List<IStockTaskItem> stockTaskItems = stockTaskMapper.fetchNoDealStockTaskItem(codeBarParams.getBaseEntry(),codeBarParams.getBaseType());

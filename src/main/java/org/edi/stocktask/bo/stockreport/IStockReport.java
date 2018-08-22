@@ -10,8 +10,6 @@ import java.util.List;
  */
 public interface IStockReport extends IDocumentBO{
 
-   
-
     Integer getDocEntry();
 
     void setDocEntry(Integer value);
@@ -85,9 +83,9 @@ public interface IStockReport extends IDocumentBO{
 
     void setRemarks(String value);
 
-    String getB1DocEntry();
+    Integer getB1DocEntry();
 
-    void setB1DocEntry(String value);
+    void setB1DocEntry(Integer value);
 
     String getBydUUID();
 

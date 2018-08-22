@@ -10,6 +10,7 @@ import org.edi.stocktask.data.StockOpResultCode;
 import org.edi.stocktask.data.StockOpResultDescription;
 import org.edi.stocktask.data.StockTaskData;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,6 +65,8 @@ public class StockReport extends DocumentBO implements IStockReport{
                 stockReportItem.setFromWarehose(item.getFromWarehose());
                 stockReportItem.setToLocation(item.getToLocation());
                 stockReportItem.setToWarehouse(item.getToWarehouse());
+
+                //stockReportItem.getStockReportMaterialItems()
                 stockReportItemList.add(stockReportItem);
             }
         }
@@ -91,7 +94,7 @@ public class StockReport extends DocumentBO implements IStockReport{
     private String reference1;
     private String reference2;
     private String remarks;
-    private String b1DocEntry;
+    private Integer b1DocEntry;
     private String bydUUID;
     private String customType;
     private String transactionType;
@@ -286,12 +289,12 @@ public class StockReport extends DocumentBO implements IStockReport{
     }
 
     @Override
-    public String getB1DocEntry() {
+    public Integer getB1DocEntry() {
         return b1DocEntry;
     }
 
     @Override
-    public void setB1DocEntry(String b1DocEntry) {
+    public void setB1DocEntry(Integer b1DocEntry) {
         this.b1DocEntry = b1DocEntry;
     }
 
