@@ -82,7 +82,7 @@ public class StockReportService implements  IStockReportService{
     public Result saveStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token,StockReport stockReport) {
         Result result ;
         try {
-            logger.info(StockTaskData.STOCKREPORT_SAVE_INFO,stockReport.toString());
+            logger.info(StockTaskData.STOCKREPORT_SAVE_INFO + stockReport.toString());
             boRepositoryStockReport.saveStockReport(stockReport);
             result = new Result(ResultCode.SUCCESS, ResultDescription.OP_SUCCESSFUL, null);
         } catch (BusinessException e) {
@@ -94,7 +94,7 @@ public class StockReportService implements  IStockReportService{
         }catch (Exception e){
             result = new Result(e);
         }
-        logger.info(StockTaskData.STOCKREPORT_SAVE_RETURN_INFO,result.toString());
+        logger.info(StockTaskData.STOCKREPORT_SAVE_RETURN_INFO + result.toString());
         return result;
     }
 
