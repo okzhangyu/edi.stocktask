@@ -17,6 +17,7 @@
         <result column="Remarks" property="remarks" jdbcType="VARCHAR" />
         <result column="Ref1" property="reference1" jdbcType="VARCHAR" />
         <result column="Ref2" property="reference2" jdbcType="VARCHAR" />
+        <result column="TargetType" property="targetDocumentType" jdbcType="VARCHAR" />
     </resultMap>
 
     <resultMap id="BaseResultMapItem" type="org.edi.stocktask.bo.stocktask.StockTaskItem">

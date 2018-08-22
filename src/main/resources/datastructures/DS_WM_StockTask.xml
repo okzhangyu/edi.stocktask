@@ -26,6 +26,7 @@
         <Field Name="TaxDate" Description="凭证日期" DataType="db_Date" SubType="st_None" EditSize="8" PropertyName="DocumentDate" IsSystem="Yes" FixedDataType="System.DateTime" />
         <Field Name="SchCode" Description="方案编码" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="SchemaCode" FixedDataType="System.String" />
         <Field Name="IsDelete" Description="是否取消" DataType="db_Alpha" SubType="st_None" EditSize="1" PropertyName="IsDelete" FixedDataType="System.String" />
+        <Field Name="TargetType" Description="目标单据类型" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="TargetDocumentType" FixedDataType="System.String" />
     </Table>
     <Table Name="AVA_WM_VIEW_STK1" Description="库存任务-行" Type="bott_SimpleBusinessObjectLines" State="bots_BoModelOnly" PropertyName="StockTaskLine">
         <Field Name="ObjectKey" Description="编号" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="ObjectKey" IsSystem="Yes" FixedDataType="System.Int32" IsPrimaryKey="Yes" />
@@ -59,7 +60,6 @@
             <ValidValue Value="R" Description="收货" />
             <ValidValue Value="T" Description="转储" />
         </Field>
-        <Field Name="TargetType" Description="目标单据类型" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="TargetDocumentType" FixedDataType="System.String" />
         <Field Name="BaseType" Description="基础单据类型" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="BaseDocumentType" FixedDataType="System.String" />
         <Field Name="BaseEntry" Description="基础单据编号" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="BaseDocumentEntry" FixedDataType="System.Int32" />
         <Field Name="BaseLine" Description="基础单据行号" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="BaseDocumentLineId" FixedDataType="System.Int32" />

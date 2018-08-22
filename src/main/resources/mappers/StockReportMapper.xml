@@ -30,6 +30,7 @@
         <result column="BaseType" property="baseDocumentType" jdbcType="VARCHAR" />
         <result column="BaseEntry" property="baseDocumentEntry" jdbcType="INTEGER" />
         <result column="IsDelete" property="isDeleted" jdbcType="VARCHAR" />
+        <result column="TargetType" property="targetDocumentType" jdbcType="VARCHAR" />
     </resultMap>
 
     <resultMap id="BaseResultMapItem" type="org.edi.stocktask.bo.stockreport.StockReportItem">
@@ -86,7 +87,7 @@
 
 
 
-   <!-- SELECT * FROM AVA_WM_OSRP WITH(TABLOCKX)-->
+    <!-- SELECT * FROM AVA_WM_OSRP WITH(TABLOCKX)-->
     <select id="fetchStockReport" resultMap="BaseResultMap">
         SELECT * FROM AVA_WM_OSRP and IsDelete = 'N'
     </select>
@@ -107,9 +108,10 @@
 
     <insert id="saveStockReport" parameterType="org.edi.stocktask.bo.stockreport.StockReport">
         INSERT INTO AVA_WM_OSRP([CompanyName] ,[DocEntry],[DocNum] ,[Period] ,[Object] ,[Transfered] ,[CreateDate],[CreateTime],[UpdateDate],[UpdateTime]  ,[Creator] ,[Updator] ,[DocStatus] ,[DocDate]
-        ,[DocDueDate],[TaxDate] ,[Ref1],[Ref2] ,[Remarks] ,[B1DocEntry] ,[BydUUID] ,[CusType],[TransType],[BpCode],[BpName] ,[BaseType] ,[BaseEntry])
+        ,[DocDueDate],[TaxDate] ,[Ref1],[Ref2] ,[Remarks] ,[B1DocEntry] ,[BydUUID] ,[CusType],[TransType],[BpCode],[BpName] ,[BaseType] ,[BaseEntry],[TargetType])
         VALUES (#{companyName} ,#{docEntry} ,#{docNum},#{period},#{objectCode} ,#{transfered},#{createDate},#{createTime},#{updateDate},#{updateTime} ,#{createUserSign} ,#{updateUserSign} ,#{documentStatus} ,#{documentDate},
-        #{postingDate} ,#{deliveryDate} ,#{reference1} ,#{reference2} ,#{remarks} ,#{b1DocEntry} ,#{bydUUID} ,#{customType} ,#{transactionType} ,#{businessPartnerCode},#{businessPartnerName},#{baseDocumentType} ,#{baseDocumentEntry})
+        #{postingDate} ,#{deliveryDate} ,#{reference1} ,#{reference2} ,#{remarks} ,#{b1DocEntry} ,#{bydUUID} ,#{customType} ,#{transactionType} ,#{businessPartnerCode},#{businessPartnerName},#{baseDocumentType} ,#{baseDocumentEntry},
+        #{targetDocumentType})
     </insert>
 
     <insert id="saveStockReportItem" parameterType="org.edi.stocktask.bo.stockreport.StockReportItem">
@@ -148,7 +150,7 @@
             <if test="baseDocumentEntry != null and baseDocumentEntry != ''">
                 and BaseEntry = #{baseDocumentEntry}
             </if>
-                and IsDelete = 'N'
+            and IsDelete = 'N'
         </where>
     </select>
 
@@ -167,7 +169,7 @@
             <if test="value != null and value != ''">
                 or BpName LIKE '%'+#{value}+'%'
             </if>
-                and IsDelete = 'N'
+            and IsDelete = 'N'
         </where>
     </select>
 
@@ -178,7 +180,7 @@
         <where>
             (<if test="value != null and value != ''">
             DocEntry LIKE '%'+#{value}+'%'
-             </if>
+        </if>
             <if test="value != null and value != ''">
                 or BpCode LIKE '%'+#{value}+'%'
             </if>
@@ -226,6 +228,7 @@
             <if test="businessPartnerName!=null">BpName=#{businessPartnerName},</if>
             <if test="baseDocumentType!=null">BaseType=#{baseDocumentType},</if>
             <if test="baseDocumentEntry!=null">BaseEntry=#{baseDocumentEntry},</if>
+            <if test="targetDocumentType!=null">TargetType=#{targetDocumentType},</if>
         </trim>
         WHERE DocEntry=#{docEntry}
     </update>
@@ -284,15 +287,15 @@
         <!--</trim>-->
         <!--WHERE DocEntry=#{docEntry}-->
         UPDATE AVA_WM_OSRP
-          set DocStatus=#{documentStatus},
-              B1DocEntry=#{b1DocEntry}
+        set DocStatus=#{documentStatus},
+        B1DocEntry=#{b1DocEntry}
         WHERE DocEntry=#{docEntry};
         UPDATE AVA_WM_SRP1
         set LineStatus=#{documentStatus}
         WHERE DocEntry=#{docEntry};
     </update>
 
-   <!-- int fetchSequenceOfDocEntry();-->
+    <!-- int fetchSequenceOfDocEntry();-->
     <select id="fetchSequenceOfDocEntry" resultType="int">
         SELECT NEXT VALUE FOR Seq_DocEntry
     </select>
@@ -300,20 +303,20 @@
 
 
 
-   <!--  List<StockReportMaterialItem> fetchStockReportMaterialItem(Integer docEntry,Integer lineId);-->
+    <!--  List<StockReportMaterialItem> fetchStockReportMaterialItem(Integer docEntry,Integer lineId);-->
     <select id="fetchStockReportMaterialItem" resultMap="BaseResultMapMaterialItem" parameterType="int">
         SELECT * FROM AVA_WM_SRP2 where DocEntry=#{0} and LineId =#{1}
     </select>
 
 
     <!--void saveStockReportMaterialItem(StockReportMaterialItem stockReportMaterialItem);-->
-   <insert id="saveStockReportMaterialItem" parameterType="org.edi.stocktask.bo.stockreport.StockReportMaterialItem">
+    <insert id="saveStockReportMaterialItem" parameterType="org.edi.stocktask.bo.stockreport.StockReportMaterialItem">
     INSERT INTO [dbo].[AVA_WM_SRP2]([DocEntry],[LineId],[Object],[ItemCode],[BarCode],[BatchNumber],[SerialNumber],[Quantity])
     VALUES(#{docEntry} ,#{lineId} ,#{objectCode} ,#{itemCode} ,#{barCode} ,#{batchNumber},#{serialNumber} ,#{quantity})
    </insert>
 
 
-   <!--void deleteStockReportMaterialItem(int docEntry);-->
+    <!--void deleteStockReportMaterialItem(int docEntry);-->
     <delete id="deleteStockReportMaterialItem" parameterType="int">
         delete from AVA_WM_SRP2
         where docEntry = #{docEntry}

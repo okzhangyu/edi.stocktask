@@ -7,6 +7,7 @@ import org.edi.freamwork.exception.DBException;
 import org.edi.initialfantasy.data.ResultCode;
 import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.initialfantasy.data.ServicePath;
+import org.edi.initialfantasy.filter.UserRequest;
 import org.edi.stocktask.bo.material.IMaterial;
 import org.edi.stocktask.bo.stocktask.IStockTask;
 import org.edi.stocktask.data.StockOpResultDescription;
@@ -28,6 +29,7 @@ import java.util.List;
  * @date 2018/5/19
  */
 @Path("/v1")
+@UserRequest
 public class StockTaskService implements IStockTaskService{
     private static Logger log = Logger.getLogger(StockTaskService.class);
 
