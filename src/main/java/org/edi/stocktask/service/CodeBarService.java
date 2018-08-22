@@ -57,7 +57,7 @@ public class CodeBarService implements ICodeBarService{
                                          @QueryParam(StockTaskServicePath.SERVICE_ITEMCODE)String itemCode){
         Result<ICodeBar> result;
         try{
-            logger.info(StockTaskData.CODEBAR_PARSE_INFO,StockTaskServicePath.SERVICE_CODEBAR + codeBar +";" +
+            logger.info(StockTaskData.CODEBAR_PARSE_INFO + StockTaskServicePath.SERVICE_CODEBAR + codeBar +";" +
                                                               StockTaskServicePath.SERVICE_BASETYPE + baseType + ";" +
                                                               StockTaskServicePath.SERVICE_BASEENTRY + baseEntry + ";" +
                                                               StockTaskServicePath.SERVICE_BASELINE + baseLine + ";" +
