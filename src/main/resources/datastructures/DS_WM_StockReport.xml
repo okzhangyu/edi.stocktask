@@ -33,6 +33,7 @@
         <Field Name="TargetType" Description="目标单据类型" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="TargetDocumentType" FixedDataType="System.String" />
         <Field Name="BaseType" Description="基础单据类型" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="BaseDocumentType" FixedDataType="System.String" />
         <Field Name="BaseEntry" Description="基础单据编号" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="BaseDocumentEntry" FixedDataType="System.Int32" />
+        <Field Name="ReporterId" Description="汇报人" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="ReporterId" IsSystem="Yes" FixedDataType="System.Int32" />
     </Table>
     <Table Name="AVA_WM_SRP1" Description="库存任务汇报-行" Type="bott_DocumentLines" State="bots_User" PropertyName="StockReportLine">
         <Field Name="DocEntry" Description="编码" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="DocEntry" IsSystem="Yes" FixedDataType="System.Int32" IsPrimaryKey="Yes" />
