@@ -56,13 +56,13 @@ public class StockReportService implements IStockReportService{
     public Result<StockReport> fetchStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token,
                                                 @QueryParam(StockTaskServicePath.SERVICE_SEARCH_PARAMETER)String param,
                                                 @QueryParam(ServicePath.SERVICE_BEGININDEX)int beginIndex,
-                                                @QueryParam(ServicePath.SERVICE_LIMIT)int limit) {
-        List<String> docStatus = new ArrayList<>();
+                                                @QueryParam(ServicePath.SERVICE_LIMIT)int limit,
+                                                @QueryParam(ServicePath.SERVICE_DOCSTATUS)List<String> docStatus) {
         docStatus.add("O");
         Result result;
         try {
             limit = PageVerification.limitCalculation(beginIndex,limit);
-            List<StockReport> stockReports = boRepositoryStockReport.fetchStockReport(param,beginIndex==0?1:beginIndex,limit);
+            List<StockReport> stockReports = boRepositoryStockReport.fetchStockReport(token,param,beginIndex==0?1:beginIndex,limit,docStatus);
             //List<StockReport> stockReportList = identityScreen.stockReportListIdentity(token,stockReports,docStatus);
             if (stockReports.size()==0){
                 result = new Result(ResultCode.SUCCESS, StockOpResultDescription.REPORT_IS_EMPTY,stockReports);

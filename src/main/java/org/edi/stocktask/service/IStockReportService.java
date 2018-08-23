@@ -18,7 +18,7 @@ public interface IStockReportService {
      */
    /* Result<StockReport> fetchStockReport(String token,String param);*/
 
-    Result<StockReport> fetchStockReport(String token, String param, int beginIndex, int limit);
+    Result<StockReport> fetchStockReport(String token, String param, int beginIndex, int limit,List<String> docStatus);
 
     /**
      * 保存库存任务汇报
