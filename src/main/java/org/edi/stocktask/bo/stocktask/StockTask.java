@@ -36,6 +36,7 @@ public class StockTask extends DocumentBO implements IStockTask{
     private String schemaCode;
     private String annotated;
     private String targetDocumentType;
+    private Integer reporterId;
     private List<IStockTaskItem> stockTaskItems;
     private List<IStockTaskBarCodeItem> stockTaskBarCodeItems;
 
@@ -269,6 +270,16 @@ public class StockTask extends DocumentBO implements IStockTask{
     }
 
     @Override
+    public Integer getReporterId() {
+        return reporterId;
+    }
+
+    @Override
+    public void setReporterId(Integer reporterId) {
+        this.reporterId = reporterId;
+    }
+
+    @Override
     public List<IStockTaskItem> getStockTaskItems() {
         return stockTaskItems;
     }
@@ -316,6 +327,7 @@ public class StockTask extends DocumentBO implements IStockTask{
                 ", postingDate:'" + postingDate + '\'' +
                 ", deliveryDate:'" + deliveryDate + '\'' +
                 ", documentDate:'" + documentDate + '\'' +
+                ", reporterId:" + reporterId +
                 ", schemaCode:'" + schemaCode + '\'' +
                 ", annotated:'" + annotated + '\'' +
                 ", stockTaskItems:" + stockTaskItems +

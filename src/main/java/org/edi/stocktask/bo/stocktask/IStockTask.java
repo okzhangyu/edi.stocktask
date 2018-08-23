@@ -98,6 +98,10 @@ public interface IStockTask extends IDocumentBO{
 
     void setAnnotated(String annotated);
 
+    Integer getReporterId();
+
+    void setReporterId(Integer reporterId);
+
     List<IStockTaskItem> getStockTaskItems();
 
     void setStockTaskItems(List<IStockTaskItem> value);
