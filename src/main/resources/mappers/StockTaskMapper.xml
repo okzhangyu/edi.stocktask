@@ -72,11 +72,11 @@
 
 
     <select id="fetchStockTaskItem" resultMap="BaseResultMapItem">
-        SELECT * FROM AVA_WM_VIEW_STK1 where ObjectKey=#{0} and DocType =  #{1}
+        SELECT * FROM AVA_WM_VIEW_STK1 where ObjectKey=#{0} and DocType =  #{1} order by DocEntry ,ItemCode
     </select>
 
     <select id="fetchAllStockTaskItem" resultMap="BaseResultMapItem">
-        SELECT * FROM AVA_WM_VIEW_STK1
+        SELECT * FROM AVA_WM_VIEW_STK1 order by DocEntry ,ItemCode
     </select>
 
     <select id="fetchSyncStockTaskItem" resultMap="BaseResultMapItem" >
@@ -147,7 +147,7 @@
 
   <!--  List<IStockTaskItem> fetchNoDealStockTaskItem(Integer docEntry,String docType);-->
     <select id="fetchNoDealStockTaskItem" resultMap="BaseResultMapItem">
-        SELECT * FROM AVA_WM_VIEW_STK1 where DocEntry=#{0} and DocType =  #{1} and LineStatus='O'
+        SELECT * FROM AVA_WM_VIEW_STK1 where DocEntry=#{0} and DocType =  #{1} and LineStatus!='C' order by DocEntry ,ItemCode
     </select>
 
 

@@ -2,8 +2,6 @@ package repository;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
-import org.edi.stocktask.bo.codeBar.CodeBar;
-import org.edi.stocktask.bo.codeBar.ICodeBar;
 import org.edi.stocktask.bo.stockreport.StockReport;
 import org.edi.stocktask.bo.stocktask.IStockTask;
 import org.edi.stocktask.repository.BORepositoryCodeBar;
@@ -16,6 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -45,7 +44,8 @@ public class TestBoRepositoryStockReport extends TestCase{
     private List<StockReport> stockReports = new ArrayList<>();
 
     private StockReport getStockReport() throws Exception {
-        List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask("",1,20);
+        HashMap<String,Object> paramMap = new HashMap<>();
+        List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask(paramMap);
         if (stockTasks.size() > 0) {
             if (stockTasks != null) {
                 stockTask = stockTasks.get(0);
@@ -66,7 +66,8 @@ public class TestBoRepositoryStockReport extends TestCase{
 
     @Test
     public void testfetchStockTask() throws Exception{
-        List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask("",1,20);
+        HashMap<String,Object> paramMap = new HashMap<>();
+        List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask(paramMap);
         if(stockTasks.size() > 0){
             if(stockTask == null){
                 stockTask = stockTasks.get(0);
@@ -100,8 +101,8 @@ public class TestBoRepositoryStockReport extends TestCase{
 
     @Test
     public void testSaveStockReport() {
-
-        List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask("", 1, 30);
+        HashMap<String,Object> paramMap = new HashMap<>();
+        List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask(paramMap);
         if (stockTasks.size() > 0) {
             if (stockTasks != null) {
                 stockTask = stockTasks.get(5);

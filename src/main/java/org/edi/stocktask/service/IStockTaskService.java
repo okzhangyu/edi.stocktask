@@ -4,6 +4,8 @@ import org.edi.freamwork.data.Result;
 import org.edi.stocktask.bo.material.IMaterial;
 import org.edi.stocktask.bo.stocktask.IStockTask;
 
+import java.util.List;
+
 /**
  * @author Fancy
  * @date 2018/5/25
@@ -16,7 +18,7 @@ public interface IStockTaskService {
      * @return
      */
 
-    Result<IStockTask> fetchStockTask(String token,String param,int beginIndex,int limit);
+    Result<IStockTask> fetchStockTask(String token,String param,int beginIndex,int limit,List<String> docStatus);
 
 
     /**
