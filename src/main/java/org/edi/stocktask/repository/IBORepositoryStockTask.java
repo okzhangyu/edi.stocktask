@@ -3,6 +3,7 @@ package org.edi.stocktask.repository;
 import org.edi.stocktask.bo.material.IMaterial;
 import org.edi.stocktask.bo.stocktask.IStockTask;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -16,7 +17,9 @@ public interface IBORepositoryStockTask {
      * @return
      */
 
-    List<IStockTask> fetchStockTask(String param,int beginIndex,int limit);
+    List<IStockTask> fetchStockTask(HashMap<String,Object> paramMap);
+
+    List<IStockTask> fetchStockTask(String token,String param,int beginIndex,int limit,List<String> docStatus);
 
     List<IStockTask> fetchStockTaskByCondition(int docEntry, String docType);
 

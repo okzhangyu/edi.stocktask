@@ -25,37 +25,45 @@ public class BORepositoryStockTask implements  IBORepositoryStockTask {
     @Autowired
     private StockTaskMapper stockTaskMapper;
 
-    /**
-     * 分页查询库存任务
-     * @return
-     */
-    public List<IStockTask> fetchStockTask(String param,int beginIndex,int limit){
+    @Override
+    public List<IStockTask> fetchStockTask(String token, String param, int beginIndex, int limit, List<String> docStatus) {
         List<IStockTask> stockTasks;
-        try{
-            if(param!=null && !param.isEmpty()){
-                HashMap<String,Object> params = new HashMap<>();
-                params.put("value",param);
-                params.put("beginIndex",beginIndex);
-                params.put("limit",limit);
-                stockTasks = stockTaskMapper.fetchStockTaskFuzzyByPage(params);
-            }else {
-                stockTasks = stockTaskMapper.fetchStockTaskByPage(beginIndex,limit);
-            }
-            if(stockTasks.size() == 0) {
-                return stockTasks;
-            }
-            for (int i = 0;i<stockTasks.size();i++){
-                List<IStockTaskItem> stockTaskItems = stockTaskMapper.fetchStockTaskItem(stockTasks.get(i).getObjectKey(),stockTasks.get(i).getDocumentType());
-                if(stockTaskItems!=null){
-                    stockTasks.get(i).setStockTaskItems(stockTaskItems);
-                    stockTasks.get(i).initDocStatus();
-                }
-            }
-            return stockTasks;
-        }catch (Exception e){
-            throw new DBException(StockOpResultCode.STOCK_DATABASE_ERROR,StockOpResultDescription.STOCK_DATABASE_ERROR);
+        try {
+            //1、根据token获取用户
+            HashMap<String, Object> params = new HashMap<>();
+
+            params.put("value", param);
+            params.put("beginIndex", beginIndex);
+            params.put("limit", limit);
+
+            return fetchStockTask(params);
+        } catch (Exception e) {
+            throw new DBException(StockOpResultCode.STOCK_DATABASE_ERROR, StockOpResultDescription.STOCK_DATABASE_ERROR);
         }
     }
+
+    /**
+     * 查询库存任务
+     * @return
+     */
+    public List<IStockTask> fetchStockTask(HashMap<String,Object> paramMap) {
+        List<IStockTask> stockTasks;
+        stockTasks = stockTaskMapper.fetchStockTaskFuzzyByPage(paramMap);
+        if (stockTasks.size() == 0) {
+            return stockTasks;
+        }
+        for (int i = 0; i < stockTasks.size(); i++) {
+            List<IStockTaskItem> stockTaskItems = stockTaskMapper.fetchStockTaskItem(stockTasks.get(i).getObjectKey(), stockTasks.get(i).getDocumentType());
+            if (stockTaskItems != null) {
+                stockTasks.get(i).setStockTaskItems(stockTaskItems);
+                stockTasks.get(i).initDocStatus();
+            }
+        }
+        return stockTasks;
+
+    }
+
+
 
 
     @Override

@@ -103,7 +103,7 @@
         SELECT * FROM AVA_WM_OSRP  where docEntry=#{docEntry} and IsDelete = 'N'
     </select>
     <select id="fetchStockReportItem" resultMap="BaseResultMapItem" parameterType="int">
-        SELECT * FROM AVA_WM_SRP1 where docEntry=#{docEntry}
+        SELECT * FROM AVA_WM_SRP1 where docEntry=#{docEntry} order by DocEntry ,ItemCode
     </select>
 
     <insert id="saveStockReport" parameterType="org.edi.stocktask.bo.stockreport.StockReport">

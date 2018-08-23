@@ -12,7 +12,6 @@ import org.edi.stocktask.bo.material.IMaterial;
 import org.edi.stocktask.bo.stocktask.IStockTask;
 import org.edi.stocktask.data.StockOpResultDescription;
 import org.edi.stocktask.data.StockTaskServicePath;
-import org.edi.stocktask.mapper.StockTaskMapper;
 import org.edi.stocktask.repository.IBORepositoryStockTask;
 import org.edi.stocktask.util.PageVerification;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +36,7 @@ public class StockTaskService implements IStockTaskService{
     @Autowired
     private IBORepositoryStockTask boRepositoryStockTask;
 
-    @Autowired
-    private StockTaskMapper stockTaskMapper;
+
 
 
     /**
@@ -48,12 +46,16 @@ public class StockTaskService implements IStockTaskService{
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/stocktask")
     @Override
-    public Result<IStockTask> fetchStockTask(@QueryParam(ServicePath.TOKEN_NAMER)String token,@QueryParam(StockTaskServicePath.SERVICE_SEARCH_PARAMETER)String param,
-                                             @QueryParam(ServicePath.SERVICE_BEGININDEX)int beginIndex,@QueryParam(ServicePath.SERVICE_LIMIT)int limit){
+    public Result<IStockTask> fetchStockTask(@QueryParam(ServicePath.TOKEN_NAMER)String token
+            ,@QueryParam(StockTaskServicePath.SERVICE_SEARCH_PARAMETER)String param
+            ,@QueryParam(ServicePath.SERVICE_BEGININDEX)int beginIndex
+            ,@QueryParam(ServicePath.SERVICE_LIMIT)int limit
+            ,@QueryParam(ServicePath.SERVICE_DOCSTATUS) List<String> docStatus){
 
         try{
+
             limit = PageVerification.limitCalculation(beginIndex,limit);
-            List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask(param,beginIndex==0?1:beginIndex,limit);
+            List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask(token, param,beginIndex==0?1:beginIndex,limit,docStatus);
             if (stockTasks.size()==0){
                 return new Result<>(ResultCode.SUCCESS, StockOpResultDescription.TASK_IS_EMPTY,stockTasks);
             }else {
