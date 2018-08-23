@@ -10,7 +10,6 @@ import org.edi.stocktask.data.StockOpResultCode;
 import org.edi.stocktask.data.StockOpResultDescription;
 import org.edi.stocktask.data.StockTaskData;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -443,10 +442,10 @@ public class StockReport extends DocumentBO implements IStockReport{
             throw new BusinessObjectException(StockOpResultCode.STOCK_OBJECT_OBJECTCODE_IS_NULL,
                     StockOpResultDescription.STOCK_OBJECT_OBJECTCODE_IS_NULL);
         }
-        if(this.getTargetDocumentType() == null || this.getTargetDocumentType().isEmpty()){
+       /* if(this.getTargetDocumentType() == null || this.getTargetDocumentType().isEmpty()){
             throw new BusinessObjectException(StockOpResultCode.STOCK_OBJECT_TargetDocumentType_IS_NULL,
                     StockOpResultDescription.STOCK_OBJECT_TargetDocumentType_IS_NULL);
-        }
+        }*/
         this.stockReportItems.forEach(c->c.checkBO());
     }
 }

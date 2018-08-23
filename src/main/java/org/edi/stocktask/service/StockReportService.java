@@ -22,7 +22,6 @@ import org.edi.stocktask.repository.BORepositoryStockReport;
 import org.edi.stocktask.util.PageVerification;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
@@ -42,12 +41,11 @@ public class StockReportService implements  IStockReportService{
      * @param token
      * @return
      */
-
+    @UserRequest
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/stockreport")
     @Override
-    @UserRequest
     public Result<StockReport> fetchStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token,
                                                 @QueryParam(StockTaskServicePath.SERVICE_SEARCH_PARAMETER)String param,
                                                 @QueryParam(ServicePath.SERVICE_BEGININDEX)int beginIndex,
@@ -74,6 +72,7 @@ public class StockReportService implements  IStockReportService{
      * @param stockReport
      * @return
      */
+    @UserRequest
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -104,6 +103,7 @@ public class StockReportService implements  IStockReportService{
      * @param stockReport
      * @return
      */
+    @UserRequest
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -135,6 +135,7 @@ public class StockReportService implements  IStockReportService{
      * @param docEntry
      * @return
      */
+    @UserRequest
     @DELETE
     @Path("/stockreport")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -155,6 +156,7 @@ public class StockReportService implements  IStockReportService{
             return new Result(ResultCode.FAIL, e);
         }
     }
+
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
