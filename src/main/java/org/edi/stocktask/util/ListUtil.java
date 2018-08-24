@@ -1,7 +1,5 @@
 package org.edi.stocktask.util;
 
-import org.bouncycastle.asn1.cms.PasswordRecipientInfo;
-
 import java.util.List;
 
 public class ListUtil {
