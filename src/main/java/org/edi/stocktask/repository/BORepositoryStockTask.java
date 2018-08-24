@@ -2,13 +2,17 @@ package org.edi.stocktask.repository;
 
 import org.edi.freamwork.exception.BusinessException;
 import org.edi.freamwork.exception.DBException;
+import org.edi.initialfantasy.bo.user.User;
 import org.edi.initialfantasy.data.ResultDescription;
+import org.edi.initialfantasy.mapper.UserMapper;
 import org.edi.stocktask.bo.material.IMaterial;
 import org.edi.stocktask.bo.stocktask.IStockTask;
 import org.edi.stocktask.bo.stocktask.IStockTaskItem;
 import org.edi.stocktask.data.StockOpResultCode;
 import org.edi.stocktask.data.StockOpResultDescription;
+import org.edi.stocktask.data.StockTaskData;
 import org.edi.stocktask.mapper.StockTaskMapper;
+import org.edi.stocktask.util.ListUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,17 +29,22 @@ public class BORepositoryStockTask implements  IBORepositoryStockTask {
     @Autowired
     private StockTaskMapper stockTaskMapper;
 
+    @Autowired
+    private UserMapper userMapper;
     @Override
-    public List<IStockTask> fetchStockTask(String token, String param, int beginIndex, int limit, List<String> docStatus) {
+    public List<IStockTask> fetchStockTask(String token, String fluzzyParam, int beginIndex, int limit, List<String> docStatus) {
         List<IStockTask> stockTasks;
         try {
-            //1、根据token获取用户
-            HashMap<String, Object> params = new HashMap<>();
 
-            params.put("value", param);
+            User user = userMapper.getUserByToken(token);
+            HashMap<String, Object> params = new HashMap<>();
+            if(!user.getIsSupperUser().toUpperCase().equals(StockTaskData.YES)){
+                params.put("reporterId",user.getUserId());
+            }
+            params.put("value", fluzzyParam);
             params.put("beginIndex", beginIndex);
             params.put("limit", limit);
-
+            params.put("docStatus",ListUtil.getValues(docStatus));
             return fetchStockTask(params);
         } catch (Exception e) {
             throw new DBException(StockOpResultCode.STOCK_DATABASE_ERROR, StockOpResultDescription.STOCK_DATABASE_ERROR);

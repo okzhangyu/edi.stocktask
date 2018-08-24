@@ -2,6 +2,7 @@ package org.edi.stocktask.repository;
 
 import org.edi.stocktask.bo.stockreport.StockReport;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -10,11 +11,13 @@ import java.util.List;
  */
 public interface IBORepositoryStockReport {
 
+
+    List<StockReport> fetchStockReport(String token,String param,int beginIndex,int limit,List<String> docStatus);
     /**
      * 查询任务汇报清单
      * @return
      */
-    List<StockReport> fetchStockReport(String param,int beginIndex,int limit);
+    List<StockReport> fetchStockReport(HashMap<String,Object> paramMap);
 
 
 
