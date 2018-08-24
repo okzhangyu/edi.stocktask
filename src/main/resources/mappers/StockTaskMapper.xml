@@ -104,16 +104,19 @@
     <!-- List<IStockTask> fetchStockTaskFuzzyByPage(HashMap<String,Object> params);-->
     <select id="fetchStockTaskFuzzyByPage" resultMap="BaseResultMap" parameterType="map">
         select * from(select ROW_NUMBER() over(order by DocType,ObjectKey desc) as rowId,* from AVA_WM_VIEW_OSTK
-        where 1 = 1
-            <if test="value != null and value != ''">
-               and (DocEntry LIKE '%'+#{value}+'%'  or BpCode LIKE '%'+#{value}+'%' or BpName LIKE '%'+#{value}+'%')
-            </if>
-            <if test="reporterId != null and value != ''">
-               and reporterId = #{reporterId}
-            </if>
-            <if test="docStatus != null and docStatus != ''">
-               and docStatus in (#{docStatus})
-            </if>
+        where 1=1
+        <if test="value != null and value != ''">
+            and (DocEntry LIKE '%'+#{value}+'%'  or BpCode LIKE '%'+#{value}+'%' or BpName LIKE '%'+#{value}+'%')
+        </if>
+        <if test="reporterId != null and value != ''">
+            and reporterId = #{reporterId}
+        </if>
+        <if test="docStatus != null">
+            and DocStatus in
+            <foreach collection="docStatus" item="item" index="index" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
         ) as t0
         <where>
             t0.rowId between #{beginIndex}
@@ -144,7 +147,7 @@
 
 
 
-  <!--  List<IStockTaskItem> fetchNoDealStockTaskItem(Integer docEntry,String docType);-->
+    <!--  List<IStockTaskItem> fetchNoDealStockTaskItem(Integer docEntry,String docType);-->
     <select id="fetchNoDealStockTaskItem" resultMap="BaseResultMapItem">
         SELECT * FROM AVA_WM_VIEW_STK1 where DocEntry=#{0} and DocType =  #{1} and LineStatus!='C' order by DocEntry ,ItemCode
     </select>

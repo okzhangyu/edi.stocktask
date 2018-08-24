@@ -12,7 +12,8 @@ import org.edi.stocktask.data.StockOpResultCode;
 import org.edi.stocktask.data.StockOpResultDescription;
 import org.edi.stocktask.data.StockTaskData;
 import org.edi.stocktask.mapper.StockTaskMapper;
-import org.edi.stocktask.util.ListUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +26,7 @@ import java.util.List;
 @Component(value="boRepositoryStockTask")
 public class BORepositoryStockTask implements  IBORepositoryStockTask {
 
-
+    Logger logger = LoggerFactory.getLogger(BORepositoryStockTask.class);
     @Autowired
     private StockTaskMapper stockTaskMapper;
 
@@ -35,18 +36,20 @@ public class BORepositoryStockTask implements  IBORepositoryStockTask {
     public List<IStockTask> fetchStockTask(String token, String fluzzyParam, int beginIndex, int limit, List<String> docStatus) {
         List<IStockTask> stockTasks;
         try {
-
             User user = userMapper.getUserByToken(token);
             HashMap<String, Object> params = new HashMap<>();
             if(!user.getIsSupperUser().toUpperCase().equals(StockTaskData.YES)){
                 params.put("reporterId",user.getUserId());
             }
+            if(docStatus.size()>0){
+                params.put("docStatus",docStatus);
+            }
             params.put("value", fluzzyParam);
             params.put("beginIndex", beginIndex);
             params.put("limit", limit);
-            params.put("docStatus",ListUtil.getValues(docStatus));
             return fetchStockTask(params);
         } catch (Exception e) {
+            logger.info(StockTaskData.OPREATION_EXCEPTION, e);
             throw new DBException(StockOpResultCode.STOCK_DATABASE_ERROR, StockOpResultDescription.STOCK_DATABASE_ERROR);
         }
     }
@@ -97,6 +100,7 @@ public class BORepositoryStockTask implements  IBORepositoryStockTask {
             }
             return stockTasks;
         }catch (Exception e){
+            logger.info(StockTaskData.OPREATION_EXCEPTION, e);
             throw new DBException(StockOpResultCode.STOCK_DATABASE_ERROR,StockOpResultDescription.STOCK_DATABASE_ERROR);
         }
     }
@@ -110,6 +114,7 @@ public class BORepositoryStockTask implements  IBORepositoryStockTask {
             List<IMaterial> materials = stockTaskMapper.fetchStockTaskMaterial(docEntry);
             return materials;
         }catch (Exception e){
+            logger.info(StockTaskData.OPREATION_EXCEPTION, e);
             throw new DBException(StockOpResultCode.STOCK_DATABASE_ERROR,StockOpResultDescription.STOCK_DATABASE_ERROR);
         }
 

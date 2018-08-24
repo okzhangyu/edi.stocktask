@@ -90,16 +90,7 @@ public class TestBoRepositoryStockReport extends TestCase{
     }
 
 
-    /**
-     * 库存任务汇报
-     * @return
-     * */
-    @Test
-    public void testFetchStockReport(){
-        List<StockReport> stockReportList = boRepositoryStockReport.fetchStockReport(paramMap);
-        System.out.println(stockReportList.get(0).getDocEntry());
-        assertEquals(stockReportList.get(0).getDocEntry().toString(),"2");
-    }
+
 
     @Test
     public void testSaveStockReport() {
@@ -112,7 +103,7 @@ public class TestBoRepositoryStockReport extends TestCase{
             if (stockReport == null) {
                 stockReport = StockReport.createStockReport(stockTask);
             }
-            boRepositoryStockReport.saveStockReport(stockReport);
+            boRepositoryStockReport.saveStockReport("",stockReport);
             Assert.assertEquals(stockReport.getBaseDocumentType(), stockTask.getDocumentType());
             Assert.assertEquals(stockReport.getBaseDocumentEntry(), stockTask.getDocumentEntry());
 

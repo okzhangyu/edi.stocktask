@@ -1,9 +1,9 @@
 package org.edi.stocktask.service;
 
-import org.apache.log4j.Logger;
 import org.edi.freamwork.data.Result;
 import org.edi.freamwork.exception.BusinessException;
 import org.edi.freamwork.exception.DBException;
+import org.edi.freamwork.log.LoggerUtils;
 import org.edi.initialfantasy.data.ResultCode;
 import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.initialfantasy.data.ServicePath;
@@ -11,6 +11,7 @@ import org.edi.initialfantasy.filter.UserRequest;
 import org.edi.stocktask.bo.material.IMaterial;
 import org.edi.stocktask.bo.stocktask.IStockTask;
 import org.edi.stocktask.data.StockOpResultDescription;
+import org.edi.stocktask.data.StockTaskData;
 import org.edi.stocktask.data.StockTaskServicePath;
 import org.edi.stocktask.repository.IBORepositoryStockTask;
 import org.edi.stocktask.util.PageVerification;
@@ -30,7 +31,7 @@ import java.util.List;
 @Path("/v1")
 @UserRequest
 public class StockTaskService implements IStockTaskService{
-    private static Logger log = Logger.getLogger(StockTaskService.class);
+    org.slf4j.Logger logger = LoggerUtils.Logger(StockTaskData.APPENDER_NAME);
 
 
     @Autowired
@@ -51,26 +52,25 @@ public class StockTaskService implements IStockTaskService{
             ,@QueryParam(ServicePath.SERVICE_BEGININDEX)int beginIndex
             ,@QueryParam(ServicePath.SERVICE_LIMIT)int limit
             ,@QueryParam(ServicePath.SERVICE_DOCSTATUS) List<String> docStatus){
-
+        Result<IStockTask> result ;
         try{
-
             limit = PageVerification.limitCalculation(beginIndex,limit);
             List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask(token, param,beginIndex==0?1:beginIndex,limit,docStatus);
             if (stockTasks.size()==0){
-                return new Result<>(ResultCode.SUCCESS, StockOpResultDescription.TASK_IS_EMPTY,stockTasks);
+                result = new Result<>(ResultCode.SUCCESS, StockOpResultDescription.TASK_IS_EMPTY,stockTasks);
             }else {
-                return new Result<>(ResultCode.SUCCESS,ResultDescription.OK,stockTasks);
+                result = new Result<>(ResultCode.SUCCESS,ResultDescription.OK,stockTasks);
             }
 
         }catch (BusinessException e){
-            log.warn(e);
-            return new Result(e);
+            result = new Result(e);
         }catch (DBException e){
-            return new Result(e);
+            result = new Result(e);
         }catch(Exception e){
-            log.warn(e);
-            return new Result(ResultCode.FAIL,e);
+            result = new Result(ResultCode.FAIL,e);
         }
+        logger.info(StockTaskData.STOCKTASK_FETCH_RETURN_INFO + result.toString());
+        return result;
     }
 
 
@@ -92,12 +92,10 @@ public class StockTaskService implements IStockTaskService{
                 return new Result<>(ResultCode.SUCCESS, ResultDescription.OK, stockTasks);
             }
         }catch (BusinessException e){
-            log.warn(e);
             return new Result(e);
         }catch (DBException e){
             return new Result(e);
         }catch(Exception e){
-            log.warn(e);
             return new Result(ResultCode.FAIL,e);
         }
     }
@@ -118,12 +116,10 @@ public class StockTaskService implements IStockTaskService{
             List<IMaterial> materials = boRepositoryStockTask.fetchStockTaskMaterials(docEntry);
             return new Result<>(ResultCode.SUCCESS,ResultDescription.OK,materials);
         }catch (BusinessException e){
-            log.warn(e);
             return new Result(e);
         }catch (DBException e){
             return new Result(e);
         }catch(Exception e){
-            log.warn(e);
             return new Result(ResultCode.FAIL,e);
         }
     }

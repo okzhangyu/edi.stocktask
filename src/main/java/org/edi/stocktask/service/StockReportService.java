@@ -55,12 +55,10 @@ public class StockReportService implements IStockReportService{
                                                 @QueryParam(ServicePath.SERVICE_BEGININDEX)int beginIndex,
                                                 @QueryParam(ServicePath.SERVICE_LIMIT)int limit,
                                                 @QueryParam(ServicePath.SERVICE_DOCSTATUS)List<String> docStatus) {
-        docStatus.add("O");
         Result result;
         try {
             limit = PageVerification.limitCalculation(beginIndex,limit);
             List<StockReport> stockReports = boRepositoryStockReport.fetchStockReport(token,param,beginIndex==0?1:beginIndex,limit,docStatus);
-            //List<StockReport> stockReportList = identityScreen.stockReportListIdentity(token,stockReports,docStatus);
             if (stockReports.size()==0){
                 result = new Result(ResultCode.SUCCESS, StockOpResultDescription.REPORT_IS_EMPTY,stockReports);
             }else {
@@ -89,7 +87,7 @@ public class StockReportService implements IStockReportService{
         Result result ;
         try {
             logger.info(StockTaskData.STOCKREPORT_SAVE_INFO + stockReport.toString());
-            boRepositoryStockReport.saveStockReport(stockReport);
+            boRepositoryStockReport.saveStockReport(token,stockReport);
             result = new Result(ResultCode.SUCCESS, ResultDescription.OP_SUCCESSFUL, null);
         } catch (BusinessException e) {
             result = new Result(e);
@@ -120,7 +118,7 @@ public class StockReportService implements IStockReportService{
         Result result ;
         try {
             logger.info(StockTaskData.STOCKREPORT_UPDATE_INFO + stockReport.toString());
-            boRepositoryStockReport.updateStockReport(stockReport);
+            boRepositoryStockReport.updateStockReport(token,stockReport);
             result = new Result(ResultCode.SUCCESS, ResultDescription.OP_SUCCESSFUL,null);
         }catch (BusinessException e){
             result = new Result(e);

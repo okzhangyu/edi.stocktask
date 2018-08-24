@@ -178,18 +178,21 @@
     <select id="fetchStockReportFuzzyByPage" resultMap="BaseResultMap" parameterType="map">
         select * from(select ROW_NUMBER() over(order by BaseType, DocEntry desc) as rowId,* from AVA_WM_OSRP
         where isDelete = 'N'
-            <if test="value != null and value != ''">
-              and (DocEntry LIKE '%'+#{value}+'%' or BpCode LIKE '%'+#{value}+'%' or BpName LIKE '%'+#{value}+'%')
-            </if>
-            <if test="reporterId != null and value != ''">
-                and reporterId = #{reporterId}
-            </if>
-            <if test="docStatus != null and docStatus != ''">
-                and docStatus in (#{docStatus})
-            </if>
+        <if test="value != null and value != ''">
+            and (DocEntry LIKE '%'+#{value}+'%' or BpCode LIKE '%'+#{value}+'%' or BpName LIKE '%'+#{value}+'%')
+        </if>
+        <if test="creator != null and creator != ''">
+            and Creator = #{creator}
+        </if>
+        <if test="docStatus != null">
+            and DocStatus in
+            <foreach collection="docStatus" item="item" index="index" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
         ) as t0
         <where>
-            t0.rowId between #{beginIndex} and #{limit} and t0.IsDelete = 'N'
+            t0.rowId between #{beginIndex} and #{limit}
         </where>
     </select>
 
