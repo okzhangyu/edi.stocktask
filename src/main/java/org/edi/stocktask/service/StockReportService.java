@@ -25,7 +25,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,12 +35,10 @@ import java.util.List;
 public class StockReportService implements IStockReportService{
     Logger logger = LoggerUtils.Logger(StockTaskData.APPENDER_NAME);
 
-
     @Autowired
     private BORepositoryStockReport boRepositoryStockReport;
 
-    @Autowired
-    private IdentityScreen identityScreen;
+
 
     /**
      * 库存任务汇报清单
@@ -57,13 +54,10 @@ public class StockReportService implements IStockReportService{
                                                 @QueryParam(StockTaskServicePath.SERVICE_SEARCH_PARAMETER)String param,
                                                 @QueryParam(ServicePath.SERVICE_BEGININDEX)int beginIndex,
                                                 @QueryParam(ServicePath.SERVICE_LIMIT)int limit) {
-        List<String> docStatus = new ArrayList<>();
-        docStatus.add("O");
         Result result;
         try {
             limit = PageVerification.limitCalculation(beginIndex,limit);
             List<StockReport> stockReports = boRepositoryStockReport.fetchStockReport(param,beginIndex==0?1:beginIndex,limit);
-            //List<StockReport> stockReportList = identityScreen.stockReportListIdentity(token,stockReports,docStatus);
             if (stockReports.size()==0){
                 result = new Result(ResultCode.SUCCESS, StockOpResultDescription.REPORT_IS_EMPTY,stockReports);
             }else {

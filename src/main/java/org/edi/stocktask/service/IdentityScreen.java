@@ -1,56 +1,60 @@
 package org.edi.stocktask.service;
 
 import org.edi.initialfantasy.bo.user.User;
-import org.edi.initialfantasy.bo.userauthrization.UserAuth;
-import org.edi.initialfantasy.repository.BORepositoryUser;
-import org.edi.initialfantasy.repository.BORepositoryUserAuth;
 import org.edi.stocktask.bo.stockreport.StockReport;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by asus on 2018/8/23.
  */
 
-@Component(value="identityScreen")
+
 public class IdentityScreen {
 
-    @Autowired
-    private BORepositoryUserAuth boRepositoryUserAuth;
-
-    @Autowired
-    private BORepositoryUser boRepositoryUser;
 
 
-    public User getUserIdentity(String token){
-        UserAuth userAuth = boRepositoryUserAuth.serchAuthByToken(token);
-        User user = boRepositoryUser.getUserByName(userAuth.getUserId());
-        return user;
-    }
-
-
-
-    public List<StockReport> stockReportListIdentity(String token, List<StockReport> stockReports, List<String> docStatusList){
-        User user = getUserIdentity(token);
+    public static List<StockReport> stockReportListIdentity(User user, List<StockReport> stockReports, List<String> docStatusList){
         List<StockReport> stockReportList = new ArrayList<>();
         if(user.getIsSupperUser().trim().equals("Y")){
+            for (String docStatus:docStatusList) {
+                for (int i=0;i<stockReports.size();i++){
+                    if(stockReports.get(i).getDocumentStatus().trim().equals(docStatus)){
+                        stockReportList.add(stockReports.get(i));
+                    }
+                }
+            }
+        }else{
+            List<StockReport> reports = new ArrayList<>();
+            for (int i=0;i<stockReports.size();i++){
+                if(stockReports.get(i).getCreateUserSign().trim().equals(user.getUserName())){
+                    reports.add(stockReports.get(i));
+                }
+            }
+            for (String docStatus:docStatusList) {
+                for (int i=0;i<reports.size();i++){
+                    if(reports.get(i).getDocumentStatus().trim().equals(docStatus)){
+                        stockReportList.add(reports.get(i));
+                    }
+                }
+            }
+        }
+
+        /*if(user.getIsSupperUser().trim().equals("Y")){
             for (String docStatus:docStatusList) {
                 List<StockReport> stockReportListItem = stockReports.stream()
                         .filter(c->c.getDocumentStatus().equals(docStatus))
                         .collect(Collectors.toList());
-//                stockReportList.addAll(stockReportListItem);
+                stockReportList.addAll(stockReportListItem);
             }
         }else{
-//            stockReports = stockReports.stream().filter(c->c.getCreateUserSign().equals(user.getUserName())).collect(Collectors.toList());
-//            for (String docStatus:docStatusList) {
-//                List<StockReport> stockReportListItem = stockReports.stream().filter(c->c.getDocumentStatus().equals(docStatus)).collect(Collectors.toList());
-//               stockReportList.addAll(stockReportListItem);
-//            }
-        }
+            stockReports = stockReports.stream().filter(c->c.getCreateUserSign().equals(user.getUserName())).collect(Collectors.toList());
+            for (String docStatus:docStatusList) {
+                List<StockReport> stockReportListItem = stockReports.stream().filter(c->c.getDocumentStatus().equals(docStatus)).collect(Collectors.toList());
+               stockReportList.addAll(stockReportListItem);
+            }
+        }*/
         return stockReportList;
     }
 
