@@ -324,7 +324,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
                 StockReportMaterialItem stockReportMaterialItem = stockReportItem.getStockReportMaterialItems().get(j);
                 stockReportMaterialItem.setDocEntry(docEntry);
                 stockReportMaterialItem.setLineId(stockReportItem.getLineId());
-                if(stockReportMaterialItem.getBarCode()==null||stockReportMaterialItem.getBarCode().equals("")){
+                if(stockReportMaterialItem.getBarCode()==null||stockReportMaterialItem.getBarCode().isEmpty()){
                     throw new BusinessException(StockOpResultCode.CODEBAR_IS_NULL,StockOpResultDescription.CODEBAR_IS_NULL);
                 }
                 stockReportMapper.saveStockReportMaterialItem(stockReportMaterialItem);
@@ -334,7 +334,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
 
     @Override
     protected void update(StockReport stockReport) {
-        if (stockReport.getB1DocEntry() !=null && stockReport.getB1DocEntry() > 0) {
+        if (stockReport.getDocumentStatus().equals(StockTaskData.CLOSE)) {
             throw new BusinessException(StockOpResultCode.B1DOCENTRY_IS_EXISTENT,StockOpResultDescription.B1DOCENTRY_IS_EXISTENT);
         }
         stockReportMapper.deleteStockReport(stockReport.getDocEntry());
@@ -346,7 +346,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
 
     @Override
     protected void delete(StockReport stockReport) {
-        if (stockReport.getB1DocEntry() !=null && stockReport.getB1DocEntry() > 0) {
+        if (stockReport.getDocumentStatus().equals(StockTaskData.CLOSE)) {
             throw new BusinessException(StockOpResultCode.B1DOCENTRY_IS_EXISTENT,StockOpResultDescription.B1DOCENTRY_IS_EXISTENT);
         }
         stockReportMapper.updateIsDelete(stockReport.getDocEntry());

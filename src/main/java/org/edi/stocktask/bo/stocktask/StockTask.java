@@ -342,7 +342,8 @@ public class StockTask extends DocumentBO implements IStockTask{
         }
         Integer itemCloseCount = 0;
         for (int index = 0;index<this.getStockTaskItems().size();index++){
-            if(StockTaskData.CLOSE.equals(this.getStockTaskItems().get(index).getLineStatus())){
+            if(StockTaskData.CLOSE.equals(this.getStockTaskItems().get(index).getLineStatus()) ||
+                    StockTaskData.EXEUCTING.equals(this.getStockTaskItems().get(index).getLineStatus())){
                 itemCloseCount ++;
             }
             if(itemCloseCount > 0 && itemCloseCount <= index){
