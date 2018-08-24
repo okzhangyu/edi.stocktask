@@ -12,6 +12,8 @@ public class StockTaskData {
 
     public static final String EXEUCTING = "E";
 
+    public static final String YES = "Y";
+
     public static final String DOCTYPE = "DOCTYPE";
 
     public static final String DOCENTRY = "DOCENTRY";

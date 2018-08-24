@@ -5,6 +5,8 @@ import org.edi.freamwork.exception.BusinessException;
 import org.edi.freamwork.exception.DBException;
 import org.edi.freamwork.repository.BORepository;
 import org.edi.freamwork.transcation.TranscationResult;
+import org.edi.initialfantasy.bo.user.User;
+import org.edi.initialfantasy.mapper.UserMapper;
 import org.edi.stocktask.bo.stockreport.IStockReport;
 import org.edi.stocktask.bo.stockreport.StockReport;
 import org.edi.stocktask.bo.stockreport.StockReportItem;
@@ -14,6 +16,7 @@ import org.edi.stocktask.data.StockOpResultDescription;
 import org.edi.stocktask.data.StockTaskData;
 import org.edi.stocktask.mapper.StockReportMapper;
 import org.edi.stocktask.mapper.TranscationNoticeMapper;
+import org.edi.stocktask.util.ListUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +44,9 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
     private StockReportMapper stockReportMapper;
 
     @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
     private PlatformTransactionManager ptm;
 
     @Autowired
@@ -48,41 +54,49 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
 
 
 
+    public List<StockReport> fetchStockReport(String token,String fluzzyParam,int beginIndex,int limit,List<String> docStatus) {
+        List<StockReport> stockReports;
+        try {
+            User user = userMapper.getUserByToken(token);
+            HashMap<String, Object> params = new HashMap<>();
+            if(!user.getIsSupperUser().toUpperCase().equals(StockTaskData.YES)){
+                params.put("reporterId",user.getUserId());
+            }
+            params.put("value", fluzzyParam);
+            params.put("beginIndex", beginIndex);
+            params.put("limit", limit);
+            params.put("docStatus",ListUtil.getValues(docStatus));
+            stockReports = stockReportMapper.fetchStockReportFuzzyByPage(params);
+            return stockReports;
+        } catch (Exception e) {
+            logger.info(StockTaskData.OPREATION_EXCEPTION, e);
+            throw new DBException(StockOpResultCode.STOCK_DATABASE_ERROR, StockOpResultDescription.STOCK_DATABASE_ERROR);
+        }
+    }
+
     /**
      * 查询任务汇报清单
      * @return
      */
 
-    public List<StockReport> fetchStockReport(String param,int beginIndex,int limit){
+    public List<StockReport> fetchStockReport(HashMap<String,Object> paramMap) {
         List<StockReport> stockReports;
-        try{
-            if(param!=null && !param.isEmpty()){
-                HashMap<String,Object> params = new HashMap<>();
-                params.put("value",param);
-                params.put("beginIndex",beginIndex);
-                params.put("limit",limit);
-                stockReports = stockReportMapper.fetchStockReportFuzzyByPage(params);
-            }else {
-                stockReports = stockReportMapper.fetchStockReportByPage(beginIndex,limit);
-            }
-            if(stockReports.size() == 0) {
-                return stockReports;
-            }
-            for(int i=0;i<stockReports.size();i++){
-                StockReport stockReport = stockReports.get(i);
-                List<StockReportItem> stockReportItems = stockReportMapper.fetchStockReportItem(stockReport.getDocEntry());
-                for (int j=0;j<stockReportItems.size();j++){
-                    StockReportItem stockReportItem = stockReportItems.get(j);
-                    List<StockReportMaterialItem> stockReportMaterialItemList= stockReportMapper.fetchStockReportMaterialItem(stockReportItem.getDocEntry(),stockReportItem.getLineId());
-                    stockReportItem.setStockReportMaterialItems(stockReportMaterialItemList);
-                }
-                stockReport.setStockReportItems(stockReportItems);
-            }
+        stockReports = stockReportMapper.fetchStockReportFuzzyByPage(paramMap);
+        if (stockReports.size() == 0) {
             return stockReports;
-        }catch (Exception e){
-            logger.info(StockTaskData.OPREATION_EXCEPTION,e);
-            throw new DBException(StockOpResultCode.STOCK_DATABASE_ERROR,StockOpResultDescription.STOCK_DATABASE_ERROR);
         }
+        for (int i = 0; i < stockReports.size(); i++) {
+            StockReport stockReport = stockReports.get(i);
+            List<StockReportItem> stockReportItems = stockReportMapper.fetchStockReportItem(stockReport.getDocEntry());
+            for (int j = 0; j < stockReportItems.size(); j++) {
+                StockReportItem stockReportItem = stockReportItems.get(j);
+                List<StockReportMaterialItem> stockReportMaterialItemList = stockReportMapper.fetchStockReportMaterialItem(stockReportItem.getDocEntry(), stockReportItem.getLineId());
+                stockReportItem.setStockReportMaterialItems(stockReportMaterialItemList);
+            }
+            stockReport.setStockReportItems(stockReportItems);
+        }
+        return stockReports;
+
     }
 
 

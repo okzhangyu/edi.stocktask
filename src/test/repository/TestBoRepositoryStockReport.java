@@ -25,6 +25,7 @@ import java.util.List;
 @ContextConfiguration("classpath:spring-mybatis.xml")
 public class TestBoRepositoryStockReport extends TestCase{
 
+
     @Autowired
     private IBORepositoryStockTask boRepositoryStockTask;
 
@@ -35,6 +36,7 @@ public class TestBoRepositoryStockReport extends TestCase{
     @Autowired
     private BORepositoryCodeBar boRepositoryCodeBar;
 
+    HashMap<String,Object> paramMap = new HashMap<>();
 
     private Integer B1DocEntry = 1;
 
@@ -94,7 +96,7 @@ public class TestBoRepositoryStockReport extends TestCase{
      * */
     @Test
     public void testFetchStockReport(){
-        List<StockReport> stockReportList = boRepositoryStockReport.fetchStockReport("",2,2);
+        List<StockReport> stockReportList = boRepositoryStockReport.fetchStockReport(paramMap);
         System.out.println(stockReportList.get(0).getDocEntry());
         assertEquals(stockReportList.get(0).getDocEntry().toString(),"2");
     }
