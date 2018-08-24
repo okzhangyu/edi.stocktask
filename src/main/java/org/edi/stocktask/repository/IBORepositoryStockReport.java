@@ -10,11 +10,13 @@ import java.util.List;
  */
 public interface IBORepositoryStockReport {
 
+
+    List<StockReport> fetchStockReport(String token,String param,int beginIndex,int limit,List<String> docStatus);
     /**
      * 查询任务汇报清单
      * @return
      */
-    List<StockReport> fetchStockReport(String param,int beginIndex,int limit);
+    /*List<StockReport> fetchStockReport(HashMap<String,Object> paramMap);*/
 
 
 
@@ -44,7 +46,7 @@ public interface IBORepositoryStockReport {
      * @param stockReport
      */
 
-    void saveStockReport(StockReport stockReport);
+    void saveStockReport(String token,StockReport stockReport);
 
 
 
@@ -59,7 +61,7 @@ public interface IBORepositoryStockReport {
      * 更新库存任务汇报
      * @param stockReport
      */
-    void updateStockReport(StockReport stockReport);
+    void updateStockReport(String token,StockReport stockReport);
 
 
     /**

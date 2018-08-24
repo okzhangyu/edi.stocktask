@@ -2,8 +2,6 @@ package repository;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
-import org.edi.stocktask.bo.codeBar.CodeBar;
-import org.edi.stocktask.bo.codeBar.ICodeBar;
 import org.edi.stocktask.bo.stockreport.StockReport;
 import org.edi.stocktask.bo.stocktask.IStockTask;
 import org.edi.stocktask.repository.BORepositoryCodeBar;
@@ -16,6 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -25,6 +24,7 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:spring-mybatis.xml")
 public class TestBoRepositoryStockReport extends TestCase{
+
 
     @Autowired
     private IBORepositoryStockTask boRepositoryStockTask;
@@ -36,6 +36,7 @@ public class TestBoRepositoryStockReport extends TestCase{
     @Autowired
     private BORepositoryCodeBar boRepositoryCodeBar;
 
+    HashMap<String,Object> paramMap = new HashMap<>();
 
     private Integer B1DocEntry = 1;
 
@@ -45,7 +46,8 @@ public class TestBoRepositoryStockReport extends TestCase{
     private List<StockReport> stockReports = new ArrayList<>();
 
     private StockReport getStockReport() throws Exception {
-        List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask("",1,20);
+        HashMap<String,Object> paramMap = new HashMap<>();
+        List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask(paramMap);
         if (stockTasks.size() > 0) {
             if (stockTasks != null) {
                 stockTask = stockTasks.get(0);
@@ -66,7 +68,8 @@ public class TestBoRepositoryStockReport extends TestCase{
 
     @Test
     public void testfetchStockTask() throws Exception{
-        List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask("",1,20);
+        HashMap<String,Object> paramMap = new HashMap<>();
+        List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask(paramMap);
         if(stockTasks.size() > 0){
             if(stockTask == null){
                 stockTask = stockTasks.get(0);
@@ -87,21 +90,12 @@ public class TestBoRepositoryStockReport extends TestCase{
     }
 
 
-    /**
-     * 库存任务汇报
-     * @return
-     * */
-    @Test
-    public void testFetchStockReport(){
-        List<StockReport> stockReportList = boRepositoryStockReport.fetchStockReport("",2,2);
-        System.out.println(stockReportList.get(0).getDocEntry());
-        assertEquals(stockReportList.get(0).getDocEntry().toString(),"2");
-    }
+
 
     @Test
     public void testSaveStockReport() {
-
-        List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask("", 1, 30);
+        HashMap<String,Object> paramMap = new HashMap<>();
+        List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask(paramMap);
         if (stockTasks.size() > 0) {
             if (stockTasks != null) {
                 stockTask = stockTasks.get(5);
@@ -109,7 +103,7 @@ public class TestBoRepositoryStockReport extends TestCase{
             if (stockReport == null) {
                 stockReport = StockReport.createStockReport(stockTask);
             }
-            boRepositoryStockReport.saveStockReport(stockReport);
+            boRepositoryStockReport.saveStockReport("",stockReport);
             Assert.assertEquals(stockReport.getBaseDocumentType(), stockTask.getDocumentType());
             Assert.assertEquals(stockReport.getBaseDocumentEntry(), stockTask.getDocumentEntry());
 

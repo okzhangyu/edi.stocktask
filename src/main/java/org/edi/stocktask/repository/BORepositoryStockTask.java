@@ -2,13 +2,18 @@ package org.edi.stocktask.repository;
 
 import org.edi.freamwork.exception.BusinessException;
 import org.edi.freamwork.exception.DBException;
+import org.edi.initialfantasy.bo.user.User;
 import org.edi.initialfantasy.data.ResultDescription;
+import org.edi.initialfantasy.mapper.UserMapper;
 import org.edi.stocktask.bo.material.IMaterial;
 import org.edi.stocktask.bo.stocktask.IStockTask;
 import org.edi.stocktask.bo.stocktask.IStockTaskItem;
 import org.edi.stocktask.data.StockOpResultCode;
 import org.edi.stocktask.data.StockOpResultDescription;
+import org.edi.stocktask.data.StockTaskData;
 import org.edi.stocktask.mapper.StockTaskMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,41 +26,56 @@ import java.util.List;
 @Component(value="boRepositoryStockTask")
 public class BORepositoryStockTask implements  IBORepositoryStockTask {
 
-
+    Logger logger = LoggerFactory.getLogger(BORepositoryStockTask.class);
     @Autowired
     private StockTaskMapper stockTaskMapper;
 
-    /**
-     * 分页查询库存任务
-     * @return
-     */
-    public List<IStockTask> fetchStockTask(String param,int beginIndex,int limit){
+    @Autowired
+    private UserMapper userMapper;
+    @Override
+    public List<IStockTask> fetchStockTask(String token, String fluzzyParam, int beginIndex, int limit, List<String> docStatus) {
         List<IStockTask> stockTasks;
-        try{
-            if(param!=null && !param.isEmpty()){
-                HashMap<String,Object> params = new HashMap<>();
-                params.put("value",param);
-                params.put("beginIndex",beginIndex);
-                params.put("limit",limit);
-                stockTasks = stockTaskMapper.fetchStockTaskFuzzyByPage(params);
-            }else {
-                stockTasks = stockTaskMapper.fetchStockTaskByPage(beginIndex,limit);
+        try {
+            User user = userMapper.getUserByToken(token);
+            HashMap<String, Object> params = new HashMap<>();
+            if(!user.getIsSupperUser().toUpperCase().equals(StockTaskData.YES)){
+                params.put("reporterId",user.getUserId());
             }
-            if(stockTasks.size() == 0) {
-                return stockTasks;
+            if(docStatus.size()>0){
+                params.put("docStatus",docStatus);
             }
-            for (int i = 0;i<stockTasks.size();i++){
-                List<IStockTaskItem> stockTaskItems = stockTaskMapper.fetchStockTaskItem(stockTasks.get(i).getObjectKey(),stockTasks.get(i).getDocumentType());
-                if(stockTaskItems!=null){
-                    stockTasks.get(i).setStockTaskItems(stockTaskItems);
-                    stockTasks.get(i).initDocStatus();
-                }
-            }
-            return stockTasks;
-        }catch (Exception e){
-            throw new DBException(StockOpResultCode.STOCK_DATABASE_ERROR,StockOpResultDescription.STOCK_DATABASE_ERROR);
+            params.put("value", fluzzyParam);
+            params.put("beginIndex", beginIndex);
+            params.put("limit", limit);
+            return fetchStockTask(params);
+        } catch (Exception e) {
+            logger.info(StockTaskData.OPREATION_EXCEPTION, e);
+            throw new DBException(StockOpResultCode.STOCK_DATABASE_ERROR, StockOpResultDescription.STOCK_DATABASE_ERROR);
         }
     }
+
+    /**
+     * 查询库存任务
+     * @return
+     */
+    public List<IStockTask> fetchStockTask(HashMap<String,Object> paramMap) {
+        List<IStockTask> stockTasks;
+        stockTasks = stockTaskMapper.fetchStockTaskFuzzyByPage(paramMap);
+        if (stockTasks.size() == 0) {
+            return stockTasks;
+        }
+        for (int i = 0; i < stockTasks.size(); i++) {
+            List<IStockTaskItem> stockTaskItems = stockTaskMapper.fetchStockTaskItem(stockTasks.get(i).getObjectKey(), stockTasks.get(i).getDocumentType());
+            if (stockTaskItems != null) {
+                stockTasks.get(i).setStockTaskItems(stockTaskItems);
+                stockTasks.get(i).initDocStatus();
+            }
+        }
+        return stockTasks;
+
+    }
+
+
 
 
     @Override
@@ -80,6 +100,7 @@ public class BORepositoryStockTask implements  IBORepositoryStockTask {
             }
             return stockTasks;
         }catch (Exception e){
+            logger.info(StockTaskData.OPREATION_EXCEPTION, e);
             throw new DBException(StockOpResultCode.STOCK_DATABASE_ERROR,StockOpResultDescription.STOCK_DATABASE_ERROR);
         }
     }
@@ -93,6 +114,7 @@ public class BORepositoryStockTask implements  IBORepositoryStockTask {
             List<IMaterial> materials = stockTaskMapper.fetchStockTaskMaterial(docEntry);
             return materials;
         }catch (Exception e){
+            logger.info(StockTaskData.OPREATION_EXCEPTION, e);
             throw new DBException(StockOpResultCode.STOCK_DATABASE_ERROR,StockOpResultDescription.STOCK_DATABASE_ERROR);
         }
 

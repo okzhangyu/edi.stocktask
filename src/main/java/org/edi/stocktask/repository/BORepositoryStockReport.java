@@ -5,6 +5,8 @@ import org.edi.freamwork.exception.BusinessException;
 import org.edi.freamwork.exception.DBException;
 import org.edi.freamwork.repository.BORepository;
 import org.edi.freamwork.transcation.TranscationResult;
+import org.edi.initialfantasy.bo.user.User;
+import org.edi.initialfantasy.mapper.UserMapper;
 import org.edi.stocktask.bo.stockreport.IStockReport;
 import org.edi.stocktask.bo.stockreport.StockReport;
 import org.edi.stocktask.bo.stockreport.StockReportItem;
@@ -41,50 +43,51 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
     private StockReportMapper stockReportMapper;
 
     @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
     private PlatformTransactionManager ptm;
 
     @Autowired
     private TranscationNoticeMapper transcationNoticeMapper;
 
 
-
     /**
-     * 查询任务汇报清单
+     * 查询库存汇报清单
      * @return
      */
 
-    public List<StockReport> fetchStockReport(String param,int beginIndex,int limit){
+    public List<StockReport> fetchStockReport(String token,String fluzzyParam,int beginIndex,int limit,List<String> docStatus) {
         List<StockReport> stockReports;
-        try{
-            if(param!=null && !param.isEmpty()){
-                HashMap<String,Object> params = new HashMap<>();
-                params.put("value",param);
-                params.put("beginIndex",beginIndex);
-                params.put("limit",limit);
-                stockReports = stockReportMapper.fetchStockReportFuzzyByPage(params);
-            }else {
-                stockReports = stockReportMapper.fetchStockReportByPage(beginIndex,limit);
+        try {
+            User user = userMapper.getUserByToken(token);
+            HashMap<String, Object> params = new HashMap<>();
+            if(!user.getIsSupperUser().toUpperCase().equals(StockTaskData.YES)){
+                params.put("creator",user.getUserId());
             }
-            if(stockReports.size() == 0) {
-                return stockReports;
+            if(docStatus.size()>0){
+                params.put("docStatus",docStatus);
             }
-            for(int i=0;i<stockReports.size();i++){
+            params.put("value", fluzzyParam);
+            params.put("beginIndex", beginIndex);
+            params.put("limit", limit);
+            stockReports = stockReportMapper.fetchStockReportFuzzyByPage(params);
+            for (int i = 0; i < stockReports.size(); i++) {
                 StockReport stockReport = stockReports.get(i);
                 List<StockReportItem> stockReportItems = stockReportMapper.fetchStockReportItem(stockReport.getDocEntry());
-                for (int j=0;j<stockReportItems.size();j++){
+                for (int j = 0; j < stockReportItems.size(); j++) {
                     StockReportItem stockReportItem = stockReportItems.get(j);
-                    List<StockReportMaterialItem> stockReportMaterialItemList= stockReportMapper.fetchStockReportMaterialItem(stockReportItem.getDocEntry(),stockReportItem.getLineId());
+                    List<StockReportMaterialItem> stockReportMaterialItemList = stockReportMapper.fetchStockReportMaterialItem(stockReportItem.getDocEntry(), stockReportItem.getLineId());
                     stockReportItem.setStockReportMaterialItems(stockReportMaterialItemList);
                 }
                 stockReport.setStockReportItems(stockReportItems);
             }
             return stockReports;
-        }catch (Exception e){
-            logger.info(StockTaskData.OPREATION_EXCEPTION,e);
-            throw new DBException(StockOpResultCode.STOCK_DATABASE_ERROR,StockOpResultDescription.STOCK_DATABASE_ERROR);
+        } catch (Exception e) {
+            logger.info(StockTaskData.OPREATION_EXCEPTION, e);
+            throw new DBException(StockOpResultCode.STOCK_DATABASE_ERROR, StockOpResultDescription.STOCK_DATABASE_ERROR);
         }
     }
-
 
 
 
@@ -148,11 +151,13 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
      * @return
      */
     @Override
-    public void saveStockReport(StockReport stockReport) {
+    public void saveStockReport(String token,StockReport stockReport) {
         DefaultTransactionDefinition def = new DefaultTransactionDefinition();
         def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
         TransactionStatus status = null;
         try {
+            User user = userMapper.getUserByToken(token);
+            stockReport.setCreateUserSign(user.getUserId().toString());
             status = ptm.getTransaction(def);
             super.saveBO(stockReport);
             ptm.commit(status);
@@ -180,11 +185,13 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
      * @return
      */
     @Override
-    public void updateStockReport(StockReport stockReport) {
+    public void updateStockReport(String token,StockReport stockReport) {
         DefaultTransactionDefinition def = new DefaultTransactionDefinition();
         def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
         TransactionStatus status = null;
         try {
+            User user = userMapper.getUserByToken(token);
+            stockReport.setUpdateUserSign(user.getUserId().toString());
             status = ptm.getTransaction(def);
             super.updateBO(stockReport);
             ptm.commit(status);

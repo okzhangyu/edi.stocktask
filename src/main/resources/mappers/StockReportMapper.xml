@@ -103,7 +103,7 @@
         SELECT * FROM AVA_WM_OSRP  where docEntry=#{docEntry} and IsDelete = 'N'
     </select>
     <select id="fetchStockReportItem" resultMap="BaseResultMapItem" parameterType="int">
-        SELECT * FROM AVA_WM_SRP1 where docEntry=#{docEntry}
+        SELECT * FROM AVA_WM_SRP1 where docEntry=#{docEntry} order by DocEntry ,ItemCode
     </select>
 
     <insert id="saveStockReport" parameterType="org.edi.stocktask.bo.stockreport.StockReport">
@@ -177,20 +177,22 @@
 
     <select id="fetchStockReportFuzzyByPage" resultMap="BaseResultMap" parameterType="map">
         select * from(select ROW_NUMBER() over(order by BaseType, DocEntry desc) as rowId,* from AVA_WM_OSRP
-        <where>
-            (<if test="value != null and value != ''">
-            DocEntry LIKE '%'+#{value}+'%'
+        where isDelete = 'N'
+        <if test="value != null and value != ''">
+            and (DocEntry LIKE '%'+#{value}+'%' or BpCode LIKE '%'+#{value}+'%' or BpName LIKE '%'+#{value}+'%')
         </if>
-            <if test="value != null and value != ''">
-                or BpCode LIKE '%'+#{value}+'%'
-            </if>
-            <if test="value != null and value != ''">
-                or BpName LIKE '%'+#{value}+'%'
-            </if>)
-        </where>
+        <if test="creator != null and creator != ''">
+            and Creator = #{creator}
+        </if>
+        <if test="docStatus != null">
+            and DocStatus in
+            <foreach collection="docStatus" item="item" index="index" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
         ) as t0
         <where>
-            t0.rowId between #{beginIndex} and #{limit} and t0.IsDelete = 'N'
+            t0.rowId between #{beginIndex} and #{limit}
         </where>
     </select>
 

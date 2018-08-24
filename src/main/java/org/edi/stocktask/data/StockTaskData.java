@@ -12,6 +12,8 @@ public class StockTaskData {
 
     public static final String EXEUCTING = "E";
 
+    public static final String YES = "Y";
+
     public static final String DOCTYPE = "DOCTYPE";
 
     public static final String DOCENTRY = "DOCENTRY";
@@ -41,6 +43,10 @@ public class StockTaskData {
     public static final String STOCKREPORT_SYNC_INFO = "汇报同步信息>>>>>>>>";
 
     public static final String STOCKREPORT_SYNC_RETURN_INFO = "汇报同步返回信息>>>>>>>>";
+
+    public static final String STOCKREPORT_FETCH_RETURN_INFO = "汇报查询返回信息>>>>>>>>";
+
+    public static final String STOCKTASK_FETCH_RETURN_INFO = "任务查询返回信息>>>>>>>>";
 
     public static final String OPREATION_EXCEPTION = "操作异常：";
 }
