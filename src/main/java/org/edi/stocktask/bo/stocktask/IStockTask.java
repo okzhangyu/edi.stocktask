@@ -94,7 +94,7 @@ public interface IStockTask extends IDocumentBO{
 
     void setSchemaCode(String value);
 
-     String getAnnotated();
+    String getAnnotated();
 
     void setAnnotated(String annotated);
 
@@ -110,5 +110,4 @@ public interface IStockTask extends IDocumentBO{
 
     void setStockTaskBarCodeItems(List<IStockTaskBarCodeItem> value);
 
-    void initDocStatus();
 }

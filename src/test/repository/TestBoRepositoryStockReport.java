@@ -121,17 +121,6 @@ public class TestBoRepositoryStockReport extends TestCase{
 
 
     @Test
-    public void testFetchStockReportFuzzy(){
-        List<StockReport> stockReportList = boRepositoryStockReport.fetchStockReportFuzzy("yy");
-        if(stockReportList.size() > 0){
-            if(stockReport == null){
-                stockReport = stockReportList.get(0);
-            }
-        }
-        assertEquals(stockReport.getBusinessPartnerCode(),"3698769");
-    }
-
-    @Test
     public void testFetchUnSyncStockReport(){
         List<StockReport> stockReportList = boRepositoryStockReport.fetchUnSyncStockReport();
         if(stockReportList.size() > 0){

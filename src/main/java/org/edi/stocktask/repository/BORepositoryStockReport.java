@@ -19,6 +19,7 @@ import org.edi.stocktask.mapper.TranscationNoticeMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
@@ -42,7 +43,8 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
     @Autowired
     private StockReportMapper stockReportMapper;
 
-    @Autowired
+
+    @Autowired(required = false)
     private UserMapper userMapper;
 
     @Autowired
@@ -279,30 +281,6 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
     }
 
 
-    /**
-     * 模糊查询库存任务汇报
-     * @param value
-     * @return
-     */
-    @Override
-    public List<StockReport> fetchStockReportFuzzy(String value){
-        try {
-            List<StockReport> StockReports = stockReportMapper.fetchStockReportFuzzy(value);
-            for(int i=0;i<StockReports.size();i++){
-                StockReport stockReport = StockReports.get(i);
-                List<StockReportItem> StockReportItems = stockReportMapper.fetchStockReportItem(stockReport.getDocEntry());
-                for(StockReportItem stockReportItem:StockReportItems){
-                    List<StockReportMaterialItem> stockReportMaterialItemList = stockReportMapper.fetchStockReportMaterialItem(stockReportItem.getDocEntry(),stockReportItem.getLineId());
-                    stockReportItem.setStockReportMaterialItems(stockReportMaterialItemList);
-                }
-                stockReport.setStockReportItems(StockReportItems);
-            }
-            return StockReports;
-        }catch (Exception e){
-            logger.info(StockTaskData.OPREATION_EXCEPTION,e);
-            throw new DBException(StockOpResultCode.STOCK_DATABASE_ERROR,StockOpResultDescription.STOCK_DATABASE_ERROR);
-        }
-    }
 
     @Override
     protected void save(StockReport stockReport) {
@@ -331,7 +309,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
                 StockReportMaterialItem stockReportMaterialItem = stockReportItem.getStockReportMaterialItems().get(j);
                 stockReportMaterialItem.setDocEntry(docEntry);
                 stockReportMaterialItem.setLineId(stockReportItem.getLineId());
-                if(stockReportMaterialItem.getBarCode()==null||stockReportMaterialItem.getBarCode().equals("")){
+                if(stockReportMaterialItem.getBarCode()==null||stockReportMaterialItem.getBarCode().isEmpty()){
                     throw new BusinessException(StockOpResultCode.CODEBAR_IS_NULL,StockOpResultDescription.CODEBAR_IS_NULL);
                 }
                 stockReportMapper.saveStockReportMaterialItem(stockReportMaterialItem);
@@ -341,7 +319,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
 
     @Override
     protected void update(StockReport stockReport) {
-        if (stockReport.getB1DocEntry() !=null && stockReport.getB1DocEntry() > 0) {
+        if (stockReport.getDocumentStatus().equals(StockTaskData.CLOSE)) {
             throw new BusinessException(StockOpResultCode.B1DOCENTRY_IS_EXISTENT,StockOpResultDescription.B1DOCENTRY_IS_EXISTENT);
         }
         stockReportMapper.deleteStockReport(stockReport.getDocEntry());
@@ -353,7 +331,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
 
     @Override
     protected void delete(StockReport stockReport) {
-        if (stockReport.getB1DocEntry() !=null && stockReport.getB1DocEntry() > 0) {
+        if (stockReport.getDocumentStatus().equals(StockTaskData.CLOSE)) {
             throw new BusinessException(StockOpResultCode.B1DOCENTRY_IS_EXISTENT,StockOpResultDescription.B1DOCENTRY_IS_EXISTENT);
         }
         stockReportMapper.updateIsDelete(stockReport.getDocEntry());

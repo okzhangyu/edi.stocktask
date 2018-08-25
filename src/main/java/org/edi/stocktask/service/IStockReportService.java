@@ -2,6 +2,7 @@ package org.edi.stocktask.service;
 
 import org.edi.freamwork.data.Result;
 import org.edi.stocktask.bo.stockreport.StockReport;
+import org.edi.stocktask.dto.DocumentSyncResult;
 
 import java.util.List;
 
@@ -45,7 +46,7 @@ public interface IStockReportService {
     Result deleteStockReport(String token,int docEntry);
 
 
-    Result syncStockReportToB1(String token,List<StockReport> stockReports);
+    Result<DocumentSyncResult> syncStockReportToB1(String token, List<StockReport> stockReports);
 
 
 }
