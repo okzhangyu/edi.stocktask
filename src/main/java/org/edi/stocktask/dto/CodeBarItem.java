@@ -10,6 +10,8 @@ public class CodeBarItem implements ICodeBarItem{
     private Integer baseLine;
     private String barCode;
     private Double quantity;
+    private Double qtyPlan;
+    private String remark;
 
     @Override
     public String getItemCode() {
@@ -52,12 +54,34 @@ public class CodeBarItem implements ICodeBarItem{
     }
 
     @Override
+    public Double getQtyPlan() {
+        return qtyPlan;
+    }
+
+    @Override
+    public void setQtyPlan(Double qtyPlan) {
+        this.qtyPlan = qtyPlan;
+    }
+
+    @Override
+    public String getRemark() {
+        return remark;
+    }
+
+    @Override
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    @Override
     public String toString() {
         return "{" +
                 "itemCode:'" + itemCode + '\'' +
                 ", baseLine:" + baseLine +
                 ", barCode:'" + barCode + '\'' +
                 ", quantity:" + quantity +
+                ", remark:'" + remark + '\'' +
+                ", qtyPlan:" + qtyPlan +
                 '}';
     }
 }

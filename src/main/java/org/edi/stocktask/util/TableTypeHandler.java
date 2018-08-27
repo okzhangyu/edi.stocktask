@@ -23,9 +23,11 @@ public class TableTypeHandler extends BaseTypeHandler<Object> {
         sourceDataTable.addColumnMetadata("BaseLine" , Types.INTEGER);
         sourceDataTable.addColumnMetadata("ItemCode" , Types.NVARCHAR);
         sourceDataTable.addColumnMetadata("Quantity" , Types.DOUBLE);
+        sourceDataTable.addColumnMetadata("QtyPlan" , Types.DOUBLE);
+        sourceDataTable.addColumnMetadata("Remark" , Types.NVARCHAR);
         List<CodeBarParseParam> dataList = (List)parameter;
         for (CodeBarParseParam item : dataList) {
-             sourceDataTable.addRow(item.getCodeBar(),item.getBaseLine(),item.getItemCode(),item.getQuantity());
+             sourceDataTable.addRow(item.getCodeBar(),item.getBaseLine(),item.getItemCode(),item.getQuantity(),item.getQtyPlan(),item.getRemark());
         }
         ps.setObject(i, sourceDataTable);
     }
