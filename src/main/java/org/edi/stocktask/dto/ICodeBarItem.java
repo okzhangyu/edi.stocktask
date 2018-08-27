@@ -3,7 +3,7 @@ package org.edi.stocktask.dto;
 /**
  * @author Fancy
  * @date 2018/8/20
- * 条码明细
+ * 条码明细 批量解析传入参数
  */
 public interface ICodeBarItem {
 
@@ -22,4 +22,12 @@ public interface ICodeBarItem {
     Double getQuantity();
 
     void setQuantity(Double quantity);
+
+    Double getQtyPlan();
+
+    void setQtyPlan(Double qtyPlan);
+
+    String getRemark();
+
+    void setRemark(String remark);
 }

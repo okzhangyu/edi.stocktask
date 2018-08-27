@@ -22,4 +22,12 @@ public interface ICodeBarParseParam {
 
     void setCodeBar(String codeBar);
 
+    Double getQtyPlan();
+
+    void setQtyPlan(Double qtyPlan);
+
+    String getRemark();
+
+    void setRemark(String remark);
+
 }
