@@ -169,7 +169,7 @@ public class StockReportService implements IStockReportService{
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/stockreport/sync")
     @Override
-    public Result syncStockReportToB1(@QueryParam(ServicePath.TOKEN_NAMER)String token, List<StockReport> stockReports) {
+    public Result<DocumentSyncResult> syncStockReportToB1(@QueryParam(ServicePath.TOKEN_NAMER)String token, List<StockReport> stockReports) {
         try{
             logger.info(StockTaskData.STOCKREPORT_SYNC_INFO + stockReports.toString());
             Gson gson = new Gson();

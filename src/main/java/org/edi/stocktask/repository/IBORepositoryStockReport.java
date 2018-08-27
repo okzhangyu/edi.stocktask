@@ -49,14 +49,6 @@ public interface IBORepositoryStockReport {
     void saveStockReport(String token,StockReport stockReport);
 
 
-
-    /**
-     * 模糊查询
-     * @param value
-     * @return
-     */
-    List<StockReport> fetchStockReportFuzzy(String value);
-
     /**
      * 更新库存任务汇报
      * @param stockReport

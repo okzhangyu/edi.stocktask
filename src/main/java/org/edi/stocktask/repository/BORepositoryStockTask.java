@@ -68,7 +68,6 @@ public class BORepositoryStockTask implements  IBORepositoryStockTask {
             List<IStockTaskItem> stockTaskItems = stockTaskMapper.fetchStockTaskItem(stockTasks.get(i).getObjectKey(), stockTasks.get(i).getDocumentType());
             if (stockTaskItems != null) {
                 stockTasks.get(i).setStockTaskItems(stockTaskItems);
-                stockTasks.get(i).initDocStatus();
             }
         }
         return stockTasks;
@@ -95,7 +94,6 @@ public class BORepositoryStockTask implements  IBORepositoryStockTask {
                 List<IStockTaskItem> stockTaskItems = stockTaskMapper.fetchSyncStockTaskItem(stockTasks.get(i).getObjectKey(),stockTasks.get(i).getDocumentType());
                 if(stockTaskItems!=null){
                     stockTasks.get(i).setStockTaskItems(stockTaskItems);
-                    stockTasks.get(i).initDocStatus();
                 }
             }
             return stockTasks;
