@@ -19,7 +19,6 @@ import org.edi.stocktask.mapper.TranscationNoticeMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
@@ -59,7 +58,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
      * @return
      */
 
-    public List<StockReport> fetchStockReport(String token,String fluzzyParam,int beginIndex,int limit,List<String> docStatus,int baseEntry) {
+    public List<StockReport> fetchStockReport(String token,String fluzzyParam,int beginIndex,int limit,List<String> docStatus) {
         List<StockReport> stockReports;
         try {
             User user = userMapper.getUserByToken(token);
@@ -73,7 +72,6 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
             params.put("value", fluzzyParam);
             params.put("beginIndex", beginIndex);
             params.put("limit", limit);
-            params.put("baseEntry", baseEntry);
             stockReports = stockReportMapper.fetchStockReportFuzzyByPage(params);
             for (int i = 0; i < stockReports.size(); i++) {
                 StockReport stockReport = stockReports.get(i);
