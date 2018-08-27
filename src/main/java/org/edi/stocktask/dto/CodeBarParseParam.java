@@ -21,6 +21,8 @@ public class CodeBarParseParam implements ICodeBarParseParam{
                 codeBarParseParam.setBaseLine(item.getBaseLine());
                 codeBarParseParam.setCodeBar(item.getBarCode());
                 codeBarParseParam.setQuantity(item.getQuantity());
+                codeBarParseParam.setQtyPlan(item.getQtyPlan());
+                codeBarParseParam.setRemark(item.getRemark());
                 codeBarParseParams.add(codeBarParseParam);
             }
 
@@ -30,6 +32,8 @@ public class CodeBarParseParam implements ICodeBarParseParam{
     private Double quantity;
     private String itemCode;
     private String codeBar;
+    private Double qtyPlan;
+    private String remark;
 
     @Override
     public String getItemCode() {
@@ -72,12 +76,34 @@ public class CodeBarParseParam implements ICodeBarParseParam{
     }
 
     @Override
+    public Double getQtyPlan() {
+        return qtyPlan;
+    }
+
+    @Override
+    public void setQtyPlan(Double qtyPlan) {
+        this.qtyPlan = qtyPlan;
+    }
+
+    @Override
+    public String getRemark() {
+        return remark;
+    }
+
+    @Override
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    @Override
     public String toString() {
         return "{" +
                 "baseLine:" + baseLine +
                 ", quantity:" + quantity +
                 ", itemCode:'" + itemCode + '\'' +
                 ", codeBar:'" + codeBar + '\'' +
+                ", remark:'" + remark + '\'' +
+                ", qtyPlan:'" + qtyPlan + '\'' +
                 '}';
     }
 }
