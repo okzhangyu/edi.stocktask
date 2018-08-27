@@ -11,7 +11,7 @@ import java.util.List;
 public interface IBORepositoryStockReport {
 
 
-    List<StockReport> fetchStockReport(String token,String param,int beginIndex,int limit,List<String> docStatus);
+    List<StockReport> fetchStockReport(String token,String param,int beginIndex,int limit,List<String> docStatus,int baseEntry);
     /**
      * 查询任务汇报清单
      * @return

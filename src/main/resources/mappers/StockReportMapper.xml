@@ -184,6 +184,9 @@
         <if test="creator != null and creator != ''">
             and Creator = #{creator}
         </if>
+        <if test="baseEntry!= null and baseEntry!= ''">
+            and BaseEntry = #{baseEntry}
+        </if>
         <if test="docStatus != null">
             and DocStatus in
             <foreach collection="docStatus" item="item" index="index" open="(" close=")" separator=",">

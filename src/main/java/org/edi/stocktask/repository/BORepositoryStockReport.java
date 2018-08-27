@@ -57,7 +57,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
      * @return
      */
 
-    public List<StockReport> fetchStockReport(String token,String fluzzyParam,int beginIndex,int limit,List<String> docStatus) {
+    public List<StockReport> fetchStockReport(String token,String fluzzyParam,int beginIndex,int limit,List<String> docStatus,int baseEntry) {
         List<StockReport> stockReports;
         try {
             User user = userMapper.getUserByToken(token);
@@ -71,6 +71,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
             params.put("value", fluzzyParam);
             params.put("beginIndex", beginIndex);
             params.put("limit", limit);
+            params.put("baseEntry", baseEntry);
             stockReports = stockReportMapper.fetchStockReportFuzzyByPage(params);
             for (int i = 0; i < stockReports.size(); i++) {
                 StockReport stockReport = stockReports.get(i);
