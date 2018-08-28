@@ -54,10 +54,10 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
                 throw new BusinessException(codeBarParam.get("code").toString(),codeBarParam.get("message").toString());
             }
         }catch (BusinessException e){
-            logger.info(StockTaskData.OPREATION_EXCEPTION,e);
+            logger.error(StockTaskData.OPREATION_EXCEPTION,e);
             throw e;
         } catch (Exception e){
-            logger.info(StockTaskData.OPREATION_EXCEPTION,e);
+            logger.error(StockTaskData.OPREATION_EXCEPTION,e);
             throw new BusinessException(StockOpResultCode.BARCODE_ANALYSIS_IS_FAIL,String.format(StockOpResultDescription.BARCODE_ANALYSIS_IS_FAIL,codebar));
         }
         return listCodeBar;
@@ -82,10 +82,10 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
                 throw new BusinessException(codeBarParamsList.get("code").toString(),codeBarParamsList.get("message").toString());
             }
         }catch (BusinessException e){
-            logger.info(StockTaskData.OPREATION_EXCEPTION,e);
+            logger.error(StockTaskData.OPREATION_EXCEPTION,e);
             throw e;
         }catch (Exception e){
-            logger.info(StockTaskData.OPREATION_EXCEPTION,e);
+            logger.error(StockTaskData.OPREATION_EXCEPTION,e);
             throw new BusinessException(StockOpResultCode.BARCODE_ANALYSIS_IS_FAIL,StockOpResultDescription.BARCODE_ANALYSIS_IS_FAIL);
         }
         List<IStockTaskItem> stockTaskItems = stockTaskMapper.fetchNoDealStockTaskItem(codeBarParams.getBaseEntry(),codeBarParams.getBaseType());
