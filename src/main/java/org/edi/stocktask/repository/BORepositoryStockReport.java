@@ -131,7 +131,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
                 }
             }
         }catch (DBException e){
-            logger.info(StockTaskData.OPREATION_EXCEPTION,e);
+            logger.error(StockTaskData.OPREATION_EXCEPTION,e);
             throw new DBException(StockOpResultCode.STOCK_DATABASE_ERROR,StockOpResultDescription.STOCK_DATABASE_ERROR);
         }
         return stockReports;
@@ -168,13 +168,13 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
             throw ex;
         }catch (BusinessObjectException ex){
             ptm.rollback(status);
-            logger.info(StockTaskData.OPREATION_EXCEPTION,ex);
+            logger.error(StockTaskData.OPREATION_EXCEPTION,ex);
             throw ex;
         }catch (Exception e) {
             if(status != null){
                 ptm.rollback(status);
             }
-            logger.info(StockTaskData.OPREATION_EXCEPTION,e);
+            logger.error(StockTaskData.OPREATION_EXCEPTION,e);
             throw new DBException(StockOpResultCode.STOCK_DATABASE_ERROR,StockOpResultDescription.STOCK_DATABASE_ERROR);
         }
     }
@@ -198,17 +198,17 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
             ptm.commit(status);
         } catch (BusinessException ex){
             ptm.rollback(status);
-            logger.info(StockTaskData.OPREATION_EXCEPTION,ex);
+            logger.error(StockTaskData.OPREATION_EXCEPTION,ex);
             throw ex;
         }catch (BusinessObjectException ex){
             ptm.rollback(status);
-            logger.info(StockTaskData.OPREATION_EXCEPTION,ex);
+            logger.error(StockTaskData.OPREATION_EXCEPTION,ex);
             throw ex;
         }catch (Exception e) {
             if(status != null){
                 ptm.rollback(status);
             }
-            logger.info(StockTaskData.OPREATION_EXCEPTION,e);
+            logger.error(StockTaskData.OPREATION_EXCEPTION,e);
             throw new DBException(StockOpResultCode.STOCK_DATABASE_ERROR,StockOpResultDescription.STOCK_DATABASE_ERROR);
         }
     }
@@ -232,17 +232,17 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
             ptm.commit(status);
         }catch (BusinessException e){
             ptm.rollback(status);
-            logger.info(StockTaskData.OPREATION_EXCEPTION,e);
+            logger.error(StockTaskData.OPREATION_EXCEPTION,e);
             throw e;
         }catch (BusinessObjectException e){
             ptm.rollback(status);
-            logger.info(StockTaskData.OPREATION_EXCEPTION,e);
+            logger.error(StockTaskData.OPREATION_EXCEPTION,e);
             throw e;
         }catch (Exception e){
             if(status != null){
                 ptm.rollback(status);
             }
-            logger.info(StockTaskData.OPREATION_EXCEPTION,e);
+            logger.error(StockTaskData.OPREATION_EXCEPTION,e);
             throw new DBException(StockOpResultCode.STOCK_DATABASE_ERROR,StockOpResultDescription.STOCK_DATABASE_ERROR);
         }
     }
@@ -325,7 +325,6 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
         stockReportMapper.deleteStockReportItem(stockReport.getDocEntry());
         stockReportMapper.deleteStockReportMaterialItem(stockReport.getDocEntry());
         save(stockReport);
-
     }
 
     @Override
