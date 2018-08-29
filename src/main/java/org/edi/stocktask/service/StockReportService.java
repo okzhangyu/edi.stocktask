@@ -153,6 +153,8 @@ public class StockReportService implements IStockReportService{
         } catch (BusinessException e){
             logger.info(StockTaskData.OPREATION_EXCEPTION,e);
             return new Result(e);
+        }catch (BusinessObjectException e) {
+            return new Result(e);
         }catch (DBException e){
             logger.info(StockTaskData.OPREATION_EXCEPTION,e);
             return new Result(e);
