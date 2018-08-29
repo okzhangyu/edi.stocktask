@@ -9,11 +9,8 @@ import java.util.List;
 
 public interface StockTaskMapper {
 
-    List<IStockTask> fetchStockTask();
-    List<IStockTask> fetchStockTaskByPage(int beginIndex,int limit);
+
     List<IStockTaskItem> fetchStockTaskItem(Integer objectKey,String docType);
-    List<IStockTaskItem> fetchAllStockTaskItem();
-    List<IStockTask> fetchStockTaskFuzzy(String value);
     List<IStockTask> fetchStockTaskFuzzyByPage(HashMap<String,Object> params);
     List<IStockTask> fetchStockTaskByCondition(HashMap<String,Object> stockTaskCondition);
 
