@@ -24,7 +24,7 @@
 	   http://www.springframework.org/schema/aop/spring-aop-3.1.xsd ">
 	<!-- 自动扫描 -->
 	<context:component-scan base-package="org.edi.stocktask.*" />
-	<context:component-scan base-package="org.edi.initialfantasy.mapper"/>
+	<context:component-scan base-package="org.edi.initialfantasy.*"/>
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 	<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>

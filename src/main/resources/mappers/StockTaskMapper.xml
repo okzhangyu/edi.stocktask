@@ -59,25 +59,14 @@
         <result column="ItemName" property="itemDescription" jdbcType="VARCHAR" />
     </resultMap>
 
-    <select id="fetchStockTask" resultMap="BaseResultMap">
-        SELECT * FROM AVA_WM_VIEW_OSTK
-    </select>
 
-
-    <!-- List<IStockTask> fetchStockTaskByPage(int beginIndex,int limit);-->
-    <select id="fetchStockTaskByPage" resultMap="BaseResultMap" parameterType="int">
-       select * from(select ROW_NUMBER() over(order by DocType, ObjectKey desc) as rowId,* from AVA_WM_VIEW_OSTK) as t0 where t0.rowId between #{0}
-        and #{1}
-    </select>
 
 
     <select id="fetchStockTaskItem" resultMap="BaseResultMapItem">
         SELECT * FROM AVA_WM_VIEW_STK1 where ObjectKey=#{0} and DocType =  #{1} order by DocEntry ,ItemCode
     </select>
 
-    <select id="fetchAllStockTaskItem" resultMap="BaseResultMapItem">
-        SELECT * FROM AVA_WM_VIEW_STK1 order by DocEntry ,ItemCode
-    </select>
+
 
     <select id="fetchSyncStockTaskItem" resultMap="BaseResultMapItem" >
           select DISTINCT t1.* from AVA_WM_SRP1 t0 inner join AVA_WM_VIEW_STK1 t1
@@ -85,20 +74,6 @@
          where t0.BaseEntry = #{0} and t0.BaseType = #{1}
     </select>
 
-    <select id="fetchStockTaskFuzzy" resultMap="BaseResultMap" parameterType="string">
-        SELECT * FROM AVA_WM_VIEW_OSTK
-        <where>
-            <if test="value != null and value != ''">
-                DocEntry LIKE '%'+#{value}+'%'
-            </if>
-            <if test="value != null and value != ''">
-                or BpCode LIKE '%'+#{value}+'%'
-            </if>
-            <if test="value != null and value != ''">
-                or BpName LIKE '%'+#{value}+'%'
-            </if>
-        </where>
-    </select>
 
 
     <!-- List<IStockTask> fetchStockTaskFuzzyByPage(HashMap<String,Object> params);-->
