@@ -69,9 +69,10 @@
 
 
     <select id="fetchSyncStockTaskItem" resultMap="BaseResultMapItem" >
-          select DISTINCT t1.* from AVA_WM_SRP1 t0 inner join AVA_WM_VIEW_STK1 t1
-         on t0.BaseType = t1.DocType and t0.BaseEntry = t1.ObjectKey and t0.BaseLine = t1.LineId
-         where t0.BaseEntry = #{0} and t0.BaseType = #{1}
+--           select DISTINCT t1.* from AVA_WM_SRP1 t0 inner join AVA_WM_VIEW_STK1 t1
+--          on t0.BaseType = t1.DocType and t0.BaseEntry = t1.ObjectKey and t0.BaseLine = t1.LineId
+--          where t0.BaseEntry = #{0} and t0.BaseType = #{1}
+      select * from  AVA_WM_VIEW_STK1 t1 where ObjectKey = #{0}  and  t1.DocType = #{1}
     </select>
 
 
