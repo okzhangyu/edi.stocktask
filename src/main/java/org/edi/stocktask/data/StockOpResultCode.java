@@ -14,6 +14,8 @@ public class StockOpResultCode extends OpResultCode{
 
     public static final String STOCK_DATABASE_ERROR = "3202000";
 
+    public static final String STOCK_OBJECT_DETAIL_IS_EMPTY = "5102001";
+
     public static final String STOCK_OBJECT_BASETYPE_IS_NULL = "5102002";
 
     public static final String STOCK_OBJECT_BASEENTRY_IS_NULL = "5102003";

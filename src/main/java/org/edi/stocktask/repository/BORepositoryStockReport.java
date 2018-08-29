@@ -284,6 +284,9 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
     @Override
     protected void save(StockReport stockReport) {
         int docEntry;
+        if(stockReport.getStockReportItems().size() == 0){
+            throw new BusinessObjectException(StockOpResultCode.STOCK_OBJECT_DETAIL_IS_EMPTY,StockOpResultDescription.STOCK_OBJECT_DETAIL_IS_EMPTY);
+        }
         if (stockReport.getDocEntry() == null) {
             docEntry = stockReportMapper.fetchSequenceOfDocEntry();
             stockReport.setDocEntry(docEntry);
