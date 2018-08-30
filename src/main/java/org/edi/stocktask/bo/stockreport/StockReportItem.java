@@ -51,8 +51,6 @@ public class StockReportItem extends DocumentBOLine implements IStockReportItem{
             }else {
                 throw new BusinessException(StockOpResultCode.BARCODE_PARSE_RESULT_IS_ERROR,StockOpResultDescription.BARCODE_PARSE_RESULT_IS_ERROR);
             }
-
-
         }
         return  stockReportItemList;
     }
@@ -62,9 +60,9 @@ public class StockReportItem extends DocumentBOLine implements IStockReportItem{
         stockReportItme.setBaseDocumentEntry(stockTaskItem.getDocumentEntry());
         stockReportItme.setBaseDocumentType(stockTaskItem.getDocumentType());
         stockReportItme.setBaseDocumentLineId(stockTaskItem.getDocumentLineId());
-        stockReportItme.setOriginalDocumentType(stockReportItme.getBaseDocumentType());
-        stockReportItme.setOriginalDocumentEntry(stockReportItme.getBaseDocumentEntry());
-        stockReportItme.setOriginalDocumentLineId(stockReportItme.getBaseDocumentLineId());
+        stockReportItme.setOriginalDocumentType(stockTaskItem.getBaseDocumentType());
+        stockReportItme.setOriginalDocumentEntry(stockTaskItem.getBaseDocumentEntry());
+        stockReportItme.setOriginalDocumentLineId(stockTaskItem.getBaseDocumentLineId());
         stockReportItme.setItemCode(stockTaskItem.getItemCode());
         stockReportItme.setItemDescription(stockTaskItem.getItemDescription());
         stockReportItme.setLineStatus(stockTaskItem.getLineStatus());
