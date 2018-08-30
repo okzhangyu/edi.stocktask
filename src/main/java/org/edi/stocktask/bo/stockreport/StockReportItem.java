@@ -62,6 +62,9 @@ public class StockReportItem extends DocumentBOLine implements IStockReportItem{
         stockReportItme.setBaseDocumentEntry(stockTaskItem.getDocumentEntry());
         stockReportItme.setBaseDocumentType(stockTaskItem.getDocumentType());
         stockReportItme.setBaseDocumentLineId(stockTaskItem.getDocumentLineId());
+        stockReportItme.setOriginalDocumentType(stockReportItme.getBaseDocumentType());
+        stockReportItme.setOriginalDocumentEntry(stockReportItme.getBaseDocumentEntry());
+        stockReportItme.setOriginalDocumentLineId(stockReportItme.getBaseDocumentLineId());
         stockReportItme.setItemCode(stockTaskItem.getItemCode());
         stockReportItme.setItemDescription(stockTaskItem.getItemDescription());
         stockReportItme.setLineStatus(stockTaskItem.getLineStatus());

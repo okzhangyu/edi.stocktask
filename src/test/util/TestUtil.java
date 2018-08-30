@@ -2,6 +2,8 @@ package util;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
+import org.edi.stocktask.bo.stockreport.StockReport;
+import org.edi.stocktask.bo.stockreport.StockReportItem;
 import org.edi.stocktask.util.ListUtil;
 import org.junit.Test;
 
