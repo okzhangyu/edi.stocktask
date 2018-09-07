@@ -124,7 +124,7 @@ public class StockReportService implements IStockReportService{
             result = new Result(e);
         }catch (BusinessObjectException e) {
             result = new Result(e);
-        } catch (DBException e){
+        }catch (DBException e){
             result = new Result(e);
         }catch (Exception e) {
             result = new Result(e);

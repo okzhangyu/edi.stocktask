@@ -21,6 +21,7 @@ import org.edi.stocktask.data.StockOpResultDescription;
 import org.edi.stocktask.data.StockTaskData;
 import org.edi.stocktask.data.StockTaskServicePath;
 import org.edi.stocktask.dto.CodeBarParam;
+import org.edi.stocktask.dto.ItemCodeQuantity;
 import org.edi.stocktask.repository.IBORepositoryCodeBar;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class CodeBarService implements ICodeBarService{
      * @param codeBar 条码值
      * @return
      */
-    @GET
+    /*@GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/codebar")
     @Override
@@ -63,6 +64,49 @@ public class CodeBarService implements ICodeBarService{
                                                               StockTaskServicePath.SERVICE_BASELINE + baseLine + ";" +
                                                               StockTaskServicePath.SERVICE_ITEMCODE + itemCode + ";" );
             List<ICodeBar>  resultCodeBar = boRepositoryCodeBar.parseCodeBar(codeBar,baseType,baseEntry,baseLine,itemCode);
+            if (resultCodeBar.size()==0){
+                result = new Result(ResultCode.SUCCESS, StockOpResultDescription.CODEBARINFO_IS_EMPTY,resultCodeBar);
+            }else {
+                result = new Result<>(ResultCode.SUCCESS, ResultDescription.OK,resultCodeBar);
+            }
+        }catch(BusinessException e){
+            result = new Result(e);
+        }catch (Exception e){
+            result = new Result(e);
+        }
+        logger.info(StockTaskData.CODEBAR_PARSE_RESULT + result.toString());
+        return result;
+    }
+*/
+
+
+
+    /**
+     * 加强解析条码
+     * @param codeBar 条码值
+     * @return
+     */
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/codebar")
+    @Override
+    public Result<ICodeBar> strengthenParseCodeBar(@QueryParam(ServicePath.TOKEN_NAMER)String token,
+                                                   @QueryParam(StockTaskServicePath.SERVICE_CODEBAR)String codeBar,
+                                                   @QueryParam(StockTaskServicePath.SERVICE_BASETYPE)String baseType,
+                                                   @QueryParam(StockTaskServicePath.SERVICE_BASEENTRY)int baseEntry,
+                                                   @QueryParam(StockTaskServicePath.SERVICE_BASELINE)int baseLine,
+                                                   @QueryParam(StockTaskServicePath.SERVICE_ITEMCODE)String itemCode,
+                                                   List<ItemCodeQuantity> itemCodeQuantity){
+        Result<ICodeBar> result;
+        try{
+            logger.info(StockTaskData.CODEBAR_PARSE_INFO + StockTaskServicePath.SERVICE_CODEBAR + codeBar +";" +
+                    StockTaskServicePath.SERVICE_BASETYPE + baseType + ";" +
+                    StockTaskServicePath.SERVICE_BASEENTRY + baseEntry + ";" +
+                    StockTaskServicePath.SERVICE_BASELINE + baseLine + ";" +
+                    StockTaskServicePath.SERVICE_ITEMCODE + itemCode + ";" +
+                    "ItemCodeQuantity" + itemCodeQuantity.toString() + ";");
+            List<ICodeBar>  resultCodeBar = boRepositoryCodeBar.strengthenParseCodeBar(codeBar,baseType,baseEntry,baseLine,itemCode,itemCodeQuantity);
             if (resultCodeBar.size()==0){
                 result = new Result(ResultCode.SUCCESS, StockOpResultDescription.CODEBARINFO_IS_EMPTY,resultCodeBar);
             }else {

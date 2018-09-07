@@ -22,4 +22,5 @@ public class StockTaskServicePath {
 
     public final static String SERVICE_ITEMCODE = "itemCode";
 
+
 }

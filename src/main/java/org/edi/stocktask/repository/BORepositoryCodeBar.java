@@ -10,6 +10,7 @@ import org.edi.stocktask.data.StockTaskData;
 import org.edi.stocktask.dto.CodeBarParam;
 import org.edi.stocktask.dto.CodeBarParseParam;
 import org.edi.stocktask.dto.CodeBarParseResult;
+import org.edi.stocktask.dto.ItemCodeQuantity;
 import org.edi.stocktask.mapper.CodeBarMapper;
 import org.edi.stocktask.mapper.StockTaskMapper;
 import org.slf4j.Logger;
@@ -62,6 +63,57 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
         }
         return listCodeBar;
     }
+
+    /**
+     * 加强条码解析
+     * @param codebar
+     * @return
+     */
+    @Override
+    public List<ICodeBar> strengthenParseCodeBar(String codebar, String baseType, int baseEntry, int baseLine, String itemCode, List<ItemCodeQuantity> itemCodeQuantity) {
+        List<ICodeBar> listCodeBar = null;
+        HashMap<String,Object> codeBarParam = new HashMap();
+        codeBarParam.put("codebar",codebar);
+        codeBarParam.put("baseType",baseType);
+        codeBarParam.put("baseEntry",baseEntry);
+        codeBarParam.put("baseLine",baseLine);
+        codeBarParam.put("itemCode",itemCode);
+        codeBarParam.put("itemCodeQuantity",itemCodeQuantity);
+        try {
+            listCodeBar = codeBarMapper.strengthenParseCodeBar(codeBarParam);
+            if((int)codeBarParam.get("code")!=0){
+                throw new BusinessException(codeBarParam.get("code").toString(),codeBarParam.get("message").toString());
+            }
+        }catch (BusinessException e){
+            logger.error(StockTaskData.OPREATION_EXCEPTION,e);
+            throw e;
+        } catch (Exception e){
+            logger.error(StockTaskData.OPREATION_EXCEPTION,e);
+            throw new BusinessException(StockOpResultCode.BARCODE_ANALYSIS_IS_FAIL,String.format(StockOpResultDescription.BARCODE_ANALYSIS_IS_FAIL,codebar));
+        }
+        return listCodeBar;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * 批量解析条码
