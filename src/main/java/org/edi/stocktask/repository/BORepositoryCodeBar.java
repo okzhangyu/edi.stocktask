@@ -95,26 +95,6 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
      * 批量解析条码
      * @param codeBarParams 条码集合
@@ -143,7 +123,6 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
         List<IStockTaskItem> stockTaskItems = stockTaskMapper.fetchNoDealStockTaskItem(codeBarParams.getBaseEntry(),codeBarParams.getBaseType());
        return StockReportItem.createStockReportItemList(stockTaskItems,listCodeBars);
     }
-
 
 
 }

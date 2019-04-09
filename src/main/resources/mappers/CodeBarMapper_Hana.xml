@@ -36,8 +36,6 @@
         <result column="BaseLine" property="baseLine" jdbcType="INTEGER" />
         <result column="ItemCode" property="itemCode" jdbcType="VARCHAR" />
         <result column="CodeBar" property="codeBar" jdbcType="VARCHAR" />
-        <result column="BatchNum" property="batchNum" jdbcType="VARCHAR" />
-        <result column="SerialsNum" property="serialsNum" jdbcType="VARCHAR" />
     </resultMap>
 
 
@@ -57,7 +55,7 @@
 
 
 
-   <!-- List<ICodeBar> strengthenParseCodeBar(HashMap<String,Object> codeBarParam);-->
+    <!-- List<ICodeBar> strengthenParseCodeBar(HashMap<String,Object> codeBarParam);-->
     <select id="strengthenParseCodeBar" statementType="CALLABLE" parameterMap="strengthenCodeBarParam" resultMap="BaseResultMap">
         {call AVA_SP_PARSE_CODEBAR(
         #{itemCode, jdbcType = NVARCHAR, mode = IN},
