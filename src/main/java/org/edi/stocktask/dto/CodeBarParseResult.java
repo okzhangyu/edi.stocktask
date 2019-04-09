@@ -11,6 +11,9 @@ public class CodeBarParseResult implements ICodeBarParseResult {
     private String itemCode;
     private String codeBar;
     private Double quantity;
+    private String batchNum;
+    private String serialsNum;
+
 
 
 
@@ -54,13 +57,31 @@ public class CodeBarParseResult implements ICodeBarParseResult {
         this.quantity = quantity;
     }
 
+    public String getBatchNum() {
+        return batchNum;
+    }
+
+    public void setBatchNum(String batchNum) {
+        this.batchNum = batchNum;
+    }
+
+    public String getSerialsNum() {
+        return serialsNum;
+    }
+
+    public void setSerialsNum(String serialsNum) {
+        this.serialsNum = serialsNum;
+    }
+
     @Override
     public String toString() {
-        return "{" +
-                "baseLine:" + baseLine +
-                ", itemCode:'" + itemCode + '\'' +
-                ", codeBar:'" + codeBar + '\'' +
-                ", quantity:" + quantity +
+        return "CodeBarParseResult{" +
+                "baseLine=" + baseLine +
+                ", itemCode='" + itemCode + '\'' +
+                ", codeBar='" + codeBar + '\'' +
+                ", quantity=" + quantity +
+                ", batchNum='" + batchNum + '\'' +
+                ", serialsNum='" + serialsNum + '\'' +
                 '}';
     }
 }

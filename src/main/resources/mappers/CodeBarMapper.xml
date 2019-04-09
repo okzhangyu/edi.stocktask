@@ -36,6 +36,8 @@
         <result column="BaseLine" property="baseLine" jdbcType="INTEGER" />
         <result column="ItemCode" property="itemCode" jdbcType="VARCHAR" />
         <result column="CodeBar" property="codeBar" jdbcType="VARCHAR" />
+        <result column="BatchNum" property="batchNum" jdbcType="VARCHAR" />
+        <result column="SerialsNum" property="serialsNum" jdbcType="VARCHAR" />
     </resultMap>
 
 
