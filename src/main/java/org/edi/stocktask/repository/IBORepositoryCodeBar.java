@@ -44,4 +44,6 @@ public interface IBORepositoryCodeBar {
      */
     public List<StockReportItem> parseBatchCodeBar(CodeBarParam codeBarParams);
 
+
+
 }

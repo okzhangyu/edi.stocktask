@@ -56,6 +56,7 @@ public class StockReportService implements IStockReportService{
                                                 @QueryParam(ServicePath.SERVICE_LIMIT)int limit,
                                                 @QueryParam(ServicePath.SERVICE_DOCSTATUS)List<String> docStatus) {
         Result result;
+        logger.info(StockTaskData.STOCKREPORT_FETCH_INFO + "param:"+param +";beginIndex:"+beginIndex+";limit:"+limit+";docStatus:"+docStatus);
         try {
             limit = PageVerification.limitCalculation(beginIndex,limit);
             List<StockReport> stockReports = boRepositoryStockReport.fetchStockReport(token,param,beginIndex==0?1:beginIndex,limit,docStatus);
@@ -65,8 +66,10 @@ public class StockReportService implements IStockReportService{
                 result = new Result(ResultCode.SUCCESS, ResultDescription.OP_SUCCESSFUL, stockReports);
             }
         }catch (Exception e){
+            logger.error("查询汇报信息异常：",e);
             result = new Result(ResultCode.FAIL, "failed:" + e.getCause(), null);
         }
+        logger.info(StockTaskData.STOCKREPORT_FETCH_RETURN_INFO+result.toString());
         return result;
     }
 
@@ -147,6 +150,7 @@ public class StockReportService implements IStockReportService{
     @Produces(MediaType.APPLICATION_JSON)
     @Override
     public Result deleteStockReport(@QueryParam(ServicePath.TOKEN_NAMER)String token,@QueryParam("docEntry")int docEntry) {
+        logger.info(StockTaskData.STOCKREPORT_DELETE_INFO + docEntry);
         try {
             boRepositoryStockReport.deleteStockReport(docEntry);
             return new Result(ResultCode.SUCCESS, ResultDescription.OP_SUCCESSFUL, null);

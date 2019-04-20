@@ -22,4 +22,28 @@ public interface ICodeBarParseResult {
     Double getQuantity();
 
     void setQuantity(Double quantity);
+
+    String getSerialNum();
+
+    void setSerialNum(String serialNum);
+
+    String getBatchNum();
+
+    void setBatchNum(String batchNum);
+
+    String getInDate();
+
+    void setInDate(String inDate);
+
+    String getExpDate();
+
+    void setExpDate(String expDate);
+
+    String getPrdDate();
+
+    void setPrdDate(String prdDate);
+
+    String getRemarks();
+
+    void setRemarks(String remarks);
 }

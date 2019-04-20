@@ -35,4 +35,20 @@ public interface IStockReportMaterialItem  extends IDocumentBOLine {
     String getBarCode();
 
     void setBarCode(String value);
+
+    String getInDate();
+
+    void setInDate(String inDate);
+
+    String getExpDate();
+
+    void setExpDate(String expDate);
+
+    String getPrdDate();
+
+    void setPrdDate(String prdDate);
+
+    String getRemarks();
+
+    void setRemarks(String remarks);
 }

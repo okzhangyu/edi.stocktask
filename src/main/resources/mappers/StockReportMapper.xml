@@ -70,9 +70,7 @@
         <result column="FromLC" property="fromLocation" jdbcType="VARCHAR" />
         <result column="ToWH" property="toWarehouse" jdbcType="VARCHAR" />
         <result column="ToLC" property="toLocation" jdbcType="VARCHAR" />
-
     </resultMap>
-
 
     <resultMap id="BaseResultMapMaterialItem" type="org.edi.stocktask.bo.stockreport.StockReportMaterialItem">
         <result column="DocEntry" property="docEntry" jdbcType="INTEGER" />
@@ -83,11 +81,11 @@
         <result column="SerialNumber" property="serialNumber" jdbcType="VARCHAR" />
         <result column="BarCode" property="barCode" jdbcType="VARCHAR" />
         <result column="Quantity" property="quantity" jdbcType="DECIMAL" />
+        <result column="InDate" property="inDate" javaType="DATE"/>
+        <result column="PrdDate" property="prdDate" javaType="DATE"/>
+        <result column="ExpDate" property="expDate" javaType="DATE"/>
+        <result column="Remarks" property="remarks" javaType="NVARCHAR"/>
     </resultMap>
-
-
-
-
 
     <select id="fetchStockReportByEntry" resultMap="BaseResultMap" parameterType="int">
         SELECT * FROM AVA_WM_OSRP  where docEntry=#{docEntry} and IsDelete = 'N'
@@ -115,7 +113,6 @@
     </insert>
 
 
-
     <delete id="deleteStockReport" parameterType="int">
         delete from AVA_WM_OSRP
         where docEntry = #{docEntry}
@@ -125,8 +122,6 @@
         delete from AVA_WM_SRP1
         where docEntry = #{docEntry}
     </delete>
-
-
 
     <select id="fetchStockReportByCondition" resultMap="BaseResultMap" parameterType="Map">
         SELECT * FROM AVA_WM_OSRP
@@ -143,10 +138,6 @@
             and IsDelete = 'N'
         </where>
     </select>
-
-
-
-
 
     <select id="fetchStockReportFuzzyByPage" resultMap="BaseResultMap" parameterType="map">
         select * from(select ROW_NUMBER() over(order by DocEntry desc) as rowId,* from AVA_WM_OSRP
@@ -168,11 +159,6 @@
             t0.rowId between #{beginIndex} and #{limit}
         </where>
     </select>
-
-
-
-
-
 
     <update id="updateStockReport"  parameterType="org.edi.stocktask.bo.stockreport.StockReport">
         UPDATE AVA_WM_OSRP
@@ -252,8 +238,6 @@
         SELECT top 10 * FROM AVA_WM_OSRP  where (B1DocEntry is null or B1DocEntry = 0) and DocStatus = 'O' and IsDelete = 'N'
     </select>
 
-
-
     <update id="updateStockReportDocStatus"  parameterType="org.edi.stocktask.bo.stockreport.StockReport">
         <!--UPDATE AVA_WM_OSRP-->
         <!--<trim prefix="set" suffixOverrides=",">-->
@@ -275,20 +259,18 @@
         SELECT NEXT VALUE FOR Seq_DocEntry
     </select>
 
-
-
-
     <!--  List<StockReportMaterialItem> fetchStockReportMaterialItem(Integer docEntry,Integer lineId);-->
     <select id="fetchStockReportMaterialItem" resultMap="BaseResultMapMaterialItem" parameterType="int">
         SELECT * FROM AVA_WM_SRP2 where DocEntry=#{0} and LineId =#{1}
     </select>
 
-
     <!--void saveStockReportMaterialItem(StockReportMaterialItem stockReportMaterialItem);-->
     <insert id="saveStockReportMaterialItem" parameterType="org.edi.stocktask.bo.stockreport.StockReportMaterialItem">
-    INSERT INTO [dbo].[AVA_WM_SRP2]([DocEntry],[LineId],[Object],[ItemCode],[BarCode],[BatchNumber],[SerialNumber],[Quantity])
-    VALUES(#{docEntry} ,#{lineId} ,#{objectCode} ,#{itemCode} ,#{barCode} ,#{batchNumber},#{serialNumber} ,#{quantity})
-   </insert>
+     INSERT INTO AVA_WM_SRP2("DocEntry","LineId","Object","ItemCode","BarCode","BatchNumber","SerialNumber","Quantity"
+                            ,"InDate","ExpDate","PrdDate","Remarks")
+    VALUES(#{docEntry} ,#{lineId} ,#{objectCode} ,#{itemCode} ,#{barCode} ,#{batchNumber},#{serialNumber} ,#{quantity}
+                            ,"inDate","expDate","prdDate","remarks")
+    </insert>
 
 
     <!--void deleteStockReportMaterialItem(int docEntry);-->

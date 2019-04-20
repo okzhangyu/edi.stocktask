@@ -4,8 +4,10 @@ package org.edi.stocktask.dto;
  * Created by asus on 2018/9/6.
  */
 public class ItemCodeQuantity implements IItemCodeQuantity{
+
     private String itemCode;
     private Double quantity;
+
 
     public String getItemCode() {
         return itemCode;
@@ -34,9 +36,8 @@ public class ItemCodeQuantity implements IItemCodeQuantity{
     @Override
     public String toString() {
         return "ItemCodeQuantity{" +
-                "itemCode='" + itemCode + '\'' +
+                ", itemCode='" + itemCode + '\'' +
                 ", quantity=" + quantity +
                 '}';
     }
-
 }

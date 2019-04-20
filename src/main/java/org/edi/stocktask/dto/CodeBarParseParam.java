@@ -2,6 +2,7 @@ package org.edi.stocktask.dto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author Fancy
@@ -28,6 +29,7 @@ public class CodeBarParseParam implements ICodeBarParseParam{
 
         return codeBarParseParams;
     }
+
     private Integer baseLine;
     private Double quantity;
     private String itemCode;

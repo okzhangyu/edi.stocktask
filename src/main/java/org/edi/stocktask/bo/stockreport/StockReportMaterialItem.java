@@ -14,7 +14,11 @@ public class StockReportMaterialItem extends DocumentBOLine implements IStockRep
         stockReportMaterialItem.setQuantity(codeBarParseResult.getQuantity());
         stockReportMaterialItem.setItemCode(codeBarParseResult.getItemCode());
         stockReportMaterialItem.setBatchNumber(codeBarParseResult.getBatchNum());
-        stockReportMaterialItem.setSerialNumber(codeBarParseResult.getSerialsNum());
+        stockReportMaterialItem.setSerialNumber(codeBarParseResult.getSerialNum());
+        stockReportMaterialItem.setInDate(codeBarParseResult.getInDate());
+        stockReportMaterialItem.setExpDate(codeBarParseResult.getExpDate());
+        stockReportMaterialItem.setPrdDate(codeBarParseResult.getPrdDate());
+        stockReportMaterialItem.setRemarks(codeBarParseResult.getRemarks());
         stockReportMaterialItem.setIsDeleted("N");
         return  stockReportMaterialItem;
     }
@@ -27,6 +31,10 @@ public class StockReportMaterialItem extends DocumentBOLine implements IStockRep
     private String serialNumber;
     private String barCode;
     private Double quantity;
+    private String inDate;
+    private String expDate;
+    private String prdDate;
+    private String remarks;
 
     @Override
     public Integer getDocEntry() {
@@ -100,6 +108,46 @@ public class StockReportMaterialItem extends DocumentBOLine implements IStockRep
     }
 
     @Override
+    public String getInDate() {
+        return inDate;
+    }
+
+    @Override
+    public void setInDate(String inDate) {
+        this.inDate = inDate;
+    }
+
+    @Override
+    public String getExpDate() {
+        return expDate;
+    }
+
+    @Override
+    public void setExpDate(String expDate) {
+        this.expDate = expDate;
+    }
+
+    @Override
+    public String getPrdDate() {
+        return prdDate;
+    }
+
+    @Override
+    public void setPrdDate(String prdDate) {
+        this.prdDate = prdDate;
+    }
+
+    @Override
+    public String getRemarks() {
+        return remarks;
+    }
+
+    @Override
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    @Override
     public Double getQuantity() {
         return quantity;
     }
@@ -120,26 +168,19 @@ public class StockReportMaterialItem extends DocumentBOLine implements IStockRep
 
     @Override
     public String toString() {
-        return "{" +
-                "docEntry:" + docEntry +
-                ", lineId:" + lineId +
-                ", objectCode:'" + objectCode + '\'' +
-                ", itemCode:'" + itemCode + '\'' +
-                ", batchNumber:'" + batchNumber + '\'' +
-                ", serialNumber:'" + serialNumber + '\'' +
-                ", barCode:'" + barCode + '\'' +
-                ", quantity:" + quantity +
-                '}';
-    }
-
-    public StockReportMaterialItem(Integer docEntry, Integer lineId, String objectCode, String itemCode, String batchNumber, String serialNumber, String barCode, Double quantity) {
-        this.docEntry = docEntry;
-        this.lineId = lineId;
-        this.objectCode = objectCode;
-        this.itemCode = itemCode;
-        this.batchNumber = batchNumber;
-        this.serialNumber = serialNumber;
-        this.barCode = barCode;
-        this.quantity = quantity;
+        return "StockReportMaterialItem{" +
+                "docEntry=" + docEntry +
+                ", lineId=" + lineId +
+                ", objectCode='" + objectCode + '\'' +
+                ", itemCode='" + itemCode + '\'' +
+                ", batchNumber='" + batchNumber + '\'' +
+                ", serialNumber='" + serialNumber + '\'' +
+                ", barCode='" + barCode + '\'' +
+                ", quantity=" + quantity +
+                ", inDate='" + inDate + '\'' +
+                ", expDate='" + expDate + '\'' +
+                ", prdDate='" + prdDate + '\'' +
+                ", remarks='" + remarks + '\'' +
+                "} " + super.toString();
     }
 }

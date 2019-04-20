@@ -21,11 +21,9 @@
         <parameter property="baseType" jdbcType="NVARCHAR" mode="IN"/>
         <parameter property="baseEntry" jdbcType="INTEGER" mode="IN"/>
         <parameter property="baseLine" jdbcType="INTEGER" mode="IN"/>
-        <parameter property="itemCodeQuantity" jdbcType="ARRAY" javaType="java.util.List" mode="IN" typeHandler="org.edi.stocktask.util.ItemCodeQuantityHandler"/>
     </parameterMap>
 
     <parameterMap id="BatchCodeBarParamMap" type="map">
-        <parameter property="codeBarParams" jdbcType="ARRAY" javaType="java.util.List" mode="IN" typeHandler="org.edi.stocktask.util.TableTypeHandler"/>
         <parameter property="baseType" jdbcType="VARCHAR" mode="IN"/>
         <parameter property="baseEntry" jdbcType="INTEGER" mode="IN"/>
     </parameterMap>
@@ -36,10 +34,12 @@
         <result column="BaseLine" property="baseLine" jdbcType="INTEGER" />
         <result column="ItemCode" property="itemCode" jdbcType="VARCHAR" />
         <result column="CodeBar" property="codeBar" jdbcType="VARCHAR" />
+        <result column="InDate" property="inDate" jdbcType="DATE"/>
+        <result column="PrdDate" property="prdDate" jdbcType="DATE"/>
+        <result column="ExpDate" property="expDate" jdbcType="DATE"/>
+        <result column="Remarks" property="remarks" jdbcType="NVARCHAR"/>
     </resultMap>
-
-
-
+    
 
     <select id="parseCodeBar" statementType="CALLABLE" parameterMap="codeBarParam" resultMap="BaseResultMap">
         {call AVA_SP_PARSE_CODEBAR(
@@ -63,19 +63,17 @@
         #{baseType, jdbcType = NVARCHAR, mode = IN},
         #{baseEntry, jdbcType = INTEGER, mode = IN},
         #{baseLine, jdbcType = INTEGER, mode = IN},
-        #{itemCodeQuantity, typeHandler = org.edi.stocktask.util.ItemCodeQuantityHandler,jdbcType = ARRAY, mode = IN},
+        'CODEBARQUANTITY',
         #{code, jdbcType = INTEGER, mode = OUT},
         #{message, jdbcType = NVARCHAR, mode = OUT}
         )}
     </select>
 
 
-
-
     <!-- List<CodeBarAnalysis> parseBatchCodeBar(HashMap<String,Object> codeBarParamsList);-->
     <select id="parseBatchCodeBar" statementType="CALLABLE" parameterMap="BatchCodeBarParamMap"  resultMap="BatchCodeBarResultMap">
         {call AVA_SP_BATCH_PARSE_CODEBAR(
-        #{codeBarParams,typeHandler = org.edi.stocktask.util.TableTypeHandler,jdbcType = ARRAY, mode = IN},
+        'CODEBARLIST',
         #{baseType, jdbcType = NVARCHAR, mode = IN},
         #{baseEntry, jdbcType = INTEGER, mode = IN},
         #{code, jdbcType = INTEGER, mode = OUT},
@@ -83,4 +81,12 @@
         )}
     </select>
 
+    <insert id="addCodeBarParseParam" parameterType="org.edi.stocktask.dto.ItemCodeQuantity">
+        insert into CODEBARQUANTITY("ItemCode","Quantity") values (#{itemCode},#{quantity})
+    </insert>
+
+    <insert id="addCodeBarBatchParseParam" parameterType="org.edi.stocktask.dto.CodeBarParseParam">
+        insert into CODEBARLIST("CodeBar","BaseLine","ItemCode","Quantity","QtyPlan","Remark")
+        values (#{codeBar},#{baseLine},#{itemCode},#{quantity},#{qtyPlan},#{remark})
+    </insert>
 </mapper>
