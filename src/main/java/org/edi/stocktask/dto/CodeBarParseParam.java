@@ -112,13 +112,14 @@ public class CodeBarParseParam implements ICodeBarParseParam{
 
     @Override
     public String toString() {
-        return "{" +
-                "baseLine:" + baseLine +
-                ", quantity:" + quantity +
-                ", itemCode:'" + itemCode + '\'' +
-                ", codeBar:'" + codeBar + '\'' +
-                ", remark:'" + remark + '\'' +
-                ", qtyPlan:'" + qtyPlan + '\'' +
+        return "CodeBarParseParam{" +
+                "id='" + id + '\'' +
+                ", baseLine=" + baseLine +
+                ", quantity=" + quantity +
+                ", itemCode='" + itemCode + '\'' +
+                ", codeBar='" + codeBar + '\'' +
+                ", qtyPlan=" + qtyPlan +
+                ", remark='" + remark + '\'' +
                 '}';
     }
 }
