@@ -104,10 +104,13 @@ public class CodeBarService implements ICodeBarService{
             List<StockReportItem> stockReportItemList= boRepositoryCodeBar.parseBatchCodeBar(codeBarParam);
             result = new Result<>(ResultCode.SUCCESS, ResultDescription.OK,stockReportItemList);
         }catch (BusinessException e){
+            logger.error("批量解析发生业务异常",e);
             return new Result(e);
         }catch (DBException e){
+            logger.error("批量解析发生数据库异常",e);
             return new Result<>(e);
         }catch (Exception e){
+            logger.error("批量解析发生异常",e);
             return new Result(e);
         }
         logger.info(StockTaskData.CODEBARS_PARSE_RESULT + result.toString());

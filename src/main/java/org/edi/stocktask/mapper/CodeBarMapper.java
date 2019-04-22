@@ -1,5 +1,6 @@
 package org.edi.stocktask.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import org.edi.stocktask.bo.codeBar.ICodeBar;
 import org.edi.stocktask.dto.CodeBarParseResult;
 import org.edi.stocktask.dto.ICodeBarParseParam;
@@ -28,4 +29,5 @@ public interface CodeBarMapper {
     void addCodeBarParseParam(IItemCodeQuantity codeBar);
 
     void addCodeBarBatchParseParam(ICodeBarParseParam codeBarParseParam);
+
 }

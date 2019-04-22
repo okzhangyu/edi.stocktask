@@ -7,7 +7,17 @@ public class ItemCodeQuantity implements IItemCodeQuantity{
 
     private String itemCode;
     private Double quantity;
+    private String id;
 
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getItemCode() {
         return itemCode;
@@ -36,8 +46,9 @@ public class ItemCodeQuantity implements IItemCodeQuantity{
     @Override
     public String toString() {
         return "ItemCodeQuantity{" +
-                ", itemCode='" + itemCode + '\'' +
+                "itemCode='" + itemCode + '\'' +
                 ", quantity=" + quantity +
+                ", id='" + id + '\'' +
                 '}';
     }
 }

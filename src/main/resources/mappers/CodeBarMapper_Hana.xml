@@ -64,6 +64,7 @@
         #{baseEntry, jdbcType = INTEGER, mode = IN},
         #{baseLine, jdbcType = INTEGER, mode = IN},
         'CODEBARQUANTITY',
+        #{id,jdbcType = NVARCHAR,mode = IN},
         #{code, jdbcType = INTEGER, mode = OUT},
         #{message, jdbcType = NVARCHAR, mode = OUT}
         )}
@@ -74,6 +75,7 @@
     <select id="parseBatchCodeBar" statementType="CALLABLE" parameterMap="BatchCodeBarParamMap"  resultMap="BatchCodeBarResultMap">
         {call AVA_SP_BATCH_PARSE_CODEBAR(
         'CODEBARLIST',
+        #{id,jdbcType = NVARCHAR,mode = IN},
         #{baseType, jdbcType = NVARCHAR, mode = IN},
         #{baseEntry, jdbcType = INTEGER, mode = IN},
         #{code, jdbcType = INTEGER, mode = OUT},
@@ -82,11 +84,12 @@
     </select>
 
     <insert id="addCodeBarParseParam" parameterType="org.edi.stocktask.dto.ItemCodeQuantity">
-        insert into CODEBARQUANTITY("ItemCode","Quantity") values (#{itemCode},#{quantity})
+        insert into CODEBARQUANTITY("Id","ItemCode","Quantity") values (#{id},#{itemCode},#{quantity})
     </insert>
 
     <insert id="addCodeBarBatchParseParam" parameterType="org.edi.stocktask.dto.CodeBarParseParam">
-        insert into CODEBARLIST("CodeBar","BaseLine","ItemCode","Quantity","QtyPlan","Remark")
-        values (#{codeBar},#{baseLine},#{itemCode},#{quantity},#{qtyPlan},#{remark})
+        insert into CODEBARLIST("Id","CodeBar","BaseLine","ItemCode","Quantity","QtyPlan","Remark")
+        values (#{id},#{codeBar},#{baseLine},#{itemCode},#{quantity},#{qtyPlan},#{remark})
     </insert>
+
 </mapper>

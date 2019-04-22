@@ -8,6 +8,8 @@ import org.edi.stocktask.bo.stocktask.IStockTaskItem;
 import org.edi.stocktask.data.StockOpResultCode;
 import org.edi.stocktask.data.StockOpResultDescription;
 import org.edi.stocktask.dto.CodeBarParseResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +49,7 @@ public class StockReportItem extends DocumentBOLine implements IStockReportItem{
                     stockReportItemList.add(stockReportItem);
                 }
                 // 如果该物料为批次/序列号管理，将解析结果添加至孙子表
-                if(stockReportItem.getBatchNumberManagement().equals("Y") || stockReportItem.getServiceNumberManagement().equals("Y")){
+                if(stockReportItem.getBatchNumberManagement().equals("Y") || stockReportItem.getSerialNumberManagement().equals("Y")){
                     stockReportItem.getStockReportMaterialItems().add(stockReportMaterialItem);
                 }
 
@@ -70,6 +72,8 @@ public class StockReportItem extends DocumentBOLine implements IStockReportItem{
         stockReportItme.setOriginalDocumentLineId(stockTaskItem.getBaseDocumentLineId());
         stockReportItme.setItemCode(stockTaskItem.getItemCode());
         stockReportItme.setItemDescription(stockTaskItem.getItemDescription());
+        stockReportItme.setSerialNumberManagement(stockTaskItem.getSerialNumberManagement());
+        stockReportItme.setBatchNumberManagement(stockTaskItem.getBatchNumberManagement());
         stockReportItme.setLineStatus(stockTaskItem.getLineStatus());
         stockReportItme.setToLocation(stockTaskItem.getToLocation());
         stockReportItme.setFromLocation(stockTaskItem.getFromLocation());
@@ -482,6 +486,9 @@ public class StockReportItem extends DocumentBOLine implements IStockReportItem{
 
     @Override
     public List<StockReportMaterialItem> getStockReportMaterialItems() {
+        if(this.stockReportMaterialItems == null){
+            this.stockReportMaterialItems = new ArrayList<>();
+        }
         return stockReportMaterialItems;
     }
 
