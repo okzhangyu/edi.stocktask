@@ -44,6 +44,8 @@ public class StockTaskData {
 
     public static final String STOCKREPORT_SYNC_RETURN_INFO = "汇报同步返回信息>>>>>>>>";
 
+    public static final String STOCKREPORT_FETCH_INFO = "汇报查询信息>>>>>>>>";
+
     public static final String STOCKREPORT_FETCH_RETURN_INFO = "汇报查询返回信息>>>>>>>>";
 
     public static final String STOCKTASK_FETCH_RETURN_INFO = "任务查询返回信息>>>>>>>>";

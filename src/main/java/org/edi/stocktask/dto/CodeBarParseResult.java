@@ -12,9 +12,11 @@ public class CodeBarParseResult implements ICodeBarParseResult {
     private String codeBar;
     private Double quantity;
     private String batchNum;
-    private String serialsNum;
-
-
+    private String serialNum;
+    private String remarks;
+    private String inDate;
+    private String expDate;
+    private String prdDate;
 
 
     @Override
@@ -57,20 +59,64 @@ public class CodeBarParseResult implements ICodeBarParseResult {
         this.quantity = quantity;
     }
 
+    @Override
+    public String getInDate() {
+        return inDate;
+    }
+
+    @Override
+    public void setInDate(String inDate) {
+        this.inDate = inDate;
+    }
+
+    @Override
+    public String getExpDate() {
+        return expDate;
+    }
+
+    @Override
+    public void setExpDate(String expDate) {
+        this.expDate = expDate;
+    }
+
+    @Override
+    public String getPrdDate() {
+        return prdDate;
+    }
+
+    @Override
+    public void setPrdDate(String prdDate) {
+        this.prdDate = prdDate;
+    }
+
+    @Override
+    public String getRemarks() {
+        return remarks;
+    }
+
+    @Override
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    @Override
     public String getBatchNum() {
         return batchNum;
     }
 
+    @Override
     public void setBatchNum(String batchNum) {
         this.batchNum = batchNum;
     }
 
-    public String getSerialsNum() {
-        return serialsNum;
+    @Override
+    public String getSerialNum() {
+        return serialNum;
     }
 
-    public void setSerialsNum(String serialsNum) {
-        this.serialsNum = serialsNum;
+    @Override
+    public void setSerialNum(String serialNum) {
+        this.serialNum = serialNum;
     }
 
     @Override
@@ -81,7 +127,11 @@ public class CodeBarParseResult implements ICodeBarParseResult {
                 ", codeBar='" + codeBar + '\'' +
                 ", quantity=" + quantity +
                 ", batchNum='" + batchNum + '\'' +
-                ", serialsNum='" + serialsNum + '\'' +
+                ", serialNum='" + serialNum + '\'' +
+                ", remarks='" + remarks + '\'' +
+                ", inDate='" + inDate + '\'' +
+                ", expDate='" + expDate + '\'' +
+                ", prdDate='" + prdDate + '\'' +
                 '}';
     }
 }

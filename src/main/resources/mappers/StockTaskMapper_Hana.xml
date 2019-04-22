@@ -59,20 +59,13 @@
         <result column="ItemName" property="itemDescription" jdbcType="VARCHAR" />
     </resultMap>
 
-
-
-
     <select id="fetchStockTaskItem" resultMap="BaseResultMapItem">
         SELECT * FROM AVA_WM_VIEW_STK1 where "ObjectKey"=#{0} and "DocType" =  #{1} order by "DocEntry" ,"ItemCode"
     </select>
 
-
-
     <select id="fetchSyncStockTaskItem" resultMap="BaseResultMapItem" >
       select * from  AVA_WM_VIEW_STK1 t1 where "ObjectKey" = #{0}  and  t1."DocType" = #{1}
     </select>
-
-
 
     <!-- List<IStockTask> fetchStockTaskFuzzyByPage(HashMap<String,Object> params);-->
     <select id="fetchStockTaskFuzzyByPage" resultMap="BaseResultMap" parameterType="map">

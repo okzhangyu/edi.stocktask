@@ -2,6 +2,7 @@ package org.edi.stocktask.dto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author Fancy
@@ -11,12 +12,13 @@ import java.util.List;
 public class CodeBarParseParam implements ICodeBarParseParam{
 
 
-    public static List<CodeBarParseParam> createParseParam(CodeBarParam codeBarParams){
+    public static List<CodeBarParseParam> createParseParam(String id, CodeBarParam codeBarParams){
         List<CodeBarParseParam> codeBarParseParams = new ArrayList<>();
         CodeBarParseParam codeBarParseParam;
             for (CodeBarItem item:
                     codeBarParams.getBarCodes()) {
                 codeBarParseParam = new CodeBarParseParam();
+                codeBarParseParam.setId(id);
                 codeBarParseParam.setItemCode(item.getItemCode());
                 codeBarParseParam.setBaseLine(item.getBaseLine());
                 codeBarParseParam.setCodeBar(item.getBarCode());
@@ -28,12 +30,25 @@ public class CodeBarParseParam implements ICodeBarParseParam{
 
         return codeBarParseParams;
     }
+
+
+    private String id;
     private Integer baseLine;
     private Double quantity;
     private String itemCode;
     private String codeBar;
     private Double qtyPlan;
     private String remark;
+
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
 
     @Override
     public String getItemCode() {
