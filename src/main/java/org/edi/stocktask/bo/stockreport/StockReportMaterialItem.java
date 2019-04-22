@@ -13,6 +13,12 @@ public class StockReportMaterialItem extends DocumentBOLine implements IStockRep
         stockReportMaterialItem.setBarCode(codeBarParseResult.getCodeBar());
         stockReportMaterialItem.setQuantity(codeBarParseResult.getQuantity());
         stockReportMaterialItem.setItemCode(codeBarParseResult.getItemCode());
+        stockReportMaterialItem.setInDate(codeBarParseResult.getIndate());
+        stockReportMaterialItem.setRemarks(codeBarParseResult.getRemarks());
+        stockReportMaterialItem.setExpDate(codeBarParseResult.getExpDate());
+        stockReportMaterialItem.setPrdDate(codeBarParseResult.getPrdDate());
+
+
         stockReportMaterialItem.setIsDeleted("N");
         return  stockReportMaterialItem;
     }
@@ -25,6 +31,42 @@ public class StockReportMaterialItem extends DocumentBOLine implements IStockRep
     private String serialNumber;
     private String barCode;
     private Double quantity;
+    private String inDate;
+    private String expDate;
+    private String remarks;
+    private String prdDate;
+
+    public String getInDate() {
+        return inDate;
+    }
+
+    public void setInDate(String inDate) {
+        this.inDate = inDate;
+    }
+
+    public String getExpDate() {
+        return expDate;
+    }
+
+    public void setExpDate(String expDate) {
+        this.expDate = expDate;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    public String getPrdDate() {
+        return prdDate;
+    }
+
+    public void setPrdDate(String prdDate) {
+        this.prdDate = prdDate;
+    }
 
     @Override
     public Integer getDocEntry() {

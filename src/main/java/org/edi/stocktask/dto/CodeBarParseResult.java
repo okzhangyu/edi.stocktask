@@ -11,6 +11,11 @@ public class CodeBarParseResult implements ICodeBarParseResult {
     private String itemCode;
     private String codeBar;
     private Double quantity;
+    private String inDate;
+    private String expDate;
+    private String prdDate;
+    private String remarks;
+
 
 
 
@@ -52,6 +57,46 @@ public class CodeBarParseResult implements ICodeBarParseResult {
     @Override
     public void setQuantity(Double quantity) {
         this.quantity = quantity;
+    }
+
+    @Override
+    public String getIndate() {
+        return inDate;
+    }
+
+    @Override
+    public void setIndate(String inDate) {
+        this.inDate = inDate;
+    }
+
+    @Override
+    public String getExpDate() {
+        return expDate;
+    }
+
+    @Override
+    public void setExpDate(String expDate) {
+        this.expDate=expDate;
+    }
+
+    @Override
+    public String getRemarks() {
+        return remarks;
+    }
+
+    @Override
+    public void setRemarks(String remarks) {
+        this.remarks=remarks;
+    }
+
+    @Override
+    public String getPrdDate() {
+        return prdDate;
+    }
+
+    @Override
+    public void setPrdDate(String prdDate) {
+        this.prdDate=prdDate;
     }
 
     @Override
