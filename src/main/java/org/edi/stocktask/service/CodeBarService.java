@@ -74,8 +74,10 @@ public class CodeBarService implements ICodeBarService{
                 result = new Result<>(ResultCode.SUCCESS, ResultDescription.OK,resultCodeBar);
             }
         }catch(BusinessException e){
+            logger.error("解析发生业务异常",e);
             result = new Result(e);
         }catch (Exception e){
+            logger.error("解析发生异常",e);
             result = new Result(e);
         }
         logger.info(StockTaskData.CODEBAR_PARSE_RESULT + result.toString());

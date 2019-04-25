@@ -86,11 +86,13 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
         def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
         TransactionStatus status =null;
         String id = UUID.randomUUID().toString();
-
         try {
-            for (int i=0;i<itemCodeQuantity.size();i++){
-                itemCodeQuantity.get(i).setId(id);
-                codeBarMapper.addCodeBarParseParam(itemCodeQuantity.get(i));
+            status = ptm.getTransaction(def);
+            if(itemCodeQuantity != null) {
+                for (int i = 0; i < itemCodeQuantity.size(); i++) {
+                    itemCodeQuantity.get(i).setId(id);
+                    codeBarMapper.addCodeBarParseParam(itemCodeQuantity.get(i));
+                }
             }
             HashMap<String,Object> codeBarParam = new HashMap();
             codeBarParam.put("codebar",codebar);
@@ -106,12 +108,14 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
             ptm.commit(status);
             logger.info("条码解析结果" + listCodeBar.toString());
         }catch (BusinessException e){
-            ptm.rollback(status);
             logger.error(StockTaskData.OPREATION_EXCEPTION,e);
+            ptm.rollback(status);
             throw e;
         } catch (Exception e){
-            ptm.rollback(status);
             logger.error(StockTaskData.OPREATION_EXCEPTION,e);
+            if(status != null){
+                ptm.rollback(status);
+            }
             throw new BusinessException(StockOpResultCode.BARCODE_ANALYSIS_IS_FAIL,String.format(StockOpResultDescription.BARCODE_ANALYSIS_IS_FAIL,codebar));
         }
         return listCodeBar;
@@ -148,22 +152,21 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
             if ((int) codeBarParamsList.get("code") != 0) {
                 throw new BusinessException(codeBarParamsList.get("code").toString(), codeBarParamsList.get("message").toString());
             }
-
             logger.info("批量条码解析结果" + listCodeBars.toString());
-
-            ptm.commit(status);
-
             List<IStockTaskItem> stockTaskItems = stockTaskMapper.fetchNoDealStockTaskItem(codeBarParams.getBaseEntry(), codeBarParams.getBaseType());
             List<StockReportItem> stockReportItems = StockReportItem.createStockReportItemList(stockTaskItems, listCodeBars);
+            ptm.commit(status);
             return stockReportItems;
         } catch (BusinessException e) {
-            ptm.rollback(status);
             logger.error(StockTaskData.OPREATION_EXCEPTION, e);
+            ptm.rollback(status);
             throw e;
         } catch (Exception e) {
-            ptm.rollback(status);
             logger.error(StockTaskData.OPREATION_EXCEPTION, e);
-            throw new BusinessException(StockOpResultCode.BARCODE_ANALYSIS_IS_FAIL, StockOpResultDescription.BARCODE_ANALYSIS_IS_FAIL);
+            if(status != null) {
+                ptm.rollback(status);
+            }
+            throw new BusinessException(StockOpResultCode.BARCODE_ANALYSIS_IS_FAIL,StockOpResultDescription.BARCODE_ANALYSIS_EXCEPTION);
         }
     }
 
