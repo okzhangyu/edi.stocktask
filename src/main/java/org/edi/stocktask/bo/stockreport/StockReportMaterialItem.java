@@ -168,19 +168,19 @@ public class StockReportMaterialItem extends DocumentBOLine implements IStockRep
 
     @Override
     public String toString() {
-        return "StockReportMaterialItem{" +
-                "docEntry=" + docEntry +
-                ", lineId=" + lineId +
-                ", objectCode='" + objectCode + '\'' +
-                ", itemCode='" + itemCode + '\'' +
-                ", batchNumber='" + batchNumber + '\'' +
-                ", serialNumber='" + serialNumber + '\'' +
-                ", barCode='" + barCode + '\'' +
-                ", quantity=" + quantity +
-                ", inDate='" + inDate + '\'' +
-                ", expDate='" + expDate + '\'' +
-                ", prdDate='" + prdDate + '\'' +
-                ", remarks='" + remarks + '\'' +
+        return "{" +
+                "\"docEntry\":\"" + docEntry +
+                "\",\"lineId\":\"" + lineId +
+                "\",\"objectCode\":\"" + objectCode  +
+                "\",\"itemCode\":\"" + itemCode +
+                "\",\"batchNumber\":\"" + batchNumber +
+                "\",\"serialNumber\":\"" + serialNumber  +
+                "\",\"barCode\":\"" + barCode +
+                "\",\"quantity\":\"" + quantity +
+                "\",\"inDate\":\"" + inDate +
+                "\",\"expDate\":\"" + expDate +
+                "\",\"prdDate\":\"" + prdDate +
+                "\",\"remarks\":\"" + remarks +
                 "} " + super.toString();
     }
 }

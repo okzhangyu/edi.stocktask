@@ -388,6 +388,17 @@ public class StockReport extends DocumentBO implements IStockReport{
         this.stockReportItems = stockReportItems;
     }
 
+    @Override
+    public boolean isBatchSerialsManagement() {
+        for (IStockReportItem item:this.getStockReportItems()) {
+            if(item.getBatchNumberManagement().equals(StockTaskData.YES) ||
+                    item.getSerialNumberManagement().equals(StockTaskData.YES)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public StockReport() {
         this.setObjectCode(BUSINESS_CODE);
     }
@@ -395,36 +406,36 @@ public class StockReport extends DocumentBO implements IStockReport{
     @Override
     public String toString() {
         return "{" +
-                "companyName:'" + this.getCompanyName() + '\'' +
-                ", docEntry:" + docEntry +
-                ", docNum:" + docNum +
-                ", period:'" + period + '\'' +
-                ", objectCode:'" + objectCode + '\'' +
-                ", transfered:'" + transfered + '\'' +
-                ", createDate:'" + createDate + '\'' +
-                ", createTime:" + createTime +
-                ", updateDate:'" + updateDate + '\'' +
-                ", updateTime:" + updateTime +
-                ", createUserSign:'" + createUserSign + '\'' +
-                ", updateUserSign:'" + updateUserSign + '\'' +
-                ", documentStatus:'" + documentStatus + '\'' +
-                ", postingDate:'" + postingDate + '\'' +
-                ", deliveryDate:'" + deliveryDate + '\'' +
-                ", documentDate:'" + documentDate + '\'' +
-                ", reference1:'" + reference1 + '\'' +
-                ", reference2:'" + reference2 + '\'' +
-                ", remarks:'" + remarks + '\'' +
-                ", b1DocEntry:" + b1DocEntry +
-                ", bydUUID:'" + bydUUID + '\'' +
-                ", customType:'" + customType + '\'' +
-                ", targetDocumentType:'" + targetDocumentType + '\'' +
-                ", transactionType:'" + transactionType + '\'' +
-                ", businessPartnerCode:'" + businessPartnerCode + '\'' +
-                ", businessPartnerName:'" + businessPartnerName + '\'' +
-                ", baseDocumentType:'" + baseDocumentType + '\'' +
-                ", baseDocumentEntry:" + baseDocumentEntry +
-                ", stockReportItems:" + stockReportItems +
-                '}';
+                "\"companyName\":\"" + this.getCompanyName() + 
+                "\",\"docEntry:" + docEntry +
+                "\",\"docNum:" + docNum +
+                "\",\"period\":\"" + period +
+                "\",\"objectCode\":\"" + objectCode  +
+                "\",\"transfered\":\"" + transfered  +
+                "\",\"createDate\":\"" + createDate  +
+                "\",\"createTime:" + createTime +
+                "\",\"updateDate\":\"" + updateDate  +
+                "\",\"updateTime:" + updateTime +
+                "\",\"createUserSign\":\"" + createUserSign  +
+                "\",\"updateUserSign\":\"" + updateUserSign  +
+                "\",\"documentStatus\":\"" + documentStatus  +
+                "\",\"postingDate\":\"" + postingDate  +
+                "\",\"deliveryDate\":\"" + deliveryDate  +
+                "\",\"documentDate\":\"" + documentDate  +
+                "\",\"reference1\":\"" + reference1  +
+                "\",\"reference2\":\"" + reference2  +
+                "\",\"remarks\":\"" + remarks  +
+                "\",\"b1DocEntry\":\"" + b1DocEntry +
+                "\",\"bydUUID\":\"" + bydUUID  +
+                "\",\"customType\":\"" + customType  +
+                "\",\"targetDocumentType\":\"" + targetDocumentType  +
+                "\",\"transactionType\":\"" + transactionType  +
+                "\",\"businessPartnerCode\":\"" + businessPartnerCode  +
+                "\",\"businessPartnerName\":\"" + businessPartnerName  +
+                "\",\"baseDocumentType\":\"" + baseDocumentType  +
+                "\",\"baseDocumentEntry\":\"" + baseDocumentEntry +
+                "\",\"stockReportItems\":\"[" + stockReportItems +
+                "]}";
     }
 
     @Override
