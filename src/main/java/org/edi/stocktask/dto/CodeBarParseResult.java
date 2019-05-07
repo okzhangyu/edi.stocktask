@@ -11,21 +11,12 @@ public class CodeBarParseResult implements ICodeBarParseResult {
     private String itemCode;
     private String codeBar;
     private Double quantity;
-<<<<<<< HEAD
-    private String inDate;
-    private String expDate;
-    private String prdDate;
-    private String remarks;
-
-
-=======
     private String batchNum;
     private String serialNum;
     private String remarks;
     private String inDate;
     private String expDate;
     private String prdDate;
->>>>>>> 2432f02919f865d92cf2677f47d64611f51d5163
 
 
     @Override

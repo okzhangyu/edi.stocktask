@@ -13,21 +13,12 @@ public class StockReportMaterialItem extends DocumentBOLine implements IStockRep
         stockReportMaterialItem.setBarCode(codeBarParseResult.getCodeBar());
         stockReportMaterialItem.setQuantity(codeBarParseResult.getQuantity());
         stockReportMaterialItem.setItemCode(codeBarParseResult.getItemCode());
-<<<<<<< HEAD
-        stockReportMaterialItem.setInDate(codeBarParseResult.getIndate());
-        stockReportMaterialItem.setRemarks(codeBarParseResult.getRemarks());
-        stockReportMaterialItem.setExpDate(codeBarParseResult.getExpDate());
-        stockReportMaterialItem.setPrdDate(codeBarParseResult.getPrdDate());
-
-
-=======
         stockReportMaterialItem.setBatchNumber(codeBarParseResult.getBatchNum());
         stockReportMaterialItem.setSerialNumber(codeBarParseResult.getSerialNum());
         stockReportMaterialItem.setInDate(codeBarParseResult.getInDate());
         stockReportMaterialItem.setExpDate(codeBarParseResult.getExpDate());
         stockReportMaterialItem.setPrdDate(codeBarParseResult.getPrdDate());
         stockReportMaterialItem.setRemarks(codeBarParseResult.getRemarks());
->>>>>>> 2432f02919f865d92cf2677f47d64611f51d5163
         stockReportMaterialItem.setIsDeleted("N");
         return  stockReportMaterialItem;
     }
