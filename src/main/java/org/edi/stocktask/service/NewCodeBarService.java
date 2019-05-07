@@ -1,10 +1,5 @@
 package org.edi.stocktask.service;
 
-/**
- * @author Fancy
- * @date 2018/7/10
- */
-
 import org.edi.freamwork.bo.BusinessObjectException;
 import org.edi.freamwork.data.Result;
 import org.edi.freamwork.exception.BusinessException;
@@ -13,7 +8,6 @@ import org.edi.freamwork.log.LoggerUtils;
 import org.edi.initialfantasy.data.ResultCode;
 import org.edi.initialfantasy.data.ResultDescription;
 import org.edi.initialfantasy.data.ServicePath;
-import org.edi.initialfantasy.filter.UserRequest;
 import org.edi.stocktask.bo.codeBar.ICodeBar;
 import org.edi.stocktask.bo.stockreport.StockReportItem;
 import org.edi.stocktask.data.StockOpResultCode;
@@ -30,12 +24,12 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
+
 /**
  * 条码相关服务
  */
-@Path("/v1")
-@UserRequest
-public class CodeBarService implements ICodeBarService{
+@Path("/v2")
+public class NewCodeBarService implements ICodeBarService {
     Logger logger = LoggerUtils.Logger(StockTaskData.APPENDER_NAME);
 
     @Autowired
@@ -94,7 +88,7 @@ public class CodeBarService implements ICodeBarService{
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/codebars")
     @Override
-    public Result<StockReportItem> parseBatchCodeBar(@QueryParam(ServicePath.TOKEN_NAMER)String token, CodeBarParam  codeBarParam) {
+    public Result<StockReportItem> parseBatchCodeBar(@QueryParam(ServicePath.TOKEN_NAMER)String token, CodeBarParam codeBarParam) {
         Result<StockReportItem> result;
         try{
             logger.info(StockTaskData.CODEBARS_PARSE_INFO + codeBarParam.toString());
@@ -104,13 +98,10 @@ public class CodeBarService implements ICodeBarService{
             List<StockReportItem> stockReportItemList= boRepositoryCodeBar.parseBatchCodeBar(codeBarParam);
             result = new Result<>(ResultCode.SUCCESS, ResultDescription.OK,stockReportItemList);
         }catch (BusinessException e){
-            logger.error("批量解析发生业务异常",e);
             return new Result(e);
         }catch (DBException e){
-            logger.error("批量解析发生数据库异常",e);
             return new Result<>(e);
         }catch (Exception e){
-            logger.error("批量解析发生异常",e);
             return new Result(e);
         }
         logger.info(StockTaskData.CODEBARS_PARSE_RESULT + result.toString());

@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author Fancy
@@ -72,18 +73,24 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
     @Override
     public List<ICodeBar> strengthenParseCodeBar(String codebar, String baseType, int baseEntry, int baseLine, String itemCode, List<ItemCodeQuantity> itemCodeQuantity) {
         List<ICodeBar> listCodeBar = null;
+        String id = UUID.randomUUID().toString();
+        for (int i=0;i<itemCodeQuantity.size();i++){
+            itemCodeQuantity.get(i).setId(id);
+            codeBarMapper.addCodeBarParseParam(itemCodeQuantity.get(i));
+        }
         HashMap<String,Object> codeBarParam = new HashMap();
         codeBarParam.put("codebar",codebar);
         codeBarParam.put("baseType",baseType);
         codeBarParam.put("baseEntry",baseEntry);
         codeBarParam.put("baseLine",baseLine);
         codeBarParam.put("itemCode",itemCode);
-        codeBarParam.put("itemCodeQuantity",itemCodeQuantity);
+        codeBarParam.put("id",id);
         try {
             listCodeBar = codeBarMapper.strengthenParseCodeBar(codeBarParam);
             if((int)codeBarParam.get("code")!=0){
                 throw new BusinessException(codeBarParam.get("code").toString(),codeBarParam.get("message").toString());
             }
+            logger.info("条码解析结果" + listCodeBar.toString());
         }catch (BusinessException e){
             logger.error(StockTaskData.OPREATION_EXCEPTION,e);
             throw e;
@@ -95,26 +102,6 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
      * 批量解析条码
      * @param codeBarParams 条码集合
@@ -122,17 +109,31 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
      */
     @Override
     public List<StockReportItem> parseBatchCodeBar(CodeBarParam codeBarParams) {
-        List<CodeBarParseParam> codeBarParseParams = CodeBarParseParam.createParseParam(codeBarParams);
-        HashMap<String,Object> codeBarParamsList = new HashMap<>();
-        codeBarParamsList.put("codeBarParams",codeBarParseParams);
-        codeBarParamsList.put("baseType",codeBarParams.getBaseType());
-        codeBarParamsList.put("baseEntry",codeBarParams.getBaseEntry());
+        String id = UUID.randomUUID().toString();
+
         List<CodeBarParseResult> listCodeBars = null;
         try{
+            logger.info("param"+codeBarParams.toString());
+            List<CodeBarParseParam> codeBarParseParams = CodeBarParseParam.createParseParam(id,codeBarParams);
+            for (CodeBarParseParam param:codeBarParseParams) {
+                codeBarMapper.addCodeBarBatchParseParam(param);
+            }
+
+            HashMap<String,Object> codeBarParamsList = new HashMap<>();
+            codeBarParamsList.put("baseType",codeBarParams.getBaseType());
+            codeBarParamsList.put("id",id);
+            codeBarParamsList.put("baseEntry",codeBarParams.getBaseEntry());
+
             listCodeBars = codeBarMapper.parseBatchCodeBar(codeBarParamsList);
             if((int)codeBarParamsList.get("code")!=0){
                 throw new BusinessException(codeBarParamsList.get("code").toString(),codeBarParamsList.get("message").toString());
             }
+            logger.info("批量条码解析结果" + listCodeBars.toString());
+            List<IStockTaskItem> stockTaskItems = stockTaskMapper.fetchNoDealStockTaskItem(codeBarParams.getBaseEntry(),codeBarParams.getBaseType());
+            logger.info("fetchNoDealStockTaskItem"+stockTaskItems.toString());
+            List<StockReportItem> stockReportItems = StockReportItem.createStockReportItemList(stockTaskItems,listCodeBars);
+            logger.info("return stockreportitems:" + stockReportItems.toString());
+            return stockReportItems;
         }catch (BusinessException e){
             logger.error(StockTaskData.OPREATION_EXCEPTION,e);
             throw e;
@@ -140,10 +141,7 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
             logger.error(StockTaskData.OPREATION_EXCEPTION,e);
             throw new BusinessException(StockOpResultCode.BARCODE_ANALYSIS_IS_FAIL,StockOpResultDescription.BARCODE_ANALYSIS_IS_FAIL);
         }
-        List<IStockTaskItem> stockTaskItems = stockTaskMapper.fetchNoDealStockTaskItem(codeBarParams.getBaseEntry(),codeBarParams.getBaseType());
-       return StockReportItem.createStockReportItemList(stockTaskItems,listCodeBars);
     }
-
 
 
 }

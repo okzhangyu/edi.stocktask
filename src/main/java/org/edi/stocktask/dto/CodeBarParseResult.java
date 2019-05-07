@@ -11,12 +11,21 @@ public class CodeBarParseResult implements ICodeBarParseResult {
     private String itemCode;
     private String codeBar;
     private Double quantity;
+<<<<<<< HEAD
     private String inDate;
     private String expDate;
     private String prdDate;
     private String remarks;
 
 
+=======
+    private String batchNum;
+    private String serialNum;
+    private String remarks;
+    private String inDate;
+    private String expDate;
+    private String prdDate;
+>>>>>>> 2432f02919f865d92cf2677f47d64611f51d5163
 
 
     @Override
@@ -60,12 +69,20 @@ public class CodeBarParseResult implements ICodeBarParseResult {
     }
 
     @Override
+<<<<<<< HEAD
     public String getIndate() {
+=======
+    public String getInDate() {
+>>>>>>> 2432f02919f865d92cf2677f47d64611f51d5163
         return inDate;
     }
 
     @Override
+<<<<<<< HEAD
     public void setIndate(String inDate) {
+=======
+    public void setInDate(String inDate) {
+>>>>>>> 2432f02919f865d92cf2677f47d64611f51d5163
         this.inDate = inDate;
     }
 
@@ -76,7 +93,21 @@ public class CodeBarParseResult implements ICodeBarParseResult {
 
     @Override
     public void setExpDate(String expDate) {
+<<<<<<< HEAD
         this.expDate=expDate;
+=======
+        this.expDate = expDate;
+    }
+
+    @Override
+    public String getPrdDate() {
+        return prdDate;
+    }
+
+    @Override
+    public void setPrdDate(String prdDate) {
+        this.prdDate = prdDate;
+>>>>>>> 2432f02919f865d92cf2677f47d64611f51d5163
     }
 
     @Override
@@ -86,6 +117,7 @@ public class CodeBarParseResult implements ICodeBarParseResult {
 
     @Override
     public void setRemarks(String remarks) {
+<<<<<<< HEAD
         this.remarks=remarks;
     }
 
@@ -97,15 +129,44 @@ public class CodeBarParseResult implements ICodeBarParseResult {
     @Override
     public void setPrdDate(String prdDate) {
         this.prdDate=prdDate;
+=======
+        this.remarks = remarks;
+    }
+
+    @Override
+    public String getBatchNum() {
+        return batchNum;
+    }
+
+    @Override
+    public void setBatchNum(String batchNum) {
+        this.batchNum = batchNum;
+    }
+
+    @Override
+    public String getSerialNum() {
+        return serialNum;
+    }
+
+    @Override
+    public void setSerialNum(String serialNum) {
+        this.serialNum = serialNum;
+>>>>>>> 2432f02919f865d92cf2677f47d64611f51d5163
     }
 
     @Override
     public String toString() {
-        return "{" +
-                "baseLine:" + baseLine +
-                ", itemCode:'" + itemCode + '\'' +
-                ", codeBar:'" + codeBar + '\'' +
-                ", quantity:" + quantity +
+        return "CodeBarParseResult{" +
+                "baseLine=" + baseLine +
+                ", itemCode='" + itemCode + '\'' +
+                ", codeBar='" + codeBar + '\'' +
+                ", quantity=" + quantity +
+                ", batchNum='" + batchNum + '\'' +
+                ", serialNum='" + serialNum + '\'' +
+                ", remarks='" + remarks + '\'' +
+                ", inDate='" + inDate + '\'' +
+                ", expDate='" + expDate + '\'' +
+                ", prdDate='" + prdDate + '\'' +
                 '}';
     }
 }

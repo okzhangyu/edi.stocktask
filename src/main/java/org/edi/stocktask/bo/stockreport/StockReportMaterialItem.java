@@ -13,12 +13,21 @@ public class StockReportMaterialItem extends DocumentBOLine implements IStockRep
         stockReportMaterialItem.setBarCode(codeBarParseResult.getCodeBar());
         stockReportMaterialItem.setQuantity(codeBarParseResult.getQuantity());
         stockReportMaterialItem.setItemCode(codeBarParseResult.getItemCode());
+<<<<<<< HEAD
         stockReportMaterialItem.setInDate(codeBarParseResult.getIndate());
         stockReportMaterialItem.setRemarks(codeBarParseResult.getRemarks());
         stockReportMaterialItem.setExpDate(codeBarParseResult.getExpDate());
         stockReportMaterialItem.setPrdDate(codeBarParseResult.getPrdDate());
 
 
+=======
+        stockReportMaterialItem.setBatchNumber(codeBarParseResult.getBatchNum());
+        stockReportMaterialItem.setSerialNumber(codeBarParseResult.getSerialNum());
+        stockReportMaterialItem.setInDate(codeBarParseResult.getInDate());
+        stockReportMaterialItem.setExpDate(codeBarParseResult.getExpDate());
+        stockReportMaterialItem.setPrdDate(codeBarParseResult.getPrdDate());
+        stockReportMaterialItem.setRemarks(codeBarParseResult.getRemarks());
+>>>>>>> 2432f02919f865d92cf2677f47d64611f51d5163
         stockReportMaterialItem.setIsDeleted("N");
         return  stockReportMaterialItem;
     }
@@ -33,6 +42,7 @@ public class StockReportMaterialItem extends DocumentBOLine implements IStockRep
     private Double quantity;
     private String inDate;
     private String expDate;
+<<<<<<< HEAD
     private String remarks;
     private String prdDate;
 
@@ -67,6 +77,10 @@ public class StockReportMaterialItem extends DocumentBOLine implements IStockRep
     public void setPrdDate(String prdDate) {
         this.prdDate = prdDate;
     }
+=======
+    private String prdDate;
+    private String remarks;
+>>>>>>> 2432f02919f865d92cf2677f47d64611f51d5163
 
     @Override
     public Integer getDocEntry() {
@@ -140,6 +154,46 @@ public class StockReportMaterialItem extends DocumentBOLine implements IStockRep
     }
 
     @Override
+    public String getInDate() {
+        return inDate;
+    }
+
+    @Override
+    public void setInDate(String inDate) {
+        this.inDate = inDate;
+    }
+
+    @Override
+    public String getExpDate() {
+        return expDate;
+    }
+
+    @Override
+    public void setExpDate(String expDate) {
+        this.expDate = expDate;
+    }
+
+    @Override
+    public String getPrdDate() {
+        return prdDate;
+    }
+
+    @Override
+    public void setPrdDate(String prdDate) {
+        this.prdDate = prdDate;
+    }
+
+    @Override
+    public String getRemarks() {
+        return remarks;
+    }
+
+    @Override
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    @Override
     public Double getQuantity() {
         return quantity;
     }
@@ -160,26 +214,19 @@ public class StockReportMaterialItem extends DocumentBOLine implements IStockRep
 
     @Override
     public String toString() {
-        return "{" +
-                "docEntry:" + docEntry +
-                ", lineId:" + lineId +
-                ", objectCode:'" + objectCode + '\'' +
-                ", itemCode:'" + itemCode + '\'' +
-                ", batchNumber:'" + batchNumber + '\'' +
-                ", serialNumber:'" + serialNumber + '\'' +
-                ", barCode:'" + barCode + '\'' +
-                ", quantity:" + quantity +
-                '}';
-    }
-
-    public StockReportMaterialItem(Integer docEntry, Integer lineId, String objectCode, String itemCode, String batchNumber, String serialNumber, String barCode, Double quantity) {
-        this.docEntry = docEntry;
-        this.lineId = lineId;
-        this.objectCode = objectCode;
-        this.itemCode = itemCode;
-        this.batchNumber = batchNumber;
-        this.serialNumber = serialNumber;
-        this.barCode = barCode;
-        this.quantity = quantity;
+        return "StockReportMaterialItem{" +
+                "docEntry=" + docEntry +
+                ", lineId=" + lineId +
+                ", objectCode='" + objectCode + '\'' +
+                ", itemCode='" + itemCode + '\'' +
+                ", batchNumber='" + batchNumber + '\'' +
+                ", serialNumber='" + serialNumber + '\'' +
+                ", barCode='" + barCode + '\'' +
+                ", quantity=" + quantity +
+                ", inDate='" + inDate + '\'' +
+                ", expDate='" + expDate + '\'' +
+                ", prdDate='" + prdDate + '\'' +
+                ", remarks='" + remarks + '\'' +
+                "} " + super.toString();
     }
 }

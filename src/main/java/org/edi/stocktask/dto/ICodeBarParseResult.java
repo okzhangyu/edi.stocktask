@@ -25,19 +25,27 @@ public interface ICodeBarParseResult {
 
     void setQuantity(Double quantity);
 
-    String getIndate();
+    String getSerialNum();
 
-    void setIndate(String inDate);
+    void setSerialNum(String serialNum);
+
+    String getBatchNum();
+
+    void setBatchNum(String batchNum);
+
+    String getInDate();
+
+    void setInDate(String inDate);
 
     String getExpDate();
 
     void setExpDate(String expDate);
 
-    String getRemarks();
-
-    void setRemarks(String remarks);
-
     String getPrdDate();
 
     void setPrdDate(String prdDate);
+
+    String getRemarks();
+
+    void setRemarks(String remarks);
 }

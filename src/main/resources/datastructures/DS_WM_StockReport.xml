@@ -77,9 +77,13 @@
         <Field Name="Object" Description="类型" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="ObjectCode" IsSystem="Yes" FixedDataType="System.String" />
         <Field Name="ItemCode" Description="物料编码" DataType="db_Alpha" SubType="st_None" EditSize="20" PropertyName="ItemCode" FixedDataType="System.String" />
         <Field Name="BarCode" Description="条码" DataType="db_Alpha" SubType="st_None" EditSize="60" PropertyName="BarCode" FixedDataType="System.String" />
+        <Field Name="Remarks" Description="备注" DataType="db_Alpha" SubType="st_None" EditSize="255" PropertyName="Remarks" FixedDataType="System.String" />
         <Field Name="BatchNumber" Description="批次号" DataType="db_Alpha" SubType="st_None" EditSize="60" PropertyName="BatchNumber" FixedDataType="System.String" />
         <Field Name="SerialNumber" Description="序列号" DataType="db_Alpha" SubType="st_None" EditSize="60" PropertyName="SerialNumber" FixedDataType="System.String" />
         <Field Name="Quantity" Description="数量" DataType="db_Float" SubType="st_Quantity" EditSize="8" PropertyName="Quantity" FixedDataType="System.Decimal" />
+        <Field Name="InDate" Description="录入日期" DataType="db_Date" SubType="st_None" EditSize="8" PropertyName="InDate" FixedDataType="System.DateTime" />
+        <Field Name="ExpDate" Description="创建日期" DataType="db_Date" SubType="st_None" EditSize="8" PropertyName="ExpDate" FixedDataType="System.DateTime" />
+        <Field Name="PrdDate" Description="创建日期" DataType="db_Date" SubType="st_None" EditSize="8" PropertyName="PrdDate" FixedDataType="System.DateTime" />
     </Table>
     <BusinessObject Code="AVA_WM_STKREPORT" Name="库存任务汇报" TableName="AVA_WM_OSRP" ObjectType="boud_Document" CanCancel="Yes" CanClose="Yes" CanDelete="Yes" CanYearTransfer="Yes" ManageSeries="Yes" PropertyName="StockReport">
         <ChildTables>

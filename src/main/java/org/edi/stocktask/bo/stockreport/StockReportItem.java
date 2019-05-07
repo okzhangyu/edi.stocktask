@@ -8,6 +8,8 @@ import org.edi.stocktask.bo.stocktask.IStockTaskItem;
 import org.edi.stocktask.data.StockOpResultCode;
 import org.edi.stocktask.data.StockOpResultDescription;
 import org.edi.stocktask.dto.CodeBarParseResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,26 +29,31 @@ public class StockReportItem extends DocumentBOLine implements IStockReportItem{
              codeBarParseResults) {
             stockReportMaterialItem = StockReportMaterialItem.createMaterialItem(codeBarParseResult);
 
+            //查找与解析结果匹配的任务行信息
             List<IStockTaskItem> taskItem = stockTaskItems.stream()
                     .filter(c-> c.getDocumentLineId().equals(codeBarParseResult.getBaseLine())
                             &&  c.getItemCode().equals(codeBarParseResult.getItemCode()))
                     .collect(Collectors.toList());
+
             // 解析结果匹配到任务行  根据任务行创建汇报行信息
             if(taskItem != null && taskItem.size() > 0){
                 List<StockReportItem> newList = stockReportItemList.stream()
                         .filter(c->c.getBaseDocumentLineId().equals(codeBarParseResult.getBaseLine())
                                 && c.getItemCode().equals(codeBarParseResult.getItemCode()))
                         .collect(Collectors.toList());
-                // 如果汇报行已经创建，则不用创建，只需将条码孙子表信息添加到汇报行中
+                // 如果汇报行已经创建，则不用创建
                 if(newList != null && newList.size() > 0){
                     stockReportItem = newList.get(0);
                 }else {
                     stockReportItem = createStockReportItem(taskItem.get(0));
                     stockReportItemList.add(stockReportItem);
                 }
-                stockReportItem.getStockReportMaterialItems().add(stockReportMaterialItem);
+                // 如果该物料为批次/序列号管理，将解析结果添加至孙子表
+                if(stockReportItem.getBatchNumberManagement().equals("Y") || stockReportItem.getSerialNumberManagement().equals("Y")){
+                    stockReportItem.getStockReportMaterialItems().add(stockReportMaterialItem);
+                }
+
                 Double quantity = stockReportItem.getQuantity();
-                //quantity.
                 stockReportItem.setQuantity(quantity + stockReportMaterialItem.getQuantity());
             }else {
                 throw new BusinessException(StockOpResultCode.BARCODE_PARSE_RESULT_IS_ERROR,StockOpResultDescription.BARCODE_PARSE_RESULT_IS_ERROR);
@@ -65,6 +72,8 @@ public class StockReportItem extends DocumentBOLine implements IStockReportItem{
         stockReportItme.setOriginalDocumentLineId(stockTaskItem.getBaseDocumentLineId());
         stockReportItme.setItemCode(stockTaskItem.getItemCode());
         stockReportItme.setItemDescription(stockTaskItem.getItemDescription());
+        stockReportItme.setSerialNumberManagement(stockTaskItem.getSerialNumberManagement());
+        stockReportItme.setBatchNumberManagement(stockTaskItem.getBatchNumberManagement());
         stockReportItme.setLineStatus(stockTaskItem.getLineStatus());
         stockReportItme.setToLocation(stockTaskItem.getToLocation());
         stockReportItme.setFromLocation(stockTaskItem.getFromLocation());
@@ -477,6 +486,9 @@ public class StockReportItem extends DocumentBOLine implements IStockReportItem{
 
     @Override
     public List<StockReportMaterialItem> getStockReportMaterialItems() {
+        if(this.stockReportMaterialItems == null){
+            this.stockReportMaterialItems = new ArrayList<>();
+        }
         return stockReportMaterialItems;
     }
 
