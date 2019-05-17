@@ -10,7 +10,7 @@ public class CodeBarParam implements ICodeBarParam{
     private Integer baseEntry;
     private String baseType;
     private List<CodeBarItem> barCodes;
-
+    private List<ItemCodeQuantity> itemCodeQuantity;
     @Override
     public Integer getBaseEntry() {
         return baseEntry;
@@ -39,6 +39,16 @@ public class CodeBarParam implements ICodeBarParam{
     @Override
     public void setBarCodes(List<CodeBarItem> barCodes) {
         this.barCodes = barCodes;
+    }
+
+    @Override
+    public List<ItemCodeQuantity> getItemCodeQuantity() {
+        return itemCodeQuantity;
+    }
+
+    @Override
+    public void setItemCodeQuantity(List<ItemCodeQuantity> itemCodeQuantity) {
+        this.itemCodeQuantity = itemCodeQuantity;
     }
 
     @Override

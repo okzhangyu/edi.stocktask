@@ -35,6 +35,8 @@ public interface IBORepositoryCodeBar {
      */
     public List<ICodeBar> strengthenParseCodeBar(String codeBar, String baseType, int baseEntry, int baseLine, String itemCode, List<ItemCodeQuantity> itemCodeQuantity);
 
+    public List<ICodeBar> strengthenParseCodeBar(String codeBar, String baseType, int baseEntry, int baseLine, String itemCode, CodeBarParam codeBarParam);
+
 
 
     /**

@@ -34,7 +34,7 @@ public class BORepositoryStockTask implements  IBORepositoryStockTask {
     @Autowired(required = false)
     private UserMapper userMapper;
     @Override
-    public List<IStockTask> fetchStockTask(String token, String fluzzyParam, int beginIndex, int limit, List<String> docStatus) {
+    public List<IStockTask> fetchStockTask(String token, String fluzzyParam, int beginIndex, int limit, List<String> docStatus,List<String> transType) {
         List<IStockTask> stockTasks;
         try {
             User user = userMapper.getUserByToken(token);
@@ -45,9 +45,13 @@ public class BORepositoryStockTask implements  IBORepositoryStockTask {
             if(docStatus.size()>0){
                 params.put("docStatus",docStatus);
             }
+            if(transType.size()>0){
+                params.put("transType",transType);
+            }
             params.put("value", fluzzyParam);
             params.put("beginIndex", beginIndex);
             params.put("limit", limit);
+
             return fetchStockTask(params);
         } catch (Exception e) {
             logger.error(StockTaskData.OPREATION_EXCEPTION, e);

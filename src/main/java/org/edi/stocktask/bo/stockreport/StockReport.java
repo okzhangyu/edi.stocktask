@@ -34,6 +34,7 @@ public class StockReport extends DocumentBO implements IStockReport{
         stockReport.setBusinessPartnerCode(stockTask.getBusinessPartnerCode());
         stockReport.setBusinessPartnerName(stockTask.getBusinessPartnerName());
         stockReport.setObjectCode(stockTask.getObjectCode());
+        stockReport.setTransactionType(stockTask.getTransactionType());
         stockReport.setReference1(stockTask.getReference1());
         stockReport.setBaseDocumentEntry(stockTask.getDocumentEntry());
         stockReport.setBaseDocumentType(stockTask.getDocumentType());

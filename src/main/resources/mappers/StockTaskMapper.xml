@@ -90,6 +90,12 @@
                 #{item}
             </foreach>
         </if>
+        <if test="transType != null">
+            and TransType in
+            <foreach collection="transType" item="item" index="index" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
         ) as t0
         <where>
             t0.rowId between #{beginIndex}
