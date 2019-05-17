@@ -33,45 +33,8 @@ public class StockReportMaterialItem extends DocumentBOLine implements IStockRep
     private Double quantity;
     private String inDate;
     private String expDate;
-<<<<<<< HEAD
     private String remarks;
     private String prdDate;
-
-    public String getInDate() {
-        return inDate;
-    }
-
-    public void setInDate(String inDate) {
-        this.inDate = inDate;
-    }
-
-    public String getExpDate() {
-        return expDate;
-    }
-
-    public void setExpDate(String expDate) {
-        this.expDate = expDate;
-    }
-
-    public String getRemarks() {
-        return remarks;
-    }
-
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
-    }
-
-    public String getPrdDate() {
-        return prdDate;
-    }
-
-    public void setPrdDate(String prdDate) {
-        this.prdDate = prdDate;
-    }
-=======
-    private String prdDate;
-    private String remarks;
->>>>>>> 2432f02919f865d92cf2677f47d64611f51d5163
 
     @Override
     public Integer getDocEntry() {

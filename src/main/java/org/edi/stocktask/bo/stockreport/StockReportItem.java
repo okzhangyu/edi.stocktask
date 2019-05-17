@@ -120,7 +120,6 @@ public class StockReportItem extends DocumentBOLine implements IStockReportItem{
     private String fromLocation;
     private String toWarehouse;
     private String toLocation;
-
     private List<StockReportMaterialItem> stockReportMaterialItems;
 
     @Override

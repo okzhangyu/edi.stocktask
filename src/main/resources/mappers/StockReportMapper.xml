@@ -81,10 +81,10 @@
         <result column="SerialNumber" property="serialNumber" jdbcType="VARCHAR" />
         <result column="BarCode" property="barCode" jdbcType="VARCHAR" />
         <result column="Quantity" property="quantity" jdbcType="DECIMAL" />
-        <result column="InDate" property="inDate" javaType="DATE"/>
-        <result column="PrdDate" property="prdDate" javaType="DATE"/>
-        <result column="ExpDate" property="expDate" javaType="DATE"/>
-        <result column="Remarks" property="remarks" javaType="NVARCHAR"/>
+        <result column="InDate" property="inDate" jdbcType="DATE"/>
+        <result column="PrdDate" property="prdDate" jdbcType="DATE"/>
+        <result column="ExpDate" property="expDate" jdbcType="DATE"/>
+        <result column="Remarks" property="remarks" jdbcType="NVARCHAR"/>
     </resultMap>
 
     <select id="fetchStockReportByEntry" resultMap="BaseResultMap" parameterType="int">
@@ -269,7 +269,7 @@
      INSERT INTO AVA_WM_SRP2("DocEntry","LineId","Object","ItemCode","BarCode","BatchNumber","SerialNumber","Quantity"
                             ,"InDate","ExpDate","PrdDate","Remarks")
     VALUES(#{docEntry} ,#{lineId} ,#{objectCode} ,#{itemCode} ,#{barCode} ,#{batchNumber},#{serialNumber} ,#{quantity}
-                            ,"inDate","expDate","prdDate","remarks")
+                            ,#{inDate,jdbcType=DATE},#{expDate,jdbcType=DATE},#{prdDate,jdbcType=DATE},#{remarks})
     </insert>
 
 

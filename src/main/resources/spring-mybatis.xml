@@ -43,15 +43,15 @@
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
-		<property name="url" value="jdbc:sqlserver://192.168.1.70;DatabaseName=TEST_HT024_02"/>
-		<property name="username" value="avasa6"/>
-		<property name="password" value="AVAtechAVA2018!"/>
+		<property name="url" value="jdbc:sqlserver://JLDF;DatabaseName=TEST00"/>
+		<property name="username" value="sa"/>
+		<property name="password" value="jldfHG521"/>
 		<property name="maxActive" value="20"></property>
 		<property name="minIdle" value="20"></property>
 		<property name="maxIdle" value="20"></property>
 		<property name="maxWait" value="1800"></property>
 		<property name="initialSize" value="10"></property>
-    </bean>
+	</bean>
 
 	<!-- 设置默认数据连接 -->
 	<!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->

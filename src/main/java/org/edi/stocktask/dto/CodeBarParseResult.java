@@ -60,20 +60,32 @@ public class CodeBarParseResult implements ICodeBarParseResult {
     }
 
     @Override
-<<<<<<< HEAD
-    public String getIndate() {
-=======
-    public String getInDate() {
->>>>>>> 2432f02919f865d92cf2677f47d64611f51d5163
-        return inDate;
+    public String getSerialNum() {
+        return serialNum;
     }
 
     @Override
-<<<<<<< HEAD
-    public void setIndate(String inDate) {
-=======
+    public void setSerialNum(String serialNum) {
+        this.serialNum = serialNum;
+    }
+
+    @Override
+    public String getBatchNum() {
+        return this.batchNum;
+    }
+
+    @Override
+    public void setBatchNum(String batchNum) {
+        this.batchNum = batchNum;
+    }
+
+    @Override
+    public String getInDate() {
+        return this.inDate;
+    }
+
+    @Override
     public void setInDate(String inDate) {
->>>>>>> 2432f02919f865d92cf2677f47d64611f51d5163
         this.inDate = inDate;
     }
 
@@ -84,66 +96,29 @@ public class CodeBarParseResult implements ICodeBarParseResult {
 
     @Override
     public void setExpDate(String expDate) {
-<<<<<<< HEAD
-        this.expDate=expDate;
-=======
-        this.expDate = expDate;
+        this.expDate =expDate;
     }
 
     @Override
     public String getPrdDate() {
-        return prdDate;
+        return this.prdDate;
     }
 
     @Override
     public void setPrdDate(String prdDate) {
         this.prdDate = prdDate;
->>>>>>> 2432f02919f865d92cf2677f47d64611f51d5163
     }
 
     @Override
     public String getRemarks() {
-        return remarks;
+        return this.remarks;
     }
 
     @Override
     public void setRemarks(String remarks) {
-<<<<<<< HEAD
-        this.remarks=remarks;
-    }
-
-    @Override
-    public String getPrdDate() {
-        return prdDate;
-    }
-
-    @Override
-    public void setPrdDate(String prdDate) {
-        this.prdDate=prdDate;
-=======
         this.remarks = remarks;
     }
 
-    @Override
-    public String getBatchNum() {
-        return batchNum;
-    }
-
-    @Override
-    public void setBatchNum(String batchNum) {
-        this.batchNum = batchNum;
-    }
-
-    @Override
-    public String getSerialNum() {
-        return serialNum;
-    }
-
-    @Override
-    public void setSerialNum(String serialNum) {
-        this.serialNum = serialNum;
->>>>>>> 2432f02919f865d92cf2677f47d64611f51d5163
-    }
 
     @Override
     public String toString() {
