@@ -1,5 +1,7 @@
 package org.edi.stocktask.dto;
 
+import ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy;
+
 /**
  * @author Fancy
  * @date 2018/8/21

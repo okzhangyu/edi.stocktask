@@ -10,6 +10,7 @@ import java.util.List;
  */
 public interface IStockReport extends IDocumentBO{
 
+
     Integer getDocEntry();
 
     void setDocEntry(Integer value);
@@ -123,6 +124,10 @@ public interface IStockReport extends IDocumentBO{
     List<StockReportItem> getStockReportItems();
 
     void setStockReportItems(List<StockReportItem> value);
+
+    boolean isBatchSerialsManagement();
+
+
 
 
 }

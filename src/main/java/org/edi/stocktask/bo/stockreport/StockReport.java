@@ -1,6 +1,7 @@
 package org.edi.stocktask.bo.stockreport;
 
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.edi.freamwork.bo.BusinessObjectException;
 import org.edi.freamwork.bo.DocumentBO;
 import org.edi.freamwork.exception.BusinessException;
@@ -17,6 +18,7 @@ import java.util.List;
  * @author Fancy
  * @date 2018/5/27
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class StockReport extends DocumentBO implements IStockReport{
 
     private static final String BUSINESS_CODE = "AVA_WM_STOCKREPORT";
@@ -103,6 +105,7 @@ public class StockReport extends DocumentBO implements IStockReport{
     private String baseDocumentType;
     private Integer baseDocumentEntry;
     private String targetDocumentType;
+
     private List<StockReportItem> stockReportItems;
 
 
@@ -387,6 +390,11 @@ public class StockReport extends DocumentBO implements IStockReport{
     @Override
     public void setStockReportItems(List<StockReportItem> stockReportItems) {
         this.stockReportItems = stockReportItems;
+    }
+
+    @Override
+    public boolean isBatchSerialsManagement() {
+        return false;
     }
 
     public StockReport() {

@@ -6,10 +6,6 @@ package org.edi.stocktask.dto;
  */
 public interface ICodeBarParseParam {
 
-    String getId();
-
-    void setId(String id);
-
     String getItemCode();
 
     void setItemCode(String itemCode);

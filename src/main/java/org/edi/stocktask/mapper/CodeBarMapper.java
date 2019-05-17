@@ -26,8 +26,4 @@ public interface CodeBarMapper {
 
     List<CodeBarParseResult> parseBatchCodeBar(HashMap<String,Object> codeBarParamsList);
 
-    void addCodeBarParseParam(IItemCodeQuantity codeBar);
-
-    void addCodeBarBatchParseParam(ICodeBarParseParam codeBarParseParam);
-
 }
