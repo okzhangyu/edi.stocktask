@@ -49,6 +49,5 @@ public interface IStockReportMaterialItem  extends IDocumentBOLine {
     void setPrdDate(String prdDate);
 
     String getRemarks();
-
     void setRemarks(String remarks);
 }

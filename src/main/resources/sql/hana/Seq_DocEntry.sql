@@ -1,8 +1,4 @@
-USE [StockManageDB]
-GO
 
-USE [StockManageDB]
-GO
 
 /****** Object:  Sequence [dbo].[Seq_DocEntry]    Script Date: 2018/7/30 10:23:27 ******/
 CREATE SEQUENCE [dbo].[Seq_DocEntry]

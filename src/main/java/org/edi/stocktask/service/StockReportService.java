@@ -64,11 +64,13 @@ public class StockReportService implements IStockReportService{
                 result = new Result(ResultCode.SUCCESS, StockOpResultDescription.REPORT_IS_EMPTY,stockReports);
             }else {
                 result = new Result(ResultCode.SUCCESS, ResultDescription.OP_SUCCESSFUL, stockReports);
+                logger.info("库存汇报信息》》》》》"+stockReports.toString());
             }
         }catch (Exception e){
             logger.error("查询汇报信息异常：",e);
             result = new Result(ResultCode.FAIL, "failed:" + e.getCause(), null);
         }
+
         logger.info(StockTaskData.STOCKREPORT_FETCH_RETURN_INFO+result.toString());
         return result;
     }
@@ -179,6 +181,7 @@ public class StockReportService implements IStockReportService{
             logger.info(StockTaskData.STOCKREPORT_SYNC_INFO + stockReports.toString());
             Gson gson = new Gson();
             String orderJson = gson .toJson(stockReports);
+            logger.info(">>>>库存汇报json"+orderJson);
             String resultMsg = HttpRequest.post(orderJson);
             Result<DocumentSyncResult> resultOpResult = gson.fromJson(resultMsg,new TypeToken<Result<DocumentSyncResult>>(){}.getType());
             logger.info(StockTaskData.STOCKREPORT_SYNC_RETURN_INFO + resultOpResult.toString());

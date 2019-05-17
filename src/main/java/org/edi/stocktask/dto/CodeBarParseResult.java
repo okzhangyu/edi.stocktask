@@ -60,8 +60,28 @@ public class CodeBarParseResult implements ICodeBarParseResult {
     }
 
     @Override
+    public String getSerialNum() {
+        return serialNum;
+    }
+
+    @Override
+    public void setSerialNum(String serialNum) {
+        this.serialNum = serialNum;
+    }
+
+    @Override
+    public String getBatchNum() {
+        return this.batchNum;
+    }
+
+    @Override
+    public void setBatchNum(String batchNum) {
+        this.batchNum = batchNum;
+    }
+
+    @Override
     public String getInDate() {
-        return inDate;
+        return this.inDate;
     }
 
     @Override
@@ -76,12 +96,12 @@ public class CodeBarParseResult implements ICodeBarParseResult {
 
     @Override
     public void setExpDate(String expDate) {
-        this.expDate = expDate;
+        this.expDate =expDate;
     }
 
     @Override
     public String getPrdDate() {
-        return prdDate;
+        return this.prdDate;
     }
 
     @Override
@@ -91,7 +111,7 @@ public class CodeBarParseResult implements ICodeBarParseResult {
 
     @Override
     public String getRemarks() {
-        return remarks;
+        return this.remarks;
     }
 
     @Override
@@ -99,25 +119,6 @@ public class CodeBarParseResult implements ICodeBarParseResult {
         this.remarks = remarks;
     }
 
-    @Override
-    public String getBatchNum() {
-        return batchNum;
-    }
-
-    @Override
-    public void setBatchNum(String batchNum) {
-        this.batchNum = batchNum;
-    }
-
-    @Override
-    public String getSerialNum() {
-        return serialNum;
-    }
-
-    @Override
-    public void setSerialNum(String serialNum) {
-        this.serialNum = serialNum;
-    }
 
     @Override
     public String toString() {

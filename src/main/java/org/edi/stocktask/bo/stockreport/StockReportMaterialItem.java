@@ -33,8 +33,8 @@ public class StockReportMaterialItem extends DocumentBOLine implements IStockRep
     private Double quantity;
     private String inDate;
     private String expDate;
-    private String prdDate;
     private String remarks;
+    private String prdDate;
 
     @Override
     public Integer getDocEntry() {
