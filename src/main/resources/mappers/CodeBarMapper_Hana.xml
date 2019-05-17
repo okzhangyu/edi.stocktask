@@ -63,6 +63,7 @@
         #{baseType, jdbcType = NVARCHAR, mode = IN},
         #{baseEntry, jdbcType = INTEGER, mode = IN},
         #{baseLine, jdbcType = INTEGER, mode = IN},
+        'CODEBARLIST',
         'CODEBARQUANTITY',
         #{id,jdbcType = NVARCHAR,mode = IN},
         #{code, jdbcType = INTEGER, mode = OUT},

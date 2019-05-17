@@ -35,6 +35,16 @@ public interface IBORepositoryCodeBar {
      */
     public List<ICodeBar> strengthenParseCodeBar(String codeBar, String baseType, int baseEntry, int baseLine, String itemCode, List<ItemCodeQuantity> itemCodeQuantity);
 
+    /**
+     * 解析条码
+     * @param codeBar 条码值
+     * @param baseType 基于订单类型
+     * @param baseEntry 基于订单号
+     * @param baseLine 基于订单行号
+     * @param codeBarParam 已扫描记录和当前行信息
+     * @return 获取解析结果
+     */
+    public List<ICodeBar> strengthenParseCodeBar(String codeBar, String baseType, int baseEntry, int baseLine, String itemCode,CodeBarParam codeBarParam);
 
 
     /**

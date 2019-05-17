@@ -38,8 +38,6 @@ public class StockTaskService implements IStockTaskService{
     private IBORepositoryStockTask boRepositoryStockTask;
 
 
-
-
     /**
      * 查询库存任务
      */

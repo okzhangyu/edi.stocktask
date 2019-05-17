@@ -10,6 +10,15 @@ public class CodeBarParam implements ICodeBarParam{
     private Integer baseEntry;
     private String baseType;
     private List<CodeBarItem> barCodes;
+    private List<ItemCodeQuantity> itemCodeQuantity;
+
+    public List<ItemCodeQuantity> getItemCodeQuantity() {
+        return itemCodeQuantity;
+    }
+
+    public void setItemCodeQuantity(List<ItemCodeQuantity> itemCodeQuantity) {
+        this.itemCodeQuantity = itemCodeQuantity;
+    }
 
     @Override
     public Integer getBaseEntry() {
@@ -43,10 +52,11 @@ public class CodeBarParam implements ICodeBarParam{
 
     @Override
     public String toString() {
-        return "{" +
-                "baseEntry:" + baseEntry +
-                ", baseType:'" + baseType + '\'' +
+        return "CodeBarParam{" +
+                "baseEntry=" + baseEntry +
+                ", baseType='" + baseType + '\'' +
                 ", barCodes=" + barCodes +
+                ", itemCodeQuantity=" + itemCodeQuantity +
                 '}';
     }
 }

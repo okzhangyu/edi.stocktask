@@ -101,6 +101,45 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
         return listCodeBar;
     }
 
+    /**
+     * 加强条码解析
+     * @param codebar
+     * @return
+     */
+    @Override
+    public List<ICodeBar> strengthenParseCodeBar(String codebar, String baseType, int baseEntry, int baseLine, String itemCode, CodeBarParam codeBarParam) {
+        List<ICodeBar> listCodeBar = null;
+        String id = UUID.randomUUID().toString();
+        for (int i=0;i<codeBarParam.getItemCodeQuantity().size();i++){
+            codeBarParam.getItemCodeQuantity().get(i).setId(id);
+            codeBarMapper.addCodeBarParseParam(codeBarParam.getItemCodeQuantity().get(i));
+        }
+        List<CodeBarParseParam> codeBarParseParams = CodeBarParseParam.createParseParam(id,codeBarParam);
+        for (CodeBarParseParam param:codeBarParseParams) {
+            codeBarMapper.addCodeBarBatchParseParam(param);
+        }
+        HashMap<String,Object> codeBarParseParam = new HashMap();
+        codeBarParseParam.put("codebar",codebar);
+        codeBarParseParam.put("baseType",baseType);
+        codeBarParseParam.put("baseEntry",baseEntry);
+        codeBarParseParam.put("baseLine",baseLine);
+        codeBarParseParam.put("itemCode",itemCode);
+        codeBarParseParam.put("id",id);
+        try {
+            listCodeBar = codeBarMapper.strengthenParseCodeBar(codeBarParseParam);
+            if((int)codeBarParseParam.get("code")!=0){
+                throw new BusinessException(codeBarParseParam.get("code").toString(),codeBarParseParam.get("message").toString());
+            }
+            logger.info("条码解析结果" + listCodeBar.toString());
+        }catch (BusinessException e){
+            logger.error(StockTaskData.OPREATION_EXCEPTION,e);
+            throw e;
+        } catch (Exception e){
+            logger.error(StockTaskData.OPREATION_EXCEPTION,e);
+            throw new BusinessException(StockOpResultCode.BARCODE_ANALYSIS_IS_FAIL,String.format(StockOpResultDescription.BARCODE_ANALYSIS_IS_FAIL,codebar));
+        }
+        return listCodeBar;
+    }
 
     /**
      * 批量解析条码
@@ -110,7 +149,6 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
     @Override
     public List<StockReportItem> parseBatchCodeBar(CodeBarParam codeBarParams) {
         String id = UUID.randomUUID().toString();
-
         List<CodeBarParseResult> listCodeBars = null;
         try{
             logger.info("param"+codeBarParams.toString());

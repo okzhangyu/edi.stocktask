@@ -18,4 +18,8 @@ public interface ICodeBarParam {
      List<CodeBarItem> getBarCodes();
 
      void setBarCodes(List<CodeBarItem> barCodes);
+
+     List<ItemCodeQuantity> getItemCodeQuantity();
+
+     void setItemCodeQuantity(List<ItemCodeQuantity> itemCodeQuantity);
 }

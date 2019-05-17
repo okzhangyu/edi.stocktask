@@ -58,7 +58,7 @@ public class CodeBarService implements ICodeBarService{
                                                    @QueryParam(StockTaskServicePath.SERVICE_BASEENTRY)int baseEntry,
                                                    @QueryParam(StockTaskServicePath.SERVICE_BASELINE)int baseLine,
                                                    @QueryParam(StockTaskServicePath.SERVICE_ITEMCODE)String itemCode,
-                                                   List<ItemCodeQuantity> itemCodeQuantity){
+                                                  CodeBarParam codeBarParam){
         Result<ICodeBar> result;
         try{
             logger.info(StockTaskData.CODEBAR_PARSE_INFO + StockTaskServicePath.SERVICE_CODEBAR + codeBar +";" +
@@ -66,8 +66,8 @@ public class CodeBarService implements ICodeBarService{
                     StockTaskServicePath.SERVICE_BASEENTRY + baseEntry + ";" +
                     StockTaskServicePath.SERVICE_BASELINE + baseLine + ";" +
                     StockTaskServicePath.SERVICE_ITEMCODE + itemCode + ";" +
-                    "ItemCodeQuantity" + itemCodeQuantity.toString() + ";");
-            List<ICodeBar>  resultCodeBar = boRepositoryCodeBar.strengthenParseCodeBar(codeBar,baseType,baseEntry,baseLine,itemCode,itemCodeQuantity);
+                    "CodeBarParam" + codeBarParam.toString() + ";");
+            List<ICodeBar>  resultCodeBar = boRepositoryCodeBar.strengthenParseCodeBar(codeBar,baseType,baseEntry,baseLine,itemCode,codeBarParam);
             if (resultCodeBar.size()==0){
                 result = new Result(ResultCode.SUCCESS, StockOpResultDescription.CODEBARINFO_IS_EMPTY,resultCodeBar);
             }else {
