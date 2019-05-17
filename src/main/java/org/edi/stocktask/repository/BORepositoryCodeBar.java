@@ -96,25 +96,22 @@ public class BORepositoryCodeBar implements IBORepositoryCodeBar{
     }
 
     /**
-     * 加强条码解析
+     * 加强条码解析 - 增加已扫描记录
      * @param codebar
      * @return
      */
     @Override
     public List<ICodeBar> strengthenParseCodeBar(String codebar, String baseType, int baseEntry, int baseLine, String itemCode, CodeBarParam codeBarParam) {
         List<ICodeBar> listCodeBar = null;
-        String id = UUID.randomUUID().toString();
-        for (int i=0;i<codeBarParam.getItemCodeQuantity().size();i++){
-            codeBarParam.getItemCodeQuantity().get(i).setId(id);
-            codeBarMapper.addCodeBarParseParam(codeBarParam.getItemCodeQuantity().get(i));
-        }
         HashMap<String,Object> codeBarParseParam = new HashMap();
+        List<CodeBarParseParam> codeBarParseParams = CodeBarParseParam.createParseParam(codeBarParam);
+        codeBarParseParam.put("codeBarParams",codeBarParseParams);
+        codeBarParseParam.put("itemCodeQuantity",codeBarParam.getItemCodeQuantity());
         codeBarParseParam.put("codebar",codebar);
         codeBarParseParam.put("baseType",baseType);
         codeBarParseParam.put("baseEntry",baseEntry);
         codeBarParseParam.put("baseLine",baseLine);
         codeBarParseParam.put("itemCode",itemCode);
-        codeBarParseParam.put("id",id);
         try {
             listCodeBar = codeBarMapper.strengthenParseCodeBar(codeBarParseParam);
             if((int)codeBarParseParam.get("code")!=0){
