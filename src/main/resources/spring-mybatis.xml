@@ -43,9 +43,9 @@
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
-		<property name="url" value="jdbc:sqlserver://JLDF;DatabaseName=TEST00"/>
+		<property name="url" value="jdbc:sqlserver://B1SRV-WIN2016;DatabaseName=SAP_HFTC"/>
 		<property name="username" value="sa"/>
-		<property name="password" value="jldfHG521"/>
+		<property name="password" value="AVAtech@2018"/>
 		<property name="maxActive" value="20"></property>
 		<property name="minIdle" value="20"></property>
 		<property name="maxIdle" value="20"></property>

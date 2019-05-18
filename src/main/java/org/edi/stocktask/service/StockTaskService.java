@@ -52,11 +52,11 @@ public class StockTaskService implements IStockTaskService{
             ,@QueryParam(ServicePath.SERVICE_BEGININDEX)int beginIndex
             ,@QueryParam(ServicePath.SERVICE_LIMIT)int limit
             ,@QueryParam(ServicePath.SERVICE_DOCSTATUS) List<String> docStatus
-             ,@QueryParam(ServicePath.SERVICE_TRANSTYPE) List<String> transType){
+             ,@QueryParam(ServicePath.SERVICE_TRANSTYPE) List<String> transactionType){
         Result<IStockTask> result ;
         try{
             limit = PageVerification.limitCalculation(beginIndex,limit);
-            List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask(token, param,beginIndex==0?1:beginIndex,limit,docStatus,transType);
+            List<IStockTask> stockTasks = boRepositoryStockTask.fetchStockTask(token, param,beginIndex==0?1:beginIndex,limit,docStatus,transactionType);
             if (stockTasks.size()==0){
                 result = new Result<>(ResultCode.SUCCESS, StockOpResultDescription.TASK_IS_EMPTY,stockTasks);
             }else {
