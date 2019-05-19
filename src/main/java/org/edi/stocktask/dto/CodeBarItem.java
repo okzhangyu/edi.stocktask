@@ -1,9 +1,12 @@
 package org.edi.stocktask.dto;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 /**
  * @author Fancy
  * @date 2018/8/20
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class CodeBarItem implements ICodeBarItem{
 
     private String itemCode;

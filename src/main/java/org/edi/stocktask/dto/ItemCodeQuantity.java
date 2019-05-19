@@ -1,5 +1,7 @@
 package org.edi.stocktask.dto;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 /**
  * Created by asus on 2018/9/6.
  */

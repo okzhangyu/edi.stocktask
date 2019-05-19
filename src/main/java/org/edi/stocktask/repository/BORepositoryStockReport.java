@@ -58,7 +58,7 @@ public class BORepositoryStockReport extends BORepository<StockReport> implement
      * @return
      */
 
-    public List<StockReport> fetchStockReport(String token,String fluzzyParam,int beginIndex,int limit,List<String> docStatus) {
+    public List<StockReport> fetchStockReport(String token,String fluzzyParam,int beginIndex,int limit,List<String> docStatus,List<String> transactionType) {
         List<StockReport> stockReports;
         try {
             User user = userMapper.getUserByToken(token);
