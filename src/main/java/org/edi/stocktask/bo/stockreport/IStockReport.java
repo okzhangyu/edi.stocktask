@@ -124,4 +124,6 @@ public interface IStockReport extends IDocumentBO{
 
     void setStockReportItems(List<StockReportItem> value);
 
+    boolean isBatchSerialsManagement();
+
 }
