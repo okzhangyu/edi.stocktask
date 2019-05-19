@@ -59,40 +59,39 @@
         <result column="ItemName" property="itemDescription" jdbcType="VARCHAR" />
     </resultMap>
 
-
-
-
     <select id="fetchStockTaskItem" resultMap="BaseResultMapItem">
-        SELECT * FROM AVA_WM_VIEW_STK1 where ObjectKey=#{0} and DocType =  #{1} order by DocEntry ,ItemCode
+        SELECT * FROM AVA_WM_VIEW_STK1 where "ObjectKey"=#{0} and "DocType" =  #{1} order by "DocEntry" ,"ItemCode"
     </select>
-
-
 
     <select id="fetchSyncStockTaskItem" resultMap="BaseResultMapItem" >
-      select * from  AVA_WM_VIEW_STK1 t1 where ObjectKey = #{0}  and  t1.DocType = #{1}
+      select * from  AVA_WM_VIEW_STK1 t1 where "ObjectKey" = #{0}  and  t1."DocType" = #{1}
     </select>
-
-
 
     <!-- List<IStockTask> fetchStockTaskFuzzyByPage(HashMap<String,Object> params);-->
     <select id="fetchStockTaskFuzzyByPage" resultMap="BaseResultMap" parameterType="map">
-        select * from(select ROW_NUMBER() over(order by DocType,ObjectKey desc) as rowId,* from AVA_WM_VIEW_OSTK
+        select * from(select ROW_NUMBER() over(order by "DocType","ObjectKey" desc) as "rowId",* from "AVA_WM_VIEW_OSTK"
         where 1=1
         <if test="value != null and value != ''">
-            and (DocEntry LIKE '%'+#{value}+'%'  or BpCode LIKE '%'+#{value}+'%' or BpName LIKE '%'+#{value}+'%')
+            and ("DocEntry" LIKE '%'+#{value}+'%'  or "BpCode" LIKE '%'+#{value}+'%' or "BpName" LIKE '%'+#{value}+'%')
         </if>
         <if test="reporterId != null and value != ''">
-            and reporterId = #{reporterId}
+            and "ReporterId" = #{reporterId}
         </if>
         <if test="docStatus != null">
-            and DocStatus in
+            and "DocStatus" in
             <foreach collection="docStatus" item="item" index="index" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+        <if test="transactionType != null">
+            and "TransType" in
+            <foreach collection="transactionType" item="item" index="index" open="(" close=")" separator=",">
                 #{item}
             </foreach>
         </if>
         ) as t0
         <where>
-            t0.rowId between #{beginIndex}
+            t0."rowId" between #{beginIndex}
             and #{limit}
         </where>
     </select>
@@ -103,26 +102,26 @@
 
 
     <select id="fetchStockTaskByCondition" resultMap="BaseResultMap" parameterType="Map">
-        SELECT * FROM AVA_WM_VIEW_OSTK
+        SELECT * FROM "AVA_WM_VIEW_OSTK"
         <where>
             <if test="docEntry != null and docEntry != ''">
-                DocEntry = #{docEntry}
+                "DocEntry" = #{docEntry}
             </if>
             <if test="docType != null and docType != ''">
-                and DocType = #{docType}
+                and "DocType" = #{docType}
             </if>
         </where>
     </select>
 
     <select id="fetchStockTaskMaterial" resultMap="MaterialMap">
-        SELECT ItemCode,ItemName  FROM AVA_WM_VIEW_STK1 where ObjectKey=#{objectKey} and OpenQuantity > 0
+        SELECT "ItemCode","ItemName"  FROM "AVA_WM_VIEW_STK1" where "ObjectKey"=#{objectKey} and "OpenQuantity" > 0
     </select>
 
 
 
     <!--  List<IStockTaskItem> fetchNoDealStockTaskItem(Integer docEntry,String docType);-->
     <select id="fetchNoDealStockTaskItem" resultMap="BaseResultMapItem">
-        SELECT * FROM AVA_WM_VIEW_STK1 where DocEntry=#{0} and DocType =  #{1} and LineStatus!='C' order by DocEntry ,ItemCode
+        SELECT * FROM "AVA_WM_VIEW_STK1" where "DocEntry"=#{0} and "DocType" =  #{1} and "LineStatus" !='C' order by "DocEntry" ,"ItemCode"
     </select>
 
 

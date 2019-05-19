@@ -18,7 +18,7 @@ public interface IStockTaskService {
      * @return
      */
 
-    Result<IStockTask> fetchStockTask(String token,String param,int beginIndex,int limit,List<String> docStatus);
+    Result<IStockTask> fetchStockTask(String token,String param,int beginIndex,int limit,List<String> docStatus,List<String> transType);
 
 
     /**

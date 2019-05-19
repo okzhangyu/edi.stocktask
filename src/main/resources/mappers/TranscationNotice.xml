@@ -18,7 +18,7 @@
 
 
     <select id="callTranscationNotice" statementType="CALLABLE" parameterMap="paramMap" resultMap="ResultMap">
-        {call AVA_SP_TransactionNotification_STOCKTASK(
+        {call "AVA_SP_TransactionNotification_STOCKTASK"(
     #{object_type, jdbcType = NVARCHAR, mode = IN},
     #{transaction_type, jdbcType = NCHAR, mode = IN},
     #{num_of_cols_in_key, jdbcType = INTEGER, mode = IN},

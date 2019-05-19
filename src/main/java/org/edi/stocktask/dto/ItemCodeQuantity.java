@@ -5,9 +5,10 @@ package org.edi.stocktask.dto;
  */
 public class ItemCodeQuantity implements IItemCodeQuantity{
 
+    private String id;
     private String itemCode;
     private Double quantity;
-    private String id;
+    private String barCode;
 
     @Override
     public String getId() {
@@ -33,6 +34,16 @@ public class ItemCodeQuantity implements IItemCodeQuantity{
 
     public void setQuantity(Double quantity) {
         this.quantity = quantity;
+    }
+
+    @Override
+    public String getBarCode() {
+        return barCode;
+    }
+
+    @Override
+    public void setBarCode(String barCode) {
+        this.barCode = barCode;
     }
 
     public ItemCodeQuantity() {

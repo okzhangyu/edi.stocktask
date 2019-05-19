@@ -16,4 +16,8 @@ public interface IItemCodeQuantity {
      Double getQuantity();
 
      void setQuantity(Double quantity);
+
+     String getBarCode();
+
+     void setBarCode(String barCodes);
 }
