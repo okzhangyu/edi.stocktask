@@ -5,10 +5,6 @@ package org.edi.stocktask.dto;
  */
 public interface IItemCodeQuantity {
 
-     String getId();
-
-     void setId(String id);
-
      String getItemCode();
 
      void setItemCode(String itemCode);

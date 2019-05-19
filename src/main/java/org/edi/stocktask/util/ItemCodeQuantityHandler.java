@@ -21,16 +21,16 @@ public class ItemCodeQuantityHandler extends BaseTypeHandler<Object> {
         SQLServerDataTable sourceDataTable = new SQLServerDataTable();
         sourceDataTable.addColumnMetadata("ItemCode" , Types.NVARCHAR);
         sourceDataTable.addColumnMetadata("Quantity" , Types.DOUBLE);
+        sourceDataTable.addColumnMetadata("CodeBars" , Types.NVARCHAR);
         List<ItemCodeQuantity> dataList = (List)parameter;
         for (ItemCodeQuantity item : dataList) {
-            sourceDataTable.addRow(item.getItemCode(),item.getQuantity());
+            sourceDataTable.addRow(item.getItemCode(),item.getQuantity(),item.getCodeBars());
         }
         ps.setObject(i, sourceDataTable);
     }
 
     @Override
     public Object getNullableResult(ResultSet rs, String columnName) throws SQLException {
-
         return null;
     }
 
