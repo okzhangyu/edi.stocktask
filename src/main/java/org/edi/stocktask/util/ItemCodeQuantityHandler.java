@@ -24,7 +24,7 @@ public class ItemCodeQuantityHandler extends BaseTypeHandler<Object> {
         sourceDataTable.addColumnMetadata("CodeBars" , Types.NVARCHAR);
         List<ItemCodeQuantity> dataList = (List)parameter;
         for (ItemCodeQuantity item : dataList) {
-            sourceDataTable.addRow(item.getItemCode(),item.getQuantity(),item.getCodeBars());
+            sourceDataTable.addRow(item.getItemCode(),item.getQuantity(),item.getBarCode());
         }
         ps.setObject(i, sourceDataTable);
     }

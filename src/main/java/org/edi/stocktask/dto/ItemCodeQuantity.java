@@ -7,7 +7,7 @@ public class ItemCodeQuantity implements IItemCodeQuantity{
 
     private String itemCode;
     private Double quantity;
-    private String codeBars;
+    private String barCode;
 
 
     public String getItemCode() {
@@ -27,13 +27,13 @@ public class ItemCodeQuantity implements IItemCodeQuantity{
     }
 
     @Override
-    public String getCodeBars() {
-        return codeBars;
+    public String getBarCode() {
+        return barCode;
     }
 
     @Override
-    public void setCodeBars(String codeBars) {
-        this.codeBars = codeBars;
+    public void setBarCode(String barCode) {
+        this.barCode = barCode;
     }
 
     public ItemCodeQuantity() {
@@ -49,7 +49,7 @@ public class ItemCodeQuantity implements IItemCodeQuantity{
         return "ItemCodeQuantity{" +
                 "itemCode='" + itemCode + '\'' +
                 ", quantity=" + quantity +
-                ", codeBars='" + codeBars + '\'' +
+                ", barCode='" + barCode + '\'' +
                 '}';
     }
 }

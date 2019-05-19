@@ -13,7 +13,7 @@ public interface IItemCodeQuantity {
 
      void setQuantity(Double quantity);
 
-     String getCodeBars();
+     String getBarCode();
 
-     void setCodeBars(String codeBars);
+     void setBarCode(String barCode);
 }
