@@ -8,6 +8,7 @@ public class ItemCodeQuantity implements IItemCodeQuantity{
     private String itemCode;
     private Double quantity;
     private String id;
+    private String codeBars;
 
     @Override
     public String getId() {
@@ -33,6 +34,16 @@ public class ItemCodeQuantity implements IItemCodeQuantity{
 
     public void setQuantity(Double quantity) {
         this.quantity = quantity;
+    }
+
+    @Override
+    public String getCodeBars() {
+        return codeBars;
+    }
+
+    @Override
+    public void setCodeBars(String codeBars) {
+        this.codeBars = codeBars;
     }
 
     public ItemCodeQuantity() {

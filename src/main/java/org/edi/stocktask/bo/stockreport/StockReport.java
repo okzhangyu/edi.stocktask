@@ -43,6 +43,7 @@ public class StockReport extends DocumentBO implements IStockReport{
         stockReport.setTransactionType(stockTask.getTransactionType());
         stockReport.setDocumentStatus(stockTask.getDocumentStatus());
         stockReport.setDocumentDate(stockTask.getDocumentDate());
+
         List<StockReportItem> stockReportItemList = new ArrayList<>();
         //TODO 按照文档赋单据表头值
         for (IStockTaskItem item:stockTask.getStockTaskItems()) {
@@ -67,6 +68,7 @@ public class StockReport extends DocumentBO implements IStockReport{
                 stockReportItem.setFromWarehose(item.getFromWarehose());
                 stockReportItem.setToLocation(item.getToLocation());
                 stockReportItem.setToWarehouse(item.getToWarehouse());
+
 
                 //stockReportItem.getStockReportMaterialItems()
                 stockReportItemList.add(stockReportItem);

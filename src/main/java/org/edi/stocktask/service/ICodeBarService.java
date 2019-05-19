@@ -26,7 +26,7 @@ public interface ICodeBarService {
      * @param codeBar
      * @return
      */
-     Result<ICodeBar> strengthenParseCodeBar(String token, String codeBar, String baseType, int baseEntry, int baseLine, String itemCode,CodeBarParam codeBarParam);
+     Result<ICodeBar> strengthenParseCodeBar(String token, String codeBar, String baseType, int baseEntry, int baseLine, String itemCode, List<ItemCodeQuantity> itemCodeQuantity);
 
 
     /**

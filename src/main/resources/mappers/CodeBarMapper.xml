@@ -65,7 +65,6 @@
         #{baseType, jdbcType = NVARCHAR, mode = IN},
         #{baseEntry, jdbcType = INTEGER, mode = IN},
         #{baseLine, jdbcType = INTEGER, mode = IN},
-        #{codeBarParams,typeHandler = org.edi.stocktask.util.TableTypeHandler,jdbcType = ARRAY, mode = IN},
         #{itemCodeQuantity, typeHandler = org.edi.stocktask.util.ItemCodeQuantityHandler,jdbcType = ARRAY, mode = IN},
         #{code, jdbcType = INTEGER, mode = OUT},
         #{message, jdbcType = NVARCHAR, mode = OUT}
